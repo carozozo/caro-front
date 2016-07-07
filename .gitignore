@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+bower_components
+node_modules
+dist
+src/api
+src/css
+src/images
+src/template
+src/index.html
