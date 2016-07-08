@@ -1,0 +1,9 @@
+body {
+  background-color: #fecc25;
+  background-size: cover;
+  overflow-x: hidden;
+  font-size: 13px;
+  line-height: 20px;
+  color: #fff;
+  font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
+}
