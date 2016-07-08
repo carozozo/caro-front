@@ -46,14 +46,14 @@
 
 ## src 資料夾基本介紹 
 - _bower : 放置 bower 下載的檔案 
-- _compatibility : 瀏覽器相容性 
-- _plugin : 外掛
+- _compatibility : 放置瀏覽器相容性 程式
+- _plugin : 放置外掛程式
 - api : 後端 api
  - coffee : coffee script 檔 
-- css : .css
+- css : css 檔
  - image : 圖檔 
-- js : .js
-- template : 分頁內容 html  
+- js : js 檔
+- template : 放置分頁內容 html  
 
 ## coffee 注意事項
 在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下   
@@ -75,12 +75,12 @@
 - $body: 同 $(‘body’)
 - $ctrl: 儲存 controller DOM 物件
 - $module: 儲存 module DOM 物件 
-- _docReady : 儲存 document ready 後要觸發的 fns
-- _ctrl : 儲存 controller fns
-- _module : 儲存 module fns
+- _docReady : 儲存 document ready 後要觸發的 functions
+- _ctrl : 儲存 controller functions
+- _module : 儲存 module functions
 - isLocal : 是否為 localhost
 - isLocalTest : 是否為 local test 模式(由 config 設定)
-- isHttps : 當前網址是否為 htttps 
+- isHttps : 當前網址是否為 https 
 - isPhone : 當前載具是否為手機 
 - isTablet : 當前載具是否為平板 
 - isMobile : 當前載具是否為手機 or 平板 
@@ -90,15 +90,110 @@
 
 ### 函式 
 - require(str) : 載入 global 變數, 避免直接呼叫 global 變數以增加效能 
+```
+// 同等於直接使用 $ 
+var $ = cf.require('jQuery');
+```
 - data(key, [val]) : 讀取 or 設置資料, 用於跨檔案存取 
-- regDocReady(註冊名稱, fn, [執行順序=50]) : 當頁面載入完畢時要執行的 fn 
+```
+/*
+相當於
+cf.$$data = {
+  theKey: 123
+}
+*/
+cf.data('theKey', 123);
+var theKey = cf.data('theKey'); // -> 123 
+```
+- regDocReady(註冊名稱, fn, [執行順序=50]) : 當頁面載入完畢時要執行的 function
+```
+// 頁面載入完畢時會先印出 2 然後是 1
+cf.regDocReady('index', function(cf){
+  console.log(1);
+});
+cf.regDocReady('first', function(cf){
+  console.log(2);
+}, 1);
+```
 - genTraceFn(訊息標題) : 產生 trace 用的 fn, 會在 console 顯示訊息(IE8 之前不支援 console)
+```
+// 產生 trace function
+var trace = cf.genTraceFn('CARO');
+
+// 宣告 trace 可以開始印出 console.log, 沒這行指令或是 IE8 以下時則不會印出
+trace.startTrace();
+
+// 同等於 console.log('CARO:' ,'This is test')
+trace('This is test');
+
+var err = 'error'
+// 同等於 console.error('CARO:', 'This is test', err)
+trace.err('This is test', err);
+```
 - regLib(註冊名稱, fn) : 註冊 framework 專用函式 
+```
+// 會產生 cf.testLib.get cf.testLib.set 函式 
+cf.regLib('testLib', function(cf) {
+  var self = {}
+  self.get = function(){...}
+  self.set = function(){...}
+  return self;
+});
+```
 - regServ(註冊名稱, fn) : 註冊一般函式 
+```
+// 會產生 cf.testServ.get cf.testServ.set 函式 
+cf.regLib('testServ', function(cf) {
+  var self = {}
+  self.get = function(){...}
+  self.set = function(){...}
+  return self;
+});
+```
 - regCtrl(註冊名稱, fn, [要載入的 .html頁面]) : 註冊 controller
 - regModule(註冊名稱, fn, [要載入的 .html頁面]) : 註冊 module 
-- config(註冊名稱, config-obj) : 註冊 / 讀取 config
+```
+// ctrl/menu.ctrl.js
+cf.regLib('menu', function(opt) {
+	var $self = this
+  var ti = self.ti
+  ...
+  $self.get = function(){...}
+  $self.set = function(){...}
+  return $self;
+}, 'menu');
+
+```
+```
+/*
+page/index.page.js
+會載入 template/menu.html 裡的 html 碼到 $('.example') 裡面
+並且產生 $menu.get / $menu.set 函式
+此時 $menu 就相當於 ctrl/menu.ctrl.js 裡的 $self 
+*/
+var $menu = $('.example').menu({a:1});
+
+```
+- config(註冊名稱, [config-obj]) : 註冊 / 讀取 config
+```
+/*
+相當於
+cf.$$config = {
+  theKey: 123
+}
+*/
+cf.config('theKey', 123);
+var theKey = cf.config('theKey'); // -> 123 
+```
 - regDifCfg(url, 設定) : 依據不同的 url 載入 config
+```
+cf.config('theKey', 123);
+cf.regDifCfg('example.com.tw', {
+'theKey': 456
+});
+// 當網域為 example.com.tw 時, 會取得 456, 其他網域則是 123
+var theKey = cf.config('theKey'); 
+```
 
 ## cf.router 介紹
 ### 屬性 
@@ -120,6 +215,11 @@
 - goPage([頁面名稱]) : 換頁, 沒參數時會依據 url 自動判斷
 - blockGoPage() : 呼叫後, 執行 router.goPage 不會換頁
 - approveGoPage() : 呼叫後, 所有的 router.goPage 可以換頁  
+
+## lib / serv
+### 說明   
+差別只在於作用域不同   
+lib 專用於 caro-front, serv 適用於專案開發
 
 ## module / ctrl 模組介紹
 ### 說明
