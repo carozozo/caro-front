@@ -1,12 +1,14 @@
 
 /* 客製化頁面跳轉效果 */
 cf.regServ('routeAnimate', function(cf) {
-  var _routeOpt, _routeType, _router, goPageFn, self, tl, tm;
-  self = {};
+  var _routeOpt, _router, self, tl, tm;
+  self = {
+    routeType: '',
+    routeOpt: ''
+  };
   tm = cf.require('TweenMax');
   tl = cf.require('TimelineMax');
   _router = cf.router;
-  _routeType = '';
   _routeOpt = '';
   self.left = function(opt) {
     if (opt == null) {
@@ -160,20 +162,27 @@ cf.regServ('routeAnimate', function(cf) {
 
   /* 指定預設換頁方式 */
   self.setRouteType = function(type, opt) {
-    _routeType = type;
-    return _routeOpt = opt;
+    self.routeType = type;
+    return self.routeOpt = opt;
   };
+  return self;
+});
+
+cf.regDocReady('routeAnimate', function(ti) {
 
   /* 更新 router.goPage */
+  var _routeAnimate, _router, goPageFn;
+  _router = ti.router;
+  _routeAnimate = ti.routeAnimate;
   goPageFn = _router.goPage;
 
   /* 頁面, 換頁方式, 參數 */
-  _router.goPage = function(page, type, opt) {
+  return _router.goPage = function(page, type, opt) {
     if (type == null) {
-      type = _routeType;
+      type = _routeAnimate.routeType;
     }
     if (opt == null) {
-      opt = _routeOpt;
+      opt = _routeAnimate.routeOpt;
     }
     if (type === '') {
       _router.transitionFn = null;
@@ -183,5 +192,4 @@ cf.regServ('routeAnimate', function(cf) {
     }
     return goPageFn(page);
   };
-  return self;
 });

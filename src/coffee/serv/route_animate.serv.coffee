@@ -1,10 +1,12 @@
 ### 客製化頁面跳轉效果 ###
 cf.regServ 'routeAnimate', (cf) ->
-  self = {}
+  self = {
+    routeType: ''
+    routeOpt: ''
+  }
   tm = cf.require('TweenMax')
   tl = cf.require('TimelineMax')
   _router = cf.router
-  _routeType = ''
   _routeOpt = ''
 
   self.left = (opt = {}) ->
@@ -103,15 +105,18 @@ cf.regServ 'routeAnimate', (cf) ->
 
   ### 指定預設換頁方式 ###
   self.setRouteType = (type, opt) ->
-    _routeType = type
-    _routeOpt = opt
+    self.routeType = type
+    self.routeOpt = opt
 
+  self
+
+cf.regDocReady 'routeAnimate', (ti) ->
   ### 更新 router.goPage ###
+  _router = ti.router
+  _routeAnimate = ti.routeAnimate
   goPageFn = _router.goPage
   ### 頁面, 換頁方式, 參數 ###
-  _router.goPage = (page, type = _routeType, opt = _routeOpt) ->
+  _router.goPage = (page, type = _routeAnimate.routeType, opt = _routeAnimate.routeOpt) ->
     _router.transitionFn = null if type is ''
     self[type](opt) if type
     goPageFn(page)
-
-  self

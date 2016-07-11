@@ -1,5 +1,5 @@
 ### 頁面跳轉程式 ###
-cf.regLib 'router', (cf) ->
+cf.regServ 'router', (cf) ->
   self =
     $page: null
     _prePage: {}
@@ -156,3 +156,4 @@ cf.regLib 'router', (cf) ->
 
 cf.regDocReady 'router', ->
   cf.router.goPage()
+, 100

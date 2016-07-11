@@ -1,6 +1,6 @@
 
 /* 一些網站支援程式 */
-cf.regLib('website', function(cf) {
+cf.regServ('website', function(cf) {
   var _cfg, caro, location, self, window;
   self = {};
   caro = cf.require('caro');

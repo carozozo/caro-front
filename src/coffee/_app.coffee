@@ -70,7 +70,7 @@ do(window, $, caro, MobileDetect) ->
 
   do(self) ->
     ### 註冊 caro-front 物件 ###
-    regTheIndexObj = (type, name, fn) ->
+    regAppObj = (type, name, fn) ->
       if !self[name]
         self[name] = fn self
         _trace type, name, 'registered'
@@ -79,8 +79,7 @@ do(window, $, caro, MobileDetect) ->
       return
 
     ### 註冊 library ###
-    self.regLib = caro.partial(regTheIndexObj, 'lib') # 註冊 service
-    self.regServ = caro.partial(regTheIndexObj, 'serv')
+    self.regServ = caro.partial(regAppObj, 'serv')
     return
 
   do(self, $) ->

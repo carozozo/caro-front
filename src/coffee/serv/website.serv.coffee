@@ -1,5 +1,5 @@
 ### 一些網站支援程式 ###
-cf.regLib 'website', (cf) ->
+cf.regServ 'website', (cf) ->
   self = {}
   caro = cf.require('caro')
   window = cf.require('window')

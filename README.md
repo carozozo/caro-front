@@ -130,20 +130,10 @@ var err = 'error'
 // 同等於 console.error('CARO:', 'This is test', err)
 trace.err('This is test', err);
 ```
-- regLib(註冊名稱, fn) : 註冊 framework 專用函式 
-```
-// 會產生 cf.testLib.get cf.testLib.set 函式 
-cf.regLib('testLib', function(cf) {
-  var self = {}
-  self.get = function(){...}
-  self.set = function(){...}
-  return self;
-});
-```
-- regServ(註冊名稱, fn) : 註冊一般函式 
+- regServ(註冊名稱, fn) : 註冊函式 庫
 ```
 // 會產生 cf.testServ.get cf.testServ.set 函式 
-cf.regLib('testServ', function(cf) {
+cf.regServ('testServ', function(cf) {
   var self = {}
   self.get = function(){...}
   self.set = function(){...}
@@ -154,7 +144,7 @@ cf.regLib('testServ', function(cf) {
 - regModule(註冊名稱, fn, [要載入的 .html頁面]) : 註冊 module 
 ```
 // ctrl/menu.ctrl.js
-cf.regLib('menu', function(opt) {
+cf.regCtrl('menu', function(opt) {
 	var $self = this
   var ti = self.ti
   ...

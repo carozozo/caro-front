@@ -10,7 +10,6 @@ module.exports = (function () {
     '_plugin/**/*.*',
     'js/_app.js',
     'js/config.js',
-    'js/lib/*.*',
     'js/serv/*.*',
     'js/module/*.*',
     'js/ctrl/*.*',

@@ -84,8 +84,8 @@
   (function(self) {
 
     /* 註冊 caro-front 物件 */
-    var regTheIndexObj;
-    regTheIndexObj = function(type, name, fn) {
+    var regAppObj;
+    regAppObj = function(type, name, fn) {
       if (!self[name]) {
         self[name] = fn(self);
         _trace(type, name, 'registered');
@@ -95,8 +95,7 @@
     };
 
     /* 註冊 library */
-    self.regLib = caro.partial(regTheIndexObj, 'lib');
-    self.regServ = caro.partial(regTheIndexObj, 'serv');
+    self.regServ = caro.partial(regAppObj, 'serv');
   })(self);
   (function(self, $) {
 
