@@ -7,7 +7,6 @@ cf.regServ 'routeAnimate', (cf) ->
   tm = cf.require('TweenMax')
   tl = cf.require('TimelineMax')
   _router = cf.router
-  _routeOpt = ''
 
   self.left = (opt = {}) ->
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->

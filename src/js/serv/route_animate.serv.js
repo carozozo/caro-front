@@ -1,7 +1,7 @@
 
 /* 客製化頁面跳轉效果 */
 cf.regServ('routeAnimate', function(cf) {
-  var _routeOpt, _router, self, tl, tm;
+  var _router, self, tl, tm;
   self = {
     routeType: '',
     routeOpt: ''
@@ -9,7 +9,6 @@ cf.regServ('routeAnimate', function(cf) {
   tm = cf.require('TweenMax');
   tl = cf.require('TimelineMax');
   _router = cf.router;
-  _routeOpt = '';
   self.left = function(opt) {
     if (opt == null) {
       opt = {};
