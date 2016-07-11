@@ -1,39 +1,44 @@
+### 日期下拉選單 ###
 cf.regModule 'caroDateDropdown', (opt = {}) ->
-  # 日期下拉選單
   $self = this
-  $year = (opt.$year or $self.dom('[name="year"]')).empty()
-  $month = (opt.$month or $self.dom('[name="month"]')).empty()
-  $day = (opt.$day or $self.dom('[name="day"]')).empty()
-  i = undefined
+  $year = (opt.$year or $self.dom('[name="year"]'))
+  $month = (opt.$month or $self.dom('[name="month"]'))
+  $day = (opt.$day or $self.dom('[name="day"]'))
 
   daysInMonth = (year, month) ->
     new Date(year, month, 0).getDate()
 
-  updateNumberOfDays = ->
-    $day.html ''
-    month = $month.val()
-    year = $year.val()
-    days = daysInMonth(year, month)
-    if !year
-      $month.prop 'selectedIndex', 0
-    i = 1
-    while i < days + 1
-      $day.append $('<option />').val(i).html(i)
-      i++
-    $day.prepend $('<option />').val('').html('日')
+  setYearOpt = ->
+    nowYear = (new Date).getFullYear()
+    $year.html('').append $('<option />').val('').html('年')
+    caro.loop((i) ->
+      $year.append $('<option />').val(i).html(i)
+    , nowYear, nowYear - 110)
     return
 
-  i = (new Date).getFullYear()
-  while i > 1900
-    $year.append $('<option />').val(i).html(i)
-    i--
-  $year.prepend $('<option />').val('').html('年')
-  i = 1
-  while i < 13
-    $month.append $('<option />').val(i).html(i)
-    i++
-  $month.prepend $('<option />').val('').html('月')
+  setMonthOpt = ->
+    $month.html('').append $('<option />').val('').html('月')
+    caro.loop((i) ->
+      $month.append $('<option />').val(i).html(i)
+    , 1, 12)
+    console.log 123
+    return
+
+  updateNumberOfDays = ->
+    $day.html('').append($('<option />').val('').html('日'))
+    month = $month.val()
+    year = $year.val()
+    return if !year or !month
+    days = daysInMonth(year, month)
+    caro.loop((i) ->
+      $day.append $('<option />').val(i).html(i)
+    , 1, days)
+    return
+
+  setYearOpt()
+  setMonthOpt()
   updateNumberOfDays()
+
   $year.on 'change', ->
     updateNumberOfDays()
     return
@@ -47,19 +52,16 @@ cf.regModule 'caroDateDropdown', (opt = {}) ->
     month = $month.val()
     day = $day.val()
     sep = opt.sep or '/'
-    if !year or !month or !day
-      return null
+    return null if !year or !month or !day
     year + sep + month + sep + day
 
   $self.setOptions = (yearArr, monthArr, dayArr) ->
     appendOptions = ($dom, valArr) ->
-      if valArr.length < 1
-        return
+      return if valArr.length < 1
       valArr = if !caro.isArray(valArr) then [valArr] else valArr
       $dom.empty()
       caro.forEach valArr, (val) ->
-        if !val
-          return
+        return unless val
         $opt = $('<option />').val(val).html(val)
         $dom.append $opt
         return
@@ -69,7 +71,7 @@ cf.regModule 'caroDateDropdown', (opt = {}) ->
       appendOptions $year, yearArr
     if monthArr
       appendOptions $month, monthArr
-    if day
+    if dayArr
       appendOptions $day, dayArr
     $self
 
@@ -77,6 +79,12 @@ cf.regModule 'caroDateDropdown', (opt = {}) ->
     $year.val(year) if year
     $month.val(month) if month
     $day.val(day) if day
+    $self
+
+  $self.disableAll = ->
+    $year.disable()
+    $month.disable()
+    $day.disable()
     $self
 
   $self.$year = $year

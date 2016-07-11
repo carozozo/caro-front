@@ -1,44 +1,47 @@
+
+/* 日期下拉選單 */
 cf.regModule('caroDateDropdown', function(opt) {
-  var $day, $month, $self, $year, daysInMonth, i, updateNumberOfDays;
+  var $day, $month, $self, $year, daysInMonth, setMonthOpt, setYearOpt, updateNumberOfDays;
   if (opt == null) {
     opt = {};
   }
   $self = this;
-  $year = (opt.$year || $self.dom('[name="year"]')).empty();
-  $month = (opt.$month || $self.dom('[name="month"]')).empty();
-  $day = (opt.$day || $self.dom('[name="day"]')).empty();
-  i = void 0;
+  $year = opt.$year || $self.dom('[name="year"]');
+  $month = opt.$month || $self.dom('[name="month"]');
+  $day = opt.$day || $self.dom('[name="day"]');
   daysInMonth = function(year, month) {
     return new Date(year, month, 0).getDate();
   };
+  setYearOpt = function() {
+    var nowYear;
+    nowYear = (new Date).getFullYear();
+    $year.html('').append($('<option />').val('').html('年'));
+    caro.loop(function(i) {
+      return $year.append($('<option />').val(i).html(i));
+    }, nowYear, nowYear - 110);
+  };
+  setMonthOpt = function() {
+    $month.html('').append($('<option />').val('').html('月'));
+    caro.loop(function(i) {
+      return $month.append($('<option />').val(i).html(i));
+    }, 1, 12);
+    console.log(123);
+  };
   updateNumberOfDays = function() {
     var days, month, year;
-    $day.html('');
+    $day.html('').append($('<option />').val('').html('日'));
     month = $month.val();
     year = $year.val();
+    if (!year || !month) {
+      return;
+    }
     days = daysInMonth(year, month);
-    if (!year) {
-      $month.prop('selectedIndex', 0);
-    }
-    i = 1;
-    while (i < days + 1) {
-      $day.append($('<option />').val(i).html(i));
-      i++;
-    }
-    $day.prepend($('<option />').val('').html('日'));
+    caro.loop(function(i) {
+      return $day.append($('<option />').val(i).html(i));
+    }, 1, days);
   };
-  i = (new Date).getFullYear();
-  while (i > 1900) {
-    $year.append($('<option />').val(i).html(i));
-    i--;
-  }
-  $year.prepend($('<option />').val('').html('年'));
-  i = 1;
-  while (i < 13) {
-    $month.append($('<option />').val(i).html(i));
-    i++;
-  }
-  $month.prepend($('<option />').val('').html('月'));
+  setYearOpt();
+  setMonthOpt();
   updateNumberOfDays();
   $year.on('change', function() {
     updateNumberOfDays();
@@ -81,7 +84,7 @@ cf.regModule('caroDateDropdown', function(opt) {
     if (monthArr) {
       appendOptions($month, monthArr);
     }
-    if (day) {
+    if (dayArr) {
       appendOptions($day, dayArr);
     }
     return $self;
@@ -96,6 +99,12 @@ cf.regModule('caroDateDropdown', function(opt) {
     if (day) {
       $day.val(day);
     }
+    return $self;
+  };
+  $self.disableAll = function() {
+    $year.disable();
+    $month.disable();
+    $day.disable();
     return $self;
   };
   $self.$year = $year;
