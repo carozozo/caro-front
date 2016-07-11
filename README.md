@@ -10,12 +10,11 @@
 - bower
 
 ## 使用 library 
-- moment
+- caro.js 
 - jQuery
 - lodash
-- caro.js 
-- mobile
-- detect.js 
+- mobile-detect
+- moment
 - gsap
 
 ## 支援 .coffee 
