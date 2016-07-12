@@ -9,35 +9,36 @@ cf.regModule 'caroScale', (opt = {}) ->
   ### 綁定 resize 的 name space ###
   _triggerName = if opt.triggerName then 'resize.caroAutoScale.' + opt.triggerName else 'resize.caroAutoScale'
   ### 指定觸發縮放的 $target 寬度範圍 ###
-  oStartX = if caro.isNumber(opt.startX) then opt.startX else 1100
-  oEndX = if caro.isNumber(opt.endX) then opt.endX else 1920
+  _startX = if caro.isNumber(opt.startX) then opt.startX else 1100
+  _endX = if caro.isNumber(opt.endX) then opt.endX else 1920
   ### 指定觸發縮放的 $target 高度範圍 ###
-  oStartY = if caro.isNumber(opt.startY) then opt.startY else 600
-  oEndY = if caro.isNumber(opt.endY) then opt.endY else 1080
+  _startY = if caro.isNumber(opt.startY) then opt.startY else 600
+  _endY = if caro.isNumber(opt.endY) then opt.endY else 1080
   ### 指定縮放範圍 ###
-  oStartScale = opt.startScale or 1
-  oEndScale = opt.endScale or 1.2
+  _startScale = opt.startScale or 1
+  _endScale = opt.endScale or 1.2
   ### 縮放基準, min: scaleX scaleY 取最小, max: scaleX scaleY 取最大, x: scaleX, y: scaleY ###
-  oMode = opt.mode or 'x'
+  _mode = opt.mode or 'x'
   ### 是否縮放 $self 的寬 ###
-  oIsScaleX = if opt.isScaleX is false then false else true
+  _isScaleX = if opt.isScaleX is false then false else true
   ### 是否縮放 $self 的高 ###
-  oIsScaleY = opt.isScaleY
+  _isScaleY = opt.isScaleY
   ### scale 時間, 單位為秒 ###
-  oDuration = opt.duration or 0.3
+  _duration = opt.duration or 0.3
   ### scale 之前的 cb, 回傳 false 會停止 scale ###
-  oBefScale = opt.befScale
+  _befScale = opt.befScale
   ### 用來取得 scale 之後的 css 資訊 ###
-  oAftScale = opt.aftScale
+  _aftScale = opt.aftScale
+  ### 設置起始的 width ###
+  _basicWidth = opt.basicWidth or $self.width()
+  ### 設置起始的 height ###
+  _basicHeight = opt.basicHeight or $self.height()
 
-
-  selfWidth = $self.width()
-  selfHeight = $self.height()
   _selfInfo = {
-    width: selfWidth
-    height: selfHeight
-    newWidth: selfWidth
-    newHeight: selfHeight
+    width: _basicWidth
+    height: _basicHeight
+    newWidth: _basicWidth
+    newHeight: _basicHeight
   }
   _targetInfo = {
     width: null
@@ -55,21 +56,21 @@ cf.regModule 'caroScale', (opt = {}) ->
 
   getScaleX = ->
     _targetInfo.width = width = $target.width()
-    return oStartScale if width < oStartX
-    return oEndScale if width > oEndX
-    (width - oStartX) * (oEndScale - oStartScale) / (oEndX - oStartX) + oStartScale
+    return _startScale if width < _startX
+    return _endScale if width > _endX
+    (width - _startX) * (_endScale - _startScale) / (_endX - _startX) + _startScale
 
   getScaleY = ->
     _targetInfo.height = height = $target.height()
-    return oStartScale if height < oStartY
-    return oEndScale if height > oEndY
-    (height - oStartY) * (oEndScale - oStartScale) / (oEndY - oStartY) + oStartScale
+    return _startScale if height < _startY
+    return _endScale if height > _endY
+    (height - _startY) * (_endScale - _startScale) / (_endY - _startY) + _startScale
 
   setScaleInfo = ->
     scale = null
     scaleX = getScaleX()
     scaleY = getScaleY()
-    switch oMode
+    switch _mode
       when 'x'
         scale = scaleX
       when 'y'
@@ -90,15 +91,15 @@ cf.regModule 'caroScale', (opt = {}) ->
 
   $self.updateScale = ->
     setTargetInfo()
-    return if(oBefScale and oBefScale(_infoObj) is false)
+    return if(_befScale and _befScale(_infoObj) is false)
     scaleObj = {
       onComplete: ->
-        oAftScale and oAftScale(_infoObj)
+        _aftScale and _aftScale(_infoObj)
         return
     }
-    scaleObj.width = _selfInfo.newWidth if oIsScaleX
-    scaleObj.height = _selfInfo.newHeight if oIsScaleY
-    tm.to($self, oDuration, scaleObj)
+    scaleObj.width = _selfInfo.newWidth if _isScaleX
+    scaleObj.height = _selfInfo.newHeight if _isScaleY
+    tm.to($self, _duration, scaleObj)
     $self
 
   $self.bindScale = ->
@@ -109,6 +110,14 @@ cf.regModule 'caroScale', (opt = {}) ->
 
   $self.unbindScale = ->
     $self.off _triggerName
+    $self
+
+  $self.setBasicWidth = (width) ->
+    _selfInfo.width = width
+    $self
+
+  $self.setBasicHeight = (height) ->
+    _selfInfo.height = height
     $self
 
   $self.bindScale()

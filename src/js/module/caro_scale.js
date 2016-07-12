@@ -1,7 +1,7 @@
 
 /* 隨目標縮放自己的大小 */
 cf.regModule('caroScale', function(opt) {
-  var $self, $target, _infoObj, _selfInfo, _targetInfo, _triggerName, caro, cf, getScaleX, getScaleY, oAftScale, oBefScale, oDuration, oEndScale, oEndX, oEndY, oIsScaleX, oIsScaleY, oMode, oStartScale, oStartX, oStartY, selfHeight, selfWidth, setScaleInfo, setTargetInfo, tm;
+  var $self, $target, _aftScale, _basicHeight, _basicWidth, _befScale, _duration, _endScale, _endX, _endY, _infoObj, _isScaleX, _isScaleY, _mode, _selfInfo, _startScale, _startX, _startY, _targetInfo, _triggerName, caro, cf, getScaleX, getScaleY, setScaleInfo, setTargetInfo, tm;
   if (opt == null) {
     opt = {};
   }
@@ -15,41 +15,45 @@ cf.regModule('caroScale', function(opt) {
   _triggerName = opt.triggerName ? 'resize.caroAutoScale.' + opt.triggerName : 'resize.caroAutoScale';
 
   /* 指定觸發縮放的 $target 寬度範圍 */
-  oStartX = caro.isNumber(opt.startX) ? opt.startX : 1100;
-  oEndX = caro.isNumber(opt.endX) ? opt.endX : 1920;
+  _startX = caro.isNumber(opt.startX) ? opt.startX : 1100;
+  _endX = caro.isNumber(opt.endX) ? opt.endX : 1920;
 
   /* 指定觸發縮放的 $target 高度範圍 */
-  oStartY = caro.isNumber(opt.startY) ? opt.startY : 600;
-  oEndY = caro.isNumber(opt.endY) ? opt.endY : 1080;
+  _startY = caro.isNumber(opt.startY) ? opt.startY : 600;
+  _endY = caro.isNumber(opt.endY) ? opt.endY : 1080;
 
   /* 指定縮放範圍 */
-  oStartScale = opt.startScale || 1;
-  oEndScale = opt.endScale || 1.2;
+  _startScale = opt.startScale || 1;
+  _endScale = opt.endScale || 1.2;
 
   /* 縮放基準, min: scaleX scaleY 取最小, max: scaleX scaleY 取最大, x: scaleX, y: scaleY */
-  oMode = opt.mode || 'x';
+  _mode = opt.mode || 'x';
 
   /* 是否縮放 $self 的寬 */
-  oIsScaleX = opt.isScaleX === false ? false : true;
+  _isScaleX = opt.isScaleX === false ? false : true;
 
   /* 是否縮放 $self 的高 */
-  oIsScaleY = opt.isScaleY;
+  _isScaleY = opt.isScaleY;
 
   /* scale 時間, 單位為秒 */
-  oDuration = opt.duration || 0.3;
+  _duration = opt.duration || 0.3;
 
   /* scale 之前的 cb, 回傳 false 會停止 scale */
-  oBefScale = opt.befScale;
+  _befScale = opt.befScale;
 
   /* 用來取得 scale 之後的 css 資訊 */
-  oAftScale = opt.aftScale;
-  selfWidth = $self.width();
-  selfHeight = $self.height();
+  _aftScale = opt.aftScale;
+
+  /* 設置起始的 width */
+  _basicWidth = opt.basicWidth || $self.width();
+
+  /* 設置起始的 height */
+  _basicHeight = opt.basicHeight || $self.height();
   _selfInfo = {
-    width: selfWidth,
-    height: selfHeight,
-    newWidth: selfWidth,
-    newHeight: selfHeight
+    width: _basicWidth,
+    height: _basicHeight,
+    newWidth: _basicWidth,
+    newHeight: _basicHeight
   };
   _targetInfo = {
     width: null,
@@ -67,31 +71,31 @@ cf.regModule('caroScale', function(opt) {
   getScaleX = function() {
     var width;
     _targetInfo.width = width = $target.width();
-    if (width < oStartX) {
-      return oStartScale;
+    if (width < _startX) {
+      return _startScale;
     }
-    if (width > oEndX) {
-      return oEndScale;
+    if (width > _endX) {
+      return _endScale;
     }
-    return (width - oStartX) * (oEndScale - oStartScale) / (oEndX - oStartX) + oStartScale;
+    return (width - _startX) * (_endScale - _startScale) / (_endX - _startX) + _startScale;
   };
   getScaleY = function() {
     var height;
     _targetInfo.height = height = $target.height();
-    if (height < oStartY) {
-      return oStartScale;
+    if (height < _startY) {
+      return _startScale;
     }
-    if (height > oEndY) {
-      return oEndScale;
+    if (height > _endY) {
+      return _endScale;
     }
-    return (height - oStartY) * (oEndScale - oStartScale) / (oEndY - oStartY) + oStartScale;
+    return (height - _startY) * (_endScale - _startScale) / (_endY - _startY) + _startScale;
   };
   setScaleInfo = function() {
     var scale, scaleX, scaleY;
     scale = null;
     scaleX = getScaleX();
     scaleY = getScaleY();
-    switch (oMode) {
+    switch (_mode) {
       case 'x':
         scale = scaleX;
         break;
@@ -117,21 +121,21 @@ cf.regModule('caroScale', function(opt) {
   $self.updateScale = function() {
     var scaleObj;
     setTargetInfo();
-    if (oBefScale && oBefScale(_infoObj) === false) {
+    if (_befScale && _befScale(_infoObj) === false) {
       return;
     }
     scaleObj = {
       onComplete: function() {
-        oAftScale && oAftScale(_infoObj);
+        _aftScale && _aftScale(_infoObj);
       }
     };
-    if (oIsScaleX) {
+    if (_isScaleX) {
       scaleObj.width = _selfInfo.newWidth;
     }
-    if (oIsScaleY) {
+    if (_isScaleY) {
       scaleObj.height = _selfInfo.newHeight;
     }
-    tm.to($self, oDuration, scaleObj);
+    tm.to($self, _duration, scaleObj);
     return $self;
   };
   $self.bindScale = function() {
@@ -142,6 +146,14 @@ cf.regModule('caroScale', function(opt) {
   };
   $self.unbindScale = function() {
     $self.off(_triggerName);
+    return $self;
+  };
+  $self.setBasicWidth = function(width) {
+    _selfInfo.width = width;
+    return $self;
+  };
+  $self.setBasicHeight = function(height) {
+    _selfInfo.height = height;
     return $self;
   };
   $self.bindScale();
