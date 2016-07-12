@@ -111,6 +111,8 @@ cf.regModule('caroSyncMove', function(opt) {
   };
   $document.on(_triggerName1, triggerFn);
   $document.on(_triggerName2, triggerFn);
+
+  /* 停止監聽 mousemove */
   $self.stopSyncMove = function() {
     $document.off(_triggerName1);
     return $document.off(_triggerName2);

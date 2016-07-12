@@ -135,6 +135,8 @@ cf.regModule('caroSwitchShow', function($domList, defType) {
     targetIndex = index;
     return switchShow(targetIndex, type, opt);
   };
+
+  /* 顯示下一個內容 */
   $self.next = function(type, opt) {
     if (opt == null) {
       opt = {};
@@ -145,6 +147,8 @@ cf.regModule('caroSwitchShow', function($domList, defType) {
     }
     return switchShow(targetIndex, type, opt);
   };
+
+  /* 顯示上一個內容 */
   $self.prev = function(type, opt) {
     if (opt == null) {
       opt = {};

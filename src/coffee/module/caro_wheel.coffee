@@ -16,6 +16,7 @@ cf.regModule 'caroWheel', (triggerName, fn) ->
     fn and fn(e, $self)
   )
 
+  ### 停止綁定 mousewheel ###
   $self.unbindWheel = ->
     $self.off(triggerName)
     $self

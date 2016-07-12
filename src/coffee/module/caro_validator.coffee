@@ -96,34 +96,42 @@ cf.regModule 'caroValidator', (opt = {}) ->
     regExp = new RegExp('^[0-9A-Z]{' + length + '}$')
     setErrInfo(oValidateItem, 'captcha', true) unless regExp.test(val)
 
+  ### 設置檢查必填 ###
   $self.setRequire = ($dom) ->
     regValidate($dom, 'require')
 
+  ### 設置檢查數字 ###
   $self.setNum = ($dom) ->
     regValidate($dom, 'num')
 
+  ### 設置檢查最小長度 ###
   $self.setMinLength = ($dom, length) ->
     regValidate($dom, 'minLength', (oValidateInfo)->
       oValidateInfo.length = length
     )
 
+  ### 設置檢查 email ###
   $self.setEmail = ($dom) ->
     regValidate($dom, 'email')
 
+  ### 設置檢查手機 ###
   $self.setMobile = ($dom) ->
     $dom.attr('maxLength', 10);
     regValidate($dom, 'mobile')
 
+  ### 設置檢查身分證 ###
   $self.setRocId = ($dom) ->
     $dom.attr('maxLength', 10);
     regValidate($dom, 'rocId')
 
+  ### 設置檢查驗證碼 ###
   $self.setCaptcha = ($dom, length = 4) ->
     $dom.attr('maxLength', length);
     regValidate($dom, 'captcha', (oValidateInfo)->
       oValidateInfo.length = length
     )
 
+  ### 開始檢查格式 ###
   $self.validate = ->
     setValidateDef()
     caro.forEach(_validateMap, (oValidateItem) ->

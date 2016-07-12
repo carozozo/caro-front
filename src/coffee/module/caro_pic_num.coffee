@@ -9,6 +9,7 @@ cf.regModule 'caroPicNum', ->
   )
   ### 反轉, 圖片從個位數開始 ###
   $imgArr.reverse()
+
   ### num=要顯示的數字, numHeight=數字圖片中每個數字的高度 ###
   $self.showNum = (num, numHeight, speed) ->
     speed = speed or 0.5
@@ -24,6 +25,6 @@ cf.regModule 'caroPicNum', ->
       $numImg = $($numImg)
       tweenMax.fromTo $numImg, speed, { 'margin-top': 0 }, 'margin-top': -(numHeight * eachNum)
       return
-    return
+    $self
 
   $self

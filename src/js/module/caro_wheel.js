@@ -19,6 +19,8 @@ cf.regModule('caroWheel', function(triggerName, fn) {
     e.wheelDistance = e.deltaFactor;
     return fn && fn(e, $self);
   });
+
+  /* 停止綁定 mousewheel */
   $self.unbindWheel = function() {
     $self.off(triggerName);
     return $self;

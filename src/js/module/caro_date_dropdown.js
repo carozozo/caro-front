@@ -1,7 +1,7 @@
 
 /* 日期下拉選單 */
 cf.regModule('caroDateDropdown', function(opt) {
-  var $day, $month, $self, $year, daysInMonth, setMonthOpt, setYearOpt, updateNumberOfDays;
+  var $day, $month, $self, $year, _triggerName, daysInMonth, setMonthOpt, setYearOpt, updateNumberOfDays;
   if (opt == null) {
     opt = {};
   }
@@ -9,6 +9,7 @@ cf.regModule('caroDateDropdown', function(opt) {
   $year = opt.$year || $self.dom('[name="year"]');
   $month = opt.$month || $self.dom('[name="month"]');
   $day = opt.$day || $self.dom('[name="day"]');
+  _triggerName = 'change.caroDateDropdown';
   daysInMonth = function(year, month) {
     return new Date(year, month, 0).getDate();
   };
@@ -43,12 +44,14 @@ cf.regModule('caroDateDropdown', function(opt) {
   setYearOpt();
   setMonthOpt();
   updateNumberOfDays();
-  $year.on('change', function() {
+  $year.on(_triggerName, function() {
     updateNumberOfDays();
   });
-  $month.on('change', function() {
+  $month.on(_triggerName, function() {
     updateNumberOfDays();
   });
+
+  /* 取得下拉選單的日期 */
   $self.getDate = function(opt) {
     var day, month, sep, year;
     opt = opt || {};
@@ -61,6 +64,8 @@ cf.regModule('caroDateDropdown', function(opt) {
     }
     return year + sep + month + sep + day;
   };
+
+  /* 設置下拉選單的內容 */
   $self.setOptions = function(yearArr, monthArr, dayArr) {
     var appendOptions;
     appendOptions = function($dom, valArr) {
@@ -89,18 +94,22 @@ cf.regModule('caroDateDropdown', function(opt) {
     }
     return $self;
   };
+
+  /* 設置下拉選單選取的日期 */
   $self.setDate = function(year, month, day) {
-    if (year) {
+    if (year || year === '') {
       $year.val(year);
     }
-    if (month) {
+    if (month || month === '') {
       $month.val(month);
     }
-    if (day) {
+    if (day || day === '') {
       $day.val(day);
     }
     return $self;
   };
+
+  /* disable 下拉選單 */
   $self.disableAll = function() {
     $year.disable();
     $month.disable();

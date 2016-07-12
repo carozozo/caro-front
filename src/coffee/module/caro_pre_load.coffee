@@ -5,6 +5,7 @@ cf.regModule 'caroPreLoad', (files, _progressFn, _completeFn) ->
   cf = $self.cf
   createjs = cf.require('createjs')
 
+  ### 開始讀取檔案 ###
   $self.startLoad = (cb)->
     queue = new createjs.LoadQueue(false)
     queue.on 'complete', ->
@@ -22,4 +23,5 @@ cf.regModule 'caroPreLoad', (files, _progressFn, _completeFn) ->
     queue.loadManifest files
     cb and cb()
     $self
+
   $self

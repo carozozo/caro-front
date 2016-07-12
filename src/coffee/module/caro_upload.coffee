@@ -6,22 +6,29 @@ cf.regModule 'caroUpload', (url, opt = {}) ->
   _isBefIe9 = cf.isBefIe9
   _moduleIndex = cf.data('caroUploadIndex') or 1
   _files = [];
-  _selectCb = null;
-  _befUploadCb = null;
-  _sucCb = null;
-  _errCb = null;
-  _inputFileName = opt.inputFileName or 'caroUploadInputFile' + _moduleIndex
+  _suc = null;
+  _err = null;
   _formName = 'caroUploadForm' + _moduleIndex
   _iframeName = 'caroUploadIframe' + _moduleIndex
-
-  opt = opt or {}
-  fileType = opt.fileType
-  multiple = if caro.isBoolean(opt.multiple) then opt.multiple else true
+  ### 上傳欄位的 name ###
+  _inputFileName = opt.inputFileName or 'caroUploadInputFile' + _moduleIndex
+  ### 指定上傳格式 ###
+  _fileType = opt.fileType
+  ### 是否可以多重選取 ###
+  _multiple = if caro.isBoolean(opt.multiple) then opt.multiple else true
+  ### 檔案被選取時的 cb ###
+  _onSelected = opt.onSelected
+  ### 檔案上傳前的 cb ###
+  _befUpload = opt.befUpload
+  ### 上傳成功 cb ###
+  _suc = opt.suc
+  ### 上傳失敗 cb ###
+  _err = opt.err
 
   accept = do ->
     ret = ''
     ### 未來陸續增加 ###
-    switch fileType
+    switch _fileType
       when 'img'
         ret = "image/jpg,image/png,image/jpeg,image/gif"
     return ret
@@ -39,7 +46,7 @@ cf.regModule 'caroUpload', (url, opt = {}) ->
     $dom = $('<input type="file"/>')
     .attr('name', _inputFileName)
     .attr('id', _inputFileName)
-    .prop('multiple', multiple)
+    .prop('multiple', _multiple)
     .css(
       width: '100%'
     )
@@ -50,7 +57,7 @@ cf.regModule 'caroUpload', (url, opt = {}) ->
       caro.forEach(files, (file)->
         _files.push(file)
       )
-      _selectCb and _selectCb(
+      _onSelected and _onSelected(
         event: eve
         files: _files
       )
@@ -59,11 +66,13 @@ cf.regModule 'caroUpload', (url, opt = {}) ->
     $form.append($dom)
     $dom
 
+  ### 開啟選擇上傳檔案視窗 ###
   $self.selectFile = ->
     return $self if _isBefIe9
     $inputFile.click()
     $self
 
+  ### 開始上傳 ###
   $self.upload = ->
     if _isBefIe9
       $iframe = $('<iframe/>')
@@ -72,7 +81,7 @@ cf.regModule 'caroUpload', (url, opt = {}) ->
       .on('load', ->
         res = $iframe.contents().find('*').first().text()
         res = JSON.parse(res) if typeof res is 'string'
-        _sucCb and _sucCb(res)
+        _suc and _suc(res)
         $iframe.remove()
       )
       $form
@@ -85,8 +94,8 @@ cf.regModule 'caroUpload', (url, opt = {}) ->
       $form.submit()
       return
     formData = new FormData();
-    if _befUploadCb
-      _befUploadCb(formData, _files)
+    if _befUpload
+      _befUpload(formData, _files)
     else
       caro.forEach(_files, (val, key) ->
         formData.append(key, val);
@@ -100,28 +109,12 @@ cf.regModule 'caroUpload', (url, opt = {}) ->
       processData: false
       contentType: false
       success: (res) ->
-        _sucCb and _sucCb(res)
+        _suc and _suc(res)
         return
       error: (err) ->
-        _errCb and _errCb(err)
+        _err and _err(err)
         return
     }
-    $self
-
-  $self.onSelected = (cb) ->
-    _selectCb = cb
-    $self
-
-  $self.onBefUpload = (cb) ->
-    _befUploadCb = cb
-    $self
-
-  $self.suc = (cb) ->
-    _sucCb = cb
-    $self
-
-  $self.err = (cb) ->
-    _errCb = cb
     $self
 
   cf.data('caroUploadIndex', ++_moduleIndex)

@@ -152,10 +152,8 @@ cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
       createDrop()
     , randomMs())
 
-  $self.stopDrop = ->
-    _isKeepDrop = false
-    $self
 
+  ###  開始產生隨機物件 ###
   $self.startDrop = (nameSpace) ->
     _isKeepDrop = true
     if amount > 1
@@ -174,6 +172,12 @@ cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
     )
     $self
 
+  ### 停止產生隨機物件 ###
+  $self.stopDrop = ->
+    _isKeepDrop = false
+    $self
+
+  ### 當 click 時, 產生隨機物件 ###
   $self.clickCreate = ($target = $container, nameSpace) ->
     triggerName = 'click.caroRandomDrop'
     triggerName += '.' + nameSpace if nameSpace
@@ -190,6 +194,7 @@ cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
     )
     $self
 
+  ### 當 mousemove, 產生隨機物件 ###
   $self.moveCreate = (interval = 10, $target = $container, nameSpace) ->
     count = 0
     triggerMoveFn = (e) ->

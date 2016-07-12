@@ -48,6 +48,8 @@ cf.regModule('caroModal', function(opt) {
   $('body').append($background).append($container);
   moduleData.index++;
   moduleData.zIndex += 2;
+
+  /* 顯示視窗 */
   $self.showModal = function() {
     var $content;
     $content = $($self.html());
@@ -58,6 +60,8 @@ cf.regModule('caroModal', function(opt) {
     $background.show();
     $container.fadeIn();
   };
+
+  /* 關閉視窗 */
   $self.closeModal = function() {
     $container.fadeOut(function() {
       if ($closeBtn) {

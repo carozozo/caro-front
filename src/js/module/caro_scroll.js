@@ -68,6 +68,8 @@ cf.regModule('caroScroll', function($contents, opt) {
       ease: _ease
     });
   };
+
+  /* 捲動到下一個 */
   $self.scrollNext = function(duration) {
     if (++_nowIndex > _offsetTopArr.length - 1) {
       _nowIndex = 0;
@@ -75,6 +77,8 @@ cf.regModule('caroScroll', function($contents, opt) {
     scrollToNowIndex(duration);
     return $self;
   };
+
+  /* 捲動到上一個 */
   $self.scrollPrev = function(duration) {
     if (--_nowIndex < 0) {
       _nowIndex = _offsetTopArr.length - 1;
@@ -82,15 +86,21 @@ cf.regModule('caroScroll', function($contents, opt) {
     scrollToNowIndex(duration);
     return $self;
   };
+
+  /* 捲動到指定的 index */
   $self.scrollTo = function(i, duration) {
     _nowIndex = i;
     scrollToNowIndex(duration);
     return $self;
   };
+
+  /* 重新掃描內容的高度位置 */
   $self.updatePosition = function() {
     caro.forEach($contents, getOffsetTopArr);
     return $self;
   };
+
+  /* 綁定 scroll */
   $self.bindScroll = function() {
 
     /* 避免重複綁定 */
@@ -123,6 +133,8 @@ cf.regModule('caroScroll', function($contents, opt) {
     });
     return $self;
   };
+
+  /* 不綁定 scroll */
   $self.unbindScroll = function() {
     $self.off(_triggerName);
     return $self;

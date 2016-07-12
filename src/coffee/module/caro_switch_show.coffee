@@ -73,12 +73,14 @@ cf.regModule 'caroSwitchShow', ($domList, defType) ->
     targetIndex = index;
     switchShow targetIndex, type, opt
 
+  ### 顯示下一個內容 ###
   $self.next = (type, opt = {}) ->
     targetIndex = currentIndex + 1
     if targetIndex > $domList.length - 1
       targetIndex = 0
     switchShow targetIndex, type, opt
 
+  ### 顯示上一個內容 ###
   $self.prev = (type, opt = {}) ->
     targetIndex = currentIndex - 1
     if targetIndex < 0

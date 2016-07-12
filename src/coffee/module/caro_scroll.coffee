@@ -49,25 +49,30 @@ cf.regModule 'caroScroll', ($contents, opt = {}) ->
     })
     return
 
+  ### 捲動到下一個 ###
   $self.scrollNext = (duration) ->
     _nowIndex = 0 if ++_nowIndex > _offsetTopArr.length - 1
     scrollToNowIndex(duration)
     $self
 
+  ### 捲動到上一個 ###
   $self.scrollPrev = (duration) ->
     _nowIndex = _offsetTopArr.length - 1 if --_nowIndex < 0
     scrollToNowIndex(duration)
     $self
 
+  ### 捲動到指定的 index ###
   $self.scrollTo = (i, duration) ->
     _nowIndex = i
     scrollToNowIndex(duration)
     $self
 
+  ### 重新掃描內容的高度位置 ###
   $self.updatePosition = ->
     caro.forEach($contents, getOffsetTopArr)
     $self
 
+  ### 綁定 scroll ###
   $self.bindScroll = ->
     ### 避免重複綁定 ###
     $self.off(_triggerName).on(_triggerName, (e) ->
@@ -93,6 +98,7 @@ cf.regModule 'caroScroll', ($contents, opt = {}) ->
     )
     $self
 
+  ### 不綁定 scroll ###
   $self.unbindScroll = ->
     $self.off(_triggerName)
     $self

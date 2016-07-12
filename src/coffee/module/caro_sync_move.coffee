@@ -89,6 +89,7 @@ cf.regModule 'caroSyncMove', (opt = {}) ->
   $document.on(_triggerName1, triggerFn)
   $document.on(_triggerName2, triggerFn)
 
+  ### 停止監聽 mousemove ###
   $self.stopSyncMove = ->
     $document.off(_triggerName1)
     $document.off(_triggerName2)

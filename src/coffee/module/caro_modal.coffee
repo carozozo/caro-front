@@ -37,6 +37,7 @@ cf.regModule 'caroModal', (opt) ->
   moduleData.index++
   moduleData.zIndex += 2
 
+  ### 顯示視窗 ###
   $self.showModal = ->
     $content = $($self.html())
     $container.append $content
@@ -46,6 +47,7 @@ cf.regModule 'caroModal', (opt) ->
     $container.fadeIn()
     return
 
+  ### 關閉視窗 ###
   $self.closeModal = ->
     $container.fadeOut ->
       if $closeBtn

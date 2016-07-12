@@ -137,28 +137,42 @@ cf.regModule('caroValidator', function(opt) {
       return setErrInfo(oValidateItem, 'captcha', true);
     }
   };
+
+  /* 設置檢查必填 */
   $self.setRequire = function($dom) {
     return regValidate($dom, 'require');
   };
+
+  /* 設置檢查數字 */
   $self.setNum = function($dom) {
     return regValidate($dom, 'num');
   };
+
+  /* 設置檢查最小長度 */
   $self.setMinLength = function($dom, length) {
     return regValidate($dom, 'minLength', function(oValidateInfo) {
       return oValidateInfo.length = length;
     });
   };
+
+  /* 設置檢查 email */
   $self.setEmail = function($dom) {
     return regValidate($dom, 'email');
   };
+
+  /* 設置檢查手機 */
   $self.setMobile = function($dom) {
     $dom.attr('maxLength', 10);
     return regValidate($dom, 'mobile');
   };
+
+  /* 設置檢查身分證 */
   $self.setRocId = function($dom) {
     $dom.attr('maxLength', 10);
     return regValidate($dom, 'rocId');
   };
+
+  /* 設置檢查驗證碼 */
   $self.setCaptcha = function($dom, length) {
     if (length == null) {
       length = 4;
@@ -168,6 +182,8 @@ cf.regModule('caroValidator', function(opt) {
       return oValidateInfo.length = length;
     });
   };
+
+  /* 開始檢查格式 */
   $self.validate = function() {
     setValidateDef();
     caro.forEach(_validateMap, function(oValidateItem) {

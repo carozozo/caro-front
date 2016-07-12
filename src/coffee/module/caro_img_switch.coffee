@@ -7,10 +7,12 @@ cf.regModule 'caroImgSwitch', ->
   imgArr = caro.values(arguments)
   interval = null
 
+  ### 新增圖片路徑 ###
   $self.addImg = (imgSrc) ->
     imgArr.push imgSrc
-    return
+    $self
 
+  ### 切換圖片 ###
   $self.switchImg = (i) ->
     if caro.isUndefined(i)
       i = currentIndex
@@ -18,22 +20,23 @@ cf.regModule 'caroImgSwitch', ->
       i = 0
     $self.src imgArr[i]
     currentIndex = ++i
-    return
+    $self
 
+  ### 自動切換圖片 ###
   $self.autoSwitch = (ms) ->
     count = 0
     interval = setInterval((->
       src = imgArr[count]
       $self.src src
       count++
-      if count > imgArr.length - 1
-        count = 0
+      count = 0 if count > imgArr.length - 1
       return
     ), ms)
-    return
+    $self
 
-  $self.stop = ->
+  ### 停止切換圖片 ###
+  $self.stopSwitch = ->
     clearInterval interval
-    return
+    $self
 
   $self

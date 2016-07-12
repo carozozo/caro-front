@@ -102,6 +102,7 @@ cf.regModule 'caroCircleShow', ($targets, opt = {}) ->
     )
   )
 
+  ### 顯示下一個內容 ###
   $self.next = ->
     _currentIndex = 0 if ++_currentIndex is _targetLength
     $first = $targetList.shift()
@@ -109,6 +110,7 @@ cf.regModule 'caroCircleShow', ($targets, opt = {}) ->
     movePosition()
     $self
 
+  ### 顯示上一個內容 ###
   $self.prev = ->
     _currentIndex = _targetLength - 1 if --_currentIndex is -1
     $last = $targetList.pop()
@@ -116,9 +118,11 @@ cf.regModule 'caroCircleShow', ($targets, opt = {}) ->
     movePosition()
     $self
 
+  ### 取得目前內容的 index ###
   $self.currentIndex = ->
     _currentIndex
 
+  ### 自動輪播 ###
   $self.autoPlay = (ms, isNext = true) ->
     ### 輪播 ###
     fn = if isNext then $self.next else $self.prev
@@ -126,6 +130,7 @@ cf.regModule 'caroCircleShow', ($targets, opt = {}) ->
     _interval = setInterval(fn, ms)
     $self
 
+  ### 停止輪播 ###
   $self.stopPlay = ->
     clearInterval(_interval)
     $self

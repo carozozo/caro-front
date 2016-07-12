@@ -134,6 +134,8 @@ cf.regModule('caroCircleShow', function($targets, opt) {
       'filter': 'brightness(' + getBrightness(i) + '%)'
     });
   });
+
+  /* 顯示下一個內容 */
   $self.next = function() {
     var $first;
     if (++_currentIndex === _targetLength) {
@@ -144,6 +146,8 @@ cf.regModule('caroCircleShow', function($targets, opt) {
     movePosition();
     return $self;
   };
+
+  /* 顯示上一個內容 */
   $self.prev = function() {
     var $last;
     if (--_currentIndex === -1) {
@@ -154,9 +158,13 @@ cf.regModule('caroCircleShow', function($targets, opt) {
     movePosition();
     return $self;
   };
+
+  /* 取得目前內容的 index */
   $self.currentIndex = function() {
     return _currentIndex;
   };
+
+  /* 自動輪播 */
   $self.autoPlay = function(ms, isNext) {
     var fn;
     if (isNext == null) {
@@ -169,6 +177,8 @@ cf.regModule('caroCircleShow', function($targets, opt) {
     _interval = setInterval(fn, ms);
     return $self;
   };
+
+  /* 停止輪播 */
   $self.stopPlay = function() {
     clearInterval(_interval);
     return $self;

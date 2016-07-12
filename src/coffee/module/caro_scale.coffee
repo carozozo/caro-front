@@ -89,6 +89,7 @@ cf.regModule 'caroScale', (opt = {}) ->
     _selfInfo.newHeight = _selfInfo.height * scale
     return
 
+  ### 計算並執行 scale ###
   $self.updateScale = ->
     setTargetInfo()
     return if(_befScale and _befScale(_infoObj) is false)
@@ -102,20 +103,24 @@ cf.regModule 'caroScale', (opt = {}) ->
     tm.to($self, _duration, scaleObj)
     $self
 
+  ### 綁定執行 scale ###
   $self.bindScale = ->
     $target.off(_triggerName).on(_triggerName, ->
       $self.updateScale()
     )
     $self
 
+  ### 不綁定執行 scale ###
   $self.unbindScale = ->
     $self.off _triggerName
     $self
 
+  ### 設定 scale width 起始值 ###
   $self.setBasicWidth = (width) ->
     _selfInfo.width = width
     $self
 
+  ### 設定 scale height 起始值 ###
   $self.setBasicHeight = (height) ->
     _selfInfo.height = height
     $self

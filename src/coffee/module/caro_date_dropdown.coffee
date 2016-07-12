@@ -4,6 +4,7 @@ cf.regModule 'caroDateDropdown', (opt = {}) ->
   $year = (opt.$year or $self.dom('[name="year"]'))
   $month = (opt.$month or $self.dom('[name="month"]'))
   $day = (opt.$day or $self.dom('[name="day"]'))
+  _triggerName = 'change.caroDateDropdown'
 
   daysInMonth = (year, month) ->
     new Date(year, month, 0).getDate()
@@ -39,13 +40,14 @@ cf.regModule 'caroDateDropdown', (opt = {}) ->
   setMonthOpt()
   updateNumberOfDays()
 
-  $year.on 'change', ->
+  $year.on _triggerName, ->
     updateNumberOfDays()
     return
-  $month.on 'change', ->
+  $month.on _triggerName, ->
     updateNumberOfDays()
     return
 
+  ### 取得下拉選單的日期 ###
   $self.getDate = (opt) ->
     opt = opt or {}
     year = $year.val()
@@ -55,6 +57,7 @@ cf.regModule 'caroDateDropdown', (opt = {}) ->
     return null if !year or !month or !day
     year + sep + month + sep + day
 
+  ### 設置下拉選單的內容 ###
   $self.setOptions = (yearArr, monthArr, dayArr) ->
     appendOptions = ($dom, valArr) ->
       return if valArr.length < 1
@@ -75,12 +78,14 @@ cf.regModule 'caroDateDropdown', (opt = {}) ->
       appendOptions $day, dayArr
     $self
 
+  ### 設置下拉選單選取的日期 ###
   $self.setDate = (year, month, day) ->
-    $year.val(year) if year
-    $month.val(month) if month
-    $day.val(day) if day
+    $year.val(year) if year or year is ''
+    $month.val(month) if month or month is ''
+    $day.val(day) if day or day is ''
     $self
 
+  ### disable 下拉選單 ###
   $self.disableAll = ->
     $year.disable()
     $month.disable()

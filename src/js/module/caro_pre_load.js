@@ -7,6 +7,8 @@ cf.regModule('caroPreLoad', function(files, _progressFn, _completeFn) {
   $self = this;
   cf = $self.cf;
   createjs = cf.require('createjs');
+
+  /* 開始讀取檔案 */
   $self.startLoad = function(cb) {
     var queue;
     queue = new createjs.LoadQueue(false);

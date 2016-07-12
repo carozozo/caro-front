@@ -118,6 +118,8 @@ cf.regModule('caroScale', function(opt) {
     _selfInfo.newWidth = _selfInfo.width * scale;
     _selfInfo.newHeight = _selfInfo.height * scale;
   };
+
+  /* 計算並執行 scale */
   $self.updateScale = function() {
     var scaleObj;
     setTargetInfo();
@@ -138,20 +140,28 @@ cf.regModule('caroScale', function(opt) {
     tm.to($self, _duration, scaleObj);
     return $self;
   };
+
+  /* 綁定執行 scale */
   $self.bindScale = function() {
     $target.off(_triggerName).on(_triggerName, function() {
       return $self.updateScale();
     });
     return $self;
   };
+
+  /* 不綁定執行 scale */
   $self.unbindScale = function() {
     $self.off(_triggerName);
     return $self;
   };
+
+  /* 設定 scale width 起始值 */
   $self.setBasicWidth = function(width) {
     _selfInfo.width = width;
     return $self;
   };
+
+  /* 設定 scale height 起始值 */
   $self.setBasicHeight = function(height) {
     _selfInfo.height = height;
     return $self;

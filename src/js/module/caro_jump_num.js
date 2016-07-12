@@ -3,14 +3,14 @@
 cf.regModule('caroJumpNum', function() {
   var $self;
   $self = this;
-  $self.interval = function(targetNum, opt) {
 
-    /*
-     * 在指定的時間內, 數字會亂跳, 時間到會顯示目標數字
-     * targetNum: 目標數字
-     * opt.maxSecond: 跳動的總時間(1秒)
-     * opt.ms: 每幾毫秒跳一次(100毫秒)
-     */
+  /*
+  在指定的時間內, 數字會亂跳, 時間到會顯示目標數字
+  targetNum: 目標數字
+  opt.maxSecond: 跳動的總時間(1秒)
+  opt.ms: 每幾毫秒跳一次(100毫秒)
+   */
+  $self.interval = function(targetNum, opt) {
     var count, interval, maxSecond, ms, num, times;
     opt = opt || {};
     num = 0;
@@ -28,14 +28,14 @@ cf.regModule('caroJumpNum', function() {
       $self.html(num);
     }), ms);
   };
-  $self.intervalAdd = function(targetNum, opt) {
 
-    /*
-     * 在指定的時間內, 數字會亂數增加到目標數字為止
-     * targetNum: 目標數字
-     * opt.range: 跳動的數字範圍
-     * opt.ms: 每幾毫秒跳一次(100毫秒)
-     */
+  /*
+  在指定的時間內, 數字會亂數增加到目標數字為止
+  targetNum: 目標數字
+  opt.range: 跳動的數字範圍
+  opt.ms: 每幾毫秒跳一次(100毫秒)
+   */
+  $self.intervalAdd = function(targetNum, opt) {
     var interval, ms, num, range;
     opt = opt || {};
     num = 0;

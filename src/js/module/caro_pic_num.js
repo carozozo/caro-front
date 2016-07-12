@@ -37,6 +37,7 @@ cf.regModule('caroPicNum', function() {
         'margin-top': -(numHeight * eachNum)
       });
     });
+    return $self;
   };
   return $self;
 });

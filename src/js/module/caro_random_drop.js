@@ -197,10 +197,8 @@ cf.regModule('caroRandomDrop', function($imgArr, opt) {
       return createDrop();
     }, randomMs());
   };
-  $self.stopDrop = function() {
-    _isKeepDrop = false;
-    return $self;
-  };
+
+  /*  開始產生隨機物件 */
   $self.startDrop = function(nameSpace) {
     var trigger1, trigger2;
     _isKeepDrop = true;
@@ -221,6 +219,14 @@ cf.regModule('caroRandomDrop', function($imgArr, opt) {
     });
     return $self;
   };
+
+  /* 停止產生隨機物件 */
+  $self.stopDrop = function() {
+    _isKeepDrop = false;
+    return $self;
+  };
+
+  /* 當 click 時, 產生隨機物件 */
   $self.clickCreate = function($target, nameSpace) {
     var triggerName;
     if ($target == null) {
@@ -244,6 +250,8 @@ cf.regModule('caroRandomDrop', function($imgArr, opt) {
     });
     return $self;
   };
+
+  /* 當 mousemove, 產生隨機物件 */
   $self.moveCreate = function(interval, $target, nameSpace) {
     var count, triggerMoveFn, triggerName1, triggerName2;
     if (interval == null) {
