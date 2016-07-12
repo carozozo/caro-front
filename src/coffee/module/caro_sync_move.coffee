@@ -6,7 +6,6 @@ cf.regModule 'caroSyncMove', (opt = {}) ->
   $document = cf.$document
   caro = cf.require('caro')
   tm = cf.require('TweenMax')
-  moduleIndex = cf.data('caroSyncMoveIndex');
 
   ### X軸基準坐標 ###
   _baseX = if opt.baseX isnt undefined then opt.baseX else ->
@@ -29,6 +28,14 @@ cf.regModule 'caroSyncMove', (opt = {}) ->
   _befMove = opt.befMove
   ### 移動之後的 cb ###
   _aftMove = opt.aftMove
+  ### 滑鼠移動的 nameSpace 防止重複觸發 ###
+  _nameSpace = opt.nameSpace
+  _triggerName1 = 'mousemove.caroSyncMove'
+  _triggerName2 = 'touchmove.caroSyncMove'
+
+  if _nameSpace
+    _triggerName1 += '.' + _nameSpace
+    _triggerName2 += '.' + _nameSpace
 
   triggerFn = (e) ->
     targetTouches = e.originalEvent and e.originalEvent.targetTouches or [{}]
@@ -79,12 +86,11 @@ cf.regModule 'caroSyncMove', (opt = {}) ->
     tm.to($self, 1, moveObj)
     return
 
-  $document.on('mousemove.caroSyncMove.' + moduleIndex, triggerFn)
-  $document.on('touchmove.caroSyncMove.' + moduleIndex, triggerFn)
+  $document.on(_triggerName1, triggerFn)
+  $document.on(_triggerName2, triggerFn)
 
   $self.stopSyncMove = ->
-    $document.off('mousemove.caroSyncMove.' + moduleIndex)
-    $document.off('touchmove.caroSyncMove.' + moduleIndex)
+    $document.off(_triggerName1)
+    $document.off(_triggerName2)
 
-  cf.data 'caroSyncMoveIndex', moduleIndex
   $self
