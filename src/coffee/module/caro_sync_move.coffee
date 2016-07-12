@@ -28,14 +28,14 @@ cf.regModule 'caroSyncMove', (opt = {}) ->
   _befMove = opt.befMove
   ### 移動之後的 cb ###
   _aftMove = opt.aftMove
-  ### 滑鼠移動的 nameSpace 防止重複觸發 ###
-  _nameSpace = opt.nameSpace
+  ### 滑鼠移動的 name space 防止重複觸發 ###
+  _triggerName = opt.triggerName
   _triggerName1 = 'mousemove.caroSyncMove'
   _triggerName2 = 'touchmove.caroSyncMove'
 
-  if _nameSpace
-    _triggerName1 += '.' + _nameSpace
-    _triggerName2 += '.' + _nameSpace
+  if _triggerName
+    _triggerName1 += '.' + _triggerName
+    _triggerName2 += '.' + _triggerName
 
   triggerFn = (e) ->
     targetTouches = e.originalEvent and e.originalEvent.targetTouches or [{}]

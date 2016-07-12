@@ -1,7 +1,7 @@
 
 /* 計算滑鼠和基準點的距離，同步移動 DOM */
 cf.regModule('caroSyncMove', function(opt) {
-  var $document, $self, $window, _aftMove, _baseX, _baseY, _befMove, _nameSpace, _proportionX, _proportionY, _rangeX, _rangeY, _reverseX, _reverseY, _triggerName1, _triggerName2, caro, cf, tm, triggerFn;
+  var $document, $self, $window, _aftMove, _baseX, _baseY, _befMove, _proportionX, _proportionY, _rangeX, _rangeY, _reverseX, _reverseY, _triggerName, _triggerName1, _triggerName2, caro, cf, tm, triggerFn;
   if (opt == null) {
     opt = {};
   }
@@ -44,13 +44,13 @@ cf.regModule('caroSyncMove', function(opt) {
   /* 移動之後的 cb */
   _aftMove = opt.aftMove;
 
-  /* 滑鼠移動的 nameSpace 防止重複觸發 */
-  _nameSpace = opt.nameSpace;
+  /* 滑鼠移動的 name space 防止重複觸發 */
+  _triggerName = opt.triggerName;
   _triggerName1 = 'mousemove.caroSyncMove';
   _triggerName2 = 'touchmove.caroSyncMove';
-  if (_nameSpace) {
-    _triggerName1 += '.' + _nameSpace;
-    _triggerName2 += '.' + _nameSpace;
+  if (_triggerName) {
+    _triggerName1 += '.' + _triggerName;
+    _triggerName2 += '.' + _triggerName;
   }
   triggerFn = function(e) {
     var baseX, baseY, infoObj, mouseX, mouseY, moveObj, moveX, moveY, targetMoveX, targetMoveY, targetTouches;
