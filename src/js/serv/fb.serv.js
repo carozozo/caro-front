@@ -1,7 +1,7 @@
 
 /* 客製化 facebook api 呼叫程式 */
 cf.regServ('fb', function(cf) {
-  var _appId, _authResponse, _cfg, _initCbMap, _isReady, _isUserConnected, _redirectAfterLogin, _shareUrl, _trace, caro, genApiObj, getFbLoginUrl, getFbResErrObj, getPermissions, init, initLoginResponseAncCallCb, runFb, self, window;
+  var _appId, _authResponse, _cfg, _initCbMap, _isReady, _isUserConnected, _redirectAfterLogin, _shareUrl, _trace, caro, genApiObj, getFbLoginUrl, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
   self = {};
   caro = cf.require('caro');
   window = cf.require('window');
@@ -66,6 +66,8 @@ cf.regServ('fb', function(cf) {
     }
     return null;
   };
+
+  /* 判斷 login 狀況並呼叫相關 cb */
   initLoginResponseAncCallCb = function(res, sucCb, errCb) {
     var resErrObj, status;
     _trace('Login response =', res);
@@ -105,10 +107,8 @@ cf.regServ('fb', function(cf) {
     urlArr.push('&redirect_uri=' + pageAfterLogin);
     return urlArr.join('');
   };
-  getPermissions = function() {
-    _trace('Start getPermissions');
-    FB.api('/me/permissions', function(res) {});
-  };
+
+  /* 註冊, 當 FB init 完成後要執行的 cb */
   self.regInitCb = function(name, cb) {
     if (!_initCbMap[name]) {
       _initCbMap[name] = cb;
@@ -117,12 +117,18 @@ cf.regServ('fb', function(cf) {
       _trace('Init callback: ' + name + ' is duplicate');
     }
   };
+
+  /* 判斷 FB 是否 ready */
   self.isReady = function() {
     return _isReady;
   };
+
+  /* 取得 FB APP id */
   self.getAppId = function() {
     return _appId;
   };
+
+  /* 取得 user id */
   self.getUserId = function() {
     var userId;
     _trace('Start getUserId');
@@ -132,6 +138,8 @@ cf.regServ('fb', function(cf) {
     }
     return null;
   };
+
+  /* 取得 user token */
   self.getAccessToken = function() {
     var accessToken;
     _trace('Start getAccessToken');
@@ -141,6 +149,8 @@ cf.regServ('fb', function(cf) {
     }
     return null;
   };
+
+  /* 取得登入狀態 */
   self.getLoginStatus = function(cb) {
     _trace('Start getLoginStatus');
     runFb(function() {
@@ -150,6 +160,8 @@ cf.regServ('fb', function(cf) {
       });
     });
   };
+
+  /* 登入 */
   self.login = function(opt) {
     _trace('Start login');
     return runFb(function(apiObj) {
@@ -176,6 +188,8 @@ cf.regServ('fb', function(cf) {
       }), opt);
     });
   };
+
+  /* 登出 */
   self.logout = function() {
     _trace('Start logout');
     return runFb(function(apiObj) {
@@ -184,6 +198,8 @@ cf.regServ('fb', function(cf) {
       });
     });
   };
+
+  /* 取得 user 資料 */
   self.getProfile = function(fieldArr) {
 
     /* https://developers.facebook.com/docs/graph-api/reference/user */
@@ -205,6 +221,8 @@ cf.regServ('fb', function(cf) {
       });
     });
   };
+
+  /* 分享內容 */
   self.feed = function(opt) {
 
     /* https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.5 */
@@ -235,6 +253,8 @@ cf.regServ('fb', function(cf) {
       });
     });
   };
+
+  /* 當 FB 的 script 被置入後, 會呼叫此程式 */
   window.fbAsyncInit = function() {
     init();
     self.getLoginStatus();

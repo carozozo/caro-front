@@ -77,23 +77,31 @@ cf.regServ('router', function(cf) {
       }), obj);
       return obj;
     };
+
+    /* 從 hash 取得目前頁面名稱 */
     self.getPageByHash = function(hash) {
       if (hash) {
         return parseUrlHashToObj(hash).page;
       }
       return parseUrlHashToObj(location.hash).page;
     };
+
+    /* 從 hash 取得 search param */
     self.getSearchByHash = function(hash) {
       if (hash) {
         return parseUrlHashToObj(hash).search;
       }
       return parseUrlHashToObj(location.hash).search;
     };
+
+    /* 從 hash 取得 search param 並轉換成物件 */
     self.parseUrlSearch = function(hash) {
       var search;
       search = self.getSearchByHash(hash);
       return parseSearchToObj(search);
     };
+
+    /* 首頁網址 */
     self.indexUrl = (function() {
       var pathnameArr;
       pathnameArr = location.pathname.split('/');
@@ -154,6 +162,8 @@ cf.regServ('router', function(cf) {
         self.goPage('index');
       });
     };
+
+    /* 換頁, 不指定頁面時會依 url hash 判斷 */
     self.goPage = function(hashName) {
       var pageName, search;
       pageName = self.getPageByHash(hashName) || 'index';
@@ -170,9 +180,13 @@ cf.regServ('router', function(cf) {
       window.location.hash = pageName + search;
       getBodyContent(pageName);
     };
+
+    /* 阻止換頁, 執行後, router.goPage 不會被觸發 */
     self.blockGoPage = function() {
       return _isGoPage = false;
     };
+
+    /* 允許換頁, 執行後, router.goPage 可以被觸發 */
     self.approveGoPage = function() {
       return _isGoPage = true;
     };

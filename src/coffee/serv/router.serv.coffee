@@ -60,18 +60,22 @@ cf.regServ 'router', (cf) ->
       ), obj
       obj
 
+    ### 從 hash 取得目前頁面名稱 ###
     self.getPageByHash = (hash) ->
       return parseUrlHashToObj(hash).page if hash
       parseUrlHashToObj(location.hash).page
 
+    ### 從 hash 取得 search param ###
     self.getSearchByHash = (hash) ->
       return parseUrlHashToObj(hash).search if hash
       parseUrlHashToObj(location.hash).search
 
+    ### 從 hash 取得 search param 並轉換成物件 ###
     self.parseUrlSearch = (hash) ->
       search = self.getSearchByHash(hash)
       parseSearchToObj search
 
+    ### 首頁網址 ###
     self.indexUrl = do ->
       pathnameArr = location.pathname.split('/')
       pathnameArr.pop()
@@ -131,6 +135,7 @@ cf.regServ 'router', (cf) ->
         return
       return
 
+    ### 換頁, 不指定頁面時會依 url hash 判斷 ###
     self.goPage = (hashName) ->
       pageName = self.getPageByHash(hashName) or 'index'
       search = self.getSearchByHash(hashName)
@@ -144,9 +149,11 @@ cf.regServ 'router', (cf) ->
       getBodyContent pageName
       return
 
+    ### 阻止換頁, 執行後, router.goPage 不會被觸發 ###
     self.blockGoPage = ->
       _isGoPage = false
 
+    ### 允許換頁, 執行後, router.goPage 可以被觸發 ###
     self.approveGoPage = ->
       _isGoPage = true
 

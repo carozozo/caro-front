@@ -9,6 +9,8 @@ cf.regServ('routeAnimate', function(cf) {
   tm = cf.require('TweenMax');
   tl = cf.require('TimelineMax');
   _router = cf.router;
+
+  /* 當下頁面往左邊出場, 下個頁面入場 */
   self.left = function(opt) {
     if (opt == null) {
       opt = {};
@@ -33,6 +35,8 @@ cf.regServ('routeAnimate', function(cf) {
       });
     };
   };
+
+  /* 當下頁面往右邊出場, 下個頁面入場 */
   self.right = function(opt) {
     if (opt == null) {
       opt = {};
@@ -57,6 +61,8 @@ cf.regServ('routeAnimate', function(cf) {
       });
     };
   };
+
+  /* 縮放入場效果 */
   self.scale = function(opt) {
     if (opt == null) {
       opt = {};
@@ -85,6 +91,8 @@ cf.regServ('routeAnimate', function(cf) {
       }, '-=' + duration / 2);
     };
   };
+
+  /* fade 入場效果 */
   self.fade = function(opt) {
     if (opt == null) {
       opt = {};
@@ -111,6 +119,8 @@ cf.regServ('routeAnimate', function(cf) {
       });
     };
   };
+
+  /* 3D Y 軸旋轉效果 */
   self.rotateY = function(opt) {
     if (opt == null) {
       opt = {};

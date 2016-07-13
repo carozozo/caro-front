@@ -8,6 +8,7 @@ cf.regServ 'routeAnimate', (cf) ->
   tl = cf.require('TimelineMax')
   _router = cf.router
 
+  ### 當下頁面往左邊出場, 下個頁面入場 ###
   self.left = (opt = {}) ->
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
@@ -19,7 +20,7 @@ cf.regServ 'routeAnimate', (cf) ->
           _router.approveGoPage()
           done()
       })
-
+  ### 當下頁面往右邊出場, 下個頁面入場 ###
   self.right = (opt = {}) ->
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
@@ -31,7 +32,7 @@ cf.regServ 'routeAnimate', (cf) ->
           _router.approveGoPage()
           done()
       })
-
+  ### 縮放入場效果 ###
   self.scale = (opt = {}) ->
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
@@ -47,7 +48,7 @@ cf.regServ 'routeAnimate', (cf) ->
           _router.approveGoPage()
           done()
       }, '-=' + duration / 2)
-
+  ### fade 入場效果 ###
   self.fade = (opt = {}) ->
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
@@ -61,7 +62,7 @@ cf.regServ 'routeAnimate', (cf) ->
           _router.approveGoPage()
           done()
       })
-
+  ### 3D Y 軸旋轉效果 ###
   self.rotateY = (opt = {}) ->
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
