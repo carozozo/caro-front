@@ -7,10 +7,11 @@ cf.regServ 'unit', (cf) ->
   _trace = cf.genTraceFn('unit')
   #  _trace.startTrace()
 
-  do cookie = ->
+  ### Cookie 相關 ###
+  do ->
     genCookieName = (name) ->
       'TheIndex_' + name
-
+    ### 設置 cookie ###
     self.setCookie = (cookieName, val, exdays) ->
       if caro.isUndefined(val)
         _trace.err('Can not set undefined to cookie:', cookieName)
@@ -29,7 +30,7 @@ cf.regServ 'unit', (cf) ->
       cookieStrArr.push path
       window.document.cookie = cookieStrArr.join('; ')
       return
-
+    ### 取得 cookie ###
     self.getCookie = (name) ->
       cookieArr = window.document.cookie.split(';')
       ret = ''
@@ -43,29 +44,30 @@ cf.regServ 'unit', (cf) ->
       ret
     return
 
-  do unit = ->
+  ### Unit 相關 ###
+  do ->
+    ### 取得圖片真實大小 ###
     self.getImgSize = ($img, cb) ->
-      ### 取得圖片真實大小 ###
       $('<img/>').attr('src', $img.attr('src')).load ->
         cb width: @width height: @height
         return
       return
-
+    ### 轉換成 array ###
     self.coverArrIfNot = (arr) ->
       if caro.isArray(arr) then arr else [arr]
     return
 
-  do dom = ->
+  ### DOM 相關 ###
+  do ->
+    ### 是否為 jQuery 物件 ###
     self.ifJquery = (tar) ->
-      ### 是否為 jQuery 物件 ###
       tar instanceof jQuery
-
+    ###
+    轉換成 dom list
+    e.g. $('#dom') => [$('#dom')]
+    e.g. $('.domList') => [$dom1, $dom2....]
+    ###
     self.coverDomList = ($domList, cb) ->
-      ###
-      # 轉換成 dom list
-      # e.g. $('#dom') => [$('#dom')]
-      # e.g. $('.domList') => [$dom1, $dom2....]
-      ###
       $list = []
       caro.reduce $domList, (($list, $dom, i) ->
         $dom = if self.ifJquery($dom) then $dom else $($dom)
@@ -74,9 +76,8 @@ cf.regServ 'unit', (cf) ->
         $list
       ), $list
       $list
-
+    ### 轉換圖片路徑 ###
     self.replaceImgPath = ($target) ->
-      ### 轉換圖片路徑 ###
       hasHttp = (str) ->
         index = str.indexOf('http://')
         index2 = str.indexOf('https://')
@@ -85,12 +86,12 @@ cf.regServ 'unit', (cf) ->
         null
       $target.find('*').each((i, $dom) ->
         $dom = $($dom)
-        # 置換圖片路徑
+        ### 置換圖片路徑 ###
         src = $dom.attr('src')
         if src and src.indexOf('images/') > -1
           src = src.replace('images/', '')
           $dom.attr('src', cf.website.getImgUrl(src))
-        # 置換背景圖片路徑
+        ### 置換背景圖片路徑 ###
         background = $dom.css('background')
         backgroundImage = $dom.css('background-image')
         if background

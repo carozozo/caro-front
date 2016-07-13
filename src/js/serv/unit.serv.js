@@ -1,17 +1,21 @@
 
 /* 一些單元程式 */
 cf.regServ('unit', function(cf) {
-  var $, _trace, caro, cookie, dom, self, unit, window;
+  var $, _trace, caro, self, window;
   self = {};
   caro = cf.require('caro');
   window = cf.require('window');
   $ = cf.require('$');
   _trace = cf.genTraceFn('unit');
-  (cookie = function() {
+
+  /* Cookie 相關 */
+  (function() {
     var genCookieName;
     genCookieName = function(name) {
       return 'TheIndex_' + name;
     };
+
+    /* 設置 cookie */
     self.setCookie = function(cookieName, val, exdays) {
       var cookieStrArr, expires, path;
       if (caro.isUndefined(val)) {
@@ -34,6 +38,8 @@ cf.regServ('unit', function(cf) {
       cookieStrArr.push(path);
       window.document.cookie = cookieStrArr.join('; ');
     };
+
+    /* 取得 cookie */
     self.getCookie = function(name) {
       var cookieArr, ret;
       cookieArr = window.document.cookie.split(';');
@@ -50,10 +56,12 @@ cf.regServ('unit', function(cf) {
       return ret;
     };
   })();
-  (unit = function() {
-    self.getImgSize = function($img, cb) {
 
-      /* 取得圖片真實大小 */
+  /* Unit 相關 */
+  (function() {
+
+    /* 取得圖片真實大小 */
+    self.getImgSize = function($img, cb) {
       $('<img/>').attr('src', $img.attr('src')).load(function() {
         cb({
           width: this.width({
@@ -62,6 +70,8 @@ cf.regServ('unit', function(cf) {
         });
       });
     };
+
+    /* 轉換成 array */
     self.coverArrIfNot = function(arr) {
       if (caro.isArray(arr)) {
         return arr;
@@ -70,19 +80,21 @@ cf.regServ('unit', function(cf) {
       }
     };
   })();
-  (dom = function() {
-    self.ifJquery = function(tar) {
 
-      /* 是否為 jQuery 物件 */
+  /* DOM 相關 */
+  (function() {
+
+    /* 是否為 jQuery 物件 */
+    self.ifJquery = function(tar) {
       return tar instanceof jQuery;
     };
-    self.coverDomList = function($domList, cb) {
 
-      /*
-       * 轉換成 dom list
-       * e.g. $('#dom') => [$('#dom')]
-       * e.g. $('.domList') => [$dom1, $dom2....]
-       */
+    /*
+    轉換成 dom list
+    e.g. $('#dom') => [$('#dom')]
+    e.g. $('.domList') => [$dom1, $dom2....]
+     */
+    self.coverDomList = function($domList, cb) {
       var $list;
       $list = [];
       caro.reduce($domList, (function($list, $dom, i) {
@@ -93,9 +105,9 @@ cf.regServ('unit', function(cf) {
       }), $list);
       return $list;
     };
-    self.replaceImgPath = function($target) {
 
-      /* 轉換圖片路徑 */
+    /* 轉換圖片路徑 */
+    self.replaceImgPath = function($target) {
       var hasHttp;
       hasHttp = function(str) {
         var index, index2;
@@ -112,11 +124,15 @@ cf.regServ('unit', function(cf) {
       $target.find('*').each(function(i, $dom) {
         var background, backgroundImage, img, index, src, url;
         $dom = $($dom);
+
+        /* 置換圖片路徑 */
         src = $dom.attr('src');
         if (src && src.indexOf('images/') > -1) {
           src = src.replace('images/', '');
           $dom.attr('src', cf.website.getImgUrl(src));
         }
+
+        /* 置換背景圖片路徑 */
         background = $dom.css('background');
         backgroundImage = $dom.css('background-image');
         if (background) {

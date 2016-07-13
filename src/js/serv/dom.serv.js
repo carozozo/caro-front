@@ -8,6 +8,8 @@ cf.regServ('dom', function(cf) {
   $ = cf.require('$');
   _trace = cf.genTraceFn('dom');
   _trace.startTrace();
+
+  /* jQuery.find 進階版, 取得的 DOM 會賦予 self 的所有程式 */
   $.fn.dom = function(selector, cb) {
     var $dom;
     $dom = this.find(selector);
@@ -21,9 +23,9 @@ cf.regServ('dom', function(cf) {
     cb && cb($dom);
     return $dom;
   };
-  (function() {
 
-    /* 屬性相關 */
+  /* 屬性相關 */
+  (function() {
 
     /* 設置/取得 id */
     self.id = function(id) {
@@ -127,9 +129,11 @@ cf.regServ('dom', function(cf) {
       return this.is(':checked');
     };
   })();
+
+  /* css 相關 */
   (function() {
 
-    /* css 相關 */
+    /* 取得 css 設置的 top/left/right/bottom...等距離 */
     self.getCssDistance = function(cssType) {
       var px;
       px = this.css(cssType);
@@ -177,9 +181,9 @@ cf.regServ('dom', function(cf) {
       });
     };
   })();
-  (function($) {
 
-    /* UI 操作 */
+  /* UI 操作 */
+  (function($) {
 
     /* 觸發 blur 後, 將裡面的值轉大寫 */
     self.blurUpperCase = function(nameSpace) {
@@ -241,6 +245,8 @@ cf.regServ('dom', function(cf) {
       });
     };
   })($);
+
+  /* Unit 相關 */
   (function($) {
 
     /* trace 用, 計算本身數量 */

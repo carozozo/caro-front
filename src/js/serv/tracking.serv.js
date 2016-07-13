@@ -56,6 +56,8 @@ cf.regServ('tracking', function(cf) {
     _trackedLabel = label;
     return true;
   };
+
+  /* 發送 page view */
   self.page = (function() {
     var fn;
     switch (_type) {
@@ -94,6 +96,8 @@ cf.regServ('tracking', function(cf) {
     }
     return fn;
   })();
+
+  /* 發送 event */
   self.event = (function() {
     var fn;
     switch (_type) {

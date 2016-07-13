@@ -7,6 +7,7 @@ cf.regServ 'dom', (cf) ->
   _trace = cf.genTraceFn('dom')
   _trace.startTrace()
 
+  ### jQuery.find 進階版, 取得的 DOM 會賦予 self 的所有程式 ###
   $.fn.dom = (selector, cb) ->
     $dom = @find(selector)
     if $dom.length < 1
@@ -17,8 +18,8 @@ cf.regServ 'dom', (cf) ->
     cb and cb($dom)
     $dom
 
+  ### 屬性相關 ###
   do ->
-    ### 屬性相關 ###
     ### 設置/取得 id ###
     self.id = (id) ->
       if id isnt undefined
@@ -87,8 +88,9 @@ cf.regServ 'dom', (cf) ->
 
     return
 
+  ### css 相關 ###
   do ->
-    ### css 相關 ###
+    ### 取得 css 設置的 top/left/right/bottom...等距離 ###
     self.getCssDistance = (cssType) ->
       px = @css(cssType)
       parseInt px.replace('px')
@@ -99,7 +101,6 @@ cf.regServ 'dom', (cf) ->
       marginStr += direction if direction
       margin = @css(marginStr)
       parseInt margin.replace('px')
-
     ### 改變 dom 的基準點到自己本身的中心點 ###
     self.marginSelfToCenter = (direction) ->
       width = @width()
@@ -113,7 +114,6 @@ cf.regServ 'dom', (cf) ->
           'margin-left': -(width / 2)
           'margin-top': -(height / 2)
       @
-
     ### 設置滑鼠指標 ###
     self.setCursor = (cursor) ->
       cursor = cursor or 'pointer'
@@ -121,8 +121,8 @@ cf.regServ 'dom', (cf) ->
 
     return
 
+  ### UI 操作 ###
   do($) ->
-    ### UI 操作 ###
     ### 觸發 blur 後, 將裡面的值轉大寫 ###
     self.blurUpperCase = (nameSpace) ->
       triggerName = 'blur'
@@ -144,7 +144,6 @@ cf.regServ 'dom', (cf) ->
       triggerName = 'click'
       triggerName += '.' + nameSpace if nameSpace
       @setCursor().on(triggerName, fn)
-
     ### 整合 mouseenter, mouseleave 方便使用版 ###
     self.onEnterAndLeave = (fn1, fn2, nameSpace) ->
       triggerName1 = 'mouseenter'
@@ -153,7 +152,6 @@ cf.regServ 'dom', (cf) ->
         triggerName1 += '.' + nameSpace
         triggerName2 += '.' + nameSpace
       @on(triggerName1, fn1).on(triggerName2, fn2)
-
     ### 按下 Enter 鍵後觸發的 trigger ###
     self.onPressEnter = (fn, nameSpace) ->
       triggerName = 'keyup'
@@ -164,6 +162,7 @@ cf.regServ 'dom', (cf) ->
 
     return
 
+  ### Unit 相關 ###
   do($) ->
     ### trace 用, 計算本身數量 ###
     self.countSelf = (msg) ->

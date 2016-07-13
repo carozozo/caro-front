@@ -3,35 +3,30 @@ cf.regServ 'website', (cf) ->
   self = {}
   caro = cf.require('caro')
   window = cf.require('window')
-  location = window.location
+  location = cf.require('location')
   _cfg = cf.config('website')
 
-  ### url 相關 ###
-  do(_cfg) ->
-    self.getImgUrl = (imgFileName = '') ->
-      imgUrl = _cfg.imgUrl or 'images/'
-      imgFileName = imgFileName.replace('/', '') if imgFileName.indexOf('/') is 0
-      imgUrl + imgFileName.replace('images/', '')
+  ### 取得 images 路徑 ###
+  self.getImgUrl = (imgFileName = '') ->
+    imgUrl = _cfg.imgUrl or 'images/'
+    imgFileName = imgFileName.replace('/', '') if imgFileName.indexOf('/') is 0
+    imgUrl + imgFileName.replace('images/', '')
 
-    return
-
-  ### window 相關 ###
-  do(window) ->
-    self.open = (url, specs, replace, msg) ->
-      pop = null
-      if(specs and replace)
-        pop = window.open(url, specs, replace)
-      else if(specs)
-        pop = window.open(url, specs)
-      else
-        pop = window.open(url)
-      setTimeout(->
-        if !pop or pop.outerHeight is 0
-          msg = msg or '您的瀏覽器已封鎖彈出視窗'
-          return cf.alert(msg) if cf.alert
-          alert(msg)
-      , 25)
-    return
+  ### window.open 進階版 ###
+  self.open = (url, specs, replace, msg) ->
+    pop = null
+    if(specs and replace)
+      pop = window.open(url, specs, replace)
+    else if(specs)
+      pop = window.open(url, specs)
+    else
+      pop = window.open(url)
+    setTimeout(->
+      if !pop or pop.outerHeight is 0
+        msg = msg or '您的瀏覽器已封鎖彈出視窗'
+        return cf.alert(msg) if cf.alert
+        alert(msg)
+    , 25)
 
   ### init ###
   do(_cfg, location) ->

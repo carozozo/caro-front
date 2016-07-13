@@ -5,47 +5,43 @@ cf.regServ('website', function(cf) {
   self = {};
   caro = cf.require('caro');
   window = cf.require('window');
-  location = window.location;
+  location = cf.require('location');
   _cfg = cf.config('website');
 
-  /* url 相關 */
-  (function(_cfg) {
-    self.getImgUrl = function(imgFileName) {
-      var imgUrl;
-      if (imgFileName == null) {
-        imgFileName = '';
-      }
-      imgUrl = _cfg.imgUrl || 'images/';
-      if (imgFileName.indexOf('/') === 0) {
-        imgFileName = imgFileName.replace('/', '');
-      }
-      return imgUrl + imgFileName.replace('images/', '');
-    };
-  })(_cfg);
+  /* 取得 images 路徑 */
+  self.getImgUrl = function(imgFileName) {
+    var imgUrl;
+    if (imgFileName == null) {
+      imgFileName = '';
+    }
+    imgUrl = _cfg.imgUrl || 'images/';
+    if (imgFileName.indexOf('/') === 0) {
+      imgFileName = imgFileName.replace('/', '');
+    }
+    return imgUrl + imgFileName.replace('images/', '');
+  };
 
-  /* window 相關 */
-  (function(window) {
-    self.open = function(url, specs, replace, msg) {
-      var pop;
-      pop = null;
-      if (specs && replace) {
-        pop = window.open(url, specs, replace);
-      } else if (specs) {
-        pop = window.open(url, specs);
-      } else {
-        pop = window.open(url);
-      }
-      return setTimeout(function() {
-        if (!pop || pop.outerHeight === 0) {
-          msg = msg || '您的瀏覽器已封鎖彈出視窗';
-          if (cf.alert) {
-            return cf.alert(msg);
-          }
-          return alert(msg);
+  /* window.open 進階版 */
+  self.open = function(url, specs, replace, msg) {
+    var pop;
+    pop = null;
+    if (specs && replace) {
+      pop = window.open(url, specs, replace);
+    } else if (specs) {
+      pop = window.open(url, specs);
+    } else {
+      pop = window.open(url);
+    }
+    return setTimeout(function() {
+      if (!pop || pop.outerHeight === 0) {
+        msg = msg || '您的瀏覽器已封鎖彈出視窗';
+        if (cf.alert) {
+          return cf.alert(msg);
         }
-      }, 25);
-    };
-  })(window);
+        return alert(msg);
+      }
+    }, 25);
+  };
 
   /* init */
   (function(_cfg, location) {

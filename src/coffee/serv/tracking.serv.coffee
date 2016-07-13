@@ -45,6 +45,7 @@ cf.regServ 'tracking', (cf) ->
     _trackedLabel = label
     true
 
+  ### 發送 page view ###
   self.page = do ->
     switch _type
       when 1
@@ -68,6 +69,7 @@ cf.regServ 'tracking', (cf) ->
         fn = (pageName) -> _trace '[No tracking] PageView:', pageName
     fn
 
+  ### 發送 event ###
   self.event = do ->
     switch _type
       when 1
