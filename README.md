@@ -72,7 +72,7 @@
 - $window : 同 $(window) 
 - $document : 同 $(document) 
 - $body: 同 $(‘body’)
-- $ctrl: 儲存 controller DOM 物件
+- $ctrl: 儲存呼叫 controller 後產生的 DOM 物件
 - $module: 儲存 module DOM 物件 
 - _docReady : 儲存 document ready 後要觸發的 functions
 - _ctrl : 儲存 controller functions
