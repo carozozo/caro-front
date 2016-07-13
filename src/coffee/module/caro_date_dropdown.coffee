@@ -22,7 +22,6 @@ cf.regModule 'caroDateDropdown', (opt = {}) ->
     caro.loop((i) ->
       $month.append $('<option />').val(i).html(i)
     , 1, 12)
-    console.log 123
     return
 
   updateNumberOfDays = ->

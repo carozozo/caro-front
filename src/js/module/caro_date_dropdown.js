@@ -26,7 +26,6 @@ cf.regModule('caroDateDropdown', function(opt) {
     caro.loop(function(i) {
       return $month.append($('<option />').val(i).html(i));
     }, 1, 12);
-    console.log(123);
   };
   updateNumberOfDays = function() {
     var days, month, year;

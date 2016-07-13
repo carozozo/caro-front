@@ -460,7 +460,6 @@ cf.regModule 'caroAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
       islandAreaArr = _islandMap[city]
       return unless islandAreaArr
       _addrMap[city] = (_addrMap[city] or []).concat(islandAreaArr)
-      console.log '_addrMap[city] =', _addrMap[city]
     )
   $cityDom.html('').append(createDropdown(cityText, cityVal))
   $areaDom.html('').append(createDropdown(areaText, areaVal))

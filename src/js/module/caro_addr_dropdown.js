@@ -76,8 +76,7 @@ cf.regModule('caroAddrDropdown', function($cityDom, $areaDom, opt) {
       if (!islandAreaArr) {
         return;
       }
-      _addrMap[city] = (_addrMap[city] || []).concat(islandAreaArr);
-      return console.log('_addrMap[city] =', _addrMap[city]);
+      return _addrMap[city] = (_addrMap[city] || []).concat(islandAreaArr);
     });
   }
   $cityDom.html('').append(createDropdown(cityText, cityVal));
