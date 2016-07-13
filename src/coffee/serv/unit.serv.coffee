@@ -46,6 +46,22 @@ cf.regServ 'unit', (cf) ->
 
   ### Unit 相關 ###
   do ->
+    ### window.open 進階版 ###
+    self.open = (url, specs, replace, msg) ->
+      pop = null
+      if(specs and replace)
+        pop = window.open(url, specs, replace)
+      else if(specs)
+        pop = window.open(url, specs)
+      else
+        pop = window.open(url)
+      setTimeout(->
+        if !pop or pop.outerHeight is 0
+          msg = msg or '您的瀏覽器已封鎖彈出視窗'
+          return cf.alert(msg) if cf.alert
+          alert(msg)
+      , 25)
+      return
     ### 取得圖片真實大小 ###
     self.getImgSize = ($img, cb) ->
       $('<img/>').attr('src', $img.attr('src')).load ->

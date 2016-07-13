@@ -60,6 +60,28 @@ cf.regServ('unit', function(cf) {
   /* Unit 相關 */
   (function() {
 
+    /* window.open 進階版 */
+    self.open = function(url, specs, replace, msg) {
+      var pop;
+      pop = null;
+      if (specs && replace) {
+        pop = window.open(url, specs, replace);
+      } else if (specs) {
+        pop = window.open(url, specs);
+      } else {
+        pop = window.open(url);
+      }
+      setTimeout(function() {
+        if (!pop || pop.outerHeight === 0) {
+          msg = msg || '您的瀏覽器已封鎖彈出視窗';
+          if (cf.alert) {
+            return cf.alert(msg);
+          }
+          return alert(msg);
+        }
+      }, 25);
+    };
+
     /* 取得圖片真實大小 */
     self.getImgSize = function($img, cb) {
       $('<img/>').attr('src', $img.attr('src')).load(function() {

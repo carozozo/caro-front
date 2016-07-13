@@ -21,28 +21,6 @@ cf.regServ('website', function(cf) {
     return imgUrl + imgFileName.replace('images/', '');
   };
 
-  /* window.open 進階版 */
-  self.open = function(url, specs, replace, msg) {
-    var pop;
-    pop = null;
-    if (specs && replace) {
-      pop = window.open(url, specs, replace);
-    } else if (specs) {
-      pop = window.open(url, specs);
-    } else {
-      pop = window.open(url);
-    }
-    return setTimeout(function() {
-      if (!pop || pop.outerHeight === 0) {
-        msg = msg || '您的瀏覽器已封鎖彈出視窗';
-        if (cf.alert) {
-          return cf.alert(msg);
-        }
-        return alert(msg);
-      }
-    }, 25);
-  };
-
   /* init */
   (function(_cfg, location) {
     var redirectPhone;
