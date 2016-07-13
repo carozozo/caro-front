@@ -1,6 +1,6 @@
 
 /* 客製化頁面跳轉效果 */
-cf.regServ('routeAnimate', function(cf) {
+cf.regLib('routeAnimate', function(cf) {
   var _router, self, tl, tm;
   self = {
     routeType: '',

@@ -1,5 +1,5 @@
 ### 一些單元程式 ###
-cf.regServ 'unit', (cf) ->
+cf.regLib 'unit', (cf) ->
   self = {}
   caro = cf.require('caro')
   window = cf.require('window')

@@ -1,5 +1,5 @@
 ### 自定義 api ###
-cf.regServ 'api', (cf) ->
+cf.regLib 'api', (cf) ->
   self = {}
   _ajax = cf.ajax
 

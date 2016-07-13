@@ -1,6 +1,6 @@
 
 /* 一些單元程式 */
-cf.regServ('unit', function(cf) {
+cf.regLib('unit', function(cf) {
   var $, _trace, caro, self, window;
   self = {};
   caro = cf.require('caro');

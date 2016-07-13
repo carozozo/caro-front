@@ -1,6 +1,6 @@
 
 /* DOM 選取器, 支援一些方便的程式 */
-cf.regServ('dom', function(cf) {
+cf.regLib('dom', function(cf) {
   var $, _trace, caro, self, window;
   self = {};
   caro = cf.require('caro');

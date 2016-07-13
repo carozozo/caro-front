@@ -1,5 +1,5 @@
 ### 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式 ###
-cf.regServ 'ajax', (cf) ->
+cf.regLib 'ajax', (cf) ->
   self = {}
   $ = cf.require('$')
   caro = cf.require('caro')

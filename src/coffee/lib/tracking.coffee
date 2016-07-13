@@ -1,5 +1,5 @@
 ### 客製化的 tracking for GA and GTM ###
-cf.regServ 'tracking', (cf) ->
+cf.regLib 'tracking', (cf) ->
   ### https://analytics.google.com/analytics/web/ ###
   ### https://tagmanager.google.com/ ###
   self = {}

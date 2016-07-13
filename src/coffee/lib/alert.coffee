@@ -1,5 +1,5 @@
 ### 客製化的 alert, 用來取代 js 原生 alert, 防止被 browser 阻擋 ###
-cf.regServ 'alert', (cf) ->
+cf.regLib 'alert', (cf) ->
   self = (msg) ->
     $ = cf.require '$'
     zIndex = 9999999

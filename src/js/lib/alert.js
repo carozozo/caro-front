@@ -1,6 +1,6 @@
 
 /* 客製化的 alert, 用來取代 js 原生 alert, 防止被 browser 阻擋 */
-cf.regServ('alert', function(cf) {
+cf.regLib('alert', function(cf) {
   var self;
   self = function(msg) {
     var $, $background, $box, $msg, $okBtn, zIndex;

@@ -1,5 +1,5 @@
 ### DOM 選取器, 支援一些方便的程式 ###
-cf.regServ 'dom', (cf) ->
+cf.regLib 'dom', (cf) ->
   self = {}
   caro = cf.require('caro')
   window = cf.require('window')

@@ -1,5 +1,5 @@
 ### 客製化頁面跳轉效果 ###
-cf.regServ 'routeAnimate', (cf) ->
+cf.regLib 'routeAnimate', (cf) ->
   self = {
     routeType: ''
     routeOpt: ''

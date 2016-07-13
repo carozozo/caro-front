@@ -102,6 +102,8 @@ do(window, $, caro, MobileDetect) ->
       return
 
     ### 註冊 library ###
+    self.regLib = caro.partial(regAppObj, 'lib')
+    ### 註冊 service ###
     self.regServ = caro.partial(regAppObj, 'serv')
     return
 
@@ -140,7 +142,7 @@ do(window, $, caro, MobileDetect) ->
         _trace.err type, name, 'is duplicate'
       return
 
-    ### 註冊 ctrl ###
+    ### 註冊 controller ###
     self.regCtrl = caro.partial(reg, 'ctrl')
     ### 註冊 module ###
     self.regModule = caro.partial(reg, 'module')

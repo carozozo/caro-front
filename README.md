@@ -129,7 +129,17 @@ var err = 'error'
 // 同等於 console.error('CARO:', 'This is test', err)
 trace.err('This is test', err);
 ```
-- regServ(註冊名稱, fn) : 註冊函式 庫
+- regLib(註冊名稱, fn) : 註冊函式 庫
+```
+// 會產生 cf.test.get cf.test.set 函式 
+cf.regLib('test', function(cf) {
+  var self = {}
+  self.get = function(){...}
+  self.set = function(){...}
+  return self;
+});
+```
+- regServ(註冊名稱, fn) : 註冊 service 函式 庫
 ```
 // 會產生 cf.testServ.get cf.testServ.set 函式 
 cf.regServ('testServ', function(cf) {
@@ -205,15 +215,12 @@ var theKey = cf.config('theKey');
 - blockGoPage() : 呼叫後, 執行 router.goPage 不會換頁
 - approveGoPage() : 呼叫後, 所有的 router.goPage 可以換頁  
 
-## lib / serv
-### 說明   
+## lib / serv 函式庫差別
 差別只在於作用域不同   
-lib 專用於 caro-front, serv 適用於專案開發
+lib 應用於特定功能, serv 應用於 page 間的邏輯處理 
 
-## module / ctrl 模組介紹
-### 說明
- 用法類似 jQuery plugin   
- module and ctrl 差別只在於作用域不同   
+## module / ctrl 模組差別
+ 用法類似 jQuery plugin, 差別只在於作用域不同   
  module 適用所有專案, ctrl 為專案客製化功能 
 
 ### module 介紹

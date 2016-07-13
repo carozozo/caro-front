@@ -1,5 +1,5 @@
 ### 客製化 facebook api 呼叫程式 ###
-cf.regServ 'fb', (cf) ->
+cf.regLib 'fb', (cf) ->
   self = {}
   caro = cf.require('caro')
   window = cf.require('window')

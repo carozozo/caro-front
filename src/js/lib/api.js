@@ -1,6 +1,6 @@
 
 /* 自定義 api */
-cf.regServ('api', function(cf) {
+cf.regLib('api', function(cf) {
   var _ajax, self;
   self = {};
   _ajax = cf.ajax;

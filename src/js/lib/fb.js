@@ -1,6 +1,6 @@
 
 /* 客製化 facebook api 呼叫程式 */
-cf.regServ('fb', function(cf) {
+cf.regLib('fb', function(cf) {
   var _appId, _authResponse, _cfg, _initCbMap, _isReady, _isUserConnected, _redirectAfterLogin, _shareUrl, _trace, caro, genApiObj, getFbLoginUrl, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
   self = {};
   caro = cf.require('caro');

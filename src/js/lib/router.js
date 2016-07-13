@@ -1,6 +1,6 @@
 
 /* 頁面跳轉程式 */
-cf.regServ('router', function(cf) {
+cf.regLib('router', function(cf) {
   var $, _isGoPage, _trace, caro, self, window;
   self = {
     $page: null,

@@ -1,6 +1,6 @@
 
 /* 客製化的 tracking for GA and GTM */
-cf.regServ('tracking', function(cf) {
+cf.regLib('tracking', function(cf) {
 
   /* https://analytics.google.com/analytics/web/ */
 
