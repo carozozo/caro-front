@@ -58,6 +58,7 @@ cf.regServ 'fb', (cf) ->
       }
     null
 
+  ### 判斷 login 狀況並呼叫相關 cb ###
   initLoginResponseAncCallCb = (res, sucCb, errCb) ->
     _trace 'Login response =', res
     if !res
@@ -92,11 +93,7 @@ cf.regServ 'fb', (cf) ->
     urlArr.push '&redirect_uri=' + pageAfterLogin
     urlArr.join ''
 
-  getPermissions = ->
-    _trace 'Start getPermissions'
-    FB.api '/me/permissions', (res) ->
-    return
-
+  ### 註冊, 當 FB init 完成後要執行的 cb ###
   self.regInitCb = (name, cb) ->
     if !_initCbMap[name]
       _initCbMap[name] = cb
@@ -104,25 +101,25 @@ cf.regServ 'fb', (cf) ->
     else
       _trace 'Init callback: ' + name + ' is duplicate'
     return
-
+  ### 判斷 FB 是否 ready ###
   self.isReady = ->
     _isReady
-
+  ### 取得 FB APP id ###
   self.getAppId = ->
     _appId
-
+  ### 取得 user id ###
   self.getUserId = ->
     _trace 'Start getUserId'
     userId = _authResponse.userID
     return userId if userId
     null
-
+  ### 取得 user token ###
   self.getAccessToken = ->
     _trace 'Start getAccessToken'
     accessToken = _authResponse.accessToken
     return accessToken if accessToken
     null
-
+  ### 取得登入狀態 ###
   self.getLoginStatus = (cb) ->
     _trace 'Start getLoginStatus'
     runFb(->
@@ -132,7 +129,7 @@ cf.regServ 'fb', (cf) ->
         return
     )
     return
-
+  ### 登入 ###
   self.login = (opt) ->
     # https://developers.facebook.com/docs/reference/javascript/FB.login/v2.6
     _trace 'Start login'
@@ -157,7 +154,7 @@ cf.regServ 'fb', (cf) ->
         return
       ), opt
     )
-
+  ### 登出 ###
   self.logout = ->
     _trace 'Start logout'
     runFb((apiObj) ->
@@ -165,7 +162,7 @@ cf.regServ 'fb', (cf) ->
         initLoginResponseAncCallCb res, apiObj.sucCb, apiObj.errCb
         return
     )
-
+  ### 取得 user 資料 ###
   self.getProfile = (fieldArr) ->
     ### https://developers.facebook.com/docs/graph-api/reference/user ###
     _trace 'Start getProfile'
@@ -183,7 +180,7 @@ cf.regServ 'fb', (cf) ->
         apiObj.sucCb and apiObj.sucCb(res)
         return
     )
-
+  ### 分享內容 ###
   self.feed = (opt) ->
     ### https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.5 ###
     _trace 'Start feed'
@@ -214,6 +211,7 @@ cf.regServ 'fb', (cf) ->
         return
     )
 
+  ### 當 FB 的 script 被置入後, 會呼叫此程式 ###
   window.fbAsyncInit = ->
     init()
     self.getLoginStatus()
