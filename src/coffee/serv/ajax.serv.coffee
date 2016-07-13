@@ -25,10 +25,12 @@ cf.regServ 'ajax', (cf) ->
       data: data or {}
     caro.assign opt, extendOpt or {}
 
+  ### 設置測試用的假 response ###
   self.setFakeResponse = (fakeRes) ->
     _fakeResponse = fakeRes
     return
 
+  ### 呼叫 ajax, 測試模式時會調用 fakeResponse ###
   self.callAjax = (apiName, data, ajaxOpt) ->
     ajaxObj = null
     if ifTestMode()
@@ -67,10 +69,9 @@ cf.regServ 'ajax', (cf) ->
 
     ajaxObj
 
-  self.getPage = (pageName, opt) ->
-    ### 取得 template 頁面 ###
+  ### 取得 template 頁面 ###
+  self.getPage = (pageName, opt = {}) ->
     pageName = caro.addTail(pageName, '.html')
-    opt = opt or {}
     ajaxObj = caro.assign({type: 'GET'}, opt)
     ajaxObj.url = cf.website.getIndexUrl() + 'template/' + pageName
     $.ajax ajaxObj

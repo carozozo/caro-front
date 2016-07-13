@@ -19,42 +19,43 @@ cf.regServ 'dom', (cf) ->
 
   do ->
     ### 屬性相關 ###
+    ### 設置/取得 id ###
     self.id = (id) ->
       if id isnt undefined
         @attr 'id', id
         return @
       @attr 'id'
-
+    ### 設置/取得 name ###
     self.name = (name) ->
       if name isnt undefined
         @attr 'name', name
         return @
       @attr 'name'
-
+    ### 設置/取得 class ###
     self.aClass = (sClass) ->
       if sClass isnt undefined
         @addClass sClass
         return @
       @attr 'class'
-
+    ### 設置/取得 title ###
     self.title = (title) ->
       if title isnt undefined
         @attr 'title', title
         return @
       @attr 'title'
-
+    ### 設置/取得 type ###
     self.type = (type) ->
       if type isnt undefined
         @attr 'type', type
         return @
       @attr 'type'
-
+    ### 設置/取得 src ###
     self.src = (src) ->
       if src isnt undefined
         @attr 'src', src
         return @
       @attr 'src'
-
+    ### 設置/取得 href ###
     self.href = (href, target) ->
       if href isnt undefined
         @attr 'href', href
@@ -62,26 +63,25 @@ cf.regServ 'dom', (cf) ->
           @attr 'target', target
         return @
       @attr 'href'
-
+    ### 是否為可見 ###
     self.isVisible = ->
       @is ':visible'
-
+    ### 是否為隱藏 ###
     self.isHidden = ->
       !@is(':visible')
-
+    ### 設為 enable ###
     self.enable = ->
       @prop 'disabled', false
       @
-
+    ### 設為 disable ###
     self.disable = ->
       @prop 'disabled', true
       @
-
-    self.setChecked = (bool) ->
-      bool = if bool is true then bool else false
+    ### 設為 checked ###
+    self.setChecked = (bool = false) ->
       @prop 'checked', bool
       @
-
+    ### 是否為 checked ###
     self.isChecked = ->
       @is ':checked'
 
@@ -93,16 +93,15 @@ cf.regServ 'dom', (cf) ->
       px = @css(cssType)
       parseInt px.replace('px')
 
+    ### 取得 margin-top / margin-bottom / margin-left / margin-right 距離 ###
     self.getMargin = (direction) ->
-      # 取得 margin-top / margin-bottom / margin-left / margin-right 距離
       marginStr = 'margin-'
-      if direction
-        marginStr += direction
+      marginStr += direction if direction
       margin = @css(marginStr)
       parseInt margin.replace('px')
 
-    self.pointSelfToCenter = (direction) ->
-      ### 改變 dom 的基準點到自己本身的中心點 ###
+    ### 改變 dom 的基準點到自己本身的中心點 ###
+    self.marginSelfToCenter = (direction) ->
       width = @width()
       height = @height()
       if direction is 'x'
@@ -115,6 +114,7 @@ cf.regServ 'dom', (cf) ->
           'margin-top': -(height / 2)
       @
 
+    ### 設置滑鼠指標 ###
     self.setCursor = (cursor) ->
       cursor = cursor or 'pointer'
       @css cursor: cursor
@@ -123,6 +123,7 @@ cf.regServ 'dom', (cf) ->
 
   do($) ->
     ### UI 操作 ###
+    ### 觸發 blur 後, 將裡面的值轉大寫 ###
     self.blurUpperCase = (nameSpace) ->
       triggerName = 'blur'
       triggerName += '.' + nameSpace if nameSpace
@@ -131,19 +132,20 @@ cf.regServ 'dom', (cf) ->
         val = $dom.val().trim().toUpperCase()
         $dom.val(val)
       )
-
+    ### 先 off 然後 on ###
     self.action = (eve, fn) ->
       @off(eve).on(eve, (e) ->
         e.preventDefault()
         e.stopPropagation()
         fn e
       )
-
+    ### on('click') 方便使用版 ###
     self.onClick = (fn, nameSpace) ->
       triggerName = 'click'
       triggerName += '.' + nameSpace if nameSpace
       @setCursor().on(triggerName, fn)
 
+    ### 整合 mouseenter, mouseleave 方便使用版 ###
     self.onEnterAndLeave = (fn1, fn2, nameSpace) ->
       triggerName1 = 'mouseenter'
       triggerName2 = 'mouseleave'
@@ -152,6 +154,7 @@ cf.regServ 'dom', (cf) ->
         triggerName2 += '.' + nameSpace
       @on(triggerName1, fn1).on(triggerName2, fn2)
 
+    ### 按下 Enter 鍵後觸發的 trigger ###
     self.onPressEnter = (fn, nameSpace) ->
       triggerName = 'keyup'
       triggerName += '.' + nameSpace if nameSpace
@@ -162,13 +165,14 @@ cf.regServ 'dom', (cf) ->
     return
 
   do($) ->
+    ### trace 用, 計算本身數量 ###
     self.countSelf = (msg) ->
       msg = msg or ''
       console.log 'Count Dom:', @length, msg
-
+    ### 判斷本身是否沒任何 html 內容 ###
     self.isEmpty = ->
       !$.trim(@html())
-
+    ### .val 進階版 ###
     self.getVal = (opt) ->
       upper = opt.upper
       lower = opt.lower
@@ -178,17 +182,15 @@ cf.regServ 'dom', (cf) ->
       else if lower
         val.toLowerCase()
       val
-
+    ### 取得包含本身的 html code ###
     self.getHtml = ->
-      ### 取得包含本身的 html code ###
       div = $('<div/>')
       div.append @clone()
       html = div.html()
       div.remove()
       html
-
+    ### 取得當前的寬高(在 scale 之後還能正確) ###
     self.getRealSize = ->
-      ### 取得當前的寬高(在 scale 之後還能正確) ###
       {
       width: @getBoundingClientRect().width
       height: @getBoundingClientRect().height

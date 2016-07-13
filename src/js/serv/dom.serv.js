@@ -24,6 +24,8 @@ cf.regServ('dom', function(cf) {
   (function() {
 
     /* 屬性相關 */
+
+    /* 設置/取得 id */
     self.id = function(id) {
       if (id !== void 0) {
         this.attr('id', id);
@@ -31,6 +33,8 @@ cf.regServ('dom', function(cf) {
       }
       return this.attr('id');
     };
+
+    /* 設置/取得 name */
     self.name = function(name) {
       if (name !== void 0) {
         this.attr('name', name);
@@ -38,6 +42,8 @@ cf.regServ('dom', function(cf) {
       }
       return this.attr('name');
     };
+
+    /* 設置/取得 class */
     self.aClass = function(sClass) {
       if (sClass !== void 0) {
         this.addClass(sClass);
@@ -45,6 +51,8 @@ cf.regServ('dom', function(cf) {
       }
       return this.attr('class');
     };
+
+    /* 設置/取得 title */
     self.title = function(title) {
       if (title !== void 0) {
         this.attr('title', title);
@@ -52,6 +60,8 @@ cf.regServ('dom', function(cf) {
       }
       return this.attr('title');
     };
+
+    /* 設置/取得 type */
     self.type = function(type) {
       if (type !== void 0) {
         this.attr('type', type);
@@ -59,6 +69,8 @@ cf.regServ('dom', function(cf) {
       }
       return this.attr('type');
     };
+
+    /* 設置/取得 src */
     self.src = function(src) {
       if (src !== void 0) {
         this.attr('src', src);
@@ -66,6 +78,8 @@ cf.regServ('dom', function(cf) {
       }
       return this.attr('src');
     };
+
+    /* 設置/取得 href */
     self.href = function(href, target) {
       if (href !== void 0) {
         this.attr('href', href);
@@ -76,25 +90,39 @@ cf.regServ('dom', function(cf) {
       }
       return this.attr('href');
     };
+
+    /* 是否為可見 */
     self.isVisible = function() {
       return this.is(':visible');
     };
+
+    /* 是否為隱藏 */
     self.isHidden = function() {
       return !this.is(':visible');
     };
+
+    /* 設為 enable */
     self.enable = function() {
       this.prop('disabled', false);
       return this;
     };
+
+    /* 設為 disable */
     self.disable = function() {
       this.prop('disabled', true);
       return this;
     };
+
+    /* 設為 checked */
     self.setChecked = function(bool) {
-      bool = bool === true ? bool : false;
+      if (bool == null) {
+        bool = false;
+      }
       this.prop('checked', bool);
       return this;
     };
+
+    /* 是否為 checked */
     self.isChecked = function() {
       return this.is(':checked');
     };
@@ -107,6 +135,8 @@ cf.regServ('dom', function(cf) {
       px = this.css(cssType);
       return parseInt(px.replace('px'));
     };
+
+    /* 取得 margin-top / margin-bottom / margin-left / margin-right 距離 */
     self.getMargin = function(direction) {
       var margin, marginStr;
       marginStr = 'margin-';
@@ -116,9 +146,9 @@ cf.regServ('dom', function(cf) {
       margin = this.css(marginStr);
       return parseInt(margin.replace('px'));
     };
-    self.pointSelfToCenter = function(direction) {
 
-      /* 改變 dom 的基準點到自己本身的中心點 */
+    /* 改變 dom 的基準點到自己本身的中心點 */
+    self.marginSelfToCenter = function(direction) {
       var height, width;
       width = this.width();
       height = this.height();
@@ -138,6 +168,8 @@ cf.regServ('dom', function(cf) {
       }
       return this;
     };
+
+    /* 設置滑鼠指標 */
     self.setCursor = function(cursor) {
       cursor = cursor || 'pointer';
       return this.css({
@@ -148,6 +180,8 @@ cf.regServ('dom', function(cf) {
   (function($) {
 
     /* UI 操作 */
+
+    /* 觸發 blur 後, 將裡面的值轉大寫 */
     self.blurUpperCase = function(nameSpace) {
       var triggerName;
       triggerName = 'blur';
@@ -161,6 +195,8 @@ cf.regServ('dom', function(cf) {
         return $dom.val(val);
       });
     };
+
+    /* 先 off 然後 on */
     self.action = function(eve, fn) {
       return this.off(eve).on(eve, function(e) {
         e.preventDefault();
@@ -168,6 +204,8 @@ cf.regServ('dom', function(cf) {
         return fn(e);
       });
     };
+
+    /* on('click') 方便使用版 */
     self.onClick = function(fn, nameSpace) {
       var triggerName;
       triggerName = 'click';
@@ -176,6 +214,8 @@ cf.regServ('dom', function(cf) {
       }
       return this.setCursor().on(triggerName, fn);
     };
+
+    /* 整合 mouseenter, mouseleave 方便使用版 */
     self.onEnterAndLeave = function(fn1, fn2, nameSpace) {
       var triggerName1, triggerName2;
       triggerName1 = 'mouseenter';
@@ -186,6 +226,8 @@ cf.regServ('dom', function(cf) {
       }
       return this.on(triggerName1, fn1).on(triggerName2, fn2);
     };
+
+    /* 按下 Enter 鍵後觸發的 trigger */
     self.onPressEnter = function(fn, nameSpace) {
       var triggerName;
       triggerName = 'keyup';
@@ -200,13 +242,19 @@ cf.regServ('dom', function(cf) {
     };
   })($);
   (function($) {
+
+    /* trace 用, 計算本身數量 */
     self.countSelf = function(msg) {
       msg = msg || '';
       return console.log('Count Dom:', this.length, msg);
     };
+
+    /* 判斷本身是否沒任何 html 內容 */
     self.isEmpty = function() {
       return !$.trim(this.html());
     };
+
+    /* .val 進階版 */
     self.getVal = function(opt) {
       var lower, upper, val;
       upper = opt.upper;
@@ -219,9 +267,9 @@ cf.regServ('dom', function(cf) {
       }
       return val;
     };
-    self.getHtml = function() {
 
-      /* 取得包含本身的 html code */
+    /* 取得包含本身的 html code */
+    self.getHtml = function() {
       var div, html;
       div = $('<div/>');
       div.append(this.clone());
@@ -229,9 +277,9 @@ cf.regServ('dom', function(cf) {
       div.remove();
       return html;
     };
-    self.getRealSize = function() {
 
-      /* 取得當前的寬高(在 scale 之後還能正確) */
+    /* 取得當前的寬高(在 scale 之後還能正確) */
+    self.getRealSize = function() {
       return {
         width: this.getBoundingClientRect().width,
         height: this.getBoundingClientRect().height

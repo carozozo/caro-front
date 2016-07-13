@@ -29,9 +29,13 @@ cf.regServ('ajax', function(cf) {
     };
     return caro.assign(opt, extendOpt || {});
   };
+
+  /* 設置測試用的假 response */
   self.setFakeResponse = function(fakeRes) {
     _fakeResponse = fakeRes;
   };
+
+  /* 呼叫 ajax, 測試模式時會調用 fakeResponse */
   self.callAjax = function(apiName, data, ajaxOpt) {
     var ajaxObj, opt, url;
     ajaxObj = null;
@@ -75,12 +79,14 @@ cf.regServ('ajax', function(cf) {
     };
     return ajaxObj;
   };
-  self.getPage = function(pageName, opt) {
 
-    /* 取得 template 頁面 */
+  /* 取得 template 頁面 */
+  self.getPage = function(pageName, opt) {
     var ajaxObj;
+    if (opt == null) {
+      opt = {};
+    }
     pageName = caro.addTail(pageName, '.html');
-    opt = opt || {};
     ajaxObj = caro.assign({
       type: 'GET'
     }, opt);
