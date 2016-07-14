@@ -44,15 +44,15 @@
 - src/config : 設定檔, 視使用情形修改  
 
 ## src 資料夾基本介紹 
-- _bower : 放置 bower 下載的檔案 
-- _compatibility : 放置瀏覽器相容性 程式
-- _plugin : 放置外掛程式
-- api : 後端 api
- - coffee : coffee script 檔 
+- _bower : bower 下載的檔案 
+- _compatibility : 瀏覽器相容性 程式
+- _plugin : 外掛程式
+- api : 後端 api   檔
+- coffee : coffee script 檔
 - css : css 檔
- - image : 圖檔 
+- image : 圖檔
 - js : js 檔
-- template : 放置分頁內容 html  
+- template : 分頁內容 html  
 
 ## coffee 注意事項
 在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下   
@@ -86,6 +86,7 @@
 - ieVersion : IE 版本, 瀏覽器不是 IE 時會是 null
 - isBefIe8 : 瀏覽器是否為 IE8 之前的版本 
 - isBefIe9 : 瀏覽器是否為 IE9 之前的版本  
+- indexUrl : 當前網站的首頁 url
 
 ### 函式 
 - require(str) : 載入 global 變數, 避免直接呼叫 global 變數以增加效能 
@@ -201,7 +202,6 @@ var theKey = cf.config('theKey');
 - _page : 當前頁前會執行的 fn 
 - _aftPage : 紀錄換頁後會執行的 fn 
 - pageName : 當前頁面名稱 
-- indexUrl : 當前網站的首頁 url
 - transitionFn : 紀錄當前換頁效果 fn 
 
 ### 函式 

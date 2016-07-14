@@ -62,6 +62,15 @@
 
   /* 瀏覽器是否為 IE9 之前的版本 */
   self.isBefIe9 = false;
+
+  /* 首頁網址 */
+  self.indexUrl = (function() {
+    var location, pathnameArr;
+    location = window.location;
+    pathnameArr = location.pathname.split('/');
+    pathnameArr.pop();
+    return location.protocol + '//' + location.host + caro.addTail(pathnameArr.join('/'), '/');
+  })();
   genTraceFn = function(name) {
     var fn;
     fn = function() {
