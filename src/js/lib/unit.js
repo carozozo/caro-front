@@ -12,7 +12,7 @@ cf.regLib('unit', function(cf) {
   (function() {
     var genCookieName;
     genCookieName = function(name) {
-      return 'TheIndex_' + name;
+      return 'CaroFront' + name;
     };
 
     /* 設置 cookie */

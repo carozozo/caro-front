@@ -19,17 +19,17 @@ do (cf) ->
   appId: 網站所使用的 fb-app-id
   shareUrl: 分享網址, 需要可以在網路上找的到的 url, 所以不能用 localhost
   ###
-  cf.config('fb',{
+  cf.config('fb', {
     isDownloadSdk: false
     redirectAfterLogin: 'go_back'
     appId: '1111111111111111'
-    shareUrl: 'http://event.theindex.com.tw/demo/'
+    shareUrl: 'http://www.demo.com/'
   })
   ###
   type: 追蹤模式, 0: 不追蹤, 1: GA tracking, 2: GTM tracking
   tagId: 追蹤碼編號
   ###
-  cf.config('tracking',{
+  cf.config('tracking', {
     type: 0
     tagId: 'UA-77059085-1'
   })
@@ -37,25 +37,30 @@ do (cf) ->
   imgUrl: 指定圖片網址(不設置代表本地端)
   redirectPhone: 如果 device 為 phone, 則跳轉至 phone 專用網頁, 不設則不跳轉
   ###
-  cf.config('website',{
-    imgUrl: 'https://event.theindex.com.tw/demo/images/'
+  cf.config('website', {
+    imgUrl: 'http://www.demo.com/images'
     redirectPhone: ''
   })
 
   ### 當首頁網址符合時, 載入不同的設定 ###
-  cf.regDifCfg('event.theindex.com.tw/demo2', {
+  cf.regDifCfg('www.demo.com/demo2', {
     fb: {
       appId: '2222222222222222'
-      shareUrl: 'http://event.theindex.com.tw/demo2/'
+      shareUrl: 'http://www.demo.com/demo2/'
     }
   })
-  cf.regDifCfg('event.theindex.com.tw/demo3', {
+  cf.regDifCfg('www.demo.com/demo3', {
     fb: {
       appId: '3333333333333333'
-      shareUrl: 'http://event.theindex.com.tw/demo3/'
+      shareUrl: 'http://www.demo.com/demo3/'
     }
     website: {
-      imgUrl: 'http://event.theindex.com.tw/demo3/images/'
+      imgUrl: 'http://www.demo.com/demo3/images/'
+    }
+  })
+  cf.regDifCfg('localhost:3006', {
+    fb: {
+      aa:123
     }
   })
   return

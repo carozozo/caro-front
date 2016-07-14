@@ -10,7 +10,7 @@ cf.regLib 'unit', (cf) ->
   ### Cookie 相關 ###
   do ->
     genCookieName = (name) ->
-      'TheIndex_' + name
+      'CaroFront' + name
     ### 設置 cookie ###
     self.setCookie = (cookieName, val, exdays) ->
       if caro.isUndefined(val)
