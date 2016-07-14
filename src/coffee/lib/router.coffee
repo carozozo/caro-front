@@ -1,13 +1,19 @@
 ### 頁面跳轉程式 ###
 cf.regLib 'router', (cf) ->
-  self =
-    $page: null
-    _prePage: {}
-    _page: {}
-    _aftPage: {}
-    pageName: ''
-    indexUrl: ''
-    transitionFn: null
+  self = {}
+  ### 當下頁面的 DOm ###
+  self.$page = null
+  ### 紀錄, 載入頁面前要執行的 fns ###
+  self._prePage = {}
+  ### 紀錄, 載入頁面時要執行的對應 fn ###
+  self._page = {}
+  ### 紀錄, 載入頁面後要執行的 fns ###
+  self._aftPage = {}
+  ### 當下頁面名稱 ###
+  self.pageName = ''
+  ### 換頁程式 ###
+  self.transitionFn = null
+
   $ = cf.require('$')
   caro = cf.require('caro')
   window = cf.require('window')
@@ -74,12 +80,6 @@ cf.regLib 'router', (cf) ->
     self.parseUrlSearch = (hash) ->
       search = self.getSearchByHash(hash)
       parseSearchToObj search
-
-    ### 首頁網址 ###
-    self.indexUrl = do ->
-      pathnameArr = location.pathname.split('/')
-      pathnameArr.pop()
-      location.protocol + '//' + location.host + caro.addTail(pathnameArr.join('/'), '/')
 
     return
 

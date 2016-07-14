@@ -5,14 +5,13 @@ cf.regLib 'ajax', (cf) ->
   caro = cf.require('caro')
   _cfg = cf.config('ajax')
   _responseErrKey = _cfg.responseErrKey
-  _isTestMode = _cfg.isTestMode
+  _isTest = cf.isLocal or _cfg.isTestMode
   _fakeResponse = null
+  _indexUrl = cf.indexUrl
 
-  ifTestMode = ->
-    cf.isLocal or _isTestMode
 
   generateApiUrl = (apiName) ->
-    apiUrl = cf.website.getIndexUrl() + 'api/'
+    apiUrl = _indexUrl + 'api/'
     apiUrl += apiName + '.ashx'
     apiUrl
 
@@ -33,7 +32,7 @@ cf.regLib 'ajax', (cf) ->
   ### 呼叫 ajax, 測試模式時會調用 fakeResponse ###
   self.callAjax = (apiName, data, ajaxOpt) ->
     ajaxObj = null
-    if ifTestMode()
+    if _isTest
       ajaxObj = {}
       ajaxObj.suc =
         ajaxObj.success = (cb) ->
@@ -68,12 +67,5 @@ cf.regLib 'ajax', (cf) ->
         return
 
     ajaxObj
-
-  ### 取得 template 頁面 ###
-  self.getPage = (pageName, opt = {}) ->
-    pageName = caro.addTail(pageName, '.html')
-    ajaxObj = caro.assign({type: 'GET'}, opt)
-    ajaxObj.url = cf.website.getIndexUrl() + 'template/' + pageName
-    $.ajax ajaxObj
 
   self

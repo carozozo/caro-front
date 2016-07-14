@@ -1,5 +1,5 @@
 ### 自定義 api ###
-cf.regLib 'api', (cf) ->
+cf.regServ 'api', (cf) ->
   self = {}
   _ajax = cf.ajax
 
@@ -10,7 +10,7 @@ cf.regLib 'api', (cf) ->
     _ajax.callAjax 'DemoGetApi'
 
   self.captcha = ->
-    url = cf.website.indexUrl + 'api/Captcha.'
+    url = cf.indexUrl + 'api/Captcha.'
     url += if cf.isLocal then 'png' else 'ashx'
     ### 尾數加上日期, 強制更新 ###
     return url + '?v=' + new Date().getTime()

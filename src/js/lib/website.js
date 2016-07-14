@@ -1,24 +1,23 @@
 
 /* 一些網站支援程式 */
 cf.regLib('website', function(cf) {
-  var _cfg, caro, location, self, window;
-  self = {};
+  var _cfg, _imgUrl, caro, location, self, window;
   caro = cf.require('caro');
   window = cf.require('window');
   location = cf.require('location');
   _cfg = cf.config('website');
+  self = {};
+  self.imgUrl = _imgUrl = caro.addTail(_cfg.imgUrl) || 'images/';
 
   /* 取得 images 路徑 */
   self.getImgUrl = function(imgFileName) {
-    var imgUrl;
     if (imgFileName == null) {
       imgFileName = '';
     }
-    imgUrl = _cfg.imgUrl || 'images/';
     if (imgFileName.indexOf('/') === 0) {
       imgFileName = imgFileName.replace('/', '');
     }
-    return imgUrl + imgFileName.replace('images/', '');
+    return _imgUrl + imgFileName.replace('images/', '');
   };
 
   /* init */
@@ -36,7 +35,7 @@ cf.regLib('website', function(cf) {
       if (redirectPhone.indexOf('/') === 0) {
         redirectPhone = redirectPhone.replace('/', '');
       }
-      location.href = cf.router.indexUrl + redirectPhone;
+      location.href = cf.indexUrl + redirectPhone;
     }
   })(_cfg, location);
   return self;

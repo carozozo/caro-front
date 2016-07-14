@@ -1,20 +1,18 @@
 
 /* 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式 */
 cf.regLib('ajax', function(cf) {
-  var $, _cfg, _fakeResponse, _isTestMode, _responseErrKey, caro, generateAjaxOpt, generateApiUrl, ifTestMode, self;
+  var $, _cfg, _fakeResponse, _indexUrl, _isTest, _responseErrKey, caro, generateAjaxOpt, generateApiUrl, self;
   self = {};
   $ = cf.require('$');
   caro = cf.require('caro');
   _cfg = cf.config('ajax');
   _responseErrKey = _cfg.responseErrKey;
-  _isTestMode = _cfg.isTestMode;
+  _isTest = cf.isLocal || _cfg.isTestMode;
   _fakeResponse = null;
-  ifTestMode = function() {
-    return cf.isLocal || _isTestMode;
-  };
+  _indexUrl = cf.indexUrl;
   generateApiUrl = function(apiName) {
     var apiUrl;
-    apiUrl = cf.website.getIndexUrl() + 'api/';
+    apiUrl = _indexUrl + 'api/';
     apiUrl += apiName + '.ashx';
     return apiUrl;
   };
@@ -39,7 +37,7 @@ cf.regLib('ajax', function(cf) {
   self.callAjax = function(apiName, data, ajaxOpt) {
     var ajaxObj, opt, url;
     ajaxObj = null;
-    if (ifTestMode()) {
+    if (_isTest) {
       ajaxObj = {};
       ajaxObj.suc = ajaxObj.success = function(cb) {
         var fakeRes;
@@ -78,20 +76,6 @@ cf.regLib('ajax', function(cf) {
       });
     };
     return ajaxObj;
-  };
-
-  /* 取得 template 頁面 */
-  self.getPage = function(pageName, opt) {
-    var ajaxObj;
-    if (opt == null) {
-      opt = {};
-    }
-    pageName = caro.addTail(pageName, '.html');
-    ajaxObj = caro.assign({
-      type: 'GET'
-    }, opt);
-    ajaxObj.url = cf.website.getIndexUrl() + 'template/' + pageName;
-    return $.ajax(ajaxObj);
   };
   return self;
 });

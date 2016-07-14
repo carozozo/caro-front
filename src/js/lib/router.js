@@ -2,15 +2,25 @@
 /* 頁面跳轉程式 */
 cf.regLib('router', function(cf) {
   var $, _isGoPage, _trace, caro, self, window;
-  self = {
-    $page: null,
-    _prePage: {},
-    _page: {},
-    _aftPage: {},
-    pageName: '',
-    indexUrl: '',
-    transitionFn: null
-  };
+  self = {};
+
+  /* 當下頁面的 DOm */
+  self.$page = null;
+
+  /* 紀錄, 載入頁面前要執行的 fns */
+  self._prePage = {};
+
+  /* 紀錄, 載入頁面時要執行的對應 fn */
+  self._page = {};
+
+  /* 紀錄, 載入頁面後要執行的 fns */
+  self._aftPage = {};
+
+  /* 當下頁面名稱 */
+  self.pageName = '';
+
+  /* 換頁程式 */
+  self.transitionFn = null;
   $ = cf.require('$');
   caro = cf.require('caro');
   window = cf.require('window');
@@ -100,14 +110,6 @@ cf.regLib('router', function(cf) {
       search = self.getSearchByHash(hash);
       return parseSearchToObj(search);
     };
-
-    /* 首頁網址 */
-    self.indexUrl = (function() {
-      var pathnameArr;
-      pathnameArr = location.pathname.split('/');
-      pathnameArr.pop();
-      return location.protocol + '//' + location.host + caro.addTail(pathnameArr.join('/'), '/');
-    })();
   })(caro, window);
 
   /* 頁面載入相關 */

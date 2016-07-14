@@ -3,7 +3,9 @@ cf.regLib 'fb', (cf) ->
   self = {}
   caro = cf.require('caro')
   window = cf.require('window')
+  _alert = cf.alert or cf.require('alert')
   _cfg = cf.config('fb')
+  _isPhone = cf.isPhone
   _appId = _cfg.appId
   _redirectAfterLogin = _cfg.redirectAfterLogin
   _shareUrl = _cfg.shareUrl
@@ -12,6 +14,18 @@ cf.regLib 'fb', (cf) ->
   ### https://developers.facebook.com/docs/facebook-login/permissions ###
   _isUserConnected = false
   _authResponse = {}
+  _indexUrl = cf.indexUrl
+  ### 取得登入 FB 後要跳轉的網址 ###
+  _urlAftLogin = do ->
+    urlArr = ['https://']
+    pageAfterLogin = _indexUrl
+    urlArr.push if _isPhone then 'm' else 'www'
+    urlArr.push '.facebook.com/dialog/oauth?client_id=' + _appId + '&scope=&auth_type=rerequest'
+    if _redirectAfterLogin
+      pageAfterLogin += _redirectAfterLogin + '.html'
+    urlArr.push '&redirect_uri=' + pageAfterLogin
+    urlArr.join
+
   _trace = cf.genTraceFn('fb')
   #  _trace.startTrace()
 
@@ -42,9 +56,9 @@ cf.regLib 'fb', (cf) ->
 
   runFb = (fn) ->
     unless _isReady
-      return cf.alert('Facebook 登入功能正在準備中, 請稍後再試')
+      return _alert('Facebook 登入功能正在準備中, 請稍後再試')
     unless FB
-      return cf.alert('Facebook 功能異常, 請稍後再試')
+      return _alert('Facebook 功能異常, 請稍後再試')
     apiObj = genApiObj()
     fn(apiObj)
     apiObj
@@ -62,7 +76,7 @@ cf.regLib 'fb', (cf) ->
   initLoginResponseAncCallCb = (res, sucCb, errCb) ->
     _trace 'Login response =', res
     if !res
-      cf.alert 'Facebook 功能異常, 請稍後再試'
+      _alert 'Facebook 功能異常, 請稍後再試'
       _trace.err 'Can not get Fb login response'
       return errCb and errCb()
     resErrObj = getFbResErrObj(res)
@@ -82,16 +96,6 @@ cf.regLib 'fb', (cf) ->
     _isUserConnected = false
     _trace 'Is not logged into Facebook'
     return
-
-  getFbLoginUrl = ->
-    urlArr = ['https://']
-    pageAfterLogin = cf.website.getIndexUrl()
-    urlArr.push if cf.isPhone then 'm' else 'www'
-    urlArr.push '.facebook.com/dialog/oauth?client_id=' + _appId + '&scope=&auth_type=rerequest'
-    if _redirectAfterLogin
-      pageAfterLogin += _redirectAfterLogin + '.html'
-    urlArr.push '&redirect_uri=' + pageAfterLogin
-    urlArr.join ''
 
   ### 註冊, 當 FB init 完成後要執行的 cb ###
   self.regInitCb = (name, cb) ->
@@ -139,10 +143,7 @@ cf.regLib 'fb', (cf) ->
           cb and cb()
           apiObj
         return
-      if cf.isPhone
-        url = getFbLoginUrl()
-        window.open url, '_top'
-        return
+      return window.open _urlAftLogin, '_top' if _isPhone
       opt = if opt then caro.assign(
         'scope': ''
         'return_scopes': true
@@ -197,7 +198,7 @@ cf.regLib 'fb', (cf) ->
         'none'
       ]
       param.method = 'feed'
-      param.link = _shareUrl or cf.website.getIndexUrl()
+      param.link = _shareUrl or _indexUrl
       param.caption = param.caption or param.link
       if param.display and displayArr.indexOf(param.display) < 0
         delete param.display

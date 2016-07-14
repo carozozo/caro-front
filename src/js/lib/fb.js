@@ -1,11 +1,13 @@
 
 /* 客製化 facebook api 呼叫程式 */
 cf.regLib('fb', function(cf) {
-  var _appId, _authResponse, _cfg, _initCbMap, _isReady, _isUserConnected, _redirectAfterLogin, _shareUrl, _trace, caro, genApiObj, getFbLoginUrl, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
+  var _alert, _appId, _authResponse, _cfg, _indexUrl, _initCbMap, _isPhone, _isReady, _isUserConnected, _redirectAfterLogin, _shareUrl, _trace, _urlAftLogin, caro, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
   self = {};
   caro = cf.require('caro');
   window = cf.require('window');
+  _alert = cf.alert || cf.require('alert');
   _cfg = cf.config('fb');
+  _isPhone = cf.isPhone;
   _appId = _cfg.appId;
   _redirectAfterLogin = _cfg.redirectAfterLogin;
   _shareUrl = _cfg.shareUrl;
@@ -15,6 +17,21 @@ cf.regLib('fb', function(cf) {
   /* https://developers.facebook.com/docs/facebook-login/permissions */
   _isUserConnected = false;
   _authResponse = {};
+  _indexUrl = cf.indexUrl;
+
+  /* 取得登入 FB 後要跳轉的網址 */
+  _urlAftLogin = (function() {
+    var pageAfterLogin, urlArr;
+    urlArr = ['https://'];
+    pageAfterLogin = _indexUrl;
+    urlArr.push(_isPhone ? 'm' : 'www');
+    urlArr.push('.facebook.com/dialog/oauth?client_id=' + _appId + '&scope=&auth_type=rerequest');
+    if (_redirectAfterLogin) {
+      pageAfterLogin += _redirectAfterLogin + '.html';
+    }
+    urlArr.push('&redirect_uri=' + pageAfterLogin);
+    return urlArr.join;
+  })();
   _trace = cf.genTraceFn('fb');
   genApiObj = function() {
     var obj;
@@ -47,10 +64,10 @@ cf.regLib('fb', function(cf) {
   runFb = function(fn) {
     var apiObj;
     if (!_isReady) {
-      return cf.alert('Facebook 登入功能正在準備中, 請稍後再試');
+      return _alert('Facebook 登入功能正在準備中, 請稍後再試');
     }
     if (!FB) {
-      return cf.alert('Facebook 功能異常, 請稍後再試');
+      return _alert('Facebook 功能異常, 請稍後再試');
     }
     apiObj = genApiObj();
     fn(apiObj);
@@ -72,7 +89,7 @@ cf.regLib('fb', function(cf) {
     var resErrObj, status;
     _trace('Login response =', res);
     if (!res) {
-      cf.alert('Facebook 功能異常, 請稍後再試');
+      _alert('Facebook 功能異常, 請稍後再試');
       _trace.err('Can not get Fb login response');
       return errCb && errCb();
     }
@@ -94,18 +111,6 @@ cf.regLib('fb', function(cf) {
     }
     _isUserConnected = false;
     _trace('Is not logged into Facebook');
-  };
-  getFbLoginUrl = function() {
-    var pageAfterLogin, urlArr;
-    urlArr = ['https://'];
-    pageAfterLogin = cf.website.getIndexUrl();
-    urlArr.push(cf.isPhone ? 'm' : 'www');
-    urlArr.push('.facebook.com/dialog/oauth?client_id=' + _appId + '&scope=&auth_type=rerequest');
-    if (_redirectAfterLogin) {
-      pageAfterLogin += _redirectAfterLogin + '.html';
-    }
-    urlArr.push('&redirect_uri=' + pageAfterLogin);
-    return urlArr.join('');
   };
 
   /* 註冊, 當 FB init 完成後要執行的 cb */
@@ -165,7 +170,6 @@ cf.regLib('fb', function(cf) {
   self.login = function(opt) {
     _trace('Start login');
     return runFb(function(apiObj) {
-      var url;
       if (_isUserConnected) {
         apiObj.suc = function(cb) {
           cb && cb();
@@ -173,10 +177,8 @@ cf.regLib('fb', function(cf) {
         };
         return;
       }
-      if (cf.isPhone) {
-        url = getFbLoginUrl();
-        window.open(url, '_top');
-        return;
+      if (_isPhone) {
+        return window.open(_urlAftLogin, '_top');
       }
       opt = opt ? caro.assign({
         'scope': '',
@@ -233,7 +235,7 @@ cf.regLib('fb', function(cf) {
       param = opt || {};
       displayArr = ['popup', 'dialog', 'iframe', 'touch', 'async', 'hidden', 'none'];
       param.method = 'feed';
-      param.link = _shareUrl || cf.website.getIndexUrl();
+      param.link = _shareUrl || _indexUrl;
       param.caption = param.caption || param.link;
       if (param.display && displayArr.indexOf(param.display) < 0) {
         delete param.display;
