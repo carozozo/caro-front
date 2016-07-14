@@ -1,7 +1,7 @@
 
 /* DOM circle 輪播效果 */
-cf.regModule('caroCircleShow', function($targets, opt) {
-  var $self, $targetList, _angleDif, _brightnessDif, _brightnessMap, _cb, _currentIndex, _degreeTop, _duration, _ease, _interval, _leftMap, _minBrightness, _minScale, _radianMap, _radios, _scaleDif, _scaleMap, _targetLength, _topMap, _zIndex, _zIndexMap, caro, cf, getBrightness, getLeft, getRadians, getScale, getTop, getZindex, movePosition, tm;
+cf.regModule('caroCircleShow', function($targetList, opt) {
+  var $self, _angleDif, _brightnessDif, _brightnessMap, _cb, _currentIndex, _degreeTop, _duration, _ease, _interval, _leftMap, _minBrightness, _minScale, _radianMap, _radios, _scaleDif, _scaleMap, _targetLength, _topMap, _zIndex, _zIndexMap, caro, cf, getBrightness, getLeft, getRadians, getScale, getTop, getZindex, movePosition, tm;
   if (opt == null) {
     opt = {};
   }
@@ -33,7 +33,7 @@ cf.regModule('caroCircleShow', function($targets, opt) {
 
   /* 可取得每個 DOM 及該 DOM 目前的 index */
   _cb = opt.cb;
-  _targetLength = $targets.length;
+  _targetLength = $targetList.length;
 
   /* 角度級距 */
   _angleDif = 360 / _targetLength;
@@ -124,8 +124,8 @@ cf.regModule('caroCircleShow', function($targets, opt) {
       return _cb && _cb($target, i);
     });
   };
-  $targetList = cf.unit.coverDomList($targets, function($target, i) {
-    return $target.css({
+  caro.forEach($targetList, function($target, i) {
+    $target.css({
       position: 'absolute',
       top: getTop(i),
       left: getLeft(i),

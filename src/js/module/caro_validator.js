@@ -21,12 +21,11 @@ cf.regModule('caroValidator', function(opt) {
   /* 儲存錯誤項目 {<DOM id>: {<錯誤項目>:<驗證資訊>}} */
   _errInfo = null;
   coverToDomList = function($domOrArr) {
-    var $list;
-    $list = $domOrArr;
     if (!caro.isArray($domOrArr)) {
-      $list = cf.unit.coverDomList($domOrArr);
+      return [$domOrArr];
+    } else {
+      return $domOrArr;
     }
-    return $list;
   };
   addToDomMap = function($dom) {
     var id;

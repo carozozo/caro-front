@@ -15,9 +15,7 @@ cf.regModule 'caroValidator', (opt = {}) ->
   _errInfo = null
 
   coverToDomList = ($domOrArr) ->
-    $list = $domOrArr
-    $list = cf.unit.coverDomList($domOrArr) if !caro.isArray($domOrArr)
-    $list
+    if !caro.isArray($domOrArr) then [$domOrArr] else $domOrArr
 
   addToDomMap = ($dom) ->
     id = $dom.attr('id') or $dom.attr('name')

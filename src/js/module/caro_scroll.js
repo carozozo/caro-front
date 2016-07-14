@@ -10,7 +10,7 @@ cf.regModule('caroScroll', function($contents, opt) {
   $window = cf.$window;
   caro = cf.require('caro');
   tm = cf.require('TweenMax');
-  _offsetTopArr = [];
+  $self.$$offsetTopArr = _offsetTopArr = [];
   _nowIndex = 0;
 
   /* Y 軸基準線 */
@@ -48,7 +48,6 @@ cf.regModule('caroScroll', function($contents, opt) {
   getOffsetTopArr = function() {
     caro.forEach($contents, getContentTop);
   };
-  $contents = cf.unit.coverDomList($contents, getContentTop);
   scrollToNowIndex = function(duration) {
     var offset;
     if (duration == null) {
@@ -140,6 +139,6 @@ cf.regModule('caroScroll', function($contents, opt) {
     return $self;
   };
   $self.bindScroll();
-  $self._offsetTopArr = _offsetTopArr;
+  caro.forEach($contents, getContentTop);
   return $self;
 });

@@ -1,5 +1,5 @@
 ### DOM circle 輪播效果 ###
-cf.regModule 'caroCircleShow', ($targets, opt = {}) ->
+cf.regModule 'caroCircleShow', ($targetList, opt = {}) ->
   $self = this
   cf = $self.cf
   caro = cf.require('caro')
@@ -22,7 +22,7 @@ cf.regModule 'caroCircleShow', ($targets, opt = {}) ->
   ### 可取得每個 DOM 及該 DOM 目前的 index ###
   _cb = opt.cb
 
-  _targetLength = $targets.length
+  _targetLength = $targetList.length
   ### 角度級距 ###
   _angleDif = 360 / _targetLength
   ### 亮度級距 ###
@@ -91,7 +91,7 @@ cf.regModule 'caroCircleShow', ($targets, opt = {}) ->
       _cb and _cb($target, i)
     )
 
-  $targetList = cf.unit.coverDomList($targets, ($target, i) ->
+  caro.forEach($targetList, ($target, i) ->
     $target.css(
       position: 'absolute'
       top: getTop(i)
@@ -100,6 +100,7 @@ cf.regModule 'caroCircleShow', ($targets, opt = {}) ->
       '-webkit-filter': 'brightness(' + getBrightness(i) + '%)'
       'filter': 'brightness(' + getBrightness(i) + '%)'
     )
+    return
   )
 
   ### 顯示下一個內容 ###
