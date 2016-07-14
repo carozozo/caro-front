@@ -32,7 +32,7 @@ cf.regLib('unit', function(cf) {
         date.setTime(date.getTime() + exdays * 24 * 60 * 60 * 1000);
         'expires=' + date.toUTCString();
       })(exdays);
-      path = '; path=' + cf.website.getIndexUrl();
+      path = '; path=' + cf.indexUrl;
       cookieStrArr = [genCookieName(cookieName) + '=' + caro.toJson(val)];
       caro.pushNoEmptyVal(cookieStrArr.push(expires));
       cookieStrArr.push(path);
