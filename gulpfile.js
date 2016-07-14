@@ -173,15 +173,16 @@
   });
 
   var buildCss = function (isUseMap) {
+    var allCssArr = srcHeadArr.concat(allSrcCssFiles).concat('!' + allSrcJsFiles);
     if (isUseMap) {
-      return gulp.src(allSrcCssFiles)
+      return gulp.src(allCssArr)
         .pipe(sourcemaps.init())
         .pipe(cleanCss())
         .pipe(concat(appCssFileName))
         .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest(distCssDir));
     }
-    return gulp.src(allSrcCssFiles)
+    return gulp.src(allCssArr)
       .pipe(cleanCss())
       .pipe(concat(appCssFileName))
       .pipe(gulp.dest(distCssDir));
