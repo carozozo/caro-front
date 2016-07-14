@@ -1,4 +1,4 @@
-### TheIndex 核心程式 ###
+### CaroFront 核心程式 ###
 do(window, $, caro, MobileDetect) ->
   self = {}
   ### 儲存從 config 讀取到的設定  ###
@@ -155,10 +155,10 @@ do(window, $, caro, MobileDetect) ->
   ### config 相關 ###
   do(self, window, caro) ->
     _cfg = self.$$config
+    indexUrl = self.indexUrl.replace('https://', '')
+    indexUrl = indexUrl.replace('http://', '')
     ### 比對符合的首頁網址, 並 assign config ###
     self.regDifCfg = (url, cfg) ->
-      location = window.location
-      indexUrl = location.host + caro.addTail(location.pathname, '/')
       url = caro.addTail(url, '/')
       return if indexUrl isnt url
       caro.forEach(cfg, (subCfg, subCfgKey) ->

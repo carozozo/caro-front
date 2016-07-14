@@ -1,5 +1,5 @@
 
-/* TheIndex 核心程式 */
+/* CaroFront 核心程式 */
 (function(window, $, caro, MobileDetect) {
   var _trace, genTraceFn, self;
   self = {};
@@ -204,14 +204,13 @@
 
   /* config 相關 */
   (function(self, window, caro) {
-    var _cfg;
+    var _cfg, indexUrl;
     _cfg = self.$$config;
+    indexUrl = self.indexUrl.replace('https://', '');
+    indexUrl = indexUrl.replace('http://', '');
 
     /* 比對符合的首頁網址, 並 assign config */
     self.regDifCfg = function(url, cfg) {
-      var indexUrl, location;
-      location = window.location;
-      indexUrl = location.host + caro.addTail(location.pathname, '/');
       url = caro.addTail(url, '/');
       if (indexUrl !== url) {
         return;
