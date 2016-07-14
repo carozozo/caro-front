@@ -152,7 +152,7 @@
     reg = function(type, name, fn, page) {
       var typeDomObj, typeObj;
       if (!fn) {
-        return _trace.err('ctrl', name, 'without function');
+        return _trace.err(type, name, 'without function');
       }
       typeObj = type === 'ctrl' ? self._ctrl : self._module;
       typeDomObj = type === 'ctrl' ? self.$ctrl : self.$module;

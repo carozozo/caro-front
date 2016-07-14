@@ -110,8 +110,7 @@ do(window, $, caro, MobileDetect) ->
   ### ctrl and module ###
   do(self, $) ->
     reg = (type, name, fn, page) ->
-      if !fn
-        return _trace.err('ctrl', name, 'without function')
+      return _trace.err(type, name, 'without function') if !fn
       typeObj = if type is 'ctrl' then self._ctrl else self._module
       typeDomObj = if type is 'ctrl' then self.$ctrl else self.$module
       if !typeObj[name] and !$.fn[name]
