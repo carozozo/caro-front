@@ -267,12 +267,12 @@ cf.regLib('dom', function(cf) {
 
     /* 同 .getVal(), 並 uppercase */
     self.getUpperVal = function() {
-      return self.getVal().toUpperCase();
+      return this.getVal().toUpperCase();
     };
 
     /* 同 .getVal(), 並 lowercase */
     self.getLowerVal = function() {
-      return self.getVal().toLowerCase();
+      return this.getVal().toLowerCase();
     };
 
     /* 取得包含本身的 html code */

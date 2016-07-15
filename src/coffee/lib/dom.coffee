@@ -176,10 +176,10 @@ cf.regLib 'dom', (cf) ->
       @val().trim()
     ### 同 .getVal(), 並 uppercase ###
     self.getUpperVal = ->
-      self.getVal().toUpperCase()
+      @getVal().toUpperCase()
     ### 同 .getVal(), 並 lowercase ###
     self.getLowerVal = ->
-      self.getVal().toLowerCase()
+      @getVal().toLowerCase()
     ### 取得包含本身的 html code ###
     self.getHtml = ->
       div = $('<div/>')
