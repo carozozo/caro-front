@@ -170,17 +170,16 @@ cf.regLib 'dom', (cf) ->
       console.log 'Count Dom:', @length, msg
     ### 判斷本身是否沒任何 html 內容 ###
     self.isEmpty = ->
-      !$.trim(@html())
-    ### .val 進階版 ###
-    self.getVal = (opt) ->
-      upper = opt.upper
-      lower = opt.lower
-      val = @val().trim()
-      if upper
-        val.toUpperCase()
-      else if lower
-        val.toLowerCase()
-      val
+      @html().trim()
+    ### 同 .val(), 並自動 trim() ###
+    self.getVal = ->
+      @val().trim()
+    ### 同 .getVal(), 並 uppercase ###
+    self.getUpperVal = ->
+      self.getVal().toUpperCase()
+    ### 同 .getVal(), 並 lowercase ###
+    self.getLowerVal = ->
+      self.getVal().toLowerCase()
     ### 取得包含本身的 html code ###
     self.getHtml = ->
       div = $('<div/>')

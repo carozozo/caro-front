@@ -257,21 +257,22 @@ cf.regLib('dom', function(cf) {
 
     /* 判斷本身是否沒任何 html 內容 */
     self.isEmpty = function() {
-      return !$.trim(this.html());
+      return this.html().trim();
     };
 
-    /* .val 進階版 */
-    self.getVal = function(opt) {
-      var lower, upper, val;
-      upper = opt.upper;
-      lower = opt.lower;
-      val = this.val().trim();
-      if (upper) {
-        val.toUpperCase();
-      } else if (lower) {
-        val.toLowerCase();
-      }
-      return val;
+    /* 同 .val(), 並自動 trim() */
+    self.getVal = function() {
+      return this.val().trim();
+    };
+
+    /* 同 .getVal(), 並 uppercase */
+    self.getUpperVal = function() {
+      return self.getVal().toUpperCase();
+    };
+
+    /* 同 .getVal(), 並 lowercase */
+    self.getLowerVal = function() {
+      return self.getVal().toLowerCase();
     };
 
     /* 取得包含本身的 html code */
