@@ -6,9 +6,10 @@ cf.regLib 'ajax', (cf) ->
   _cfg = cf.config('ajax')
   _responseErrKey = _cfg.responseErrKey
   _isTest = cf.isLocal or _cfg.isTestMode
+  _errMsg = _cfg.errMsg
   _fakeResponse = null
   _indexUrl = cf.indexUrl
-
+  _alert = cf.alert or cf.require('alert')
 
   generateApiUrl = (apiName) ->
     apiUrl = _indexUrl + 'api/'
@@ -65,6 +66,12 @@ cf.regLib 'ajax', (cf) ->
         if caro.isObject(res) and resErr
           cb and cb(resErr)
         return
+
+    ### 如果呼叫 ajax 發生錯誤, 顯示要 alert 的訊息 ###
+    ajaxObj.error(->
+      _alert(_errMsg) if _errMsg
+      return
+    )
 
     ajaxObj
 

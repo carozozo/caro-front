@@ -1,15 +1,17 @@
 
 /* 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式 */
 cf.regLib('ajax', function(cf) {
-  var $, _cfg, _fakeResponse, _indexUrl, _isTest, _responseErrKey, caro, generateAjaxOpt, generateApiUrl, self;
+  var $, _alert, _cfg, _errMsg, _fakeResponse, _indexUrl, _isTest, _responseErrKey, caro, generateAjaxOpt, generateApiUrl, self;
   self = {};
   $ = cf.require('$');
   caro = cf.require('caro');
   _cfg = cf.config('ajax');
   _responseErrKey = _cfg.responseErrKey;
   _isTest = cf.isLocal || _cfg.isTestMode;
+  _errMsg = _cfg.errMsg;
   _fakeResponse = null;
   _indexUrl = cf.indexUrl;
+  _alert = cf.alert || cf.require('alert');
   generateApiUrl = function(apiName) {
     var apiUrl;
     apiUrl = _indexUrl + 'api/';
@@ -75,6 +77,13 @@ cf.regLib('ajax', function(cf) {
         }
       });
     };
+
+    /* 如果呼叫 ajax 發生錯誤, 顯示要 alert 的訊息 */
+    ajaxObj.error(function() {
+      if (_errMsg) {
+        _alert(_errMsg);
+      }
+    });
     return ajaxObj;
   };
   return self;

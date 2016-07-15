@@ -8,10 +8,12 @@ do (cf) ->
   ###
   isTestMode: 是否為 ajax 測試模式, true 的時候會使用 fakeResponse(假的 response)
   responseErrKey: 判斷 response 裡面是回傳 error 的 key
+  errMsg: 當呼叫 api 發生錯誤時要 alert 的訊息, 不設置或空值則不顯示
   ###
   cf.config('ajax', {
     isTestMode: false
     responseErrKey: 'error_message'
+    errMsg: '伺服器發生錯誤, 請稍候再試'
   })
   ###
   isDownloadSdk: 是否要載入 fb-sdk
@@ -60,7 +62,7 @@ do (cf) ->
   })
   cf.regDifCfg('localhost:3006', {
     fb: {
-      aa:123
+      aa: 123
     }
   })
   return
