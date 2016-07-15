@@ -131,19 +131,10 @@ var err = 'error'
 trace.err('This is test', err);
 ```
 - regLib(註冊名稱, fn) : 註冊函式 庫
+- regServ(註冊名稱, fn) : 註冊 service 函式 庫
 ```
 // 會產生 cf.test.get cf.test.set 函式 
 cf.regLib('test', function(cf) {
-  var self = {}
-  self.get = function(){...}
-  self.set = function(){...}
-  return self;
-});
-```
-- regServ(註冊名稱, fn) : 註冊 service 函式 庫
-```
-// 會產生 cf.testServ.get cf.testServ.set 函式 
-cf.regServ('testServ', function(cf) {
   var self = {}
   self.get = function(){...}
   self.set = function(){...}
@@ -155,7 +146,7 @@ cf.regServ('testServ', function(cf) {
 ```
 // ctrl/menu.ctrl.js
 cf.regCtrl('menu', function(opt) {
-	var $self = this
+  var $self = this
   var ti = self.ti
   ...
   $self.get = function(){...}
@@ -176,13 +167,7 @@ var $menu = $('.example').menu({a:1});
 ```
 - config(註冊名稱, [config-obj]) : 註冊 / 讀取 config
 ```
-/*
-相當於
-cf.$$config = {
-  theKey: 123
-}
-*/
-cf.config('theKey', 123);
+cf.config('theKey', 123); // 會儲存 {theKey: 123} 在 cf.$$config
 var theKey = cf.config('theKey'); // -> 123 
 ```
 - regDifCfg(url, 設定) : 依據不同的 url 載入 config
@@ -194,6 +179,22 @@ cf.regDifCfg('example.com.tw', {
 // 當網域為 example.com.tw 時, 會取得 456, 其他網域則是 123
 var theKey = cf.config('theKey'); 
 ```
+
+## lib / serv 函式庫差別
+差別只在於作用域不同   
+lib 應用於特定功能, serv 應用於 page 間的邏輯處理
+ 
+### lib 介紹
+- cf.ajax : $.ajax 延伸, 可設定測試模式, 用來模擬 api response
+- cf.alert : 用 popup 模擬 alert 的功能, 避免 browser 禁用 alert
+- cf.cookie : 設置和讀取 cookie
+- cf.dom : 提供 jQuery 基本功能外掛
+- cf.fb : FB API 延伸函式庫, 解決部分 API 問題, 簡化呼叫方式和防呆
+- cf.routeAnimate : cf.router 擴充換頁效果
+- cf.router : 換頁函式庫
+- cf.tracking : 客製化 GA / GTM 函式庫, 簡化呼叫方式和防呆
+- cf.unit : 單元函式庫, 提供一些未分類函式
+- cf.website : 網頁函式庫
 
 ## cf.router 介紹
 ### 屬性 
@@ -214,10 +215,6 @@ var theKey = cf.config('theKey');
 - goPage([頁面名稱]) : 換頁, 沒參數時會依據 url 自動判斷
 - blockGoPage() : 呼叫後, 執行 router.goPage 不會換頁
 - approveGoPage() : 呼叫後, 所有的 router.goPage 可以換頁  
-
-## lib / serv 函式庫差別
-差別只在於作用域不同   
-lib 應用於特定功能, serv 應用於 page 間的邏輯處理 
 
 ## module / ctrl 模組差別
  用法類似 jQuery plugin, 差別只在於作用域不同   
