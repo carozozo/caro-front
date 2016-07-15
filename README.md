@@ -4,6 +4,20 @@
 針對目前開發項目遇到的問題做客製優化   
 減少開發時間及累積開發成果
 
+## 優化項目
+### 開發 
+- 運用 gulp 自動掃描檔案並部署網站
+- 運用 bower 控管外掛
+
+### 程式 
+- 可根據不同的 url 載入相對應的 config
+- 以 jQuery 搭配 gsap 實現 DOM 的動態控制
+
+### 工作分配
+- Lib / Serv 負責提供函式庫, 處理程式邏輯
+- Module / Ctrl 負責單位式元件
+- Page 負責頁面功能
+
 ## 開發用工具
 - npm
 - gulp
@@ -30,11 +44,11 @@
 - 執行 bower 安裝 framework 基本函式庫
 
 ## gulp 執行指令
-- gulp 自動部署並啟動 localhost server
-- gulp deploy 自動部署 
-- gulp prod  壓縮 js/css 檔到 /dist 底下, 並啟動 localhost server
-- gulp buildProd 壓縮 js/css 檔到 /dist 底下
-- gulp buildProdWithMap 壓縮 js/css 檔到 /dist 底下, 並產生 sourceMap
+- gulp : 自動部署並啟動 localhost server
+- gulp deploy : 自動部署 
+- gulp prod : 壓縮 js/css 檔到 /dist 底下, 並啟動 localhost server
+- gulp buildProd : 壓縮 js/css 檔到 /dist 底下
+- gulp buildProdWithMap : 壓縮 js/css 檔到 /dist 底下, 並產生 sourceMap
 - gulp img : 掃描 src/images/ 裡面的圖檔並輸出陣列到 /src/js/img.js
 - gulp buildBower : 將 bower 下載的外掛載到 src 底下
 
