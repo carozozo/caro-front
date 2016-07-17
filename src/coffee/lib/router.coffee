@@ -29,8 +29,11 @@ cf.regLib 'router', (cf) ->
         pageObj[name] = cb
         _trace type, name, ' registered'
       return
-    self.regPrePage = caro.partial(regPageCb, 'prePage') # 註冊 [當 Router 載入頁面前] 要執行的 function
-    self.regAftPage = caro.partial(regPageCb, 'aftPage') # 註冊 [當 Router 載入頁面後] 要執行的 function
+    ### 註冊 [當 Router 載入頁面前] 要執行的 function ###
+    self.regPrePage = caro.partial(regPageCb, 'prePage')
+    ### 註冊 [當 Router 載入頁面後] 要執行的 function ###
+    self.regAftPage = caro.partial(regPageCb, 'aftPage')
+    ### 註冊 [當 Router 載入頁面後] 要執行的對應 function ###
     self.regPage = caro.partial(regPageCb, 'page')
     return
 
@@ -99,22 +102,25 @@ cf.regLib 'router', (cf) ->
 
     getBodyContent = (pageName) ->
       htmlName = caro.addTail(pageName, '.html')
-      $page = $('<div/>').addClass('cf-page').css(
-        width: '100%'
-        height: '100%'
-      )
       $.ajax('template/' + htmlName).success((html) ->
-        if !html
-          return self.goPage()
-        _trace 'Got body'
-        pageFn = self._page[pageName]
+        return self.goPage() unless html
+        $page = $('<div/>').addClass('cf-page').css(
+          width: '100%'
+          height: '100%'
+        )
         self.pageName = pageName
 
         doneFn = ->
           self.$page and self.$page.remove()
           $page.html(html).appendTo(cf.$body).show()
+          pageFn = self._page[pageName]
           pageFn and pageFn(cf, $page)
           self.$page = $page
+          caro.forEach self._aftPage, (fn) ->
+            fn and fn(cf)
+            return
+          bindHashChange()
+          return
 
         caro.forEach self._prePage, (fn) ->
           fn and fn(cf)
@@ -124,11 +130,6 @@ cf.regLib 'router', (cf) ->
           self.transitionFn(cf, self.$page, $page, doneFn)
         else
           doneFn()
-
-        caro.forEach self._aftPage, (fn) ->
-          fn and fn(cf)
-          return
-        bindHashChange()
         return
       ).error ->
         self.goPage('index')

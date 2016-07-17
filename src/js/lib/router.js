@@ -38,8 +38,14 @@ cf.regLib('router', function(cf) {
         _trace(type, name, ' registered');
       }
     };
+
+    /* 註冊 [當 Router 載入頁面前] 要執行的 function */
     self.regPrePage = caro.partial(regPageCb, 'prePage');
+
+    /* 註冊 [當 Router 載入頁面後] 要執行的 function */
     self.regAftPage = caro.partial(regPageCb, 'aftPage');
+
+    /* 註冊 [當 Router 載入頁面後] 要執行的對應 function */
     self.regPage = caro.partial(regPageCb, 'page');
   })(self, caro);
 
@@ -128,25 +134,29 @@ cf.regLib('router', function(cf) {
       window.onhashchange = null;
     };
     getBodyContent = function(pageName) {
-      var $page, htmlName;
+      var htmlName;
       htmlName = caro.addTail(pageName, '.html');
-      $page = $('<div/>').addClass('cf-page').css({
-        width: '100%',
-        height: '100%'
-      });
       $.ajax('template/' + htmlName).success(function(html) {
-        var doneFn, pageFn;
+        var $page, doneFn;
         if (!html) {
           return self.goPage();
         }
-        _trace('Got body');
-        pageFn = self._page[pageName];
+        $page = $('<div/>').addClass('cf-page').css({
+          width: '100%',
+          height: '100%'
+        });
         self.pageName = pageName;
         doneFn = function() {
+          var pageFn;
           self.$page && self.$page.remove();
           $page.html(html).appendTo(cf.$body).show();
+          pageFn = self._page[pageName];
           pageFn && pageFn(cf, $page);
-          return self.$page = $page;
+          self.$page = $page;
+          caro.forEach(self._aftPage, function(fn) {
+            fn && fn(cf);
+          });
+          bindHashChange();
         };
         caro.forEach(self._prePage, function(fn) {
           fn && fn(cf);
@@ -156,10 +166,6 @@ cf.regLib('router', function(cf) {
         } else {
           doneFn();
         }
-        caro.forEach(self._aftPage, function(fn) {
-          fn && fn(cf);
-        });
-        bindHashChange();
       }).error(function() {
         self.goPage('index');
       });
