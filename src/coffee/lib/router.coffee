@@ -23,18 +23,23 @@ cf.regLib 'router', (cf) ->
 
   ### 註冊 page 載入完成後 callback ###
   do(self, caro) ->
-    regPageCb = (type, name, cb) ->
+    regPageCb = (type, fn, index = 50) ->
       pageObj = self['_' + type]
-      if !pageObj[name]
-        pageObj[name] = cb
-        _trace type, name, ' registered'
+      pageObj[index] = [] unless pageObj[index]
+      pageObj[index].push(fn)
       return
+
     ### 註冊 [當 Router 載入頁面前] 要執行的 function ###
     self.regPrePage = caro.partial(regPageCb, 'prePage')
     ### 註冊 [當 Router 載入頁面後] 要執行的 function ###
     self.regAftPage = caro.partial(regPageCb, 'aftPage')
     ### 註冊 [當 Router 載入頁面後] 要執行的對應 function ###
-    self.regPage = caro.partial(regPageCb, 'page')
+    self.regPage = (name, cb) ->
+      pageObj = self._page
+      if !pageObj[name]
+        pageObj[name] = cb
+        _trace 'Page', name, ' registered'
+      return
     return
 
   ###
@@ -110,21 +115,25 @@ cf.regLib 'router', (cf) ->
         )
         self.pageName = pageName
 
+        doPageFn = (pageObj) ->
+          caro.forEach pageObj, (fns) ->
+            caro.forEach fns, (fn) ->
+              fn and fn(self)
+              return
+            return
+          return
+
         doneFn = ->
           self.$page and self.$page.remove()
           $page.html(html).appendTo(cf.$body).show()
           pageFn = self._page[pageName]
           pageFn and pageFn(cf, $page)
           self.$page = $page
-          caro.forEach self._aftPage, (fn) ->
-            fn and fn(cf)
-            return
+          doPageFn(self._aftPage)
           bindHashChange()
           return
 
-        caro.forEach self._prePage, (fn) ->
-          fn and fn(cf)
-          return
+        doPageFn(self._prePage)
 
         if self.transitionFn
           self.transitionFn(cf, self.$page, $page, doneFn)

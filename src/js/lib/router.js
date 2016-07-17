@@ -30,13 +30,16 @@ cf.regLib('router', function(cf) {
   /* 註冊 page 載入完成後 callback */
   (function(self, caro) {
     var regPageCb;
-    regPageCb = function(type, name, cb) {
+    regPageCb = function(type, fn, index) {
       var pageObj;
-      pageObj = self['_' + type];
-      if (!pageObj[name]) {
-        pageObj[name] = cb;
-        _trace(type, name, ' registered');
+      if (index == null) {
+        index = 50;
       }
+      pageObj = self['_' + type];
+      if (!pageObj[index]) {
+        pageObj[index] = [];
+      }
+      pageObj[index].push(fn);
     };
 
     /* 註冊 [當 Router 載入頁面前] 要執行的 function */
@@ -46,7 +49,14 @@ cf.regLib('router', function(cf) {
     self.regAftPage = caro.partial(regPageCb, 'aftPage');
 
     /* 註冊 [當 Router 載入頁面後] 要執行的對應 function */
-    self.regPage = caro.partial(regPageCb, 'page');
+    self.regPage = function(name, cb) {
+      var pageObj;
+      pageObj = self._page;
+      if (!pageObj[name]) {
+        pageObj[name] = cb;
+        _trace('Page', name, ' registered');
+      }
+    };
   })(self, caro);
 
   /*
@@ -137,7 +147,7 @@ cf.regLib('router', function(cf) {
       var htmlName;
       htmlName = caro.addTail(pageName, '.html');
       $.ajax('template/' + htmlName).success(function(html) {
-        var $page, doneFn;
+        var $page, doPageFn, doneFn;
         if (!html) {
           return self.goPage();
         }
@@ -146,6 +156,13 @@ cf.regLib('router', function(cf) {
           height: '100%'
         });
         self.pageName = pageName;
+        doPageFn = function(pageObj) {
+          caro.forEach(pageObj, function(fns) {
+            caro.forEach(fns, function(fn) {
+              fn && fn(self);
+            });
+          });
+        };
         doneFn = function() {
           var pageFn;
           self.$page && self.$page.remove();
@@ -153,14 +170,10 @@ cf.regLib('router', function(cf) {
           pageFn = self._page[pageName];
           pageFn && pageFn(cf, $page);
           self.$page = $page;
-          caro.forEach(self._aftPage, function(fn) {
-            fn && fn(cf);
-          });
+          doPageFn(self._aftPage);
           bindHashChange();
         };
-        caro.forEach(self._prePage, function(fn) {
-          fn && fn(cf);
-        });
+        doPageFn(self._prePage);
         if (self.transitionFn) {
           self.transitionFn(cf, self.$page, $page, doneFn);
         } else {
