@@ -27,7 +27,7 @@
 
   /* 儲存 document ready 後要觸發的 functions, 裡面的 key 為執行順序 */
   self._docReady = {
-    50: {}
+    50: []
   };
 
   /* 儲存註冊的 controller functions */
@@ -117,19 +117,14 @@
     };
 
     /* 註冊 document ready 要執行的 cb */
-    self.regDocReady = function(name, fn, index) {
-      var _docReady;
+    self.regDocReady = function(fn, index) {
       if (index == null) {
         index = 50;
       }
       if (!self._docReady[index]) {
-        self._docReady[index] = {};
+        self._docReady[index] = [];
       }
-      _docReady = self._docReady[index];
-      if (!_docReady[name]) {
-        _docReady[name] = fn;
-        _trace('DocReady Fn ', name, ' registered');
-      }
+      self._docReady[index].push(fn);
     };
 
     /* 產生 trace 用的 fn, 會在 console 顯示訊息(IE8 之前不支援 console) */

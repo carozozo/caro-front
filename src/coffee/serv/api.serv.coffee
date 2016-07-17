@@ -17,7 +17,7 @@ cf.regServ 'api', (cf) ->
 
   self
 
-cf.regDocReady 'api', ->
+cf.regDocReady(->
   ### 設置假的 response for 沒有 api 測試 ###
   cf.ajax.setFakeResponse(
     ### {{Api 名稱}} : {{假的 response}} ###
@@ -29,3 +29,4 @@ cf.regDocReady 'api', ->
       responseObject: {}
   )
   return
+)

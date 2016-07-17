@@ -95,7 +95,7 @@ cf.regLib 'tracking', (cf) ->
 
   self
 
-cf.regDocReady 'tracking', (cf) ->
+cf.regDocReady((cf) ->
   $ = cf.require('$')
   _cfg = cf.config('tracking')
   _type = _cfg.type
@@ -138,3 +138,4 @@ cf.regDocReady 'tracking', (cf) ->
   downloadSdkFn = _sdkFnMap[_type]
   downloadSdkFn and downloadSdkFn()
   return
+)

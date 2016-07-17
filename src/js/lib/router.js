@@ -215,6 +215,6 @@ cf.regLib('router', function(cf) {
   return self;
 });
 
-cf.regDocReady('router', function() {
+cf.regDocReady(function() {
   return cf.router.goPage();
 }, 100);

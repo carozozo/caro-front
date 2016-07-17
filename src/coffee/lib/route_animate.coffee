@@ -114,7 +114,7 @@ cf.regLib 'routeAnimate', (cf) ->
 
   self
 
-cf.regDocReady 'routeAnimate', (cf) ->
+cf.regDocReady((cf) ->
   ### 更新 router.goPage ###
   _router = cf.router
   _routeAnimate = cf.routeAnimate
@@ -124,3 +124,6 @@ cf.regDocReady 'routeAnimate', (cf) ->
     _router.transitionFn = null if type is ''
     _routeAnimate[type](opt) if type
     goPageFn(page)
+    return
+  return
+)

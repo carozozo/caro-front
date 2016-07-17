@@ -122,10 +122,10 @@ var theKey = cf.data('theKey'); // -> 123
 - regDocReady(註冊名稱, fn, [執行順序=50]) : 當頁面載入完畢時要執行的 function
 ```
 // 頁面載入完畢時會先印出 2 然後是 1
-cf.regDocReady('index', function(cf){
+cf.regDocReady(function(cf){
   console.log(1);
 });
-cf.regDocReady('first', function(cf){
+cf.regDocReady(function(cf){
   console.log(2);
 }, 1);
 ```

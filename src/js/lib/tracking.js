@@ -139,7 +139,7 @@ cf.regLib('tracking', function(cf) {
   return self;
 });
 
-cf.regDocReady('tracking', function(cf) {
+cf.regDocReady(function(cf) {
   var $, _cfg, _sdkFnMap, _tagId, _trace, _type, document, downloadSdkFn, window;
   $ = cf.require('$');
   _cfg = cf.config('tracking');

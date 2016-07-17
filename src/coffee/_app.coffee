@@ -17,7 +17,7 @@ do(window, $, caro, MobileDetect) ->
   self.$module = {}
   ### 儲存 document ready 後要觸發的 functions, 裡面的 key 為執行順序 ###
   self._docReady = {
-    50: {}
+    50: []
   }
   ### 儲存註冊的 controller functions ###
   self._ctrl = {}
@@ -85,12 +85,9 @@ do(window, $, caro, MobileDetect) ->
       self.$$data[key]
 
     ### 註冊 document ready 要執行的 cb ###
-    self.regDocReady = (name, fn, index = 50) ->
-      self._docReady[index] = {} unless self._docReady[index]
-      _docReady = self._docReady[index]
-      if !_docReady[name]
-        _docReady[name] = fn
-        _trace 'DocReady Fn ', name, ' registered'
+    self.regDocReady = (fn, index = 50) ->
+      self._docReady[index] = [] unless self._docReady[index]
+      self._docReady[index].push(fn)
       return
 
     ### 產生 trace 用的 fn, 會在 console 顯示訊息(IE8 之前不支援 console) ###

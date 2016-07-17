@@ -186,7 +186,7 @@ cf.regLib('routeAnimate', function(cf) {
   return self;
 });
 
-cf.regDocReady('routeAnimate', function(cf) {
+cf.regDocReady(function(cf) {
 
   /* 更新 router.goPage */
   var _routeAnimate, _router, goPageFn;
@@ -195,7 +195,7 @@ cf.regDocReady('routeAnimate', function(cf) {
   goPageFn = _router.goPage;
 
   /* 頁面, 換頁方式, 參數 */
-  return _router.goPage = function(page, type, opt) {
+  _router.goPage = function(page, type, opt) {
     if (type == null) {
       type = _routeAnimate.routeType;
     }
@@ -208,6 +208,6 @@ cf.regDocReady('routeAnimate', function(cf) {
     if (type) {
       _routeAnimate[type](opt);
     }
-    return goPageFn(page);
+    goPageFn(page);
   };
 });

@@ -264,7 +264,7 @@ cf.regLib('fb', function(cf) {
   return self;
 });
 
-cf.regDocReady('fb', function(cf) {
+cf.regDocReady(function(cf) {
   var _cfg, _isDownloadSdk, _trace, downloadSdk;
   _cfg = cf.config('fb');
   _isDownloadSdk = _cfg.isDownloadSdk;

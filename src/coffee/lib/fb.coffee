@@ -220,7 +220,7 @@ cf.regLib 'fb', (cf) ->
 
   self
 
-cf.regDocReady 'fb', (cf) ->
+cf.regDocReady((cf) ->
   _cfg = cf.config('fb')
   _isDownloadSdk = _cfg.isDownloadSdk
   _trace = cf.genTraceFn('fb')
@@ -242,3 +242,4 @@ cf.regDocReady 'fb', (cf) ->
 
   downloadSdk() if _isDownloadSdk
   return
+)

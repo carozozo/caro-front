@@ -171,6 +171,6 @@ cf.regLib 'router', (cf) ->
 
   self
 
-cf.regDocReady 'router', ->
+cf.regDocReady(->
   cf.router.goPage()
-, 100
+, 100)
