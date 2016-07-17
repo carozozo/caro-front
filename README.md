@@ -119,7 +119,7 @@ cf.$$data = {
 cf.data('theKey', 123);
 var theKey = cf.data('theKey'); // -> 123 
 ```
-- regDocReady(註冊名稱, fn, [執行順序=50]) : 當頁面載入完畢時要執行的 function
+- regDocReady(fn, [執行順序=50]) : 當頁面載入完畢時要執行的 function
 ```
 // 頁面載入完畢時會先印出 2 然後是 1
 cf.regDocReady(function(cf){
