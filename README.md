@@ -15,7 +15,7 @@
 
 ### 工作分配
 - Lib / Serv 負責提供函式庫, 處理程式邏輯
-- Module / Ctrl 負責單位式元件
+- Module / Ctrl 負責單位元件
 - Page 負責頁面功能
 
 ## 開發用工具
@@ -161,7 +161,7 @@ cf.regLib('test', function(cf) {
 // ctrl/menu.ctrl.js
 cf.regCtrl('menu', function(opt) {
   var $self = this
-  var ti = self.ti
+  var cf = $self.cf
   ...
   $self.get = function(){...}
   $self.set = function(){...}
