@@ -6,10 +6,10 @@ cf.regLib 'routeAnimate', (cf) ->
   }
   tm = cf.require('TweenMax')
   tl = cf.require('TimelineMax')
-  _router = cf.router
 
   ### 當下頁面往左邊出場, 下個頁面入場 ###
   self.left = (opt = {}) ->
+    _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
       duration = opt.duration or 0.8
@@ -22,6 +22,7 @@ cf.regLib 'routeAnimate', (cf) ->
       })
   ### 當下頁面往右邊出場, 下個頁面入場 ###
   self.right = (opt = {}) ->
+    _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
       duration = opt.duration or 0.8
@@ -34,6 +35,7 @@ cf.regLib 'routeAnimate', (cf) ->
       })
   ### 縮放入場效果 ###
   self.scale = (opt = {}) ->
+    _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
       duration = opt.duration or 0.4
@@ -50,6 +52,7 @@ cf.regLib 'routeAnimate', (cf) ->
       }, '-=' + duration / 2)
   ### fade 入場效果 ###
   self.fade = (opt = {}) ->
+    _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
       duration = opt.duration or 0.4
@@ -64,6 +67,7 @@ cf.regLib 'routeAnimate', (cf) ->
       })
   ### 3D Y 軸旋轉效果 ###
   self.rotateY = (opt = {}) ->
+    _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
       duration = opt.duration or 0.4
@@ -110,13 +114,13 @@ cf.regLib 'routeAnimate', (cf) ->
 
   self
 
-cf.regDocReady 'routeAnimate', (ti) ->
+cf.regDocReady 'routeAnimate', (cf) ->
   ### 更新 router.goPage ###
-  _router = ti.router
-  _routeAnimate = ti.routeAnimate
+  _router = cf.router
+  _routeAnimate = cf.routeAnimate
   goPageFn = _router.goPage
   ### 頁面, 換頁方式, 參數 ###
   _router.goPage = (page, type = _routeAnimate.routeType, opt = _routeAnimate.routeOpt) ->
     _router.transitionFn = null if type is ''
-    self[type](opt) if type
+    _routeAnimate[type](opt) if type
     goPageFn(page)

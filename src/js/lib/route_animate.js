@@ -1,20 +1,21 @@
 
 /* 客製化頁面跳轉效果 */
 cf.regLib('routeAnimate', function(cf) {
-  var _router, self, tl, tm;
+  var self, tl, tm;
   self = {
     routeType: '',
     routeOpt: ''
   };
   tm = cf.require('TweenMax');
   tl = cf.require('TimelineMax');
-  _router = cf.router;
 
   /* 當下頁面往左邊出場, 下個頁面入場 */
   self.left = function(opt) {
+    var _router;
     if (opt == null) {
       opt = {};
     }
+    _router = cf.router;
     return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration;
       _router.blockGoPage();
@@ -38,9 +39,11 @@ cf.regLib('routeAnimate', function(cf) {
 
   /* 當下頁面往右邊出場, 下個頁面入場 */
   self.right = function(opt) {
+    var _router;
     if (opt == null) {
       opt = {};
     }
+    _router = cf.router;
     return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration;
       _router.blockGoPage();
@@ -64,9 +67,11 @@ cf.regLib('routeAnimate', function(cf) {
 
   /* 縮放入場效果 */
   self.scale = function(opt) {
+    var _router;
     if (opt == null) {
       opt = {};
     }
+    _router = cf.router;
     return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration, tl1;
       _router.blockGoPage();
@@ -94,9 +99,11 @@ cf.regLib('routeAnimate', function(cf) {
 
   /* fade 入場效果 */
   self.fade = function(opt) {
+    var _router;
     if (opt == null) {
       opt = {};
     }
+    _router = cf.router;
     return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration, tl1;
       _router.blockGoPage();
@@ -122,9 +129,11 @@ cf.regLib('routeAnimate', function(cf) {
 
   /* 3D Y 軸旋轉效果 */
   self.rotateY = function(opt) {
+    var _router;
     if (opt == null) {
       opt = {};
     }
+    _router = cf.router;
     return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration, originPosition, perspective, tl1;
       _router.blockGoPage();
@@ -177,12 +186,12 @@ cf.regLib('routeAnimate', function(cf) {
   return self;
 });
 
-cf.regDocReady('routeAnimate', function(ti) {
+cf.regDocReady('routeAnimate', function(cf) {
 
   /* 更新 router.goPage */
   var _routeAnimate, _router, goPageFn;
-  _router = ti.router;
-  _routeAnimate = ti.routeAnimate;
+  _router = cf.router;
+  _routeAnimate = cf.routeAnimate;
   goPageFn = _router.goPage;
 
   /* 頁面, 換頁方式, 參數 */
@@ -197,7 +206,7 @@ cf.regDocReady('routeAnimate', function(ti) {
       _router.transitionFn = null;
     }
     if (type) {
-      self[type](opt);
+      _routeAnimate[type](opt);
     }
     return goPageFn(page);
   };
