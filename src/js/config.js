@@ -65,9 +65,4 @@
       imgUrl: 'http://www.demo.com/demo3/images/'
     }
   });
-  cf.regDifCfg('localhost:3006', {
-    fb: {
-      aa: 123
-    }
-  });
 })(cf);

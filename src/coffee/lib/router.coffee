@@ -3,12 +3,16 @@ cf.regLib 'router', (cf) ->
   self = {}
   ### 當下頁面的 DOm ###
   self.$page = null
-  ### 紀錄, 載入頁面前要執行的 fns ###
-  self._prePage = {}
-  ### 紀錄, 載入頁面時要執行的對應 fn ###
+  ### 儲存載入頁面前要執行的 fns, 裡面的 key 為執行順序 ###
+  self._prePage = {
+    50: []
+  }
+  ### 儲存載入頁面時要執行的對應 fn ###
   self._page = {}
-  ### 紀錄, 載入頁面後要執行的 fns ###
-  self._aftPage = {}
+  ### 儲存載入頁面後要執行的 fns, 裡面的 key 為執行順序 ###
+  self._aftPage = {
+    50: []
+  }
   ### 當下頁面名稱 ###
   self.pageName = ''
   ### 換頁程式 ###

@@ -25,15 +25,15 @@
   /* 儲存呼叫 module 後產生的 DOM 物件, 依名稱分類 */
   self.$module = {};
 
-  /* 儲存 document ready 後要觸發的 functions, 裡面的 key 為執行順序 */
+  /* 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 */
   self._docReady = {
     50: []
   };
 
-  /* 儲存註冊的 controller functions */
+  /* 儲存註冊的 controller fns */
   self._ctrl = {};
 
-  /* 儲存註冊的 module functions */
+  /* 儲存註冊的 module fns */
   self._module = {};
 
   /* 是否為 localhost */
