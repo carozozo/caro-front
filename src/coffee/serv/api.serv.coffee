@@ -18,15 +18,16 @@ cf.regServ 'api', (cf) ->
   self
 
 cf.regDocReady(->
-  ### 設置假的 response for 沒有 api 測試 ###
-  cf.ajax.setFakeResponse(
-    ### {{Api 名稱}} : {{假的 response}} ###
+  ###
+  設置假的 response for 沒有 api 測試
+  {{Api 名稱}} : {{假的 response}}
+  ###
+  cf.ajax.fakeResponse =
     DemoPostApi:
       error_message: null
       responseObject: {}
     DemoGetApi:
       error_message: null
       responseObject: {}
-  )
   return
 )

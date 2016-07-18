@@ -1,15 +1,17 @@
 
 /* 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式 */
 cf.regLib('ajax', function(cf) {
-  var $, _alert, _cfg, _errMsg, _fakeResponse, _indexUrl, _isTest, _responseErrKey, caro, generateAjaxOpt, generateApiUrl, self;
+  var $, _alert, _cfg, _errMsg, _indexUrl, _isTest, _responseErrKey, caro, generateAjaxOpt, generateApiUrl, self;
   self = {};
+
+  /* 測試用的假 response */
+  self.fakeResponse = null;
   $ = cf.require('$');
   caro = cf.require('caro');
   _cfg = cf.config('ajax');
   _responseErrKey = _cfg.responseErrKey;
   _isTest = cf.isLocal || _cfg.isTestMode;
   _errMsg = _cfg.errMsg;
-  _fakeResponse = null;
   _indexUrl = cf.indexUrl;
   _alert = cf.alert || cf.require('alert');
   generateApiUrl = function(apiName) {
@@ -30,11 +32,6 @@ cf.regLib('ajax', function(cf) {
     return caro.assign(opt, extendOpt || {});
   };
 
-  /* 設置測試用的假 response */
-  self.setFakeResponse = function(fakeRes) {
-    _fakeResponse = fakeRes;
-  };
-
   /* 呼叫 ajax, 測試模式時會調用 fakeResponse */
   self.callAjax = function(apiName, data, ajaxOpt) {
     var ajaxObj, opt, url;
@@ -43,7 +40,7 @@ cf.regLib('ajax', function(cf) {
       ajaxObj = {};
       ajaxObj.suc = ajaxObj.success = function(cb) {
         var fakeRes;
-        fakeRes = _fakeResponse[apiName];
+        fakeRes = self.fakeResponse[apiName];
         cb && cb(fakeRes);
         return ajaxObj;
       };

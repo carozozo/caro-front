@@ -1,13 +1,14 @@
 ### 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式 ###
 cf.regLib 'ajax', (cf) ->
   self = {}
+  ### 測試用的假 response ###
+  self.fakeResponse = null
   $ = cf.require('$')
   caro = cf.require('caro')
   _cfg = cf.config('ajax')
   _responseErrKey = _cfg.responseErrKey
   _isTest = cf.isLocal or _cfg.isTestMode
   _errMsg = _cfg.errMsg
-  _fakeResponse = null
   _indexUrl = cf.indexUrl
   _alert = cf.alert or cf.require('alert')
 
@@ -25,11 +26,6 @@ cf.regLib 'ajax', (cf) ->
       data: data or {}
     caro.assign opt, extendOpt or {}
 
-  ### 設置測試用的假 response ###
-  self.setFakeResponse = (fakeRes) ->
-    _fakeResponse = fakeRes
-    return
-
   ### 呼叫 ajax, 測試模式時會調用 fakeResponse ###
   self.callAjax = (apiName, data, ajaxOpt) ->
     ajaxObj = null
@@ -37,16 +33,13 @@ cf.regLib 'ajax', (cf) ->
       ajaxObj = {}
       ajaxObj.suc =
         ajaxObj.success = (cb) ->
-          fakeRes = _fakeResponse[apiName]
+          fakeRes = self.fakeResponse[apiName]
           cb and cb(fakeRes)
           ajaxObj
-
       ### 在測試模式時, error 和 err 不會執行 cb ###
-      ajaxObj.err =
-        ajaxObj.error = ->
-          ajaxObj
-
+      ajaxObj.err = ajaxObj.error = -> return ajaxObj
       return ajaxObj
+
     url = generateApiUrl(apiName)
     opt = generateAjaxOpt(url, data, ajaxOpt)
     ajaxObj = $.ajax(opt)

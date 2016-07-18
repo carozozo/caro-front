@@ -10,7 +10,7 @@
   /*
   isTestMode: 是否為 ajax 測試模式, true 的時候會使用 fakeResponse(假的 response)
   responseErrKey: 判斷 response 裡面是回傳 error 的 key
-  errMsg: 當呼叫 api 發生錯誤時要 alert 的訊息, 不設置或空值則不顯示
+  errMsg: 當執行 ajax 發生錯誤時要 alert 的訊息, 不設置或空值則不顯示
    */
   cf.config('ajax', {
     isTestMode: false,
