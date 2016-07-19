@@ -88,9 +88,9 @@
 - $body: 同 $(‘body’)
 - $ctrl: 儲存呼叫 controller 後產生的 DOM 物件
 - $module: 儲存 module DOM 物件 
-- _docReady : 儲存 document ready 後要觸發的 functions
-- _ctrl : 儲存 controller functions
-- _module : 儲存 module functions
+- _docReady : 儲存 document ready 後要觸發的 fns
+- _ctrl : 儲存 controller fns
+- _module : 儲存 module fns
 - isLocal : 是否為 localhost
 - isLocalTest : 是否為 local test 模式(由 config 設定)
 - isHttps : 當前網址是否為 https 
@@ -119,7 +119,7 @@ cf.$$data = {
 cf.data('theKey', 123);
 var theKey = cf.data('theKey'); // -> 123 
 ```
-- regDocReady(fn, [執行順序=50]) : 當頁面載入完畢時要執行的 function
+- regDocReady(fn, [執行順序=50]) : 當頁面載入完畢時要執行的 fn
 ```
 // 頁面載入完畢時會先印出 2 然後是 1
 cf.regDocReady(function(cf){
@@ -226,7 +226,7 @@ lib 應用於特定功能, serv 應用於 page 間的邏輯處理
 - regPrePage(註冊名稱, fn) : 註冊每次次換頁前要執行的 fn
 - regAftPage(註冊名稱, fn) : 註冊每次換頁後要執行的 fn
 - regPage(註冊頁面, fn) : 註冊頁面要執行的 fn
-- goPage([頁面名稱]) : 換頁, 沒參數時會依據 url 自動判斷
+- goPage([頁面名稱]) : 換頁, 沒參數時會依據 url 的 hash 自動判斷
 - blockGoPage() : 呼叫後, 執行 router.goPage 不會換頁
 - approveGoPage() : 呼叫後, 所有的 router.goPage 可以換頁  
 
