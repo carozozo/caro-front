@@ -42,7 +42,7 @@ do(window, $, caro, MobileDetect) ->
   ### 瀏覽器是否為 IE9 之前的版本   ###
   self.isBefIe9 = false
   ### 首頁網址 ###
-  self.indexUrl = do ->
+  self.indexUrl = do(window) ->
     location = window.location
     pathnameArr = location.pathname.split('/')
     pathnameArr.pop()

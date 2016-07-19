@@ -64,13 +64,13 @@
   self.isBefIe9 = false;
 
   /* 首頁網址 */
-  self.indexUrl = (function() {
+  self.indexUrl = (function(window) {
     var location, pathnameArr;
     location = window.location;
     pathnameArr = location.pathname.split('/');
     pathnameArr.pop();
     return location.protocol + '//' + location.host + caro.addTail(pathnameArr.join('/'), '/');
-  })();
+  })(window);
   genTraceFn = function(name) {
     var fn;
     fn = function() {
