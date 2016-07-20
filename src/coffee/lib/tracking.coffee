@@ -29,7 +29,7 @@ cf.regLib 'tracking', (cf) ->
   ### 檢查要發送的 page 之前是否才發送過 ###
   validatePage = (type, pageName) ->
     if pageName is _trackedPageName
-      _trace.err 'Send duplicate', type, 'pageView:', pageName
+      _trace 'Send duplicate', type, 'pageView:', pageName
       return false
     _trace 'Send', type, 'pageView:', pageName
     _trackedPageName = pageName
@@ -38,7 +38,7 @@ cf.regLib 'tracking', (cf) ->
   ### 檢查要發送的 event 之前是否才發送過 ###
   validateEvent = (type, category, label) ->
     if category is _trackedCategory and label is _trackedLabel
-      _trace.err 'Send duplicate', type, 'event, category:', category, ', label:', label
+      _trace 'Send duplicate', type, 'event, category:', category, ', label:', label
       return false
     _trace 'Send', type, 'event, category:', category, ', label:', label
     _trackedCategory = category

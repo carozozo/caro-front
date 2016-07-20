@@ -37,7 +37,7 @@ cf.regLib('tracking', function(cf) {
   /* 檢查要發送的 page 之前是否才發送過 */
   validatePage = function(type, pageName) {
     if (pageName === _trackedPageName) {
-      _trace.err('Send duplicate', type, 'pageView:', pageName);
+      _trace('Send duplicate', type, 'pageView:', pageName);
       return false;
     }
     _trace('Send', type, 'pageView:', pageName);
@@ -48,7 +48,7 @@ cf.regLib('tracking', function(cf) {
   /* 檢查要發送的 event 之前是否才發送過 */
   validateEvent = function(type, category, label) {
     if (category === _trackedCategory && label === _trackedLabel) {
-      _trace.err('Send duplicate', type, 'event, category:', category, ', label:', label);
+      _trace('Send duplicate', type, 'event, category:', category, ', label:', label);
       return false;
     }
     _trace('Send', type, 'event, category:', category, ', label:', label);
