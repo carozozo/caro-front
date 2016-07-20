@@ -21,9 +21,7 @@ cf.regLib 'tracking', (cf) ->
 
   getDataLayer = ->
     dataLayer = cf.require('dataLayer')
-    unless dataLayer
-      _trace.err 'GTM not load.'
-      return null
+    _trace.err 'GTM not load.' unless dataLayer
     dataLayer
 
   ### 檢查要發送的 page 之前是否才發送過 ###

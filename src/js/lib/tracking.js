@@ -29,7 +29,6 @@ cf.regLib('tracking', function(cf) {
     dataLayer = cf.require('dataLayer');
     if (!dataLayer) {
       _trace.err('GTM not load.');
-      return null;
     }
     return dataLayer;
   };
