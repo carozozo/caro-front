@@ -1,6 +1,10 @@
 module.exports = (function () {
   var self = {};
-  // 要優先自動掃描並加到 html js / css tag 的檔案
+  // 要寫入 js/css tag 的檔案
+  self.injectFileArr = [
+    'index.html'
+  ];
+  // 要優先自動掃描並加到 tag 的 js/css 檔案
   // 相容性程式優先載入 https://github.com/es-shims/es5-shim
   self.headArr = [
     '_compatibility/es5-shim.min.js',
@@ -20,7 +24,7 @@ module.exports = (function () {
     'js/ctrl/*.*',
     'js/page/*.*'
   ];
-  // 要排除自動掃描到 html js / css tag 的檔案路徑
+  // 要排除自動掃描並加到 tag 的 js/css 檔案
   self.excludeArr = [
   ];
   return self;
