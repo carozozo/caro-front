@@ -41,7 +41,7 @@
   var distJsDir = distDir + 'js/';
   var distCssDir = distDir + 'css/';
 
-  var bowerFolder ='_bower/';
+  var bowerFolder = '_bower/';
   var bowerDir = srcDir + bowerFolder;
   var srcImgDir = srcDir + 'images/';
   var srcJsDir = srcDir + 'js/';
@@ -92,14 +92,17 @@
   })();
   var isDev = true;
 
-  var compileCoffee = function (coffeeFiles) {
+  var compileCoffee = function (coffeeFiles, cb) {
     var coffeePipe = coffee({bare: true}).on('error', function (e) {
       console.error('Got coffee error', e);
       coffeePipe.end();
     });
     gulp.src(coffeeFiles, {base: srcCoffeeDir})
       .pipe(coffeePipe)
-      .pipe(gulp.dest(srcJsDir));
+      .pipe(gulp.dest(srcJsDir))
+      .on('end', function () {
+        cb && cb();
+      });
   };
 
   var doInject = function (source, name) {
@@ -158,14 +161,20 @@
         .pipe(concat(appJsFileName))
         .pipe(uglify())
         .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(distJsDir));
+        .pipe(gulp.dest(distJsDir))
+        .on('end', function () {
+          injectFiles();
+        });
     }
     return gulp.src(allJsArr)
       .pipe(concat(appJsFileName))
       .pipe(uglify())
-      .pipe(gulp.dest(distJsDir));
+      .pipe(gulp.dest(distJsDir))
+      .on('end', function () {
+        injectFiles();
+      });
   };
-  gulp.task('buildJs', function(){
+  gulp.task('buildJs', function () {
     buildJs();
   });
   gulp.task('buildJsWithMap', function () {
@@ -180,14 +189,20 @@
         .pipe(cleanCss())
         .pipe(concat(appCssFileName))
         .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(distCssDir));
+        .pipe(gulp.dest(distCssDir))
+        .on('end', function () {
+          injectFiles();
+        });
     }
     return gulp.src(allCssArr)
       .pipe(cleanCss())
       .pipe(concat(appCssFileName))
-      .pipe(gulp.dest(distCssDir));
+      .pipe(gulp.dest(distCssDir))
+      .on('end', function () {
+        injectFiles();
+      });
   };
-  gulp.task('buildCss', function(){
+  gulp.task('buildCss', function () {
     buildCss();
   });
   gulp.task('buildCssWithMap', function () {
@@ -195,7 +210,9 @@
   });
 
   var buildCoffee = function () {
-    compileCoffee(allSrcCoffeeFiles);
+    compileCoffee(allSrcCoffeeFiles, function () {
+      injectFiles();
+    });
   };
   gulp.task('buildCoffee', buildCoffee);
 
@@ -217,7 +234,7 @@
   gulp.task('injectFiles', injectFiles);
 
   var buildDev = function (cb) {
-    runSequence(['buildCoffee', 'copyMainHtml'], 'injectFiles', function () {
+    runSequence(['buildCoffee', 'copyMainHtml'], function () {
       cb && cb();
     });
   };
@@ -227,20 +244,20 @@
     isDev = false;
     if (isUseMap) {
       runSequence('cleanDist', 'buildCoffee', ['buildJsWithMap', 'buildCssWithMap',
-        'copyOtherToDist'], 'copyMainHtml', 'injectFiles', function () {
+        'copyOtherToDist'], 'copyMainHtml', function () {
         cb && cb();
       });
       return;
     }
     runSequence('cleanDist', 'buildCoffee', ['buildJs', 'buildCss',
-      'copyOtherToDist'], 'copyMainHtml', 'injectFiles', function () {
+      'copyOtherToDist'], 'copyMainHtml', function () {
       cb && cb();
     });
   };
-  gulp.task('buildProd', function(){
+  gulp.task('buildProd', function () {
     buildProd();
   });
-  gulp.task('buildProdWithMap', function(){
+  gulp.task('buildProdWithMap', function () {
     buildProd(null, true);
   });
 
@@ -295,10 +312,9 @@
         if (f.isNull()) {
           del.sync(srcJsDir + relative.replace('.coffee', '.js'));
         }
-        compileCoffee(srcCoffeeDir + relative);
-        setTimeout(function () {
-          runSequence('injectFiles');
-        }, 1000);
+        compileCoffee(srcCoffeeDir + relative, function () {
+          injectFiles();
+        });
       });
     });
   };
