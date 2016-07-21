@@ -114,12 +114,14 @@
   };
 
   var startHttpServ = function () {
-    var outputDir = isDev ? srcDir : distDir;
-    browserSync.init({
-      server: {
-        baseDir: outputDir
-      }
-    });
+    setTimeout(function () {
+      var outputDir = isDev ? srcDir : distDir;
+      browserSync.init({
+        server: {
+          baseDir: outputDir
+        }
+      });
+    }, 1000);
   };
 
   var copyMainHtml = function () {
