@@ -144,17 +144,6 @@
   };
   gulp.task('cleanDist', cleanDist);
 
-  var needDeleteFile = null;
-  var deleteFile = function () {
-    if (!needDeleteFile) {
-      return;
-    }
-    var targetFile = needDeleteFile;
-    needDeleteFile = null;
-    return del.sync(targetFile)
-  };
-  gulp.task('deleteFile', deleteFile);
-
   var buildJs = function (isUseMap) {
     var allJsArr = srcHeadArr.concat(allSrcJsFiles).concat('!' + allSrcCssFiles);
     if (isUseMap) {
