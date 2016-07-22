@@ -29,7 +29,6 @@
   var runSequence = require('run-sequence');
 
   var config = require('./gulpfile_config.js');
-  var pkg = require('./package.json');
 
   // 資料夾相關
   var srcDir = './src/';
