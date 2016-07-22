@@ -44,13 +44,14 @@
 - 執行 bower 安裝 framework 基本函式庫
 
 ## gulp 執行指令
-- gulp : 自動部署並啟動 localhost server
-- gulp deploy : 自動部署 
-- gulp prod : 壓縮 js/css 檔到 /dist 底下, 並啟動 localhost server
-- gulp buildProd : 壓縮 js/css 檔到 /dist 底下
-- gulp buildProdWithMap : 壓縮 js/css 檔到 /dist 底下, 並產生 sourceMap
-- gulp img : 掃描 src/images/ 裡面的圖檔並輸出陣列到 /src/js/img.js
-- gulp buildBower : 將 bower 下載的外掛載到 src 底下
+- gulp buildImg : 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js
+- gulp buildImgWithMin : 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js
+- gulp buildBower : 將 bower 下載的外掛(bower_components), 載到 src 底下
+- gulp buildProd : 壓縮到 /dist 底下
+- gulp buildProdWithMap : 壓縮到 /dist 底下, 並產生 sourceMap
+- gulp : 自動部署, 並啟動 localhost server
+- gulp prod : 自動部署壓縮到 /dist 底下, 並啟動 localhost server
+
 
 ## 主要檔案介紹 
 - main.html : 頁面 layout 

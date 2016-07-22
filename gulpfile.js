@@ -25,51 +25,60 @@
   var watch = require('gulp-watch');
   // 取得 bower 的 main file
   var mainBowerFiles = require('main-bower-files');
-  // 讓 gulp 可以依序執行 task
-  var runSequence = require('run-sequence');
 
   var config = require('./gulpfile_config.js');
-
+  var _imgDir = config.imgDir;
+  var _coffeeDir = config.coffeeDir;
+  var _jsDir = config.jsDir;
+  var _cssDir = config.cssDir;
+  var _prodJsName = config.prodJsName;
+  var _prodCssName = config.prodCssName;
+  var _isMinImg = config.isMinImg;
+  var _injectFileArr = config.injectFileArr;
+  var _injectHeadArr = config.injectHeadArr;
+  var _injectExcludeArr = config.injectExcludeArr;
   // 資料夾相關
-  var srcDir = './src/';
-  var distDir = './dist/';
-  var distJsDir = distDir + 'js/';
-  var distCssDir = distDir + 'css/';
-
-  var bowerFolder = '_bower/';
-  var bowerDir = srcDir + bowerFolder;
-  var srcImgDir = srcDir + 'images/';
-  var srcJsDir = srcDir + 'js/';
-  var srcCoffeeDir = srcDir + 'coffee/';
-  // 檔名相關
-  var allJsRegexp = '**/*.js';
-  var allCoffeeRegexp = '**/*.coffee';
-  var allCssRegexp = '**/*.css';
-  var appJsFileName = 'app.js';
-  var appCssFileName = 'app.css';
-  // src 相關
-  var allSrcFiles = srcDir + '**/*.*';
-  var allSrcJsFiles = srcDir + allJsRegexp;
-  var allSrcCoffeeFiles = srcCoffeeDir + allCoffeeRegexp;
-  var allSrcCssFiles = srcDir + allCssRegexp;
-  var allSrcHiddenFiles = '**/.*';
+  var srcDir = './src';
+  var distDir = './dist';
+  var srcImgDir = srcDir + _imgDir;
+  var srcJsDir = srcDir + _jsDir;
+  var srcCoffeeDir = srcDir + _coffeeDir;
+  var distJsDir = distDir + _jsDir;
+  var distCssDir = distDir + _cssDir;
+  // 檔案相關
+  var allSrcFiles = srcDir + '/**/*.*';
+  var allSrcJsFiles = srcDir + '/**/*.js';
+  var allSrcCoffeeFiles = srcCoffeeDir + '/**/*.coffee';
+  var allSrcCssFiles = srcDir + '/**/*.css';
   var allOtherSrcFilesArr = [allSrcFiles, '!' + allSrcJsFiles, '!' + allSrcCssFiles,
-    '!' + allSrcCoffeeFiles, '!' + allSrcHiddenFiles];
-  var srcHeadArr = caro.map(config.headArr, function (path) {
-    return srcDir + path;
+    '!' + allSrcCoffeeFiles, '!**/.*'];
+  var injectHeadArr = caro.map(_injectHeadArr, function (path) {
+    return srcDir + '/' + path;
   });
-  var srcExcludeHeadArr = (function () {
-    var arr = caro.map(srcHeadArr, function (path) {
+  var injectExcludeArr = (function () {
+    var arr = caro.map(injectHeadArr, function (path) {
       return '!' + path;
     });
-    var excludeArr = caro.map(config.excludeArr, function (path) {
-      return '!' + srcDir + path;
+    var excludeArr = caro.map(_injectExcludeArr, function (path) {
+      return '!' + srcDir + '/' + path;
     });
     return arr.concat(excludeArr)
   })();
-
-  var srcOtherArr = [allSrcFiles].concat(srcExcludeHeadArr);
+  var injectOtherArr = [allSrcJsFiles, allSrcCssFiles].concat(injectExcludeArr);
   var isDev = true;
+
+  var cleanDist = function (cb) {
+    del.sync([distDir]);
+    cb && cb();
+  };
+
+  var copyOtherToDist = function (cb) {
+    gulp.src(allOtherSrcFilesArr)
+      .pipe(gulp.dest(distDir))
+      .on('end', function () {
+        cb && cb();
+      });
+  };
 
   var compileCoffee = function (coffeeFiles, cb) {
     var coffeePipe = coffee({bare: true}).on('error', function (e) {
@@ -84,22 +93,21 @@
       });
   };
 
-  var doInject = function (source, name) {
-    return inject(gulp.src(source, {read: false}), {
-      name: name,
-      empty: true,
-      relative: true
-    })
-  };
-
   var injectFiles = function () {
-    caro.forEach(config.injectFileArr, function (fileName) {
+    var doInject = function (source, name) {
+      return inject(gulp.src(source, {read: false}), {
+        name: name,
+        empty: true,
+        relative: true
+      })
+    };
+    caro.forEach(_injectFileArr, function (fileName) {
       var outputDir = isDev ? srcDir : distDir;
-      var file = outputDir + fileName;
+      var file = outputDir + '/' + fileName;
       if (isDev) {
         gulp.src(file)
-          .pipe(doInject(srcHeadArr, 'head'))
-          .pipe(doInject(srcOtherArr, 'other'))
+          .pipe(doInject(injectHeadArr, 'head'))
+          .pipe(doInject(injectOtherArr, 'other'))
           .pipe(doInject([], 'app'))
           .pipe(gulp.dest(outputDir));
         return
@@ -107,7 +115,7 @@
       gulp.src(file)
         .pipe(doInject([], 'head'))
         .pipe(doInject([], 'other'))
-        .pipe(doInject([distJsDir + appJsFileName, distCssDir + appCssFileName], 'app'))
+        .pipe(doInject([distJsDir + '/' + _prodJsName, distCssDir + '/' + _prodCssName], 'app'))
         .pipe(gulp.dest(outputDir));
     });
   };
@@ -123,117 +131,17 @@
     }, 1000);
   };
 
-  var copyOtherToDist = function () {
-    return gulp.src(allOtherSrcFilesArr)
-      .pipe(gulp.dest(distDir));
-  };
-  gulp.task('copyOtherToDist', copyOtherToDist);
-
-  var cleanDist = function () {
-    del.sync([distDir]);
-  };
-  gulp.task('cleanDist', cleanDist);
-
-  var buildJs = function (isUseMap) {
-    var allJsArr = srcHeadArr.concat(allSrcJsFiles).concat('!' + allSrcCssFiles);
-    if (isUseMap) {
-      return gulp.src(allJsArr)
-        .pipe(sourcemaps.init())
-        .pipe(concat(appJsFileName))
-        .pipe(uglify())
-        .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(distJsDir))
-        .on('end', function () {
-          injectFiles();
-        });
-    }
-    return gulp.src(allJsArr)
-      .pipe(concat(appJsFileName))
-      .pipe(uglify())
-      .pipe(gulp.dest(distJsDir))
-      .on('end', function () {
-        injectFiles();
-      });
-  };
-  gulp.task('buildJs', function () {
-    buildJs();
-  });
-  gulp.task('buildJsWithMap', function () {
-    buildJs(true);
-  });
-
-  var buildCss = function (isUseMap) {
-    var allCssArr = srcHeadArr.concat(allSrcCssFiles).concat('!' + allSrcJsFiles);
-    if (isUseMap) {
-      return gulp.src(allCssArr)
-        .pipe(sourcemaps.init())
-        .pipe(cleanCss())
-        .pipe(concat(appCssFileName))
-        .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(distCssDir))
-        .on('end', function () {
-          injectFiles();
-        });
-    }
-    return gulp.src(allCssArr)
-      .pipe(cleanCss())
-      .pipe(concat(appCssFileName))
-      .pipe(gulp.dest(distCssDir))
-      .on('end', function () {
-        injectFiles();
-      });
-  };
-  gulp.task('buildCss', function () {
-    buildCss();
-  });
-  gulp.task('buildCssWithMap', function () {
-    buildCss(true);
-  });
-
-  var buildCoffee = function () {
-    compileCoffee(allSrcCoffeeFiles, function () {
-      injectFiles();
-    });
-  };
-  gulp.task('buildCoffee', buildCoffee);
-
-  var buildDev = function (cb) {
-    runSequence('buildCoffee', function () {
-      cb && cb();
-    });
-  };
-  gulp.task('build', buildDev);
-
-  var buildProd = function (cb, isUseMap) {
-    isDev = false;
-    if (isUseMap) {
-      runSequence('cleanDist', 'buildCoffee', ['buildJsWithMap', 'buildCssWithMap',
-        'copyOtherToDist'], function () {
-        cb && cb();
-      });
-      return;
-    }
-    runSequence('cleanDist', 'buildCoffee', ['buildJs', 'buildCss',
-      'copyOtherToDist'], function () {
-      cb && cb();
-    });
-  };
-  gulp.task('buildProd', function () {
-    buildProd();
-  });
-  gulp.task('buildProdWithMap', function () {
-    buildProd(null, true);
-  });
-
-  var buildImg = function () {
+  var buildImg = function (useMin) {
     var fs = require('fs');
     var path = require('path');
 
-    gulp.src(srcImgDir + '*.*')
-      .pipe(imagemin({
-        optimizationLevel: 5
-      }))
-      .pipe(gulp.dest(srcImgDir));
+    if (useMin) {
+      gulp.src(srcImgDir + '*.*')
+        .pipe(imagemin({
+          optimizationLevel: 5
+        }))
+        .pipe(gulp.dest(srcImgDir));
+    }
 
     fs.readdir(srcImgDir, function (err, files) {
       if (err) {
@@ -245,31 +153,126 @@
         if (extname !== '.jpg' && extname !== '.png' && extname !== '.svg') {
           return true;
         }
-        fileArr.push('images/' + file);
+        fileArr.push(_imgDir + '/' + file);
       });
       var fileJson = JSON.stringify(fileArr);
       fileJson = 'cf.$$imgs = ' + fileJson;
-      fs.writeFile(srcJsDir + 'img.js', fileJson, function (err) {
+      fs.writeFile(srcJsDir + '/img.js', fileJson, function (err) {
         if (err) {
-          return console.log(err);
+          return console.error(err);
         }
       });
     });
   };
-  gulp.task('img', buildImg);
 
   var buildBower = function () {
+    var bowerDir = srcDir + '/_bower';
     del.sync([bowerDir]);
     return gulp.src(mainBowerFiles())
       .pipe(gulp.dest(bowerDir));
   };
-  gulp.task('buildBower', buildBower);
 
-  var startDev = function () {
+  var buildJs = function (isUseMap, cb) {
+    var allJsArr = injectHeadArr.concat(allSrcJsFiles).concat('!' + allSrcCssFiles);
+    if (isUseMap) {
+      return gulp.src(allJsArr)
+        .pipe(sourcemaps.init())
+        .pipe(concat(_prodJsName))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulp.dest(distJsDir))
+        .on('end', function () {
+          cb && cb();
+        });
+    }
+    return gulp.src(allJsArr)
+      .pipe(concat(_prodJsName))
+      .pipe(uglify())
+      .pipe(gulp.dest(distJsDir))
+      .on('end', function () {
+        cb && cb();
+      });
+  };
+
+  var buildCss = function (isUseMap, cb) {
+    var allCssArr = injectHeadArr.concat([allSrcCssFiles]).concat(['!' + allSrcJsFiles]);
+    if (isUseMap) {
+      return gulp.src(allCssArr)
+        .pipe(sourcemaps.init())
+        .pipe(cleanCss())
+        .pipe(concat(_prodCssName))
+        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulp.dest(distCssDir))
+        .on('end', function () {
+          cb && cb();
+        });
+    }
+    return gulp.src(allCssArr)
+      .pipe(cleanCss())
+      .pipe(concat(_prodCssName))
+      .pipe(gulp.dest(distCssDir))
+      .on('end', function () {
+        cb && cb();
+      });
+  };
+
+  var buildCoffee = function (cb) {
+    compileCoffee(allSrcCoffeeFiles, function () {
+      cb && cb();
+    });
+  };
+
+  var buildDev = function (cb) {
+    buildCoffee(function () {
+      injectFiles();
+      cb && cb();
+    });
+  };
+
+  var buildProd = function (cb, isUseMap) {
+    isDev = false;
+    cleanDist();
+    if (isUseMap) {
+      buildCoffee(function () {
+        buildJs(true, function () {
+          buildCss(true, function () {
+            copyOtherToDist(function () {
+              injectFiles();
+              cb && cb();
+            });
+          });
+        });
+      });
+      return;
+    }
+    buildCoffee(function () {
+      buildJs(false, function () {
+        buildCss(false, function () {
+          copyOtherToDist(function () {
+            injectFiles();
+            cb && cb();
+          });
+        });
+      });
+    });
+  };
+
+  gulp.task('buildImg', buildImg);
+  gulp.task('buildImgWithMin', function () {
+    buildImg(true);
+  });
+  gulp.task('buildBower', buildBower);
+  gulp.task('build', buildDev);
+  gulp.task('buildProd', buildProd);
+  gulp.task('buildProdWithMap', function () {
+    buildProd(null, true);
+  });
+  gulp.task('default', function () {
     buildDev(function () {
       startHttpServ();
       watch(allSrcCoffeeFiles, function (f) {
         var relative = f.relative;
+        // 如果該 coffee 被移除 or 更名, 則移除對應的 js
         if (f.isNull()) {
           del.sync(srcJsDir + relative.replace('.coffee', '.js'));
         }
@@ -278,16 +281,11 @@
         });
       });
     });
-  };
-  gulp.task('default', startDev);
-
-  var startProd = function () {
+  });
+  gulp.task('prod', function () {
     buildProd(function () {
       startHttpServ();
     });
-  };
-  gulp.task('prod', function () {
-    startProd();
   });
 
 })();
