@@ -9,7 +9,7 @@
   var gulp = require('gulp');
   // 整理 css
   var cleanCss = require('gulp-clean-css');
-  // coffeescript
+  // coffee script
   var coffee = require('gulp-coffee');
   // 檔案合併
   var concat = require('gulp-concat');
@@ -93,17 +93,6 @@
     })
   };
 
-  var startHttpServ = function () {
-    setTimeout(function () {
-      var outputDir = isDev ? srcDir : distDir;
-      browserSync.init({
-        server: {
-          baseDir: outputDir
-        }
-      });
-    }, 1000);
-  };
-
   var injectFiles = function () {
     caro.forEach(config.injectFileArr, function (fileName) {
       var outputDir = isDev ? srcDir : distDir;
@@ -123,7 +112,17 @@
         .pipe(gulp.dest(outputDir));
     });
   };
-  gulp.task('injectFiles', injectFiles);
+
+  var startHttpServ = function () {
+    setTimeout(function () {
+      var outputDir = isDev ? srcDir : distDir;
+      browserSync.init({
+        server: {
+          baseDir: outputDir
+        }
+      });
+    }, 1000);
+  };
 
   var copyOtherToDist = function () {
     return gulp.src(allOtherSrcFilesArr)
@@ -200,7 +199,7 @@
   gulp.task('buildCoffee', buildCoffee);
 
   var buildDev = function (cb) {
-    runSequence(['buildCoffee'], function () {
+    runSequence('buildCoffee', function () {
       cb && cb();
     });
   };
