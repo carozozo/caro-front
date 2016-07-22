@@ -18,7 +18,6 @@
     "gulp-clean-css": "latest",
     "gulp-coffee": "latest",
     "gulp-concat": "^2.6.0",
-    "gulp-header": "latest",
     "gulp-imagemin": "latest",
     "gulp-inject": "latest",
     "gulp-rename": "latest",

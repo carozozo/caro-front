@@ -13,8 +13,6 @@
   var coffee = require('gulp-coffee');
   // 檔案合併
   var concat = require('gulp-concat');
-  // 在檔案內加入標頭
-  var header = require('gulp-header');
   // 壓縮圖
   var imagemin = require('gulp-imagemin');
   // 自動加入 html-tag
@@ -74,17 +72,6 @@
   })();
 
   var srcOtherArr = [allSrcFiles].concat(srcExcludeHeadArr);
-
-  var headerStr = (function () {
-    var pkgName = pkg.name;
-    var pkgVersion = pkg.version;
-    var date = new Date();
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    var today = year + '/' + month + '/' + day;
-    return '<!-- ' + pkgName + '@' + pkgVersion + ' - ' + today + ' -->\r\n';
-  })();
   var isDev = true;
 
   var compileCoffee = function (coffeeFiles, cb) {
