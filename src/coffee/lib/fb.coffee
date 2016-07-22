@@ -7,6 +7,7 @@ cf.regLib 'fb', (cf) ->
   _cfg = cf.config('fb')
   _isPhone = cf.isPhone
   _appId = _cfg.appId
+  _sdkVersion = _cfg.sdkVersion
   _redirectAfterLogin = _cfg.redirectAfterLogin
   _shareUrl = _cfg.shareUrl
   _initCbMap = {}
@@ -46,7 +47,7 @@ cf.regLib 'fb', (cf) ->
       status: true
       cookie: true
       xfbml: true
-      version: 'v2.6'
+      version: _sdkVersion
     caro.forEach _initCbMap, (cb, name) ->
       _trace 'Execute callback: ', name
       cb()

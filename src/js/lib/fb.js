@@ -1,7 +1,7 @@
 
 /* 客製化 facebook api 呼叫程式 */
 cf.regLib('fb', function(cf) {
-  var _alert, _appId, _authResponse, _cfg, _indexUrl, _initCbMap, _isPhone, _isReady, _isUserConnected, _redirectAfterLogin, _shareUrl, _trace, _urlAftLogin, caro, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
+  var _alert, _appId, _authResponse, _cfg, _indexUrl, _initCbMap, _isPhone, _isReady, _isUserConnected, _redirectAfterLogin, _sdkVersion, _shareUrl, _trace, _urlAftLogin, caro, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
   self = {};
   caro = cf.require('caro');
   window = cf.require('window');
@@ -9,6 +9,7 @@ cf.regLib('fb', function(cf) {
   _cfg = cf.config('fb');
   _isPhone = cf.isPhone;
   _appId = _cfg.appId;
+  _sdkVersion = _cfg.sdkVersion;
   _redirectAfterLogin = _cfg.redirectAfterLogin;
   _shareUrl = _cfg.shareUrl;
   _initCbMap = {};
@@ -53,7 +54,7 @@ cf.regLib('fb', function(cf) {
       status: true,
       cookie: true,
       xfbml: true,
-      version: 'v2.6'
+      version: _sdkVersion
     });
     caro.forEach(_initCbMap, function(cb, name) {
       _trace('Execute callback: ', name);

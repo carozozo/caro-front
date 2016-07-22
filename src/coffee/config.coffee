@@ -23,6 +23,7 @@ do (cf) ->
   ###
   cf.config('fb', {
     isDownloadSdk: false
+    sdkVersion: 'v2.7'
     redirectAfterLogin: 'go_back'
     appId: '1111111111111111'
     shareUrl: 'http://www.demo.com/'
