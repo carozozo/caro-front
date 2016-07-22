@@ -20,7 +20,6 @@
     "gulp-concat": "^2.6.0",
     "gulp-imagemin": "latest",
     "gulp-inject": "latest",
-    "gulp-rename": "latest",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "gulp-uglify": "latest",
     "gulp-watch": "latest",

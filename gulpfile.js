@@ -17,8 +17,6 @@
   var imagemin = require('gulp-imagemin');
   // 自動加入 html-tag
   var inject = require('gulp-inject');
-  // 檔案重新命名
-  var rename = require('gulp-rename');
   // source 對應
   var sourcemaps = require('gulp-sourcemaps');
   // 檔案最小化
