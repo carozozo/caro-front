@@ -1,7 +1,7 @@
 
 /*
 客製化滑鼠樣式
-$mouse = 會跟著滑鼠移動的物件 -> 可當作是滑鼠指標
+$mouse = 會跟著滑鼠移動的物件, 請放在 $self 裡面 -> 可當作是滑鼠指標
  */
 cf.regModule('caroMouseStyle', function($mouse, opt) {
   var $self, _duration, _triggerName, cf, tm;
@@ -20,12 +20,15 @@ cf.regModule('caroMouseStyle', function($mouse, opt) {
     'pointer-events': 'none'
   });
   $self.off(_triggerName).on(_triggerName, function(e) {
-    var pageX, pageY;
+    var pageX, pageY, selfOffset, selfX, selfY;
     pageX = e.pageX;
     pageY = e.pageY;
+    selfOffset = $self.offset();
+    selfX = selfOffset.left;
+    selfY = selfOffset.top;
     return tm.to($mouse, _duration, {
-      left: pageX,
-      top: pageY
+      left: pageX - selfX,
+      top: pageY - selfY
     });
   }).css({
     cursor: 'none'

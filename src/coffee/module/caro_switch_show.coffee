@@ -1,43 +1,44 @@
 ###
 輪流顯示 DOM, 預設顯示第一個
 $domList: 要顯示的 dom 列表
-e.g. $('.domList')
 e.g. [$('#dom1'), $('#dom2')]
 defType: 預設顯示方式 [fade/up/down/lef/right/'']
 ###
-cf.regModule 'caroSwitchShow', ($domList, defType) ->
+cf.regModule 'caroSwitchShow', ($domList, opt = {}) ->
   $self = this
   cf = $self.cf
   caro = cf.require('caro')
   tl = new TimelineLite()
-  defType = defType or 'fade'
-  currentIndex = 0
-  targetIndex = 0
+  _defType = opt.defType or 'fade'
+  _befShow = opt.befShow
+  _aftShow = opt.aftShow
+  _currentIndex = 0
 
-  $domList = cf.unit.coverDomList $domList, ($dom) ->
+  caro.forEach($domList, ($dom) ->
     $dom.hide()
     return
+  )
 
   switchShow = (i, type, opt = {}) ->
     return if tl.isActive()
-    type = type or defType or 'fade'
+    type = type or _defType or 'fade'
+    ### 移動時間 ###
     duration = opt.duration or 0.5
+    ### 移動距離 ###
     distance = opt.distance or 30
-    befShow = opt.befShow
-    aftShow = opt.aftShow
+    ### 轉換前的 cb ###
+    befShow = opt.befShow or _befShow
+    ### 轉換後的 cb, 如果回傳 false 則不轉換 ###
+    aftShow = opt.aftShow or _aftShow
 
     callAftShow = ->
-      aftShow and aftShow(i)
+      aftShow and aftShow(_currentIndex, i)
+      _currentIndex = i
       return
 
-    ### 舊瀏覽器只支援 [fade/null] ###
-    if cf.isBefIe8
-      type = if ((type is 'fade') or (not type)) then type else 'fade'
-    $currentDom = $domList[currentIndex]
+    $currentDom = $domList[_currentIndex]
     $targetDom = $domList[i]
-    currentIndex = i
-
-    befShow and befShow(i)
+    return if befShow and befShow(_currentIndex, i) is false
 
     switch type
       when 'fade'
@@ -68,24 +69,21 @@ cf.regModule 'caroSwitchShow', ($domList, defType) ->
     $self
 
   ### index: 要顯示的目標, type: 指定顯示方式 [fade/up/down/lef/right/''] ###
-  ### opt.duration: 移動時間, opt.distance: 移動距離 ###
   $self.showDom = (index, type, opt) ->
     targetIndex = index;
     switchShow targetIndex, type, opt
 
   ### 顯示下一個內容 ###
   $self.next = (type, opt = {}) ->
-    targetIndex = currentIndex + 1
-    if targetIndex > $domList.length - 1
-      targetIndex = 0
+    targetIndex = _currentIndex + 1
+    targetIndex = 0 if targetIndex > $domList.length - 1
     switchShow targetIndex, type, opt
 
   ### 顯示上一個內容 ###
   $self.prev = (type, opt = {}) ->
-    targetIndex = currentIndex - 1
-    if targetIndex < 0
-      targetIndex = $domList.length - 1
+    targetIndex = _currentIndex - 1
+    targetIndex = $domList.length - 1 if targetIndex < 0
     switchShow targetIndex, type, opt
 
-  $domList[currentIndex].show()
+  $domList[_currentIndex].show()
   $self
