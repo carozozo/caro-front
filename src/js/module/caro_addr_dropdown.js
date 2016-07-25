@@ -1,7 +1,7 @@
 
 /* 地址下拉選單 */
 cf.regModule('caroAddrDropdown', function($cityDom, $areaDom, opt) {
-  var $self, _addrMap, _islandMap, appendAreaDropdown, areaText, areaVal, cityText, cityVal, createDropdown, isIncludeIsland;
+  var $self, _addrMap, _islandMap, appendAreaDropdown, areaText, areaVal, cityText, cityVal, createDropdown, isIncludeIsland, withCode;
   if (opt == null) {
     opt = {};
   }
@@ -52,6 +52,9 @@ cf.regModule('caroAddrDropdown', function($cityDom, $areaDom, opt) {
 
   /* 是否包含離島 */
   isIncludeIsland = opt.isIncludeIsland;
+
+  /* 地區選單是否要包含區碼 */
+  withCode = opt.withCode;
   createDropdown = function(text, val) {
     return $('<option />').html(text).val(val);
   };
@@ -66,7 +69,13 @@ cf.regModule('caroAddrDropdown', function($cityDom, $areaDom, opt) {
       return;
     }
     return caro.forEach(areaArr, function(area) {
-      return $areaDom.append(createDropdown(area, area));
+      var areaStr;
+      if (!withCode) {
+        areaStr = area.substring(3);
+      } else {
+        areaStr = area;
+      }
+      return $areaDom.append(createDropdown(areaStr, area));
     });
   };
   if (isIncludeIsland) {

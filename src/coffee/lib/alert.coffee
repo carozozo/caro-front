@@ -52,6 +52,7 @@ cf.regLib 'alert', (cf) ->
       )
     ).on('click', ->
       tl1.timeScale(1.5).reverse()
+      $background.remove()
     ).html('OK').appendTo($box)
 
     $msg.html(msg)

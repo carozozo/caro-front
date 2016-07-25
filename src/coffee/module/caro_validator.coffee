@@ -145,6 +145,9 @@ cf.regModule 'caroValidator', (opt = {}) ->
 
   if(requireAll)
     $doms = $self.find('input, select, textarea')
-    $self.setRequire($doms)
+    $doms.each((i, $dom) ->
+      $dom = $($dom)
+      $self.setRequire($dom)
+    )
 
   $self

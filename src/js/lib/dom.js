@@ -262,7 +262,9 @@ cf.regLib('dom', function(cf) {
 
     /* 同 .val(), 並自動 trim() */
     self.getVal = function() {
-      return this.val().trim();
+      var val;
+      val = this.val() || '';
+      return val.trim();
     };
 
     /* 同 .getVal(), 並 uppercase */

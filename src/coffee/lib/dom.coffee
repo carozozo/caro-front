@@ -173,7 +173,8 @@ cf.regLib 'dom', (cf) ->
       @html().trim()
     ### 同 .val(), 並自動 trim() ###
     self.getVal = ->
-      @val().trim()
+      val = @val() or ''
+      val.trim()
     ### 同 .getVal(), 並 uppercase ###
     self.getUpperVal = ->
       @getVal().toUpperCase()

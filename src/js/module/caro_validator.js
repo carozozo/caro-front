@@ -212,7 +212,10 @@ cf.regModule('caroValidator', function(opt) {
   };
   if (requireAll) {
     $doms = $self.find('input, select, textarea');
-    $self.setRequire($doms);
+    $doms.each(function(i, $dom) {
+      $dom = $($dom);
+      return $self.setRequire($dom);
+    });
   }
   return $self;
 });

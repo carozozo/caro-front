@@ -52,7 +52,8 @@ cf.regLib('alert', function(cf) {
         'background': '#ccc'
       });
     }).on('click', function() {
-      return tl1.timeScale(1.5).reverse();
+      tl1.timeScale(1.5).reverse();
+      return $background.remove();
     }).html('OK').appendTo($box);
     $msg.html(msg);
     cf.$body.append($box).append($background);

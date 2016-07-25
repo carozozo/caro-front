@@ -440,6 +440,8 @@ cf.regModule 'caroAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
   areaVal = opt.defAreaVal or ''
   ### 是否包含離島 ###
   isIncludeIsland = opt.isIncludeIsland
+  ### 地區選單是否要包含區碼 ###
+  withCode = opt.withCode
 
   createDropdown = (text, val)->
     return $('<option />').html(text).val(val)
@@ -453,7 +455,11 @@ cf.regModule 'caroAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
       $areaDom.append(createDropdown(areaText, areaVal))
       return
     caro.forEach(areaArr, (area) ->
-      $areaDom.append(createDropdown(area, area))
+      unless withCode
+        areaStr = area.substring(3)
+      else
+        areaStr = area
+      $areaDom.append(createDropdown(areaStr, area))
     )
   if isIncludeIsland
     caro.forEach(_addrMap, (areaArr, city) ->
