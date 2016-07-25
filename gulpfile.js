@@ -274,9 +274,9 @@
         var relative = f.relative;
         // 如果該 coffee 被移除 or 更名, 則移除對應的 js
         if (f.isNull()) {
-          del.sync(srcJsDir + relative.replace('.coffee', '.js'));
+          del.sync(srcJsDir + '/' + relative.replace('.coffee', '.js'));
         }
-        compileCoffee(srcCoffeeDir + relative, function () {
+        compileCoffee(srcCoffeeDir + '/' + relative, function () {
           injectFiles();
         });
       });
