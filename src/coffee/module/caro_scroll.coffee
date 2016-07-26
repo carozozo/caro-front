@@ -47,6 +47,21 @@ cf.regModule 'caroScroll', ($contents, opt = {}) ->
     })
     return
 
+  ### 取得現在所在的 index ###
+  $self.getNowIndex = ->
+    scrollTop = $self.scrollTop()
+    basicY = null
+    if _basicY
+      basicY = if caro.isFunction(_basicY) then _basicY() else _basicY
+    else
+      basicY = $window.height() / 2
+    caro.forEach(_offsetTopArr, (offsetTop, i) ->
+      ### Dom 的頂端超過基準值時, 視為閱覽當下的 Dom ###
+      _nowIndex = i if scrollTop + basicY >= offsetTop
+      return
+    )
+    _nowIndex
+
   ### 捲動到下一個 ###
   $self.scrollNext = (duration) ->
     _nowIndex = 0 if ++_nowIndex > _offsetTopArr.length - 1
@@ -74,20 +89,10 @@ cf.regModule 'caroScroll', ($contents, opt = {}) ->
   $self.bindScroll = ->
     ### 避免重複綁定 ###
     $self.off(_triggerName).on(_triggerName, (e) ->
-      return false if _befScroll and _befScroll(_nowIndex, e) is false
+      return false if _nowIndex isnt null and _befScroll and _befScroll(_nowIndex, e) is false
       ### 偵測 scroll stop ###
       clearTimeout($self.data("scrollCheck." + _triggerName));
-      scrollTop = $self.scrollTop()
-      basicY = null
-      if _basicY
-        basicY = if caro.isFunction(_basicY) then _basicY() else _basicY
-      else
-        basicY = $window.height() / 2
-      caro.forEach(_offsetTopArr, (offsetTop, i) ->
-        ### Dom 的頂端超過基準值時, 視為閱覽當下的 Dom ###
-        _nowIndex = i if scrollTop + basicY >= offsetTop
-        return
-      )
+      $self.getNowIndex()
       _onScroll and _onScroll(_nowIndex, e)
       $self.data("scrollCheck." + _triggerName, setTimeout(->
         _aftScroll and _aftScroll(_nowIndex, e)
@@ -101,7 +106,8 @@ cf.regModule 'caroScroll', ($contents, opt = {}) ->
     $self.off(_triggerName)
     $self
 
+  getOffsetTopArr()
   $self.bindScroll()
-  caro.forEach($contents, getContentTop)
+  $self.getNowIndex()
 
   $self

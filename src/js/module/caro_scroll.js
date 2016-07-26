@@ -68,6 +68,26 @@ cf.regModule('caroScroll', function($contents, opt) {
     });
   };
 
+  /* 取得現在所在的 index */
+  $self.getNowIndex = function() {
+    var basicY, scrollTop;
+    scrollTop = $self.scrollTop();
+    basicY = null;
+    if (_basicY) {
+      basicY = caro.isFunction(_basicY) ? _basicY() : _basicY;
+    } else {
+      basicY = $window.height() / 2;
+    }
+    caro.forEach(_offsetTopArr, function(offsetTop, i) {
+
+      /* Dom 的頂端超過基準值時, 視為閱覽當下的 Dom */
+      if (scrollTop + basicY >= offsetTop) {
+        _nowIndex = i;
+      }
+    });
+    return _nowIndex;
+  };
+
   /* 捲動到下一個 */
   $self.scrollNext = function(duration) {
     if (++_nowIndex > _offsetTopArr.length - 1) {
@@ -104,27 +124,13 @@ cf.regModule('caroScroll', function($contents, opt) {
 
     /* 避免重複綁定 */
     $self.off(_triggerName).on(_triggerName, function(e) {
-      var basicY, scrollTop;
-      if (_befScroll && _befScroll(_nowIndex, e) === false) {
+      if (_nowIndex !== null && _befScroll && _befScroll(_nowIndex, e) === false) {
         return false;
       }
 
       /* 偵測 scroll stop */
       clearTimeout($self.data("scrollCheck." + _triggerName));
-      scrollTop = $self.scrollTop();
-      basicY = null;
-      if (_basicY) {
-        basicY = caro.isFunction(_basicY) ? _basicY() : _basicY;
-      } else {
-        basicY = $window.height() / 2;
-      }
-      caro.forEach(_offsetTopArr, function(offsetTop, i) {
-
-        /* Dom 的頂端超過基準值時, 視為閱覽當下的 Dom */
-        if (scrollTop + basicY >= offsetTop) {
-          _nowIndex = i;
-        }
-      });
+      $self.getNowIndex();
       _onScroll && _onScroll(_nowIndex, e);
       $self.data("scrollCheck." + _triggerName, setTimeout(function() {
         return _aftScroll && _aftScroll(_nowIndex, e);
@@ -138,7 +144,8 @@ cf.regModule('caroScroll', function($contents, opt) {
     $self.off(_triggerName);
     return $self;
   };
+  getOffsetTopArr();
   $self.bindScroll();
-  caro.forEach($contents, getContentTop);
+  $self.getNowIndex();
   return $self;
 });
