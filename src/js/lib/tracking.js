@@ -116,7 +116,7 @@ cf.regLib('tracking', function(cf) {
             action = _prefix + '_' + action.trim();
             label = _prefix + '_' + label.trim();
           }
-          if (!validateEvent('GA', action, label)) {
+          if (!validateEvent('GA', category, action, label)) {
             return;
           }
           ga = getGa();
@@ -133,7 +133,7 @@ cf.regLib('tracking', function(cf) {
             action = _prefix + '_' + action.trim();
             label = _prefix + '_' + label.trim();
           }
-          if (!validateEvent('GTM', action, label)) {
+          if (!validateEvent('GTM', category, action, label)) {
             return;
           }
           dataLayer = getDataLayer();

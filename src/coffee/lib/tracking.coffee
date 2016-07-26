@@ -78,7 +78,7 @@ cf.regLib 'tracking', (cf) ->
           if _prefix
             action = _prefix + '_' + action.trim()
             label = _prefix + '_' + label.trim()
-          return unless validateEvent('GA', action, label)
+          return unless validateEvent('GA', category, action, label)
           ga = getGa()
           ga 'send', 'event', category.trim(), action, label
           return
@@ -87,7 +87,7 @@ cf.regLib 'tracking', (cf) ->
           if _prefix
             action = _prefix + '_' + action.trim()
             label = _prefix + '_' + label.trim()
-          return unless validateEvent('GTM', action, label)
+          return unless validateEvent('GTM', category, action, label)
           dataLayer = getDataLayer()
           dataLayer.push
             'event': 'VirtualSend'
