@@ -5,22 +5,24 @@ cf.regLib('tracking', function(cf) {
   /* https://analytics.google.com/analytics/web/ */
 
   /* https://tagmanager.google.com/ */
-  var _cfg, _trace, _trackedCategory, _trackedLabel, _trackedPageName, _type, getDataLayer, getGa, self, validateEvent, validatePage, window;
+  var _cfg, _defCategory, _prefix, _trace, _trackedAction, _trackedCategory, _trackedLabel, _trackedPageName, _type, getDataLayer, getGa, self, validateEvent, validatePage, window;
   self = {};
   window = cf.require('window');
   _cfg = cf.config('tracking');
   _type = _cfg.type;
+  _defCategory = _cfg.defCategory;
+  _prefix = _cfg.prefix;
   _trace = cf.genTraceFn('tracking');
   _trace.startTrace();
   _trackedPageName = null;
   _trackedCategory = null;
+  _trackedAction = null;
   _trackedLabel = null;
   getGa = function() {
     var ga;
     ga = cf.require('ga');
     if (!ga) {
       _trace.err('GA not load.');
-      return null;
     }
     return ga;
   };
@@ -45,13 +47,14 @@ cf.regLib('tracking', function(cf) {
   };
 
   /* 檢查要發送的 event 之前是否才發送過 */
-  validateEvent = function(type, category, label) {
-    if (category === _trackedCategory && label === _trackedLabel) {
-      _trace('Send duplicate', type, 'event, category:', category, ', label:', label);
+  validateEvent = function(type, category, action, label) {
+    if (category === _trackedCategory && action === _trackedAction && label === _trackedLabel) {
+      _trace('Send duplicate', type, 'event, category:', category, ', action:', action, ', label:', label);
       return false;
     }
-    _trace('Send', type, 'event, category:', category, ', label:', label);
+    _trace('Send', type, 'event, category:', category, ', action:', action, ', label:', label);
     _trackedCategory = category;
+    _trackedAction = action;
     _trackedLabel = label;
     return true;
   };
@@ -63,19 +66,22 @@ cf.regLib('tracking', function(cf) {
       case 1:
         fn = function(pageName) {
           var ga;
+          if (_prefix) {
+            pageName = _prefix + '_' + pageName.trim();
+          }
           if (!validatePage('GA', pageName)) {
             return;
           }
           ga = getGa();
-          if (!ga) {
-            return;
-          }
           ga('send', 'pageview', pageName);
         };
         break;
       case 2:
         fn = function(pageName) {
           var dataLayer, document;
+          if (_prefix) {
+            pageName = _prefix + '_' + pageName.trim();
+          }
           if (!validatePage('GTM', pageName)) {
             return;
           }
@@ -83,7 +89,7 @@ cf.regLib('tracking', function(cf) {
           dataLayer = getDataLayer();
           dataLayer.push({
             'event': 'VirtualPageview',
-            'virtualPageURL': pageName.trim(),
+            'virtualPageURL': pageName,
             'virtualPageTitle': document.title
           });
         };
@@ -101,30 +107,41 @@ cf.regLib('tracking', function(cf) {
     var fn;
     switch (_type) {
       case 1:
-        fn = function(category, label) {
+        fn = function(action, label, category) {
           var ga;
-          if (!validateEvent('GA', category, label)) {
+          if (category == null) {
+            category = _defCategory;
+          }
+          if (_prefix) {
+            action = _prefix + '_' + action.trim();
+            label = _prefix + '_' + label.trim();
+          }
+          if (!validateEvent('GA', action, label)) {
             return;
           }
           ga = getGa();
-          if (!ga) {
-            return;
-          }
-          ga('send', 'event', category, 'click', label);
+          ga('send', 'event', category.trim(), action, label);
         };
         break;
       case 2:
-        fn = function(category, label) {
+        fn = function(action, label, category) {
           var dataLayer;
-          if (!validateEvent('GTM', category, label)) {
+          if (category == null) {
+            category = _defCategory;
+          }
+          if (_prefix) {
+            action = _prefix + '_' + action.trim();
+            label = _prefix + '_' + label.trim();
+          }
+          if (!validateEvent('GTM', action, label)) {
             return;
           }
           dataLayer = getDataLayer();
           dataLayer.push({
             'event': 'VirtualSend',
             'virtualCategory': category.trim(),
-            'virtualAction': 'click',
-            'virtualLabel': label.trim()
+            'virtualAction': action,
+            'virtualLabel': label
           });
         };
         break;

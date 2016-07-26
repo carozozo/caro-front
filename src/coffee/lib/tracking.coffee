@@ -6,17 +6,18 @@ cf.regLib 'tracking', (cf) ->
   window = cf.require('window')
   _cfg = cf.config('tracking')
   _type = _cfg.type
+  _defCategory = _cfg.defCategory
+  _prefix = _cfg.prefix
   _trace = cf.genTraceFn('tracking')
   _trace.startTrace()
   _trackedPageName = null
   _trackedCategory = null
+  _trackedAction = null
   _trackedLabel = null
 
   getGa = ->
     ga = cf.require('ga')
-    unless ga
-      _trace.err 'GA not load.'
-      return null
+    _trace.err 'GA not load.' unless ga
     ga
 
   getDataLayer = ->
@@ -34,12 +35,13 @@ cf.regLib 'tracking', (cf) ->
     true
 
   ### 檢查要發送的 event 之前是否才發送過 ###
-  validateEvent = (type, category, label) ->
-    if category is _trackedCategory and label is _trackedLabel
-      _trace 'Send duplicate', type, 'event, category:', category, ', label:', label
+  validateEvent = (type, category, action, label) ->
+    if category is _trackedCategory and action is _trackedAction and label is _trackedLabel
+      _trace 'Send duplicate', type, 'event, category:', category, ', action:', action, ', label:', label
       return false
-    _trace 'Send', type, 'event, category:', category, ', label:', label
+    _trace 'Send', type, 'event, category:', category, ', action:', action, ', label:', label
     _trackedCategory = category
+    _trackedAction = action
     _trackedLabel = label
     true
 
@@ -48,19 +50,20 @@ cf.regLib 'tracking', (cf) ->
     switch _type
       when 1
         fn = (pageName) ->
+          pageName = _prefix + '_' + pageName.trim() if _prefix
           return unless validatePage('GA', pageName)
           ga = getGa()
-          return unless ga
           ga 'send', 'pageview', pageName
           return
       when 2
         fn = (pageName) ->
+          pageName = _prefix + '_' + pageName.trim() if _prefix
           return unless validatePage('GTM', pageName)
           document = cf.require('document')
           dataLayer = getDataLayer()
           dataLayer.push
             'event': 'VirtualPageview'
-            'virtualPageURL': pageName.trim()
+            'virtualPageURL': pageName
             'virtualPageTitle': document.title
           return
       else
@@ -71,21 +74,26 @@ cf.regLib 'tracking', (cf) ->
   self.event = do ->
     switch _type
       when 1
-        fn = (category, label) ->
-          return unless validateEvent('GA', category, label)
+        fn = (action, label, category = _defCategory) ->
+          if _prefix
+            action = _prefix + '_' + action.trim()
+            label = _prefix + '_' + label.trim()
+          return unless validateEvent('GA', action, label)
           ga = getGa()
-          return unless ga
-          ga 'send', 'event', category, 'click', label
+          ga 'send', 'event', category.trim(), action, label
           return
       when 2
-        fn = (category, label) ->
-          return unless validateEvent('GTM', category, label)
+        fn = (action, label, category = _defCategory) ->
+          if _prefix
+            action = _prefix + '_' + action.trim()
+            label = _prefix + '_' + label.trim()
+          return unless validateEvent('GTM', action, label)
           dataLayer = getDataLayer()
           dataLayer.push
             'event': 'VirtualSend'
             'virtualCategory': category.trim()
-            'virtualAction': 'click'
-            'virtualLabel': label.trim()
+            'virtualAction': action
+            'virtualLabel': label
           return
       else
         fn = (category, label) -> _trace '[No tracking] Event category:', category, ', label:', label
