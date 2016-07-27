@@ -1,6 +1,6 @@
 ### 日期下拉選單 ###
 cf.regModule 'caroDateDropdown', (opt = {}) ->
-  $self = this
+  $self = @
   $year = (opt.$year or $self.dom('[name="year"]'))
   $month = (opt.$month or $self.dom('[name="month"]'))
   $day = (opt.$day or $self.dom('[name="day"]'))

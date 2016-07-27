@@ -1,6 +1,6 @@
 ### modal 視窗 ###
 cf.regModule 'caroModal', (opt) ->
-  $self = this
+  $self = @
   cf = $self.cf
   $ = cf.require('$')
   moduleData = do ->

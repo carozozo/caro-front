@@ -1,6 +1,6 @@
 ### 將 array 資料放到 DOM, 以 list 方式呈現, 例如得獎名單 ###
 cf.regModule 'caroListDom', (targetSelector, listData, opt = {}) ->
-  $self = this
+  $self = @
   cb = opt.cb or null
   $target = $self.find(targetSelector).hide()
   caro.forEach(listData, (data) ->

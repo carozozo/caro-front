@@ -5,7 +5,7 @@ e.g. [$('#dom1'), $('#dom2')]
 defType: 預設顯示方式 [fade/up/down/lef/right/'']
 ###
 cf.regModule 'caroSwitchShow', ($domList, opt = {}) ->
-  $self = this
+  $self = @
   cf = $self.cf
   caro = cf.require('caro')
   tl = new TimelineLite()

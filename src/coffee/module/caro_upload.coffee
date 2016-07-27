@@ -1,6 +1,6 @@
 ### 檔案上傳 ###
 cf.regModule 'caroUpload', (url, opt = {}) ->
-  $self = this
+  $self = @
   cf = $self.cf
   $ = cf.require '$'
   _isBefIe9 = cf.isBefIe9

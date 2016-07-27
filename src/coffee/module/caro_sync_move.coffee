@@ -1,6 +1,6 @@
 ### 計算滑鼠和基準點的距離，同步移動 DOM ###
 cf.regModule 'caroSyncMove', (opt = {}) ->
-  $self = this
+  $self = @
   cf = $self.cf
   $window = cf.$window
   $document = cf.$document

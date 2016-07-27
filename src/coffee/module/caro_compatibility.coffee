@@ -1,6 +1,6 @@
 ### form 欄位相容性處理 ###
 cf.regModule 'caroCompatibility', ->
-  $self = this
+  $self = @
   cf = $self.cf
   _isBefIe8 = cf.isBefIe8
 

@@ -3,13 +3,17 @@
 
 /* 自訂捲軸樣式, 客製化外掛 mCustomScrollbar 使用方式 */
 cf.regModule('caroScrollbar', function(styleOpt, scrollBarOpt) {
-
-  /* 樣式參數 */
   var $self, _trace, barCss, callbacksOpt, cf, lineCss, mainOpt, onCreateFn;
-  styleOpt = styleOpt || {};
+  if (styleOpt == null) {
+    styleOpt = {};
+  }
+  if (scrollBarOpt == null) {
+    scrollBarOpt = {};
+  }
 
-  /* 外掛 mCustomScrollbar 參數 */
-  scrollBarOpt = scrollBarOpt || {};
+  /* styleOpt = 樣式參數 */
+
+  /* scrollBarOpt = 外掛 mCustomScrollbar 參數 */
   $self = this;
   cf = $self.cf;
   _trace = cf.genTraceFn('caroScrollbar');
@@ -46,6 +50,9 @@ cf.regModule('caroScrollbar', function(styleOpt, scrollBarOpt) {
       if (lineCss) {
         $('.mCS-my-theme.mCSB_scrollTools .mCSB_draggerRail').css(lineCss);
       }
+      $('.mCSB_scrollTools').css({
+        opacity: 1
+      });
     }
   });
   $self.mCustomScrollbar(mainOpt);

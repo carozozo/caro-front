@@ -1,6 +1,6 @@
 ### 亂數效果(數字會亂跳, 最後顯示結果) ###
 cf.regModule 'caroJumpNum', ->
-  $self = this
+  $self = @
 
   ###
   在指定的時間內, 數字會亂跳, 時間到會顯示目標數字

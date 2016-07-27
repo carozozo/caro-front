@@ -1,6 +1,6 @@
 ### DOM circle 輪播效果 ###
 cf.regModule 'caroCircleShow', ($targetList, opt = {}) ->
-  $self = this
+  $self = @
   cf = $self.cf
   caro = cf.require('caro')
   tm = cf.require('TweenMax')

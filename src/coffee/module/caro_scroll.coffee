@@ -1,6 +1,6 @@
 ### 捲軸自動滑動到 DOM 定點 的功能 ###
 cf.regModule 'caroScroll', ($contents, opt = {}) ->
-  $self = this
+  $self = @
   cf = $self.cf
   $window = cf.$window
   caro = cf.require('caro')

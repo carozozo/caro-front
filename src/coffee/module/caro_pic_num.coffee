@@ -1,6 +1,6 @@
 ### 用圖片顯示數字, 需搭配圖檔 ###
 cf.regModule 'caroPicNum', ->
-  $self = this
+  $self = @
   cf = $self.cf
   tweenMax = cf.require('TweenMax')
   $imgs = $self.find('img')

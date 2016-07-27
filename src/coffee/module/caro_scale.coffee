@@ -1,6 +1,6 @@
 ### 隨目標縮放自己的大小 ###
 cf.regModule 'caroScale', (opt = {}) ->
-  $self = this
+  $self = @
   cf = $self.cf
   caro = cf.require('caro')
   tm = cf.require('TweenMax')

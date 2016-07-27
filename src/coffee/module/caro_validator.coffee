@@ -1,6 +1,6 @@
 ### 表單驗證 ###
 cf.regModule 'caroValidator', (opt = {}) ->
-  $self = this
+  $self = @
   cf = $self.cf
   caro = cf.require('caro')
   $ = cf.require('$')

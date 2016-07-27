@@ -1,6 +1,6 @@
 ### img 切換圖片 ###
 cf.regModule 'caroImgSwitch', ->
-  $self = this
+  $self = @
   cf = $self.cf
   currentIndex = 0
   caro = cf.require('caro')

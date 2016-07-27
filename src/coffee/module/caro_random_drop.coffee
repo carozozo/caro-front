@@ -1,6 +1,6 @@
 ### 隨機產生滑落物件, 例如氣泡, 水滴效果, 需搭配圖檔 ###
 cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
-  $self = this
+  $self = @
   cf = $self.cf
   $ = cf.require('$')
   caro = cf.require('caro')
