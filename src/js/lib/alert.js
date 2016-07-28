@@ -1,8 +1,11 @@
 
 /* 客製化的 alert, 用來取代 js 原生 alert, 防止被 browser 阻擋 */
 cf.regLib('alert', function(cf) {
-  return function(msg) {
-    var $, $background, $box, $msg, $okBtn, tl, tl1, zIndex;
+  return function(msg, opt) {
+    var $, $background, $box, $msg, $okBtn, $target, position, tl, tl1, top, zIndex;
+    if (opt == null) {
+      opt = {};
+    }
     $ = cf.require('$');
     tl = cf.require('TimelineMax');
     tl1 = new tl({
@@ -11,13 +14,16 @@ cf.regLib('alert', function(cf) {
       }
     });
     zIndex = 9999999;
+    $target = opt.$target || cf.$body;
+    position = opt.position || 'fixed';
+    top = opt.top || '10%';
     $box = $('<div/>').attr('class', 'caroAlert').css({
-      'position': 'fixed',
+      'position': position,
       'z-index': zIndex + 1,
       'font-size': 18,
       'text-align': 'center',
       'padding': '30px 10px 10px 10px',
-      'top': '10%',
+      'top': top,
       'left': '50%',
       'min-width': 200,
       'max-width': 300,
@@ -56,7 +62,7 @@ cf.regLib('alert', function(cf) {
       return $background.remove();
     }).html('OK').appendTo($box);
     $msg.html(msg);
-    cf.$body.append($box).append($background);
+    $target.append($box).append($background);
     $box.css({
       'margin-left': -$box.outerWidth() / 2
     });

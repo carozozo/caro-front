@@ -25,7 +25,7 @@ cf.regLib 'fb', (cf) ->
     if _redirectAfterLogin
       pageAfterLogin += _redirectAfterLogin + '.html'
     urlArr.push '&redirect_uri=' + pageAfterLogin
-    urlArr.join
+    urlArr.join('')
 
   _trace = cf.genTraceFn('fb')
   #  _trace.startTrace()

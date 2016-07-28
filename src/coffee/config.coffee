@@ -31,8 +31,8 @@ do (cf) ->
   ###
   type: 追蹤模式, 0: 不追蹤, 1: GA tracking, 2: GTM tracking
   tagId: 追蹤碼編號
-  defCategory: 預設分類, 當 tracking event 時會自動帶到 virtualCategory
-  prefix: 當 tracking page / event 時, 會自動加上前綴, e.g. tracking.event('a','b') => 'caroFront_a', 'caroFront_b'
+  defCategory: 預設發送 event 的 category
+  prefix: 發送 tracking 的前綴, e.g. tracking.page('index') => 發送 [prefix]_index
   ###
   cf.config('tracking', {
     type: 0

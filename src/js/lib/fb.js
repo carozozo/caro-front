@@ -31,7 +31,7 @@ cf.regLib('fb', function(cf) {
       pageAfterLogin += _redirectAfterLogin + '.html';
     }
     urlArr.push('&redirect_uri=' + pageAfterLogin);
-    return urlArr.join;
+    return urlArr.join('');
   })();
   _trace = cf.genTraceFn('fb');
   genApiObj = function() {
