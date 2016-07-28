@@ -50,14 +50,16 @@ cf.regLib 'tracking', (cf) ->
     switch _type
       when 1
         fn = (pageName) ->
-          pageName = _prefix + '_' + pageName.trim() if _prefix
+          pageName = pageName.trim()
+          pageName = _prefix + '_' + pageName if _prefix
           return unless validatePage('GA', pageName)
           ga = getGa()
           ga 'send', 'pageview', pageName
           return
       when 2
         fn = (pageName) ->
-          pageName = _prefix + '_' + pageName.trim() if _prefix
+          pageName = pageName.trim()
+          pageName = _prefix + '_' + pageName if _prefix
           return unless validatePage('GTM', pageName)
           document = cf.require('document')
           dataLayer = getDataLayer()
@@ -75,23 +77,29 @@ cf.regLib 'tracking', (cf) ->
     switch _type
       when 1
         fn = (action, label, category = _defCategory) ->
+          action = action.trim()
+          label = label.trim()
+          category = category.trim()
           if _prefix
-            action = _prefix + '_' + action.trim()
-            label = _prefix + '_' + label.trim()
+            action = _prefix + '_' + action
+            label = _prefix + '_' + label
           return unless validateEvent('GA', category, action, label)
           ga = getGa()
-          ga 'send', 'event', category.trim(), action, label
+          ga 'send', 'event', category, action, label
           return
       when 2
         fn = (action, label, category = _defCategory) ->
+          action = action.trim()
+          label = label.trim()
+          category = category.trim()
           if _prefix
-            action = _prefix + '_' + action.trim()
-            label = _prefix + '_' + label.trim()
+            action = _prefix + '_' + action
+            label = _prefix + '_' + label
           return unless validateEvent('GTM', category, action, label)
           dataLayer = getDataLayer()
           dataLayer.push
             'event': 'VirtualSend'
-            'virtualCategory': category.trim()
+            'virtualCategory': category
             'virtualAction': action
             'virtualLabel': label
           return

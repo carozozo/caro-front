@@ -66,8 +66,9 @@ cf.regLib('tracking', function(cf) {
       case 1:
         fn = function(pageName) {
           var ga;
+          pageName = pageName.trim();
           if (_prefix) {
-            pageName = _prefix + '_' + pageName.trim();
+            pageName = _prefix + '_' + pageName;
           }
           if (!validatePage('GA', pageName)) {
             return;
@@ -79,8 +80,9 @@ cf.regLib('tracking', function(cf) {
       case 2:
         fn = function(pageName) {
           var dataLayer, document;
+          pageName = pageName.trim();
           if (_prefix) {
-            pageName = _prefix + '_' + pageName.trim();
+            pageName = _prefix + '_' + pageName;
           }
           if (!validatePage('GTM', pageName)) {
             return;
@@ -112,15 +114,18 @@ cf.regLib('tracking', function(cf) {
           if (category == null) {
             category = _defCategory;
           }
+          action = action.trim();
+          label = label.trim();
+          category = category.trim();
           if (_prefix) {
-            action = _prefix + '_' + action.trim();
-            label = _prefix + '_' + label.trim();
+            action = _prefix + '_' + action;
+            label = _prefix + '_' + label;
           }
           if (!validateEvent('GA', category, action, label)) {
             return;
           }
           ga = getGa();
-          ga('send', 'event', category.trim(), action, label);
+          ga('send', 'event', category, action, label);
         };
         break;
       case 2:
@@ -129,9 +134,12 @@ cf.regLib('tracking', function(cf) {
           if (category == null) {
             category = _defCategory;
           }
+          action = action.trim();
+          label = label.trim();
+          category = category.trim();
           if (_prefix) {
-            action = _prefix + '_' + action.trim();
-            label = _prefix + '_' + label.trim();
+            action = _prefix + '_' + action;
+            label = _prefix + '_' + label;
           }
           if (!validateEvent('GTM', category, action, label)) {
             return;
@@ -139,7 +147,7 @@ cf.regLib('tracking', function(cf) {
           dataLayer = getDataLayer();
           dataLayer.push({
             'event': 'VirtualSend',
-            'virtualCategory': category.trim(),
+            'virtualCategory': category,
             'virtualAction': action,
             'virtualLabel': label
           });
