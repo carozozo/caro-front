@@ -1,40 +1,34 @@
 
 /* 自定義 api */
 cf.regServ('api', function(cf) {
-  var _ajax, self;
+  var _ajax, _cfg, _isTest, self;
   self = {};
+  _cfg = cf.config('ajax');
+  _isTest = cf.isLocal || _cfg.isTestMode;
   _ajax = cf.ajax;
   self.demoPostApi = function(data) {
-    return _ajax.callAjax('DemoPostApi', data);
+    return _ajax.callAjax('DemoPostApi', data, {
+      fakeResponse: {
+        error_message: null,
+        responseObject: {}
+      }
+    });
   };
   self.demoGetApi = function() {
-    return _ajax.callAjax('DemoGetApi');
+    return _ajax.callAjax('DemoGetApi', null, {
+      fakeResponse: {
+        error_message: null,
+        responseObject: {}
+      }
+    });
   };
   self.captcha = function() {
     var url;
     url = cf.indexUrl + 'api/Captcha.';
-    url += cf.isLocal ? 'png' : 'ashx';
+    url += _isTest ? 'png' : 'ashx';
 
     /* 尾數加上日期, 強制更新 */
     return url + '?v=' + new Date().getTime();
   };
   return self;
-});
-
-cf.regDocReady(function() {
-
-  /*
-  設置假的 response for 沒有 api 測試
-  {{Api 名稱}} : {{假的 response}}
-   */
-  cf.ajax.fakeResponse = {
-    DemoPostApi: {
-      error_message: null,
-      responseObject: {}
-    },
-    DemoGetApi: {
-      error_message: null,
-      responseObject: {}
-    }
-  };
 });

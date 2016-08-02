@@ -3,9 +3,6 @@
 cf.regLib('ajax', function(cf) {
   var $, _alert, _cfg, _errMsg, _indexUrl, _isTest, _responseErrKey, caro, generateAjaxOpt, generateApiUrl, self;
   self = {};
-
-  /* 測試用的假 response */
-  self.fakeResponse = null;
   $ = cf.require('$');
   caro = cf.require('caro');
   _cfg = cf.config('ajax');
@@ -24,23 +21,27 @@ cf.regLib('ajax', function(cf) {
     var opt;
     opt = {
       url: url,
-      type: 'POST',
-      dataType: 'json',
-      contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-      data: data || {}
+      type: 'GET'
     };
+    if (data) {
+      opt.type = 'POST';
+      opt.data = data;
+    }
     return caro.assign(opt, extendOpt || {});
   };
 
   /* 呼叫 ajax, 測試模式時會調用 fakeResponse */
   self.callAjax = function(apiName, data, ajaxOpt) {
     var ajaxObj, opt, url;
+    if (ajaxOpt == null) {
+      ajaxOpt = {};
+    }
     ajaxObj = null;
     if (_isTest) {
       ajaxObj = {};
       ajaxObj.suc = ajaxObj.success = function(cb) {
         var fakeRes;
-        fakeRes = self.fakeResponse[apiName];
+        fakeRes = ajaxOpt.fakeResponse;
         cb && cb(fakeRes);
         return ajaxObj;
       };

@@ -1,8 +1,6 @@
 ### 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式 ###
 cf.regLib 'ajax', (cf) ->
   self = {}
-  ### 測試用的假 response ###
-  self.fakeResponse = null
   $ = cf.require('$')
   caro = cf.require('caro')
   _cfg = cf.config('ajax')
@@ -20,20 +18,20 @@ cf.regLib 'ajax', (cf) ->
   generateAjaxOpt = (url, data, extendOpt) ->
     opt =
       url: url
-      type: 'POST'
-      dataType: 'json'
-      contentType: 'application/x-www-form-urlencoded; charset=UTF-8'
-      data: data or {}
+      type: 'GET'
+    if data
+      opt.type = 'POST'
+      opt.data = data
     caro.assign opt, extendOpt or {}
 
   ### 呼叫 ajax, 測試模式時會調用 fakeResponse ###
-  self.callAjax = (apiName, data, ajaxOpt) ->
+  self.callAjax = (apiName, data, ajaxOpt = {}) ->
     ajaxObj = null
     if _isTest
       ajaxObj = {}
       ajaxObj.suc =
         ajaxObj.success = (cb) ->
-          fakeRes = self.fakeResponse[apiName]
+          fakeRes = ajaxOpt.fakeResponse
           cb and cb(fakeRes)
           ajaxObj
       ### 在測試模式時, error 和 err 不會執行 cb ###
