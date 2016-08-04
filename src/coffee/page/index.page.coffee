@@ -5,5 +5,16 @@ cf.router.regPage 'index', (cf, $page) ->
   caro = cf.require('caro')
   _tracking = cf.tracking
 
+  $page.dom('.title', ($self) ->
+    $self.caroAnimated('bounceInDown')
+  )
+  $page.dom('.content', ($self) ->
+    $self.hide()
+    setTimeout(->
+      $self.show().caroAnimated('bounceInRight')
+      return
+    , 1000)
+  )
+
   _tracking.page('index')
   $page
