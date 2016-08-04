@@ -1,7 +1,7 @@
 
 /* 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式 */
 cf.regLib('ajax', function(cf) {
-  var $, _alert, _cfg, _errMsg, _indexUrl, _isTest, _responseErrKey, caro, generateAjaxOpt, generateApiUrl, self;
+  var $, _alert, _cfg, _errMsg, _isTest, _responseErrKey, caro, generateAjaxOpt, self;
   self = {};
   $ = cf.require('$');
   caro = cf.require('caro');
@@ -9,14 +9,7 @@ cf.regLib('ajax', function(cf) {
   _responseErrKey = _cfg.responseErrKey;
   _isTest = cf.isLocal || _cfg.isTestMode;
   _errMsg = _cfg.errMsg;
-  _indexUrl = cf.indexUrl;
   _alert = cf.alert || cf.require('alert');
-  generateApiUrl = function(apiName) {
-    var apiUrl;
-    apiUrl = _indexUrl + 'api/';
-    apiUrl += apiName + '.ashx';
-    return apiUrl;
-  };
   generateAjaxOpt = function(url, data, extendOpt) {
     var opt;
     opt = {
@@ -30,18 +23,17 @@ cf.regLib('ajax', function(cf) {
     return caro.assign(opt, extendOpt || {});
   };
 
-  /* 呼叫 ajax, 測試模式時會調用 fakeResponse */
-  self.callAjax = function(apiName, data, ajaxOpt) {
-    var ajaxObj, opt, url;
-    if (ajaxOpt == null) {
-      ajaxOpt = {};
+  /* 呼叫 ajax, 測試模式時會調用 opt.fakeResponse */
+  self.callAjax = function(url, data, opt) {
+    var _errCb, _sucCb, ajaxObj, ajaxOpt;
+    if (opt == null) {
+      opt = {};
     }
-    ajaxObj = null;
     if (_isTest) {
       ajaxObj = {};
       ajaxObj.suc = ajaxObj.success = function(cb) {
         var fakeRes;
-        fakeRes = ajaxOpt.fakeResponse;
+        fakeRes = opt.fakeResponse;
         cb && cb(fakeRes);
         return ajaxObj;
       };
@@ -52,29 +44,30 @@ cf.regLib('ajax', function(cf) {
       };
       return ajaxObj;
     }
-    url = generateApiUrl(apiName);
-    opt = generateAjaxOpt(url, data, ajaxOpt);
-    ajaxObj = $.ajax(opt);
-
-    /* 成功取得 response, 且裡面沒有 error, 則直接 cb(response) */
+    ajaxOpt = generateAjaxOpt(url, data, opt.ajaxOpt);
+    ajaxObj = $.ajax(ajaxOpt);
+    _sucCb = null;
+    _errCb = null;
     ajaxObj.suc = function(cb) {
-      return ajaxObj.success(function(res) {
-        var resErr;
-        resErr = res[_responseErrKey];
-        if (caro.isObject(res) && !resErr) {
-          cb && cb(res);
-        }
-      });
+      _sucCb = cb;
+      return ajaxObj;
     };
     ajaxObj.err = function(cb) {
-      return ajaxObj.success(function(res) {
-        var resErr;
-        resErr = res[_responseErrKey];
-        if (caro.isObject(res) && resErr) {
-          cb && cb(resErr);
-        }
-      });
+      _errCb = cb;
+      return ajaxObj;
     };
+    ajaxObj.success(function(res) {
+      var resErr;
+      if (!(caro.isObject(res) && _responseErrKey)) {
+        return;
+      }
+      resErr = res[_responseErrKey];
+      if (!resErr) {
+        _sucCb && _sucCb(res);
+      } else {
+        _errCb && _errCb(resErr);
+      }
+    });
 
     /* 如果呼叫 ajax 發生錯誤, 顯示要 alert 的訊息 */
     ajaxObj.error(function() {

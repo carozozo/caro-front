@@ -4,15 +4,23 @@ cf.regServ 'api', (cf) ->
   _cfg = cf.config('ajax')
   _isTest = cf.isLocal or _cfg.isTestMode
   _ajax = cf.ajax
+  _indexUrl = cf.indexUrl
+
+  generateApiUrl = (apiName) ->
+    apiUrl = _indexUrl + 'api/'
+    apiUrl += apiName + '.ashx'
+    apiUrl
 
   self.demoPostApi = (data) ->
-    _ajax.callAjax 'DemoPostApi', data,
+    url = generateApiUrl('DemoPostApi')
+    _ajax.callAjax url, data,
       fakeResponse:
         error_message: null
         responseObject: {}
 
   self.demoGetApi = ->
-    _ajax.callAjax 'DemoGetApi', null,
+    url = generateApiUrl('DemoGetApi')
+    _ajax.callAjax url, null,
       fakeResponse:
         error_message: null
         responseObject: {}
