@@ -1,4 +1,4 @@
-cf.router.regPage 'index', (cf, $page) ->
+cf.router.regPage 'view', (cf, $page) ->
   tm = cf.require('TweenMax')
   window = cf.require('window')
   caro = cf.require('caro')
@@ -12,16 +12,16 @@ cf.router.regPage 'index', (cf, $page) ->
 
   tm.staggerFrom([$title, $content], .5,
     opacity: 0
-    y: -50
+    x: -100
   , .3)
 
   setTimeout ->
-    return if cf.data('index')
-    cf.data('index', true)
-    search = cf.router.getSearchByHash()
-    cf.alert(search) if search
+    return if cf.data('view')
+    cf.data('view', true)
+    searchObj = cf.router.parseUrlSearch()
+    cf.alert(JSON.stringify(searchObj)) if searchObj
     return
   , 1000
 
-  _tracking.page('index')
+  _tracking.page('view')
   $page

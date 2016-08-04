@@ -17,13 +17,13 @@ cf.regCtrl 'demoCtrl', (opt = {}) ->
   $self.dom('.menu1', ($menu1) ->
     $menu1.css cssObj
     $menu1.onClick(->
-      cf.router.goPage('index')
+      cf.router.goPage('index?count=1')
     )
   )
   $self.dom('.menu2', ($menu2) ->
     $menu2.css cssObj
     $menu2.onClick(->
-      cf.router.goPage('view')
+      cf.router.goPage('view?name=caro&age=100')
     )
   )
   $self.css width: '100%'

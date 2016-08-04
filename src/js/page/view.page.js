@@ -1,4 +1,4 @@
-cf.router.regPage('index', function(cf, $page) {
+cf.router.regPage('view', function(cf, $page) {
   var $content, $title, _tracking, caro, tm, window;
   tm = cf.require('TweenMax');
   window = cf.require('window');
@@ -10,19 +10,19 @@ cf.router.regPage('index', function(cf, $page) {
   });
   tm.staggerFrom([$title, $content], .5, {
     opacity: 0,
-    y: -50
+    x: -100
   }, .3);
   setTimeout(function() {
-    var search;
-    if (cf.data('index')) {
+    var searchObj;
+    if (cf.data('view')) {
       return;
     }
-    cf.data('index', true);
-    search = cf.router.getSearchByHash();
-    if (search) {
-      cf.alert(search);
+    cf.data('view', true);
+    searchObj = cf.router.parseUrlSearch();
+    if (searchObj) {
+      cf.alert(JSON.stringify(searchObj));
     }
   }, 1000);
-  _tracking.page('index');
+  _tracking.page('view');
   return $page;
 });
