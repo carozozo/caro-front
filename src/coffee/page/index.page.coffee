@@ -5,16 +5,17 @@ cf.router.regPage 'index', (cf, $page) ->
   caro = cf.require('caro')
   _tracking = cf.tracking
 
-  $page.dom('.title', ($self) ->
-    $self.caroAnimated('bounceInDown')
+  $title = $page.dom('.title')
+  $content = $page.dom('.content', ($content) ->
+    $content.demo2Ctrl()
+    return
   )
-  $page.dom('.content', ($self) ->
-    $self.hide()
-    setTimeout(->
-      $self.show().caroAnimated('bounceInRight')
-      return
-    , 1000)
-  )
+
+  tl1 = new tl()
+  tl1.staggerFrom([$title, $content], .5,
+    opacity: 0
+    y: -100
+  , .5)
 
   _tracking.page('index')
   $page

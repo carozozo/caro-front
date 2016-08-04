@@ -1,4 +1,6 @@
 body {
+  margin: 0;
+  padding: 0;
   background-color: #fecc25;
   background-size: cover;
   overflow-x: hidden;
@@ -6,4 +8,12 @@ body {
   line-height: 20px;
   color: #fff;
   font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
+}
+
+.cf-page {
+  padding: 0 10px;
+}
+
+.content {
+  height: 100%;
 }
