@@ -1,18 +1,23 @@
 cf.router.regPage 'index', (cf, $page) ->
   tm = cf.require('TweenMax')
+  tl = cf.require('TimelineMax')
   window = cf.require('window')
   caro = cf.require('caro')
   _tracking = cf.tracking
 
   $title = $page.dom('.title')
-  $content = $page.dom('.content', ($content) ->
-    $content.demo2Ctrl()
+  $subContent = $page.dom('.subContent', ($subContent) ->
+    $subContent.demo2Ctrl()
     return
   )
 
-  tm.staggerFrom([$title, $content], .5,
+  tl1 = new tl()
+  tl1.from($title, .5,
     opacity: 0
     y: -50
+  ).staggerFrom($subContent, .5,
+    opacity: 0
+    x: -50
   , .3)
 
   setTimeout ->
@@ -21,7 +26,7 @@ cf.router.regPage 'index', (cf, $page) ->
     search = cf.router.getSearchByHash()
     cf.alert(search) if search
     return
-  , 1000
+  , 1500
 
   _tracking.page('index')
   $page
