@@ -34,7 +34,7 @@
 ## 支援 .coffee 
 在 gulp 時會自動 watch 並編譯成 js 
 
-## 支援 inject file 
+## 使用 inject file 
 在 gulp 時會掃描 js / css 檔, 並寫入 script, link tag 到 src/index.html
 
 ## 基本安裝 

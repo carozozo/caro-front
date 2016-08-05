@@ -2,34 +2,28 @@
 cf.regCtrl 'menu', (opt = {}) ->
   $self = @
   cf = $self.cf
-  _padding = '5px 10px'
-  _background = '#000'
-  _marginTop = 10
+  _router = cf.router
+  $window = cf.$window
 
-  cssObj =
-    padding: _padding
-    background: _background
-    'margin-top': _marginTop
+  setPosition = ->
+    $self.css
+      top: ($window.height() - $self.height()) / 2
+    return
 
   $self.dom('.menu1', ($menu1) ->
-    $menu1.css cssObj
     $menu1.onClick(->
-      cf.router.goPage('index')
+      _router.goPage('cf')
     )
   )
   $self.dom('.menu2', ($menu2) ->
-    $menu2.css cssObj
     $menu2.onClick(->
-      cf.router.goPage('router?name=caro&age=100')
+      _router.goPage('router?name=caro&age=100')
     )
   )
-  $self.css
-    position: 'fixed'
-    top: 120
-    right: 0
-    background: cf.$body.css('background-color')
-    'padding-bottom': 10
-    'z-index': 100
+
+  setPosition()
+  $window.on('resize.menu', setPosition)
+  $self
 , 'menu.ctrl'
 
 cf.regDocReady (cf) ->

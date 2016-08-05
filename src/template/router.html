@@ -1,48 +1,48 @@
-<div class="title">cf.router 介紹</div>
+<div class="mainTitle">cf.router 介紹</div>
 <div class="content">
-  <div class="subTitle">
+  <div class="title">
      <span>屬性</span>
   </div>
   <div class="subContent">
-    <div class="list">$page : 當前的頁面 DOM </div>
-    <div class="list">_prePage : 紀錄換頁前會執行的 fn </div>
-    <div class="list">_page : 當前頁前會執行的 fn  </div>
-    <div class="list">_aftPage : 紀錄換頁後會執行的 fn </div>
-    <div class="list">pageName : 當前頁面名稱 </div>
-    <div class="list">transitionFn : 紀錄當前換頁效果 fn </div>
+    <div>$page : 當前的頁面 DOM </div>
+    <div>_prePage : 紀錄換頁前會執行的 fn </div>
+    <div>_page : 當前頁前會執行的 fn  </div>
+    <div>_aftPage : 紀錄換頁後會執行的 fn </div>
+    <div>pageName : 當前頁面名稱 </div>
+    <div>transitionFn : 紀錄當前換頁效果 fn </div>
   </div>
-  <div class="subTitle">
+  <div class="title">
     <span>函式</span>
   </div>
   <div class="subContent">
-    <div class="list">
+    <div>
       getPageByHash([hash]) : 依照 url 的 hash 判斷目前的 page
-      <input id="getPageBtn" type="button" value="Get Page Name" />
+      <span id="getPageBtn" class="btn2">Get Page Name</span>
     </div>
-    <div class="list">
+    <div>
       getSearchByHash([hash]) : 依照 url 的 hash 判斷目前的 search
-      <input id="getSearchBtn" type="button" value="Get Search" />
+      <span id="getSearchBtn" class="btn2">Get Search</span>
     </div>
-    <div class="list">
+    <div>
       parseUrlSearch() : 依照 url 的 hash 裡面的 search 轉為 obj
-      <input id="getSearchObjBtn" type="button" value="Get SearchObj" />
+      <span id="getSearchObjBtn" class="btn2">Get SearchObj</span>
     </div>
-    <div class="list">regPrePage(註冊名稱, fn) : 註冊每次次換頁前要執行的 fn</div>
-    <div class="list">regAftPage(註冊名稱, fn) : 註冊每次換頁後要執行的 fn</div>
-    <div class="list">regPage(註冊頁面, fn) : 註冊頁面要執行的 fn</div>
-    <div class="list">
+    <div>regPrePage(註冊名稱, fn) : 註冊每次次換頁前要執行的 fn</div>
+    <div>regAftPage(註冊名稱, fn) : 註冊每次換頁後要執行的 fn</div>
+    <div>regPage(註冊頁面, fn) : 註冊頁面要執行的 fn</div>
+    <div>
       goPage([頁面名稱]) : 換頁, 沒參數時會依據 url 的 hash 自動判斷
-      <input id="goPageBtn1" type="button" value="goPage('router')" />
-      <input id="goPageBtn2" type="button" value="goPage()" />
-      <input id="goPageBtn3" type="button" value="goPage('router?name=pikachu&age=200')" />
+      <span id="goPageBtn1" class="btn2">goPage('router')</span>
+      <span id="goPageBtn2" class="btn2">goPage()</span>
+      <span id="goPageBtn3" class="btn2">goPage('router?name=pikachu&age=200')</span>
     </div>
-    <div class="list">
+    <div>
       blockGoPage() : 呼叫後, 執行 router.goPage 不會換頁
-      <input id="blockGoPageBtn" type="button" value="Block Go Page" />
+      <span id="blockGoPageBtn" class="btn2">Block Go Page</span>
     </div>
-    <div class="list">
+    <div>
       approveGoPage() : 呼叫後, 所有的 router.goPage 可以換頁  
-      <input id="approveGoPageBtn" type="button" value="Approve Go Page" />
+      <span id="approveGoPageBtn" class="btn2">Approve Go Page</span>
     </div>
   </div>
 </div>

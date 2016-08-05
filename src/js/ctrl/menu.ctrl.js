@@ -1,40 +1,32 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 menu.ctrl.html 檔並寫入 template */
 cf.regCtrl('menu', function(opt) {
-  var $self, _background, _marginTop, _padding, cf, cssObj;
+  var $self, $window, _router, cf, setPosition;
   if (opt == null) {
     opt = {};
   }
   $self = this;
   cf = $self.cf;
-  _padding = '5px 10px';
-  _background = '#000';
-  _marginTop = 10;
-  cssObj = {
-    padding: _padding,
-    background: _background,
-    'margin-top': _marginTop
+  _router = cf.router;
+  $window = cf.$window;
+  setPosition = function() {
+    $self.css({
+      top: ($window.height() - $self.height()) / 2
+    });
   };
   $self.dom('.menu1', function($menu1) {
-    $menu1.css(cssObj);
     return $menu1.onClick(function() {
-      return cf.router.goPage('index');
+      return _router.goPage('cf');
     });
   });
   $self.dom('.menu2', function($menu2) {
-    $menu2.css(cssObj);
     return $menu2.onClick(function() {
-      return cf.router.goPage('router?name=caro&age=100');
+      return _router.goPage('router?name=caro&age=100');
     });
   });
-  return $self.css({
-    position: 'fixed',
-    top: 120,
-    right: 0,
-    background: cf.$body.css('background-color'),
-    'padding-bottom': 10,
-    'z-index': 100
-  });
+  setPosition();
+  $window.on('resize.menu', setPosition);
+  return $self;
 }, 'menu.ctrl');
 
 cf.regDocReady(function(cf) {
