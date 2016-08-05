@@ -20,11 +20,10 @@ cf.regCtrl 'menu', (opt = {}) ->
   $self.dom('.menu2', ($menu2) ->
     $menu2.css cssObj
     $menu2.onClick(->
-      cf.router.goPage('view?name=caro&age=100')
+      cf.router.goPage('router?name=caro&age=100')
     )
   )
   $self.css
-#    width: '100%'
     position: 'fixed'
     top: 120
     right: 0

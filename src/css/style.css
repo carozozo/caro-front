@@ -10,6 +10,10 @@ body {
   font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
 }
 
+input[type="button"] {
+  font-size: 1.5em;
+}
+
 .cf-page {
   padding: 0 10px;
 }
@@ -35,7 +39,8 @@ body {
   font-size: 1.5em;
   margin: 15px 0;
 }
-.subTitle span{
+
+.subTitle span {
   padding: 5px 10px;
   background: #555555;
 }

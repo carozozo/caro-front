@@ -24,7 +24,7 @@ cf.regCtrl('menu', function(opt) {
   $self.dom('.menu2', function($menu2) {
     $menu2.css(cssObj);
     return $menu2.onClick(function() {
-      return cf.router.goPage('view?name=caro&age=100');
+      return cf.router.goPage('router?name=caro&age=100');
     });
   });
   return $self.css({
