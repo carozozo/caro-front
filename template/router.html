@@ -1,0 +1,48 @@
+<div class="mainTitle">cf.router 介紹</div>
+<div class="content">
+  <div class="title">
+     <span>屬性</span>
+  </div>
+  <div class="subContent">
+    <div>$page : 當前的頁面 DOM </div>
+    <div>_prePage : 紀錄換頁前會執行的 fn </div>
+    <div>_page : 當前頁前會執行的 fn  </div>
+    <div>_aftPage : 紀錄換頁後會執行的 fn </div>
+    <div>pageName : 當前頁面名稱 </div>
+    <div>transitionFn : 紀錄當前換頁效果 fn </div>
+  </div>
+  <div class="title">
+    <span>函式</span>
+  </div>
+  <div class="subContent">
+    <div>
+      getPageByHash([hash]) : 依照 url 的 hash 判斷目前的 page
+      <span id="getPageBtn" class="btn2">Get Page Name</span>
+    </div>
+    <div>
+      getSearchByHash([hash]) : 依照 url 的 hash 判斷目前的 search
+      <span id="getSearchBtn" class="btn2">Get Search</span>
+    </div>
+    <div>
+      parseUrlSearch() : 依照 url 的 hash 裡面的 search 轉為 obj
+      <span id="getSearchObjBtn" class="btn2">Get SearchObj</span>
+    </div>
+    <div>regPrePage(註冊名稱, fn) : 註冊每次次換頁前要執行的 fn</div>
+    <div>regAftPage(註冊名稱, fn) : 註冊每次換頁後要執行的 fn</div>
+    <div>regPage(註冊頁面, fn) : 註冊頁面要執行的 fn</div>
+    <div>
+      goPage([頁面名稱]) : 換頁, 沒參數時會依據 url 的 hash 自動判斷
+      <span id="goPageBtn1" class="btn2">goPage('router')</span>
+      <span id="goPageBtn2" class="btn2">goPage()</span>
+      <span id="goPageBtn3" class="btn2">goPage('router?name=pikachu&age=200')</span>
+    </div>
+    <div>
+      blockGoPage() : 呼叫後, 執行 router.goPage 不會換頁
+      <span id="blockGoPageBtn" class="btn2">Block Go Page</span>
+    </div>
+    <div>
+      approveGoPage() : 呼叫後, 所有的 router.goPage 可以換頁  
+      <span id="approveGoPageBtn" class="btn2">Approve Go Page</span>
+    </div>
+  </div>
+</div>

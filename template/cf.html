@@ -1,0 +1,45 @@
+<div class="mainTitle">cf 介紹</div>
+<div class="content">
+  <div class="title">
+     <span>屬性</span>
+  </div>
+  <div class="subContent">
+    <div>$$config : 從 config 讀取到的設定 </div>
+    <div>$$data : 儲存資料, 類似 cookie, 但頁面刷新後會清空 </div>
+    <div>$window : 同 $(window) </div>
+    <div>$document : 同 $(document) </div>
+    <div>$body: 同 $(‘body’)</div>
+    <div>$ctrl: 儲存呼叫 controller 後產生的 DOM 物件</div>
+    <div>$module: 儲存 module DOM 物件 </div>
+    <div>_docReady : 儲存 document ready 後要觸發的 fns</div>
+    <div>_ctrl : 儲存 controller fns</div>
+    <div>_module : 儲存 module fns</div>
+    <div>isLocal : 是否為 localhost</div>
+    <div>isLocalTest : 是否為 local test 模式(由 config 設定)</div>
+    <div>isHttps : 當前網址是否為 https </div>
+    <div>isPhone : 當前載具是否為手機 </div>
+    <div>isTablet : 當前載具是否為平板 </div>
+    <div>isMobile : 當前載具是否為手機 or 平板 </div>
+    <div>ieVersion : IE 版本, 瀏覽器不是 IE 時會是 null</div>
+    <div>isBefIe8 : 瀏覽器是否為 IE8 之前的版本 </div>
+    <div>isBefIe9 : 瀏覽器是否為 IE9 之前的版本  </div>
+    <div>indexUrl : 當前網站的首頁 url</div>
+  </div>
+</div>
+<div class="content">
+  <div class="title">
+    <span>函式</span>
+  </div>
+  <div class="subContent">
+    <div>require(str) : 載入 global 變數, 避免直接呼叫 global 變數以增加效能 </div>
+    <div>data(key, [val]) : 讀取 or 設置資料, 用於跨檔案存取 </div>
+    <div>regDocReady(fn, [執行順序=50]) : 當頁面載入完畢時要執行的 fn </div>
+    <div>genTraceFn(訊息標題) : 產生 trace 用的 fn, 會在 console 顯示訊息(IE8 之前不支援 console)</div>
+    <div>regLib(註冊名稱, fn) : 註冊函式 庫</div>
+    <div>regServ(註冊名稱, fn) : 註冊 service 函式 庫</div>
+    <div>regCtrl(註冊名稱, fn, [要載入的 .html頁面]) : 註冊 controller</div>
+    <div>regModule(註冊名稱, fn, [要載入的 .html頁面]) : 註冊 module </div>
+    <div>config(註冊名稱, [config-obj]) : 註冊 / 讀取 config</div>
+    <div>regDifCfg(url, 設定) : 依據不同的 url 載入 config</div>
+  </div>
+</div>
