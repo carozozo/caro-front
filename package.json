@@ -1,0 +1,28 @@
+{
+  "name": "caro-front",
+  "version": "0.3.1",
+  "description": "前端 Web 開發用 framework",
+  "author": "Caro.Huang <carozozo@yahoo.com.tw>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carozozo/caro-front"
+  },
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "latest",
+    "caro": "latest",
+    "del": "latest",
+    "gulp": "latest",
+    "gulp-clean-css": "latest",
+    "gulp-coffee": "latest",
+    "gulp-concat": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-inject": "latest",
+    "gulp-sourcemaps": "latest",
+    "gulp-uglify": "latest",
+    "gulp-watch": "latest",
+    "main-bower-files": "latest"
+  }
+}
