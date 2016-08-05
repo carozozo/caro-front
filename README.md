@@ -4,16 +4,13 @@
 針對目前開發項目遇到的問題做客製優化   
 減少開發時間及累積開發成果
 
-## 優化項目
-### 開發 
+## 開發方式 
 - 運用 gulp 自動掃描檔案並部署網站
 - 運用 bower 控管外掛
-
-### 程式 
 - 可根據不同的 url 載入相對應的 config
 - 以 jQuery 搭配 gsap 實現 DOM 的動態控制
 
-### 工作分配
+## 工作分配
 - Lib / Serv 負責提供函式庫, 處理程式邏輯
 - Module / Ctrl 負責單位元件
 - Page 負責頁面功能
@@ -32,7 +29,9 @@
 - gsap
 
 ## 支援 .coffee 
-在 gulp 時會自動 watch 並編譯成 js 
+在 gulp 時會自動 watch 並編譯成 js    
+在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下   
+所以如果不使用 coffee script 請直接移除
 
 ## 使用 inject file 
 在 gulp 時會掃描 js / css 檔, 並寫入 script, link tag 到 src/index.html
@@ -69,16 +68,20 @@
 - js : js 檔
 - template : 分頁內容 html  
 
-## coffee 注意事項
-在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下   
-所以如果不使用 coffee script 請直接移除
-
 ## src coffee / js 分類 
 - ctrl : controller 模組, 類似 plugin, 用於網站客製化的功能 (e.g. 每個分頁都會有的選單) 
 - lib : framework 函式庫
 - module : framework 專用外掛
 - page : 分頁程式 
 - serv : 一般函式庫
+
+## lib / serv 函式庫差別
+差別只在於作用域不同   
+lib 應用於特定功能, serv 應用於 page 間的邏輯處理
+
+## module / ctrl 模組差別
+ 用法類似 jQuery plugin, 差別只在於作用域不同   
+ module 適用所有專案, ctrl 為專案客製化功能 
 
 ## cf 介紹 
 ### 屬性 
@@ -194,10 +197,6 @@ cf.regDifCfg('example.com.tw', {
 // 當網域為 example.com.tw 時, 會取得 456, 其他網域則是 123
 var theKey = cf.config('theKey'); 
 ```
-
-## lib / serv 函式庫差別
-差別只在於作用域不同   
-lib 應用於特定功能, serv 應用於 page 間的邏輯處理
  
 ### lib 介紹
 - cf.ajax : $.ajax 延伸, 可設定測試模式, 用來模擬 api response
@@ -230,10 +229,6 @@ lib 應用於特定功能, serv 應用於 page 間的邏輯處理
 - goPage([頁面名稱]) : 換頁, 沒參數時會依據 url 的 hash 自動判斷
 - blockGoPage() : 呼叫後, 執行 router.goPage 不會換頁
 - approveGoPage() : 呼叫後, 所有的 router.goPage 可以換頁  
-
-## module / ctrl 模組差別
- 用法類似 jQuery plugin, 差別只在於作用域不同   
- module 適用所有專案, ctrl 為專案客製化功能 
 
 ### module 介紹
 - caroAddrDropdown : 地址下拉選單

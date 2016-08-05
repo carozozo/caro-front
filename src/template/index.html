@@ -1,23 +1,21 @@
 <div class="mainTitle">Caro-Front 介紹(簡稱 cf)</div>
 <div class="content">
-  <div>前端專用的開發 FrameWork</div>
-  <div>針對目前開發項目遇到的問題做客製優化</div>
-  <div>減少開發時間及累積開發成果</div>
+  <div class="title">
+     <span>前言</span>
+  </div>
+  <div class="subContent">
+    <div>前端專用的開發 FrameWork</div>
+    <div>針對目前開發項目遇到的問題做客製優化</div>
+    <div>減少開發時間及累積開發成果</div>
+  </div>
 </div>
 <div class="content">
   <div class="title">
-     <span>開發</span>
+     <span>開發方式</span>
   </div>
   <div class="subContent">
     <div>運用 gulp 自動掃描檔案並部署網站</div>
     <div>運用 bower 控管外掛</div>
-  </div>
-</div>
-<div class="content">
-  <div class="title">
-    <span>程式</span>
-  </div>
-  <div class="subContent">
     <div>可根據不同的 url 載入相對應的 config</div>
     <div>以 jQuery 搭配 gsap 實現 DOM 的動態控制</div>
   </div>
@@ -61,6 +59,8 @@
   </div>
   <div class="subContent">
     <div>在 gulp 時會自動 watch 並編譯成 js </div>
+    <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下</div>
+    <div>所以如果不使用 coffee script 請直接移除</div>
   </div>
 </div>
 <div class="content">
@@ -120,15 +120,6 @@
     <div>images : 圖檔</div>
     <div>js : js 檔</div>
     <div>template : 分頁內容 html  </div>
-  </div>
-</div>
-<div class="content">
-  <div class="title">
-    <span>coffee 注意事項</span>
-  </div>
-  <div class="subContent">
-    <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下</div>
-    <div>所以如果不使用 coffee script 請直接移除</div>
   </div>
 </div>
 <div class="content">
