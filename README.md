@@ -237,7 +237,7 @@ lib 應用於特定功能, serv 應用於 page 間的邏輯處理
 
 ### module 介紹
 - caroAddrDropdown : 地址下拉選單
-- caroScale : DOM 隨目標大小自動縮放, 預設為 $(window)
+- caroAnimated : 簡化外掛 Animate.css 使用方式
 - caroCircleShow : DOM circle 輪播效果
 - caroCompatibility : form 欄位相容性處理
 - caroDateDropdown : 日期下拉選單
@@ -245,11 +245,13 @@ lib 應用於特定功能, serv 應用於 page 間的邏輯處理
 - caroJumpNum : 亂數效果, 數字會亂跳, 最後顯示結果
 - caroListDom : 將 array 資料放到 DOM, 以 list 方式呈現, 例如得獎名單
 - caroModal : modal 視窗
+- caroMouseStyle : 客製化滑鼠樣式
 - caroPicNum : 用圖片顯示數字, 需搭配圖檔
 - caroPreLoad : 預載檔案, 一般用在 loading 頁面
 - caroRandomDrop : 隨機產生滑落物件, 例如氣泡, 水滴效果, 需搭配圖檔
-- caroScrollbar : 自訂捲軸樣式, 客製化外掛 mCustomScrollbar 使用方式
+- caroScale : DOM 隨目標大小自動縮放, 預設為 $(window)
 - caroScroll : 捲軸自動滑動到 DOM 定點 的功能
+- caroScrollbar : 自訂捲軸樣式, 客製化外掛 mCustomScrollbar 使用方式
 - caroSwitchShow : 輪流顯示 DOM, 預設顯示第一個
 - caroSyncMove : 計算滑鼠和基準點的距離，同步移動 DOM
 - caroUpload : 檔案上傳
