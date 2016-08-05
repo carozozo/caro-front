@@ -1,5 +1,5 @@
-# Caro-Front 介紹(簡稱 cf)
-
+# Caro-Front
+[介紹網站](http://example.net/)   
 前端專用的開發 FrameWork   
 針對目前開發項目遇到的問題做客製優化   
 減少開發時間及累積開發成果
