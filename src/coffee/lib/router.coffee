@@ -21,6 +21,8 @@ cf.regLib 'router', (cf) ->
   $ = cf.require('$')
   caro = cf.require('caro')
   window = cf.require('window')
+  _cfg = cf.config('router')
+  _$container = cf.$body
   _isGoPage = true
   _trace = cf.genTraceFn('router')
   #  _trace.startTrace();
@@ -128,8 +130,9 @@ cf.regLib 'router', (cf) ->
           return
 
         doneFn = ->
+          $container = if _cfg.container then $('#' + _cfg.container) or _$container
           self.$page and self.$page.remove()
-          $page.html(html).appendTo(cf.$body).show()
+          $page.html(html).appendTo($container).show()
           pageFn = self._page[pageName]
           pageFn and pageFn(cf, $page)
           self.$page = $page
