@@ -1,7 +1,7 @@
 
 /* 頁面跳轉程式 */
 cf.regLib('router', function(cf) {
-  var $, _isGoPage, _trace, caro, self, window;
+  var $, _$container, _cfg, _isGoPage, _trace, caro, self, window;
   self = {};
 
   /* 當下頁面的 DOm */
@@ -28,6 +28,8 @@ cf.regLib('router', function(cf) {
   $ = cf.require('$');
   caro = cf.require('caro');
   window = cf.require('window');
+  _cfg = cf.config('router');
+  _$container = cf.$body;
   _isGoPage = true;
   _trace = cf.genTraceFn('router');
 
@@ -168,9 +170,10 @@ cf.regLib('router', function(cf) {
           });
         };
         doneFn = function() {
-          var pageFn;
+          var $container, pageFn;
+          $container = _cfg.container ? $('#' + _cfg.container) || _$container : void 0;
           self.$page && self.$page.remove();
-          $page.html(html).appendTo(cf.$body).show();
+          $page.html(html).appendTo($container).show();
           pageFn = self._page[pageName];
           pageFn && pageFn(cf, $page);
           self.$page = $page;

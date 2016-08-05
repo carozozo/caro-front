@@ -18,7 +18,11 @@ header {
   z-index: 9999;
 }
 
-header h1 a {
+header span {
+  margin: 0 20px;
+}
+
+#headerTitle {
   font-size: 30px;
   line-height: 1.5;
   font-weight: bold;
@@ -120,20 +124,15 @@ li {
   line-height: 1.4;
 }
 
-.cf-page {
-  margin-top: 155px;
-  padding: 0 10px;
-}
-
-.container {
+#container {
+  margin-top: 100px;
   width: 90%;
   min-width: 600px;
+  padding: 20px 10px;
 }
 
 .mainTitle {
   font-size: 2em;
-  padding-top: 15px;
-  padding-bottom: 15px;
   border-bottom: solid #ffffff;
   z-index: 100;
 }
@@ -143,7 +142,7 @@ li {
 }
 
 .subContent {
-  padding: 0 10px;
+  padding: 0 15px;
 }
 
 .title {
