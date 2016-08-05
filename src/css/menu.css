@@ -5,12 +5,12 @@
   z-index: 9999;
 }
 .menuItem {
+  text-align: center;
   padding: 5px 10px;
   margin-top: 10px;
   color: #151515;
-  background: linear-gradient(319deg, #e5f5f1, #6d8b6d, #e5f5f1);
+  background: linear-gradient(319deg, #ffffff, #6d8b6d, #ffffff);
   background-size: 800% 800%;
-
   -webkit-animation: AnimationName 14s ease infinite;
   -moz-animation: AnimationName 14s ease infinite;
   animation: AnimationName 14s ease infinite;

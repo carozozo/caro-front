@@ -32,6 +32,5 @@ cf.router.regPage('router', function(cf, $page) {
     return _alert('現在允許換頁');
   });
   _tracking.page('router');
-  $page.commonPage();
   return $page;
 });

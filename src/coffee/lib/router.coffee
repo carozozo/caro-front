@@ -1,7 +1,7 @@
 ### 頁面跳轉程式 ###
 cf.regLib 'router', (cf) ->
   self = {}
-  ### 當下頁面的 DOm ###
+  ### 當下頁面的 Dom ###
   self.$page = null
   ### 儲存載入頁面前要執行的 fns, 裡面的 key 為執行順序 ###
   self._prePage = {

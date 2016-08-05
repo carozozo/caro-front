@@ -4,6 +4,9 @@ cf.router.regPage('index', function(cf, $page) {
   caro = cf.require('caro');
   _tracking = cf.tracking;
   _tracking.page('index');
-  $page.commonPage();
   return $page;
+});
+
+cf.router.regAftPage(function() {
+  cf.router.$page.commonPage();
 });

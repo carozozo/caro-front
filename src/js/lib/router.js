@@ -4,7 +4,7 @@ cf.regLib('router', function(cf) {
   var $, _$container, _cfg, _isGoPage, _trace, caro, self, window;
   self = {};
 
-  /* 當下頁面的 DOm */
+  /* 當下頁面的 Dom */
   self.$page = null;
 
   /* 儲存載入頁面前要執行的 fns, 裡面的 key 為執行順序 */

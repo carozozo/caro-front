@@ -33,5 +33,4 @@ cf.router.regPage 'router', (cf, $page) ->
   )
 
   _tracking.page('router')
-  $page.commonPage()
   $page
