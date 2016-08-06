@@ -15,10 +15,11 @@ cf.regCtrl('menu', function() {
   };
   $self.dom('.menuItem', function($menuItem) {
     return $menuItem.each(function(i, $item) {
-      var height, itemHeight, itemWidth;
+      var backgroundColor, height, itemHeight, itemWidth;
       $item = $($item);
       itemWidth = $item.width();
       itemHeight = $item.height();
+      backgroundColor = $item.css('background-color');
       height = i * (itemHeight + 20);
       _height += height;
       $item.css({
@@ -26,11 +27,13 @@ cf.regCtrl('menu', function() {
       });
       return $item.on('mouseenter', function() {
         return tm.to($item, .2, {
-          width: itemWidth * 1.2
+          width: itemWidth * 1.5,
+          'background-color': '#eeeeee'
         });
       }).on('mouseleave', function() {
         return tm.to($item, .2, {
-          width: itemWidth
+          width: itemWidth,
+          'background-color': backgroundColor
         });
       });
     });

@@ -17,15 +17,22 @@ cf.regCtrl 'menu', ->
       $item = $($item)
       itemWidth = $item.width()
       itemHeight = $item.height()
+      backgroundColor = $item.css('background-color')
       height = i * (itemHeight + 20)
       _height += height
       $item.css(
         top: i * (itemHeight + 20)
       )
       $item.on('mouseenter', ->
-        tm.to($item, .2, width: itemWidth * 1.2)
+        tm.to($item, .2,
+          width: itemWidth * 1.5
+          'background-color': '#eeeeee'
+        )
       ).on('mouseleave', ->
-        tm.to($item, .2, width: itemWidth)
+        tm.to($item, .2,
+          width: itemWidth
+          'background-color': backgroundColor
+        )
       )
     )
   )

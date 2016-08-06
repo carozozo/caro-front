@@ -1,6 +1,6 @@
 # Caro-Front
    
-[介紹網站, 建構中](https://carozozo.github.io/caro-front/)   
+[介紹網站 - 更新中](https://carozozo.github.io/caro-front/)   
    
 ### lib 介紹
 - cf.ajax : $.ajax 延伸並簡化 success function; 可設定測試模式, 用來模擬 api response
