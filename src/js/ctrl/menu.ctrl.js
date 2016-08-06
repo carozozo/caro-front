@@ -12,8 +12,6 @@ cf.regCtrl('menu', function() {
   $menuContent = $self.dom('#menuContent');
   contentWidth = $menuContent.width();
   setPosition = function() {
-    console.log('$window.height() =', $window.height());
-    console.log('_height =', _height);
     $self.css({
       top: ($window.height() - _height) / 2
     });

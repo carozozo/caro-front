@@ -1,4 +1,4 @@
-cf.router.regPage 'cookie', (cf, $page) ->
+cf.router.regPage 'router', (cf, $page) ->
   window = cf.require('window')
   caro = cf.require('caro')
   _tracking = cf.tracking

@@ -1,4 +1,4 @@
-cf.router.regPage('cookie', function(cf, $page) {
+cf.router.regPage('router', function(cf, $page) {
   var _alert, _router, _tracking, caro, window;
   window = cf.require('window');
   caro = cf.require('caro');

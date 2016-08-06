@@ -12,8 +12,6 @@ cf.regCtrl 'menu', ->
   contentWidth = $menuContent.width()
 
   setPosition = ->
-    console.log '$window.height() =', $window.height()
-    console.log '_height =', _height
     $self.css
       top: ($window.height() - _height) / 2
     return

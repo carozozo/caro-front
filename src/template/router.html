@@ -35,32 +35,32 @@
   <div class="subContent">
     <div>
       getPageByHash([hash]) : 依照 url 的 hash 判斷目前的 page
-      <span id="getPageBtn" class="btn2">Get Page Name</span>
+      <div id="getPageBtn" class="btn2">Get Page Name</div>
     </div>
     <div>
       getSearchByHash([hash]) : 依照 url 的 hash 判斷目前的 search
-      <span id="getSearchBtn" class="btn2">Get Search</span>
+      <div id="getSearchBtn" class="btn2">Get Search</div>
     </div>
     <div>
       parseUrlSearch() : 依照 url 的 hash 裡面的 search 轉為 obj
-      <span id="getSearchObjBtn" class="btn2">Get SearchObj</span>
+      <div id="getSearchObjBtn" class="btn2">Get SearchObj</div>
     </div>
     <div>regPrePage(fn, [執行順序=50]) : 註冊每次次換頁前要執行的 fn</div>
     <div>regAftPage(fn, [執行順序=50]) : 註冊每次換頁後要執行的 fn</div>
     <div>regPage(註冊頁面, fn) : 註冊頁面要執行的 fn</div>
     <div>
       goPage([頁面名稱]) : 換頁, 沒參數時會依據 url 的 hash 自動判斷
-      <span id="goPageBtn1" class="btn2">goPage('router')</span>
-      <span id="goPageBtn2" class="btn2">goPage()</span>
-      <span id="goPageBtn3" class="btn2">goPage('router?name=pikachu&age=200')</span>
+      <div id="goPageBtn1" class="btn2">goPage('router')</div>
+      <div id="goPageBtn2" class="btn2">goPage()</div>
+      <div id="goPageBtn3" class="btn2">goPage('router?name=pikachu&age=200')</div>
     </div>
     <div>
       blockGoPage() : 呼叫後, 執行 router.goPage 不會換頁
-      <span id="blockGoPageBtn" class="btn2">Block Go Page</span>
+      <div id="blockGoPageBtn" class="btn2">Block Go Page</div>
     </div>
     <div>
       approveGoPage() : 呼叫後, 所有的 router.goPage 可以換頁  
-      <span id="approveGoPageBtn" class="btn2">Approve Go Page</span>
+      <div id="approveGoPageBtn" class="btn2">Approve Go Page</div>
     </div>
   </div>
 </div>
