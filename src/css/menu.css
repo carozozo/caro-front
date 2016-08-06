@@ -6,12 +6,13 @@
 }
 
 .menuItem {
-  position: absolute;
-  right: 0;
+  cursor: pointer;
   text-align: center;
   padding: 5px 10px;
   margin-top: 10px;
   color: #151515;
   background: #ffffff;
   min-width: 70px;
+  margin-left: auto;
+  margin-right: 0;
 }

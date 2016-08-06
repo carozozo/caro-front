@@ -58,6 +58,7 @@ h1, h2, h3, h4, h5, h6 {
 */
 
 .btn {
+  cursor: pointer;
   display: inline-block;
   background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.3), rgba(35, 35, 35, 0.3) 50%, rgba(10, 10, 10, 0.3) 50%, rgba(0, 0, 0, 0.3));
   padding: 8px 18px;
@@ -86,7 +87,13 @@ h1, h2, h3, h4, h5, h6 {
   float: left;
 }
 
+.btn-github .icon {
+  opacity: 0.6;
+  background: url("../images/blacktocat.png") 0 0 no-repeat;
+}
+
 .btn2 {
+  cursor: pointer;
   display: inline-block;
   background: -webkit-linear-gradient(top, rgba(230, 230, 230, 0.3), rgba(177, 177, 177, 0.3) 50%, rgba(108, 108, 108, 0.3) 50%, rgba(147, 147, 147, 0.3));
   padding: 2px 18px;
@@ -105,11 +112,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn2:hover {
   background: -webkit-linear-gradient(top, rgba(201, 201, 201, 0.3), rgba(144, 144, 144, 0.3) 50%, rgba(77, 77, 77, 0.3) 50%, rgba(117, 117, 117, 0.3));
-}
-
-.btn-github .icon {
-  opacity: 0.6;
-  background: url("../images/blacktocat.png") 0 0 no-repeat;
 }
 
 /* Links

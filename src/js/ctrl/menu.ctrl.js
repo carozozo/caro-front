@@ -15,42 +15,33 @@ cf.regCtrl('menu', function() {
   };
   $self.dom('.menuItem', function($menuItem) {
     return $menuItem.each(function(i, $item) {
-      var backgroundColor, height, itemHeight, itemWidth;
+      var backgroundColor, height, id, itemHeight, itemWidth, pageName;
       $item = $($item);
       itemWidth = $item.width();
       itemHeight = $item.height();
       backgroundColor = $item.css('background-color');
+      id = $item.attr('id');
+      pageName = id.replace('menu', '').toLowerCase();
       height = i * (itemHeight + 20);
       _height += height;
       $item.css({
-        top: i * (itemHeight + 20)
+        width: itemWidth
       });
       return $item.on('mouseenter', function() {
-        return tm.to($item, .2, {
+        var $next;
+        tm.to($item, .2, {
           width: itemWidth * 1.5,
           'background-color': '#eeeeee'
         });
+        return $next = $menuItem[i + 1];
       }).on('mouseleave', function() {
         return tm.to($item, .2, {
           width: itemWidth,
           'background-color': backgroundColor
         });
+      }).on('click', function() {
+        return _router.goPage(pageName);
       });
-    });
-  });
-  $self.dom('.menuCf', function($menu) {
-    return $menu.onClick(function() {
-      return _router.goPage('cf');
-    });
-  });
-  $self.dom('.menuAjax', function($menu) {
-    return $menu.onClick(function() {
-      return _router.goPage('ajax');
-    });
-  });
-  $self.dom('.menuRouter', function($menu) {
-    return $menu.onClick(function() {
-      return _router.goPage('router?name=caro&age=100');
     });
   });
   setPosition();

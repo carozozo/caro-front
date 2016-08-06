@@ -18,38 +18,27 @@ cf.regCtrl 'menu', ->
       itemWidth = $item.width()
       itemHeight = $item.height()
       backgroundColor = $item.css('background-color')
+      id = $item.attr('id')
+      pageName = id.replace('menu', '').toLowerCase()
       height = i * (itemHeight + 20)
       _height += height
       $item.css(
-        top: i * (itemHeight + 20)
+        width: itemWidth
       )
       $item.on('mouseenter', ->
         tm.to($item, .2,
           width: itemWidth * 1.5
           'background-color': '#eeeeee'
         )
+        $next = $menuItem[i + 1]
       ).on('mouseleave', ->
         tm.to($item, .2,
           width: itemWidth
           'background-color': backgroundColor
         )
+      ).on('click', ->
+        _router.goPage(pageName)
       )
-    )
-  )
-
-  $self.dom('.menuCf', ($menu) ->
-    $menu.onClick(->
-      _router.goPage('cf')
-    )
-  )
-  $self.dom('.menuAjax', ($menu) ->
-    $menu.onClick(->
-      _router.goPage('ajax')
-    )
-  )
-  $self.dom('.menuRouter', ($menu) ->
-    $menu.onClick(->
-      _router.goPage('router?name=caro&age=100')
     )
   )
 
