@@ -23,11 +23,11 @@
   </div>
   <div class="subContent">
     <div>
-      <div>callAjax = (url, data, opt = {}) :</div>
+      <div>callAjax(url, data, opt = {}) :</div>
       <div>用法同 $.ajax, 另支援函式 .suc 和 .err</div>
       <div>opt 同 $.ajax 的 options 參數, 另支援參數 fakeResponse</div>
       <div class="code">
-        <div class="codeHead">
+        <div class="tip">
           設定檔 responseErrKey = 'error'
         </div>
         <div class="codeMark">// 使用 post</div>
@@ -38,7 +38,7 @@
         })
       </div>
       <div class="code">
-        <div class="codeHead">
+        <div class="tip">
           設定檔 isTestMode = true -> 則直接調用 fakeResponse
         </div>
         <div class="codeMark">// 使用 get, 且設置 fakeResponse</div>
