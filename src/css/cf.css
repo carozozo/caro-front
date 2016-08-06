@@ -8,6 +8,7 @@ body {
   font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
 }
 
+/* Buttons */
 header {
   position: fixed;
   top: 0;
@@ -41,25 +42,7 @@ header span {
   display: inline-block;
   text-align: center;
   margin: 0;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 20px;
-  font-weight: normal;
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-  color: #b5e853;
-  letter-spacing: -0.03em;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-  0 0 5px rgba(181, 232, 83, 0.1),
-  0 0 10px rgba(181, 232, 83, 0.1);
-}
-
-/* Buttons
-*/
-
-.btn {
   cursor: pointer;
-  display: inline-block;
   background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.3), rgba(35, 35, 35, 0.3) 50%, rgba(10, 10, 10, 0.3) 50%, rgba(0, 0, 0, 0.3));
   padding: 8px 18px;
   border-radius: 50px;
@@ -75,11 +58,11 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.btn:hover {
+#downloads .btn:hover {
   background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.6), rgba(35, 35, 35, 0.6) 50%, rgba(10, 10, 10, 0.8) 50%, rgba(0, 0, 0, 0.8));
 }
 
-.btn .icon {
+#downloads .btn .icon {
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -92,11 +75,23 @@ h1, h2, h3, h4, h5, h6 {
   background: url("../images/blacktocat.png") 0 0 no-repeat;
 }
 
-.btn2 {
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 20px;
+  font-weight: normal;
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  color: #b5e853;
+  letter-spacing: -0.03em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+  0 0 5px rgba(181, 232, 83, 0.1),
+  0 0 10px rgba(181, 232, 83, 0.1);
+}
+
+/* Buttons */
+.btn1 {
   cursor: pointer;
   display: inline-block;
-  background: -webkit-linear-gradient(top, rgba(230, 230, 230, 0.3), rgba(177, 177, 177, 0.3) 50%, rgba(108, 108, 108, 0.3) 50%, rgba(147, 147, 147, 0.3));
-  padding: 2px 18px;
+  background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.8), rgba(35, 35, 35, 0.7) 50%, rgba(10, 10, 10, 0.7) 50%, rgba(0, 0, 0, 0.8));
+  padding: 0 18px;
   border-radius: 10px;
   border: 2px solid rgba(0, 0, 0, 0.7);
   border-bottom: 2px solid rgba(0, 0, 0, 0.7);
@@ -107,18 +102,40 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 15px;
   text-decoration: none;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.btn1:hover {
+  color: #9fcb49;
+  background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.9), rgba(35, 35, 35, 0.8) 50%, rgba(10, 10, 10, 0.8) 50%, rgba(0, 0, 0, 0.9));
+}
+
+.btn2 {
+  cursor: pointer;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, rgba(230, 230, 230, 0.8), rgba(177, 177, 177, 0.7) 50%, rgba(108, 108, 108, 0.7) 50%, rgba(147, 147, 147, 0.8));
+  padding: 0 18px;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.7);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.7);
+  border-top: 2px solid rgba(0, 0, 0, 1);
+  color: rgba(236, 236, 236, 0.8);
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .btn2:hover {
   color: #9fcb49;
-  background: -webkit-linear-gradient(top, rgba(201, 201, 201, 0.3), rgba(144, 144, 144, 0.3) 50%, rgba(77, 77, 77, 0.3) 50%, rgba(117, 117, 117, 0.3));
+  background: -webkit-linear-gradient(top, rgba(201, 201, 201, 0.9), rgba(144, 144, 144, 0.8) 50%, rgba(77, 77, 77, 0.8) 50%, rgba(117, 117, 117, 0.9));
 }
 
-/* Links
-   a, a:hover, a:visited
-*/
-
+/* Links */
 a {
   color: #63c0f5;
   text-shadow: 0 0 5px rgba(104, 182, 255, 0.5);
@@ -128,6 +145,7 @@ li {
   line-height: 1.4;
 }
 
+/* Container */
 #container {
   margin-top: 100px;
   width: 90%;
@@ -135,6 +153,7 @@ li {
   padding: 20px 10px;
 }
 
+/* Common */
 .mainTitle {
   overflow: hidden;
   font-size: 2em;
@@ -164,7 +183,7 @@ li {
 
 .tip {
   margin: 20px 0 10px;
-  padding: 10px;
+  padding: 5px;
   background: #dddddd;
   max-width: 500px;
   min-width: 200px;
@@ -179,9 +198,10 @@ li {
   margin: 10px 0;
   padding: 10px;
   background: #eeeeee;
-  max-width: 500px;
+  width: 70%;
   min-width: 200px;
   color: #151515;
+  overflow: auto;
 }
 
 @-webkit-keyframes headerBgColor {

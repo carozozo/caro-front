@@ -7,26 +7,29 @@ cf.regLib 'cookie', (cf) ->
   _trace = cf.genTraceFn('cookie')
   #  _trace.startTrace()
 
-  genCookieName = (name) ->
-    'CaroFront' + name
-
   ### 設置 cookie ###
-  self.setCookie = (cookieName, val, exdays) ->
+  self.setCookie = (cookieName, val, opt = {}) ->
     if caro.isUndefined(val)
       _trace.err('Can not set undefined to cookie:', cookieName)
       return
+    _exdays = opt.exdays
+    _path = opt.path
+    _domain = opt.domain
+    cookieStrArr = [cookieName + '=' + caro.toJson(val)]
 
-    if(exdays)
-      exdays = unless caro.isNaN(parseInt(exdays)) then parseInt(exdays) else 1
+    if(_exdays)
+      _exdays = unless caro.isNaN(parseInt(_exdays)) then parseInt(_exdays) else 1
       date = new Date
-      date.setTime date.getTime() + (exdays * 24 * 60 * 60 * 1000)
+      date.setTime date.getTime() + (_exdays * 24 * 60 * 60 * 1000)
       expires = 'expires=' + date.toUTCString()
-
-    path = '; path=' + cf.indexUrl
-    cookieStrArr = [genCookieName(cookieName) + '=' + caro.toJson(val)]
-    caro.pushNoEmptyVal cookieStrArr.push(expires)
-    cookieStrArr.push path
-    document.cookie = cookieStrArr.join('; ')
+      cookieStrArr.push(expires)
+    if(_path)
+      path = 'path=' + caro.addHead(_path, '/')
+      cookieStrArr.push(path)
+    if(_domain)
+      domain = 'domain=' + _domain
+      cookieStrArr.push(domain)
+    document.cookie = cookieStrArr.join(';')
     return
 
   ### 取得 cookie ###
@@ -36,8 +39,7 @@ cf.regLib 'cookie', (cf) ->
     caro.forEach cookieArr, (cookie) ->
       cookieArr = cookie.split('=')
       cookieName = cookieArr[0].trim()
-      if cookieName isnt genCookieName(name)
-        return true
+      return true if cookieName isnt name
       ret = JSON.parse(cookieArr[1])
       return
     ret

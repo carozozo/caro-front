@@ -9,10 +9,17 @@ cf.regLib('dom', function(cf) {
   _trace = cf.genTraceFn('dom');
   _trace.startTrace();
 
-  /* jQuery.find 進階版, 取得的 DOM 會賦予 self 的所有程式 */
+  /* jQuery.find 進階版, 賦予 self 的所有程式給取得的 DOM */
   $.fn.dom = function(selector, cb) {
     var $dom;
-    $dom = this.find(selector);
+    if (caro.isFunction(selector)) {
+      cb = selector;
+    }
+    if (selector) {
+      $dom = this.find(selector);
+    } else {
+      $dom = this;
+    }
     if ($dom.length < 1) {
       _trace.err('Can not find Dom:', selector);
       return $dom;

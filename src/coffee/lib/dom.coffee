@@ -7,9 +7,13 @@ cf.regLib 'dom', (cf) ->
   _trace = cf.genTraceFn('dom')
   _trace.startTrace()
 
-  ### jQuery.find 進階版, 取得的 DOM 會賦予 self 的所有程式 ###
+  ### jQuery.find 進階版, 賦予 self 的所有程式給取得的 DOM ###
   $.fn.dom = (selector, cb) ->
-    $dom = @find(selector)
+    cb = selector if caro.isFunction(selector)
+    if selector
+      $dom = @find(selector)
+    else
+      $dom = @
     if $dom.length < 1
       _trace.err 'Can not find Dom:', selector
       return $dom

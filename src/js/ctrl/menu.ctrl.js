@@ -12,6 +12,8 @@ cf.regCtrl('menu', function() {
   $menuContent = $self.dom('#menuContent');
   contentWidth = $menuContent.width();
   setPosition = function() {
+    console.log('$window.height() =', $window.height());
+    console.log('_height =', _height);
     $self.css({
       top: ($window.height() - _height) / 2
     });
@@ -44,14 +46,14 @@ cf.regCtrl('menu', function() {
   };
   $self.dom('.menuItem', function($menuItem) {
     return $menuItem.each(function(i, $item) {
-      var height, id, itemHeight, itemWidth, pageName;
-      $item = $($item);
+      var id, itemHeight, itemMarginTop, itemWidth, pageName;
+      $item = $($item).dom();
       itemWidth = $item.width();
       itemHeight = $item.height();
+      itemMarginTop = $item.getMargin('top');
       id = $item.attr('id');
       pageName = id.replace('menu', '').toLowerCase();
-      height = i * (itemHeight + 20);
-      _height += height;
+      _height += itemHeight + itemMarginTop;
       $item.css({
         width: itemWidth
       });

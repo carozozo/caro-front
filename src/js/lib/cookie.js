@@ -1,34 +1,43 @@
 
 /* cookie 相關 */
 cf.regLib('cookie', function(cf) {
-  var _trace, caro, document, genCookieName, self, window;
+  var _trace, caro, document, self, window;
   self = {};
   caro = cf.require('caro');
   window = cf.require('window');
   document = cf.require('document');
   _trace = cf.genTraceFn('cookie');
-  genCookieName = function(name) {
-    return 'CaroFront' + name;
-  };
 
   /* 設置 cookie */
-  self.setCookie = function(cookieName, val, exdays) {
-    var cookieStrArr, date, expires, path;
+  self.setCookie = function(cookieName, val, opt) {
+    var _domain, _exdays, _path, cookieStrArr, date, domain, expires, path;
+    if (opt == null) {
+      opt = {};
+    }
     if (caro.isUndefined(val)) {
       _trace.err('Can not set undefined to cookie:', cookieName);
       return;
     }
-    if (exdays) {
-      exdays = !caro.isNaN(parseInt(exdays)) ? parseInt(exdays) : 1;
+    _exdays = opt.exdays;
+    _path = opt.path;
+    _domain = opt.domain;
+    cookieStrArr = [cookieName + '=' + caro.toJson(val)];
+    if (_exdays) {
+      _exdays = !caro.isNaN(parseInt(_exdays)) ? parseInt(_exdays) : 1;
       date = new Date;
-      date.setTime(date.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      date.setTime(date.getTime() + (_exdays * 24 * 60 * 60 * 1000));
       expires = 'expires=' + date.toUTCString();
+      cookieStrArr.push(expires);
     }
-    path = '; path=' + cf.indexUrl;
-    cookieStrArr = [genCookieName(cookieName) + '=' + caro.toJson(val)];
-    caro.pushNoEmptyVal(cookieStrArr.push(expires));
-    cookieStrArr.push(path);
-    document.cookie = cookieStrArr.join('; ');
+    if (_path) {
+      path = 'path=' + caro.addHead(_path, '/');
+      cookieStrArr.push(path);
+    }
+    if (_domain) {
+      domain = 'domain=' + _domain;
+      cookieStrArr.push(domain);
+    }
+    document.cookie = cookieStrArr.join(';');
   };
 
   /* 取得 cookie */
@@ -40,7 +49,7 @@ cf.regLib('cookie', function(cf) {
       var cookieName;
       cookieArr = cookie.split('=');
       cookieName = cookieArr[0].trim();
-      if (cookieName !== genCookieName(name)) {
+      if (cookieName !== name) {
         return true;
       }
       ret = JSON.parse(cookieArr[1]);
