@@ -16,7 +16,7 @@ header {
   padding: 20px 0 20px 10px;
   z-index: 9999;
 
-  background: linear-gradient(270deg, #4f5d51, #1e251f, #4f5d51);
+  background: linear-gradient(90deg, #616862, #292f2b, #616862);
   background-size: 600% 600%;
   -webkit-animation: headerBgColor 15s ease infinite;
   -moz-animation: headerBgColor 15s ease infinite;
@@ -111,6 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn2:hover {
+  color: #9fcb49;
   background: -webkit-linear-gradient(top, rgba(201, 201, 201, 0.3), rgba(144, 144, 144, 0.3) 50%, rgba(77, 77, 77, 0.3) 50%, rgba(117, 117, 117, 0.3));
 }
 
@@ -161,7 +162,7 @@ li {
   background: #555555;
 }
 
-.codeHead {
+.tip {
   margin: 20px 0 10px;
   padding: 10px;
   background: #dddddd;
@@ -171,7 +172,7 @@ li {
 }
 
 .codeMark {
-  color: #3a6640;
+  color: #92bb43;
 }
 
 .code {
