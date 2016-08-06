@@ -5,6 +5,19 @@
   z-index: 9999;
 }
 
+#menuBtn {
+  padding: 20px 10px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  color: #161616;
+  background: #dddddd;
+}
+
+#menuContent {
+  display: inline-block;
+}
+
 .menuItem {
   cursor: pointer;
   text-align: center;

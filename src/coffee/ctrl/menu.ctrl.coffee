@@ -6,10 +6,36 @@ cf.regCtrl 'menu', ->
   $window = cf.$window
   _router = cf.router
   _height = 0
+  _moving = false
+
+  $menuContent = $self.dom('#menuContent')
+  contentWidth = $menuContent.width()
 
   setPosition = ->
     $self.css
       top: ($window.height() - _height) / 2
+    return
+  hideMenu = ->
+    return if _moving
+    _moving = true
+    tm.to($self, .3
+      x: contentWidth
+      onComplete: ->
+        $menuBtn.fadeIn()
+        _moving = false
+        return
+    )
+    return
+  showMenu = ->
+    return if _moving
+    _moving = true
+    $menuBtn.hide()
+    tm.to($self, .3
+      x: 0
+      onComplete: ->
+        _moving = false
+        return
+    )
     return
 
   $self.dom('.menuItem', ($menuItem) ->
@@ -30,7 +56,6 @@ cf.regCtrl 'menu', ->
           width: itemWidth * 1.5
           'background-color': '#eeeeee'
         )
-        $next = $menuItem[i + 1]
       ).on('mouseleave', ->
         tm.to($item, .2,
           width: itemWidth
@@ -42,7 +67,10 @@ cf.regCtrl 'menu', ->
     )
   )
 
+  $menuBtn = $self.dom('#menuBtn').on('mouseenter', showMenu)
+  $self.on('mouseleave', hideMenu)
   setPosition()
+  hideMenu()
   $window.on('resize.menu', setPosition)
   $self
 , 'menu.ctrl'
