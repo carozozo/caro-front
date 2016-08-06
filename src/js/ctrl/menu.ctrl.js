@@ -1,23 +1,26 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 menu.ctrl.html 檔並寫入 template */
 cf.regCtrl('menu', function() {
-  var $self, $window, _router, cf, setPosition, tm;
+  var $self, $window, _height, _router, cf, setPosition, tm;
   $self = this;
   cf = $self.cf;
   tm = cf.require('TweenMax');
-  _router = cf.router;
   $window = cf.$window;
+  _router = cf.router;
+  _height = 0;
   setPosition = function() {
     $self.css({
-      top: ($window.height() - $self.height()) / 2
+      top: ($window.height() - _height) / 2
     });
   };
   $self.dom('.menuItem', function($menuItem) {
     return $menuItem.each(function(i, $item) {
-      var itemHeight, itemWidth;
+      var height, itemHeight, itemWidth;
       $item = $($item);
       itemWidth = $item.width();
       itemHeight = $item.height();
+      height = i * (itemHeight + 20);
+      _height += height;
       $item.css({
         top: i * (itemHeight + 20)
       });

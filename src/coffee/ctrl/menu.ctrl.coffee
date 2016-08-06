@@ -3,12 +3,13 @@ cf.regCtrl 'menu', ->
   $self = @
   cf = $self.cf
   tm = cf.require('TweenMax')
-  _router = cf.router
   $window = cf.$window
+  _router = cf.router
+  _height = 0
 
   setPosition = ->
     $self.css
-      top: ($window.height() - $self.height()) / 2
+      top: ($window.height() - _height) / 2
     return
 
   $self.dom('.menuItem', ($menuItem) ->
@@ -16,6 +17,8 @@ cf.regCtrl 'menu', ->
       $item = $($item)
       itemWidth = $item.width()
       itemHeight = $item.height()
+      height = i * (itemHeight + 20)
+      _height += height
       $item.css(
         top: i * (itemHeight + 20)
       )
