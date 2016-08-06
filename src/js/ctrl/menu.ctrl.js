@@ -44,11 +44,10 @@ cf.regCtrl('menu', function() {
   };
   $self.dom('.menuItem', function($menuItem) {
     return $menuItem.each(function(i, $item) {
-      var backgroundColor, height, id, itemHeight, itemWidth, pageName;
+      var height, id, itemHeight, itemWidth, pageName;
       $item = $($item);
       itemWidth = $item.width();
       itemHeight = $item.height();
-      backgroundColor = $item.css('background-color');
       id = $item.attr('id');
       pageName = id.replace('menu', '').toLowerCase();
       height = i * (itemHeight + 20);
@@ -58,13 +57,11 @@ cf.regCtrl('menu', function() {
       });
       return $item.on('mouseenter', function() {
         return tm.to($item, .2, {
-          width: itemWidth * 1.5,
-          'background-color': '#eeeeee'
+          width: itemWidth * 1.5
         });
       }).on('mouseleave', function() {
         return tm.to($item, .2, {
-          width: itemWidth,
-          'background-color': backgroundColor
+          width: itemWidth
         });
       }).on('click', function() {
         return _router.goPage(pageName);

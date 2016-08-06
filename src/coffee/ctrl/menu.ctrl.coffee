@@ -43,7 +43,6 @@ cf.regCtrl 'menu', ->
       $item = $($item)
       itemWidth = $item.width()
       itemHeight = $item.height()
-      backgroundColor = $item.css('background-color')
       id = $item.attr('id')
       pageName = id.replace('menu', '').toLowerCase()
       height = i * (itemHeight + 20)
@@ -54,12 +53,10 @@ cf.regCtrl 'menu', ->
       $item.on('mouseenter', ->
         tm.to($item, .2,
           width: itemWidth * 1.5
-          'background-color': '#eeeeee'
         )
       ).on('mouseleave', ->
         tm.to($item, .2,
           width: itemWidth
-          'background-color': backgroundColor
         )
       ).on('click', ->
         _router.goPage(pageName)
