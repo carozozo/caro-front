@@ -5,7 +5,3 @@ cf.router.regPage 'index', (cf, $page) ->
 
   _tracking.page('index')
   $page
-
-cf.router.regAftPage ->
-  cf.router.$page.commonPage()
-  return

@@ -6,7 +6,3 @@ cf.router.regPage('index', function(cf, $page) {
   _tracking.page('index');
   return $page;
 });
-
-cf.router.regAftPage(function() {
-  cf.router.$page.commonPage();
-});

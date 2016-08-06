@@ -1,10 +1,7 @@
 
 /* 一般的 ctrl */
-cf.regCtrl('commonPage', function(opt) {
+cf.regCtrl('commonPage', function() {
   var $mainTitle, $self, $subContent, $title, cf, tl, tl1;
-  if (opt == null) {
-    opt = {};
-  }
   $self = this;
   cf = $self.cf;
   tl = cf.require('TimelineMax');
@@ -19,4 +16,8 @@ cf.regCtrl('commonPage', function(opt) {
     opacity: 0
   });
   return $self;
+});
+
+cf.router.regAftPage(function() {
+  cf.router.$page.commonPage();
 });

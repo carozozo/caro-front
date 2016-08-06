@@ -4,30 +4,14 @@
   padding-bottom: 10px;
   z-index: 9999;
 }
+
 .menuItem {
+  position: absolute;
+  right: 0;
   text-align: center;
   padding: 5px 10px;
   margin-top: 10px;
   color: #151515;
-  background: linear-gradient(319deg, #ffffff, #6d8b6d, #ffffff);
-  background-size: 800% 800%;
-  -webkit-animation: AnimationName 14s ease infinite;
-  -moz-animation: AnimationName 14s ease infinite;
-  animation: AnimationName 14s ease infinite;
-}
-
-@-webkit-keyframes AnimationName {
-  0%{background-position:33% 0%}
-  50%{background-position:68% 100%}
-  100%{background-position:33% 0%}
-}
-@-moz-keyframes AnimationName {
-  0%{background-position:33% 0%}
-  50%{background-position:68% 100%}
-  100%{background-position:33% 0%}
-}
-@keyframes AnimationName {
-  0%{background-position:33% 0%}
-  50%{background-position:68% 100%}
-  100%{background-position:33% 0%}
+  background: #ffffff;
+  min-width: 70px;
 }

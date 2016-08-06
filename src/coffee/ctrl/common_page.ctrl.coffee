@@ -1,5 +1,5 @@
 ### 一般的 ctrl ###
-cf.regCtrl 'commonPage', (opt = {}) ->
+cf.regCtrl 'commonPage', ->
   $self = @
   cf = $self.cf
   tl = cf.require('TimelineMax')
@@ -17,3 +17,7 @@ cf.regCtrl 'commonPage', (opt = {}) ->
   )
 
   $self
+
+cf.router.regAftPage ->
+  cf.router.$page.commonPage()
+  return

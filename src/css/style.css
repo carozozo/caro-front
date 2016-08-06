@@ -3,7 +3,7 @@ body {
   padding: 0;
   background: rgb(21, 25, 24) 0 0;
   color: #eaeaea;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 2;
   font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
 }
@@ -11,11 +11,16 @@ body {
 header {
   position: fixed;
   top: 0;
-  background: #283a2d 0 0;
   width: 100%;
   border-bottom: 1px dashed #b5e853;
   padding: 20px 0 20px 10px;
   z-index: 9999;
+
+  background: linear-gradient(270deg, #576659, #1e251f, #576659);
+  background-size: 600% 600%;
+  -webkit-animation: headerBgColor 15s ease infinite;
+  -moz-animation: headerBgColor 15s ease infinite;
+  animation: headerBgColor 15s ease infinite;
 }
 
 header span {
@@ -23,17 +28,13 @@ header span {
 }
 
 #headerTitle {
-  font-size: 30px;
+  font-size: 2em;
   line-height: 1.5;
   font-weight: bold;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   color: #b5e853;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-  0 0 5px rgba(181, 232, 83, 0.1),
-  0 0 10px rgba(181, 232, 83, 0.1);
   letter-spacing: -1px;
   -webkit-font-smoothing: antialiased;
-  padding-left: 10px;
 }
 
 #downloads .btn {
@@ -155,7 +156,60 @@ li {
   background: #555555;
 }
 
-.list {
-  margin-left: 10px;
-  height: 1.8em;
+.codeHead {
+  margin: 20px 0 10px;
+  padding: 10px;
+  background: #dddddd;
+  max-width: 500px;
+  min-width: 200px;
+  color: #161616;
+}
+
+.codeMark {
+  color: #3a6640;
+}
+
+.code {
+  margin: 10px 0;
+  padding: 10px;
+  background: #eeeeee;
+  max-width: 500px;
+  min-width: 200px;
+  color: #151515;
+}
+
+@-webkit-keyframes headerBgColor {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@-moz-keyframes headerBgColor {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@keyframes headerBgColor {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
 }
