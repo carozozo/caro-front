@@ -2,6 +2,7 @@
 cf.regCtrl 'commonPage', ->
   $self = @
   cf = $self.cf
+  $ = cf.require('$')
   tl = cf.require('TimelineMax')
 
   $mainTitle = $self.dom('.mainTitle')
@@ -17,7 +18,6 @@ cf.regCtrl 'commonPage', ->
     opacity: 0
   , '-=0.3')
 
-
   titleClassArr = ['title', 'subTitle', 'subTitle2', 'subTitle3']
   caro.forEach(titleClassArr, (className) ->
     $self.find('.' + className).each((i, $class) ->
@@ -28,11 +28,13 @@ cf.regCtrl 'commonPage', ->
     )
   )
 
-  $codes = $self.find('.codeTarget').hide()
+  $codeTargetArr = []
+  $self.find('.codeTarget').each((i, $codeTarget) ->
+    $codeTargetArr.push($($codeTarget).caroModal())
+  )
   $self.find('.codeLink').each((i, $link) ->
-    $link = $($link).dom()
-    $link.onClick(->
-      $($codes[i]).fadeToggle()
+    $($link).dom().onClick(->
+      $codeTargetArr[i].showModal()
     )
   )
 

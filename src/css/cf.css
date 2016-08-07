@@ -24,10 +24,6 @@ header {
   animation: headerBgColor 15s ease infinite;
 }
 
-header span {
-  margin: 0 20px;
-}
-
 #headerTitle {
   font-size: 2em;
   line-height: 1.5;

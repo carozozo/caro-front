@@ -1,9 +1,10 @@
 
 /* 一般的 ctrl */
 cf.regCtrl('commonPage', function() {
-  var $codes, $content, $mainTitle, $self, cf, titleClassArr, tl, tl1;
+  var $, $codeTargetArr, $content, $mainTitle, $self, cf, titleClassArr, tl, tl1;
   $self = this;
   cf = $self.cf;
+  $ = cf.require('$');
   tl = cf.require('TimelineMax');
   $mainTitle = $self.dom('.mainTitle');
   $content = $self.dom('.content');
@@ -26,11 +27,13 @@ cf.regCtrl('commonPage', function() {
       return $class.removeClass(className).html($span.html(html));
     });
   });
-  $codes = $self.find('.codeTarget').hide();
+  $codeTargetArr = [];
+  $self.find('.codeTarget').each(function(i, $codeTarget) {
+    return $codeTargetArr.push($($codeTarget).caroModal());
+  });
   $self.find('.codeLink').each(function(i, $link) {
-    $link = $($link).dom();
-    return $link.onClick(function() {
-      return $($codes[i]).fadeToggle();
+    return $($link).dom().onClick(function() {
+      return $codeTargetArr[i].showModal();
     });
   });
   return $self;
