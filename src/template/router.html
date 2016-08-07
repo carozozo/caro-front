@@ -1,24 +1,18 @@
 <div class="mainTitle">cf.router</div>
 <div class="content">
-  <div>
-    <span class="title">簡介</span>
-  </div>
+  <div class="title">簡介</div>
   <div class="subContent">
     換頁函式庫, 使用 $.ajax 切換頁面, 並利用 url hash 記錄
   </div>
 </div>
 <div class="content">
-  <div>
-     <span class="title">設定檔</span>
-  </div>
+  <div class="title">設定檔</div>
   <div class="subContent">
     <div>container: 頁面載具的 html id, 沒設則預設 body</div>
   </div>
 </div>
 <div class="content">
-  <div>
-     <span class="title">屬性</span>
-  </div>
+  <div class="title">屬性</div>
   <div class="subContent">
     <div>$page : 當前的頁面 DOM </div>
     <div>_prePage : 紀錄換頁前會執行的 fn </div>
@@ -29,36 +23,34 @@
   </div>
 </div>
 <div class="content">
-  <div>
-    <span class="title">函式</span>
-  </div>
+  <div class="title">函式</div>
   <div class="subContent">
-    <div>
+    <div class="tip2">
       getPageByHash([hash]) : 依照 url 的 hash 判斷目前的 page
       <div id="getPageBtn" class="btn2">Get Page Name</div>
     </div>
-    <div>
+    <div class="tip2">
       getSearchByHash([hash]) : 依照 url 的 hash 判斷目前的 search
       <div id="getSearchBtn" class="btn2">Get Search</div>
     </div>
-    <div>
+    <div class="tip2">
       parseUrlSearch() : 依照 url 的 hash 裡面的 search 轉為 obj
       <div id="getSearchObjBtn" class="btn2">Get SearchObj</div>
     </div>
-    <div>regPrePage(fn, [執行順序=50]) : 註冊每次次換頁前要執行的 fn</div>
-    <div>regAftPage(fn, [執行順序=50]) : 註冊每次換頁後要執行的 fn</div>
-    <div>regPage(註冊頁面, fn) : 註冊頁面要執行的 fn</div>
-    <div>
+    <div class="tip2">regPrePage(fn, [執行順序=50]) : 註冊每次次換頁前要執行的 fn</div>
+    <div class="tip2">regAftPage(fn, [執行順序=50]) : 註冊每次換頁後要執行的 fn</div>
+    <div class="tip2">regPage(註冊頁面, fn) : 註冊頁面要執行的 fn</div>
+    <div class="tip2">
       goPage([頁面名稱]) : 換頁, 沒參數時會依據 url 的 hash 自動判斷
       <div id="goPageBtn1" class="btn2">goPage('router')</div>
       <div id="goPageBtn2" class="btn2">goPage()</div>
       <div id="goPageBtn3" class="btn2">goPage('router?name=pikachu&age=200')</div>
     </div>
-    <div>
+    <div class="tip2">
       blockGoPage() : 呼叫後, 執行 router.goPage 不會換頁
       <div id="blockGoPageBtn" class="btn2">Block Go Page</div>
     </div>
-    <div>
+    <div class="tip2">
       approveGoPage() : 呼叫後, 所有的 router.goPage 可以換頁  
       <div id="approveGoPageBtn" class="btn2">Approve Go Page</div>
     </div>

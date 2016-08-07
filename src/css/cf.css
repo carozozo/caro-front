@@ -38,7 +38,7 @@ header span {
   -webkit-font-smoothing: antialiased;
 }
 
-#downloads .btn {
+.headerBtn {
   display: inline-block;
   text-align: center;
   margin: 0;
@@ -58,11 +58,11 @@ header span {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-#downloads .btn:hover {
+.headerBtn:hover {
   background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.6), rgba(35, 35, 35, 0.6) 50%, rgba(10, 10, 10, 0.8) 50%, rgba(0, 0, 0, 0.8));
 }
 
-#downloads .btn .icon {
+.headerBtn .icon {
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -87,7 +87,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Buttons */
-.btn1 {
+.btn {
   cursor: pointer;
   display: inline-block;
   background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.8), rgba(35, 35, 35, 0.7) 50%, rgba(10, 10, 10, 0.7) 50%, rgba(0, 0, 0, 0.8));
@@ -106,7 +106,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: 5px;
 }
 
-.btn1:hover {
+.btn:hover {
   color: #9fcb49;
   background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.9), rgba(35, 35, 35, 0.8) 50%, rgba(10, 10, 10, 0.8) 50%, rgba(0, 0, 0, 0.9));
 }
@@ -178,13 +178,40 @@ li {
   background: #555555;
 }
 
-.tip {
+.subTitle {
   margin: 20px 0 10px;
   padding: 5px;
-  background: #dddddd;
-  max-width: 500px;
-  min-width: 200px;
+  background: #ececec;
   color: #161616;
+}
+
+.subTitle2 {
+  margin: 20px 0 10px;
+  padding: 5px;
+  background: #92bb43;
+  color: #ececec;
+}
+
+.subTitle3 {
+  margin: 20px 0 10px;
+  padding: 5px;
+  background: #a02721;
+  color: #ececec;
+}
+
+.tip {
+  color: #ececec;
+  font-weight: bolder;
+}
+
+.tip2 {
+  color: #92bb43;
+  font-weight: bolder;
+}
+
+.tip3 {
+  color: #a02721;
+  font-weight: bolder;
 }
 
 .codeMark {
@@ -194,7 +221,7 @@ li {
 .code {
   margin: 10px 0;
   padding: 10px;
-  background: #eeeeee;
+  background: #dddddd;
   width: 70%;
   min-width: 200px;
   color: #151515;

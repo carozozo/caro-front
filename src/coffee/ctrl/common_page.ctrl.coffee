@@ -17,6 +17,17 @@ cf.regCtrl 'commonPage', ->
     opacity: 0
   , '-=0.3')
 
+
+  titleClassArr = ['title', 'subTitle', 'subTitle2', 'subTitle3']
+  caro.forEach(titleClassArr, (className) ->
+    $self.find('.' + className).each((i, $class) ->
+      $class = $($class)
+      $span = $('<span>').addClass(className)
+      html = $class.html()
+      $class.removeClass(className).html($span.html(html))
+    )
+  )
+
   $self
 
 cf.router.regAftPage ->

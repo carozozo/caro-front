@@ -1,7 +1,7 @@
 
 /* 一般的 ctrl */
 cf.regCtrl('commonPage', function() {
-  var $content, $mainTitle, $self, cf, tl, tl1;
+  var $content, $mainTitle, $self, cf, titleClassArr, tl, tl1;
   $self = this;
   cf = $self.cf;
   tl = cf.require('TimelineMax');
@@ -16,6 +16,16 @@ cf.regCtrl('commonPage', function() {
   }).from($content, .5, {
     opacity: 0
   }, '-=0.3');
+  titleClassArr = ['title', 'subTitle', 'subTitle2', 'subTitle3'];
+  caro.forEach(titleClassArr, function(className) {
+    return $self.find('.' + className).each(function(i, $class) {
+      var $span, html;
+      $class = $($class);
+      $span = $('<span>').addClass(className);
+      html = $class.html();
+      return $class.removeClass(className).html($span.html(html));
+    });
+  });
   return $self;
 });
 
