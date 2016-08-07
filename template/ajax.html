@@ -1,16 +1,12 @@
 <div class="mainTitle">cf.ajax</div>
 <div class="content">
-  <div>
-    <span class="title">簡介</span>
-  </div>
+  <div class="title">簡介</div>
   <div class="subContent">
-    $.ajax 延伸並簡化 success function; 可設定測試模式, 用來模擬 api response
+    延伸 $.ajax 並簡化 success function; 可設定測試模式, 用來模擬 api response
   </div>
 </div>
 <div class="content">
-  <div>
-     <span class="title">設定檔</span>
-  </div>
+  <div class="title">設定檔</div>
   <div class="subContent">
     <div>isTestMode: 是否為 ajax 測試模式, true 的時候會使用假的 response 用來模擬狀況</div>
     <div>responseErrKey: 判斷 response 裡面是回傳 error 的 key</div>
@@ -18,18 +14,15 @@
   </div>
 </div>
 <div class="content">
-  <div>
-    <span class="title">函式</span>
-  </div>
+  <div class="title">函式</div>
   <div class="subContent">
     <div>
-      <div>callAjax(url, data, opt = {}) :</div>
-      <div>用法同 $.ajax, 另支援函式 .suc 和 .err</div>
-      <div>opt 同 $.ajax 的 options 參數, 另支援參數 fakeResponse</div>
+      <div class="tip2">callAjax(url, data, opt = {}) : 用法同 $.ajax, 另支援函式 .suc 和 .err</div>
+      <div class="subTitle">opt 參數</div>
+      <div>同 $.ajax 的 options</div>
+      <div>fakeResponse : 測試用 response</div>
+      <div class="subTitle2">設定檔 responseErrKey = 'error'</div>
       <div class="code">
-        <div class="tip">
-          設定檔 responseErrKey = 'error'
-        </div>
         <div class="codeMark">// 使用 post</div>
         cf.ajax('/api/post.php', {data:123}).suc(function(res) {
         <div class="codeMark">&nbsp;&nbsp;// 使用 ajax 執行成功, 而且沒有 res.error</div>
@@ -37,10 +30,8 @@
         <div class="codeMark">&nbsp;&nbsp;// 使用 ajax 執行成功, 但有 res.error, 則 err = res.error</div>
         })
       </div>
+      <div class="subTitle2"> 設定檔 isTestMode = true -> 則直接調用 fakeResponse</div>
       <div class="code">
-        <div class="tip">
-          設定檔 isTestMode = true -> 則直接調用 fakeResponse
-        </div>
         <div class="codeMark">// 使用 get, 且設置 fakeResponse</div>
         cf.ajax('/api/get.php', null, {<br/>
         &nbsp;&nbsp;fakeResponse: {err: null, data: 'You got it!'}<br/>
