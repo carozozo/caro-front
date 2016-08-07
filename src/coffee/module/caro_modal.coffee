@@ -1,5 +1,5 @@
 ### modal 視窗 ###
-cf.regModule 'caroModal', (opt) ->
+cf.regModule 'caroModal', (opt = {}) ->
   $self = @
   cf = $self.cf
   $ = cf.require('$')

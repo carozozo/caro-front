@@ -70,9 +70,8 @@ cf.regCtrl 'menu', ->
   hideMenu()
   $window.on('resize.menu', setPosition)
   $self
-, 'menu.ctrl'
 
 cf.regDocReady (cf) ->
   $ = cf.require('$')
-  $('<div>').addClass('menu').appendTo(cf.$body).menu()
+  $('#menuMain').menu()
   return

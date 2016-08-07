@@ -1,8 +1,6 @@
 cf.router.regPage('router', function(cf, $page) {
-  var _alert, _router, _tracking, caro, window;
+  var _alert, _router, window;
   window = cf.require('window');
-  caro = cf.require('caro');
-  _tracking = cf.tracking;
   _alert = cf.alert;
   _router = cf.router;
   $page.dom('#getPageBtn').onClick(function() {
@@ -31,6 +29,5 @@ cf.router.regPage('router', function(cf, $page) {
     _router.approveGoPage();
     return _alert('現在允許換頁');
   });
-  _tracking.page('router');
   return $page;
 });

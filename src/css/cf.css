@@ -8,7 +8,7 @@ body {
   font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
 }
 
-/* Buttons */
+/* Header */
 header {
   position: fixed;
   top: 0;
@@ -17,7 +17,7 @@ header {
   padding: 20px 0 20px 10px;
   z-index: 9999;
 
-  background: linear-gradient(90deg, #616862, #292f2b, #616862);
+  background: linear-gradient(90deg, #4c524d, #292f2b, #4c524d);
   background-size: 600% 600%;
   -webkit-animation: headerBgColor 15s ease infinite;
   -moz-animation: headerBgColor 15s ease infinite;
@@ -75,17 +75,6 @@ header span {
   background: url("../images/blacktocat.png") 0 0 no-repeat;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 20px;
-  font-weight: normal;
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-  color: #b5e853;
-  letter-spacing: -0.03em;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-  0 0 5px rgba(181, 232, 83, 0.1),
-  0 0 10px rgba(181, 232, 83, 0.1);
-}
-
 /* Buttons */
 .btn {
   cursor: pointer;
@@ -135,14 +124,21 @@ h1, h2, h3, h4, h5, h6 {
   background: -webkit-linear-gradient(top, rgba(201, 201, 201, 0.9), rgba(144, 144, 144, 0.8) 50%, rgba(77, 77, 77, 0.8) 50%, rgba(117, 117, 117, 0.9));
 }
 
-/* Links */
-a {
-  color: #63c0f5;
-  text-shadow: 0 0 5px rgba(104, 182, 255, 0.5);
+.input60 {
+  width: 60px;
+  height: 26px;
+  border-radius: 10px;
+  padding: 0 10px;
+  font-size: 0.9em;
 }
 
-li {
-  line-height: 1.4;
+/* Links */
+.link {
+  cursor: pointer;
+  color: #63c0f5;
+  text-shadow: 0 0 5px rgba(104, 182, 255, 0.5);
+  margin-right: 5px;
+  text-decoration: underline;
 }
 
 /* Container */

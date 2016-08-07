@@ -2,6 +2,9 @@
 /* modal 視窗 */
 cf.regModule('caroModal', function(opt) {
   var $, $background, $closeBtn, $container, $self, _index, _zIndex, backgroundStyle, basicStyle, cf, moduleData, style;
+  if (opt == null) {
+    opt = {};
+  }
   $self = this;
   cf = $self.cf;
   $ = cf.require('$');

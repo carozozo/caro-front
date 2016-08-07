@@ -223,7 +223,7 @@ cf.regLib('dom', function(cf) {
       if (nameSpace) {
         triggerName += '.' + nameSpace;
       }
-      return this.setCursor().on(triggerName, fn);
+      return this.setCursor().off(triggerName).on(triggerName, fn);
     };
 
     /* 整合 mouseenter, mouseleave 方便使用版 */

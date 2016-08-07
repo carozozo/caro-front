@@ -1,6 +1,5 @@
 cf.router.regPage 'cookie', (cf, $page) ->
   window = cf.require('window')
-  caro = cf.require('caro')
 
   $setCookieName = $page.dom('#setCookieName')
   $setCookieVal = $page.dom('#setCookieVal')

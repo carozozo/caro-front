@@ -1,7 +1,5 @@
 cf.router.regPage 'router', (cf, $page) ->
   window = cf.require('window')
-  caro = cf.require('caro')
-  _tracking = cf.tracking
   _alert = cf.alert
   _router = cf.router
 
@@ -32,5 +30,4 @@ cf.router.regPage 'router', (cf, $page) ->
     _alert('現在允許換頁')
   )
 
-  _tracking.page('router')
   $page

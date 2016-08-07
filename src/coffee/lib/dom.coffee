@@ -147,7 +147,7 @@ cf.regLib 'dom', (cf) ->
     self.onClick = (fn, nameSpace) ->
       triggerName = 'click'
       triggerName += '.' + nameSpace if nameSpace
-      @setCursor().on(triggerName, fn)
+      @setCursor().off(triggerName).on(triggerName, fn)
     ### 整合 mouseenter, mouseleave 方便使用版 ###
     self.onEnterAndLeave = (fn1, fn2, nameSpace) ->
       triggerName1 = 'mouseenter'

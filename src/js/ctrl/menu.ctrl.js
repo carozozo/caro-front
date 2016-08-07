@@ -74,10 +74,10 @@ cf.regCtrl('menu', function() {
   hideMenu();
   $window.on('resize.menu', setPosition);
   return $self;
-}, 'menu.ctrl');
+});
 
 cf.regDocReady(function(cf) {
   var $;
   $ = cf.require('$');
-  $('<div>').addClass('menu').appendTo(cf.$body).menu();
+  $('#menuMain').menu();
 });

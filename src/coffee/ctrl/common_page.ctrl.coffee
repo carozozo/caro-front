@@ -28,6 +28,14 @@ cf.regCtrl 'commonPage', ->
     )
   )
 
+  $codes = $self.find('.code').hide()
+  $self.find('.codeLink').each((i, $link) ->
+    $link = $($link).dom()
+    $link.onClick(->
+      $($codes[i]).fadeToggle()
+    )
+  )
+
   $self
 
 cf.router.regAftPage ->

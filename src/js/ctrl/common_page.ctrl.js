@@ -1,7 +1,7 @@
 
 /* 一般的 ctrl */
 cf.regCtrl('commonPage', function() {
-  var $content, $mainTitle, $self, cf, titleClassArr, tl, tl1;
+  var $codes, $content, $mainTitle, $self, cf, titleClassArr, tl, tl1;
   $self = this;
   cf = $self.cf;
   tl = cf.require('TimelineMax');
@@ -24,6 +24,13 @@ cf.regCtrl('commonPage', function() {
       $span = $('<span>').addClass(className);
       html = $class.html();
       return $class.removeClass(className).html($span.html(html));
+    });
+  });
+  $codes = $self.find('.code').hide();
+  $self.find('.codeLink').each(function(i, $link) {
+    $link = $($link).dom();
+    return $link.onClick(function() {
+      return $($codes[i]).fadeToggle();
     });
   });
   return $self;
