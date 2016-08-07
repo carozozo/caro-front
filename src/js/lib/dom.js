@@ -158,6 +158,24 @@ cf.regLib('dom', function(cf) {
       return parseInt(margin.replace('px'));
     };
 
+    /* 取得 css 的 width string */
+    self.getCssWidth = function() {
+      var $clone, width;
+      $clone = this.clone();
+      width = $clone.appendTo('body').wrap('<div style="display: none"></div>').css('width');
+      $clone.remove();
+      return width;
+    };
+
+    /* 取得 css 的 height string */
+    self.getCssWidth = function() {
+      var $clone, height;
+      $clone = this.clone();
+      height = $clone.appendTo('body').wrap('<div style="display: none"></div>').css('height');
+      $clone.remove();
+      return height;
+    };
+
     /* 改變 dom 的基準點到自己本身的中心點 */
     self.marginSelfToCenter = function(direction) {
       var height, width;

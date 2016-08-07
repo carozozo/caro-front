@@ -98,13 +98,24 @@ cf.regLib 'dom', (cf) ->
     self.getCssDistance = (cssType) ->
       px = @css(cssType)
       parseInt px.replace('px')
-
     ### 取得 margin-top / margin-bottom / margin-left / margin-right 距離 ###
     self.getMargin = (direction) ->
       marginStr = 'margin-'
       marginStr += direction if direction
       margin = @css(marginStr)
       parseInt margin.replace('px')
+    ### 取得 css 的 width string ###
+    self.getCssWidth = ->
+      $clone = @clone()
+      width = $clone.appendTo('body').wrap('<div style="display: none"></div>').css('width')
+      $clone.remove()
+      width
+    ### 取得 css 的 height string ###
+    self.getCssWidth = ->
+      $clone = @clone()
+      height = $clone.appendTo('body').wrap('<div style="display: none"></div>').css('height')
+      $clone.remove()
+      height
     ### 改變 dom 的基準點到自己本身的中心點 ###
     self.marginSelfToCenter = (direction) ->
       width = @width()
@@ -122,7 +133,6 @@ cf.regLib 'dom', (cf) ->
     self.setCursor = (cursor) ->
       cursor = cursor or 'pointer'
       @css cursor: cursor
-
     return
 
   ### UI 操作 ###
