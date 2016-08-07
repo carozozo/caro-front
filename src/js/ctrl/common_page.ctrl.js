@@ -26,7 +26,7 @@ cf.regCtrl('commonPage', function() {
       return $class.removeClass(className).html($span.html(html));
     });
   });
-  $codes = $self.find('.code').hide();
+  $codes = $self.find('.codeTarget').hide();
   $self.find('.codeLink').each(function(i, $link) {
     $link = $($link).dom();
     return $link.onClick(function() {

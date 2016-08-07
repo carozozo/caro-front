@@ -28,7 +28,7 @@ cf.regCtrl 'commonPage', ->
     )
   )
 
-  $codes = $self.find('.code').hide()
+  $codes = $self.find('.codeTarget').hide()
   $self.find('.codeLink').each((i, $link) ->
     $link = $($link).dom()
     $link.onClick(->
