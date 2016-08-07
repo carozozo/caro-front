@@ -1,78 +1,86 @@
 
 /* modal 視窗 */
 cf.regModule('caroModal', function(opt) {
-  var $, $background, $closeBtn, $container, $self, _index, _zIndex, backgroundStyle, basicStyle, cf, moduleData, style;
+  var $, $background, $body, $inner, $outer, $self, _basicStyle, _index, _isClickClose, _zIndex, cf, moduleData;
   if (opt == null) {
     opt = {};
   }
   $self = this;
   cf = $self.cf;
+  $body = cf.$body;
   $ = cf.require('$');
+
+  /* 是否點選內容之外的部分就 close modal */
+  _isClickClose = opt.isClickClose === false ? opt.isClickClose : true;
   moduleData = (function() {
     if (!cf.data('caroModal')) {
       cf.data('caroModal', {
         index: 1,
-        zIndex: 900
+        zIndex: 99999
       });
     }
     return cf.data('caroModal');
   })();
   _index = moduleData.index;
   _zIndex = moduleData.zIndex;
-  basicStyle = {
-    position: 'absolute',
+  _basicStyle = {
+    position: 'fixed',
     top: 0,
     left: 0,
+    width: '100%',
+    height: '100%',
     'z-index': ++_zIndex
   };
-  style = opt.style || {};
-  backgroundStyle = opt.backgroundStyle || {};
-  $closeBtn = opt.$closeBtn;
   $background = (function($) {
-    var $dom;
-    $dom = $('<div></div>').attr('id', 'caro-modal-background' + _index).css({
-      width: '100%',
-      height: '100%',
+    return $('<div></div>').attr('id', 'caro-modal-background' + _index).css({
       opacity: 0.8,
       'background-color': '#000'
-    }).hide();
-    return $dom.css(backgroundStyle).css(basicStyle);
+    }).css(_basicStyle).hide();
   })($);
-  $container = (function($) {
-    var $dom;
-    $dom = $('<div></div>').attr('id', 'caro-modal-container' + _index).css({
-      width: '100%',
-      height: '100%',
-      overflow: 'auto',
-      'text-align': 'center'
-    }).hide();
-    return $dom.css(style).css(basicStyle);
+  $inner = (function($) {
+    var selfWidth;
+    selfWidth = $self.clone().appendTo('body').wrap('<div style="display: none"></div>').css('width') || $self.width();
+    $self.css({
+      width: '100%'
+    });
+    return $('<div></div>').attr('id', 'caro-modal-inner' + _index).css({
+      width: selfWidth,
+      'margin-left': 'auto',
+      'margin-right': 'auto',
+      position: 'relative',
+      top: '50%',
+      transform: 'translateY(-50%)'
+    }).append($self);
   })($);
-  $('body').append($background).append($container);
+  $outer = (function($) {
+    return $('<div></div>').attr('id', 'caro-modal-outer' + _index).css(_basicStyle).on('click', function(e) {
+      if (!(_isClickClose && e.target === this)) {
+        return;
+      }
+      return $self.closeModal();
+    }).append($inner).hide();
+  })($);
+  $body.append($background).append($outer);
   moduleData.index++;
   moduleData.zIndex += 2;
 
   /* 顯示視窗 */
   $self.showModal = function() {
-    var $content;
-    $content = $($self.html());
-    $container.append($content);
-    if ($closeBtn) {
-      $container.append($closeBtn);
-    }
+    $body.css({
+      overflow: 'hidden'
+    });
     $background.show();
-    $container.fadeIn();
+    $outer.fadeIn();
   };
 
   /* 關閉視窗 */
   $self.closeModal = function() {
-    $container.fadeOut(function() {
-      if ($closeBtn) {
-        $background.append($closeBtn);
-      }
+    $body.css({
+      overflow: 'auto'
+    });
+    $outer.fadeOut(function() {
       $background.hide();
-      $container.html('');
     });
   };
-  return $self.hide();
+  return $self;
 });
