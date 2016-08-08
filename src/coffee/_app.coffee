@@ -116,27 +116,25 @@ do(window, $, caro, MobileDetect) ->
       return _trace.err(type, name, 'without function') if !fn
       typeObj = if type is 'ctrl' then self._ctrl else self._module
       typeDomObj = if type is 'ctrl' then self.$ctrl else self.$module
+      _html = null
       if !typeObj[name] and !$.fn[name]
         if page
           page = 'template/' + page
           page += '.html'
+          $.ajax(page).success((html) ->
+            _html = html
+            return
+          ).error(->
+            _trace.err 'Can not get' + type + 'page:', page
+            return
+          )
         typeObj[name] = $.fn[name] = ->
           $dom = this
           args = arguments
           $dom.cf = self
-          if page
-            $.ajax(page).success((html) ->
-              $dom.html html
-              fn.apply $dom, args
-              typeDomObj[name] = $dom
-              return
-            ).error(->
-              _trace.err 'Can not get' + type + 'page:', page
-              return
-            )
-          else
-            fn.apply $dom, args
-            typeDomObj[name] = $dom
+          $dom.html(_html) if _html
+          $dom = fn.apply $dom, args
+          typeDomObj[name] = $dom
           $dom
 
         _trace type, name, 'registered'

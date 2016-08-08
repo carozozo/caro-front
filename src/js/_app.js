@@ -154,34 +154,33 @@
   (function(self, $) {
     var reg;
     reg = function(type, name, fn, page) {
-      var typeDomObj, typeObj;
+      var _html, typeDomObj, typeObj;
       if (!fn) {
         return _trace.err(type, name, 'without function');
       }
       typeObj = type === 'ctrl' ? self._ctrl : self._module;
       typeDomObj = type === 'ctrl' ? self.$ctrl : self.$module;
+      _html = null;
       if (!typeObj[name] && !$.fn[name]) {
         if (page) {
           page = 'template/' + page;
           page += '.html';
+          $.ajax(page).success(function(html) {
+            _html = html;
+          }).error(function() {
+            _trace.err('Can not get' + type + 'page:', page);
+          });
         }
         typeObj[name] = $.fn[name] = function() {
           var $dom, args;
           $dom = this;
           args = arguments;
           $dom.cf = self;
-          if (page) {
-            $.ajax(page).success(function(html) {
-              $dom.html(html);
-              fn.apply($dom, args);
-              typeDomObj[name] = $dom;
-            }).error(function() {
-              _trace.err('Can not get' + type + 'page:', page);
-            });
-          } else {
-            fn.apply($dom, args);
-            typeDomObj[name] = $dom;
+          if (_html) {
+            $dom.html(_html);
           }
+          $dom = fn.apply($dom, args);
+          typeDomObj[name] = $dom;
           return $dom;
         };
         _trace(type, name, 'registered');
