@@ -6,7 +6,6 @@
 - cf.ajax : $.ajax 延伸並簡化 success function; 可設定測試模式, 用來模擬 api response
 - cf.alert : 用 popup 模擬 alert 的功能, 避免 browser 禁用 alert
 - cf.cookie : 設置和讀取 cookie
-- cf.dom : 提供 jQuery 基本功能外掛
 - cf.fb : FB API 延伸函式庫, 解決部分 API 問題, 簡化呼叫方式和防呆
 - cf.routeAnimate : cf.router 擴充換頁效果
 - cf.router : 換頁函式庫, 使用 $.ajax 切換頁面, 並利用 url hash 記錄
@@ -36,3 +35,4 @@
 - caroUpload : 檔案上傳
 - caroValidator : 表單驗證
 - caroWheel : 綁定滑鼠滾輪 event, 客製化外掛 jquery.mousewheel 使用方式
+- dom : 提供基本 fns

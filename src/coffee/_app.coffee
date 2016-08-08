@@ -11,10 +11,6 @@ do(window, $, caro, MobileDetect) ->
   self.$document = $(document)
   ### 同 $('body')  ###
   self.$body = {}
-  ### 儲存呼叫 controller 後產生的 DOM 物件, 依名稱分類 ###
-  self.$ctrl = {}
-  ### 儲存呼叫 module 後產生的 DOM 物件, 依名稱分類 ###
-  self.$module = {}
   ### 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 ###
   self._docReady = {
     50: []
@@ -115,7 +111,6 @@ do(window, $, caro, MobileDetect) ->
     reg = (type, name, fn, page) ->
       return _trace.err(type, name, 'without function') if !fn
       typeObj = if type is 'ctrl' then self._ctrl else self._module
-      typeDomObj = if type is 'ctrl' then self.$ctrl else self.$module
       _html = null
       if !typeObj[name] and !$.fn[name]
         if page
@@ -134,7 +129,6 @@ do(window, $, caro, MobileDetect) ->
           $dom.cf = self
           $dom.html(_html) if _html
           $dom = fn.apply $dom, args
-          typeDomObj[name] = $dom
           $dom
 
         _trace type, name, 'registered'
