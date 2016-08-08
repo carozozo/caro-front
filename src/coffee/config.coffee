@@ -23,6 +23,7 @@ do (cf) ->
   })
   ###
   isDownloadSdk: 是否要載入 fb-sdk
+  sdkVersion: fb sdk 版本
   redirectAfterLogin: 當登入 fb 後, 要跳轉的 template 頁面, 沒設時會回首頁
   appId: 網站所使用的 fb-app-id
   shareUrl: 分享網址, 需要可以在網路上找的到的 url, 所以不能用 localhost

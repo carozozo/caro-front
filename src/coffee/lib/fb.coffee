@@ -19,11 +19,9 @@ cf.regLib 'fb', (cf) ->
   ### 取得登入 FB 後要跳轉的網址 ###
   _urlAftLogin = do ->
     urlArr = ['https://']
-    pageAfterLogin = _indexUrl
     urlArr.push if _isPhone then 'm' else 'www'
     urlArr.push '.facebook.com/dialog/oauth?client_id=' + _appId + '&scope=&auth_type=rerequest'
-    if _redirectAfterLogin
-      pageAfterLogin += _redirectAfterLogin + '.html'
+    pageAfterLogin = if _redirectAfterLogin then caro.addTail(_redirectAfterLogin, '.html') else _indexUrl
     urlArr.push '&redirect_uri=' + pageAfterLogin
     urlArr.join('')
 
@@ -125,18 +123,19 @@ cf.regLib 'fb', (cf) ->
     return accessToken if accessToken
     null
   ### 取得登入狀態 ###
-  self.getLoginStatus = (cb) ->
+  self.getLoginStatus = ->
+    ### https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/ ###
     _trace 'Start getLoginStatus'
-    runFb(->
+    runFb((apiObj) ->
       FB.getLoginStatus (res) ->
-        initLoginResponseAncCallCb res
-        cb and cb()
+        initLoginResponseAncCallCb res, apiObj.sucCb, apiObj.errCb
         return
+      , true
     )
     return
   ### 登入 ###
   self.login = (opt) ->
-    # https://developers.facebook.com/docs/reference/javascript/FB.login/v2.6
+    ### https://developers.facebook.com/docs/reference/javascript/FB.login/ ###
     _trace 'Start login'
     runFb((apiObj) ->
       if _isUserConnected
@@ -158,6 +157,7 @@ cf.regLib 'fb', (cf) ->
     )
   ### 登出 ###
   self.logout = ->
+    ### https://developers.facebook.com/docs/reference/javascript/FB.logout/ ###
     _trace 'Start logout'
     runFb((apiObj) ->
       FB.logout (res) ->
@@ -166,7 +166,7 @@ cf.regLib 'fb', (cf) ->
     )
   ### 取得 user 資料 ###
   self.getProfile = (fieldArr) ->
-    ### https://developers.facebook.com/docs/graph-api/reference/user ###
+    ### https://developers.facebook.com/docs/graph-api/reference/user/ ###
     _trace 'Start getProfile'
     runFb((apiObj) ->
       fieldArr = [
@@ -183,12 +183,12 @@ cf.regLib 'fb', (cf) ->
         return
     )
   ### 分享內容 ###
-  self.feed = (opt) ->
-    ### https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.5 ###
+  self.feed = (opt = {}) ->
+    ### https://developers.facebook.com/docs/sharing/reference/feed-dialog/ ###
     _trace 'Start feed'
     runFb((apiObj) ->
       $ = cf.require('$')
-      param = opt or {}
+      param = opt
       displayArr = [
         'popup'
         'dialog'

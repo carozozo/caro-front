@@ -24,12 +24,9 @@ cf.regLib('fb', function(cf) {
   _urlAftLogin = (function() {
     var pageAfterLogin, urlArr;
     urlArr = ['https://'];
-    pageAfterLogin = _indexUrl;
     urlArr.push(_isPhone ? 'm' : 'www');
     urlArr.push('.facebook.com/dialog/oauth?client_id=' + _appId + '&scope=&auth_type=rerequest');
-    if (_redirectAfterLogin) {
-      pageAfterLogin += _redirectAfterLogin + '.html';
-    }
+    pageAfterLogin = _redirectAfterLogin ? caro.addTail(_redirectAfterLogin, '.html') : _indexUrl;
     urlArr.push('&redirect_uri=' + pageAfterLogin);
     return urlArr.join('');
   })();
@@ -157,18 +154,21 @@ cf.regLib('fb', function(cf) {
   };
 
   /* 取得登入狀態 */
-  self.getLoginStatus = function(cb) {
+  self.getLoginStatus = function() {
+
+    /* https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/ */
     _trace('Start getLoginStatus');
-    runFb(function() {
+    runFb(function(apiObj) {
       return FB.getLoginStatus(function(res) {
-        initLoginResponseAncCallCb(res);
-        cb && cb();
-      });
+        initLoginResponseAncCallCb(res, apiObj.sucCb, apiObj.errCb);
+      }, true);
     });
   };
 
   /* 登入 */
   self.login = function(opt) {
+
+    /* https://developers.facebook.com/docs/reference/javascript/FB.login/ */
     _trace('Start login');
     return runFb(function(apiObj) {
       if (_isUserConnected) {
@@ -194,6 +194,8 @@ cf.regLib('fb', function(cf) {
 
   /* 登出 */
   self.logout = function() {
+
+    /* https://developers.facebook.com/docs/reference/javascript/FB.logout/ */
     _trace('Start logout');
     return runFb(function(apiObj) {
       return FB.logout(function(res) {
@@ -205,7 +207,7 @@ cf.regLib('fb', function(cf) {
   /* 取得 user 資料 */
   self.getProfile = function(fieldArr) {
 
-    /* https://developers.facebook.com/docs/graph-api/reference/user */
+    /* https://developers.facebook.com/docs/graph-api/reference/user/ */
     _trace('Start getProfile');
     return runFb(function(apiObj) {
       fieldArr = ['id', 'name', 'email', 'gender'].concat(fieldArr || []);
@@ -227,13 +229,16 @@ cf.regLib('fb', function(cf) {
 
   /* 分享內容 */
   self.feed = function(opt) {
+    if (opt == null) {
+      opt = {};
+    }
 
-    /* https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.5 */
+    /* https://developers.facebook.com/docs/sharing/reference/feed-dialog/ */
     _trace('Start feed');
     return runFb(function(apiObj) {
       var $, displayArr, param;
       $ = cf.require('$');
-      param = opt || {};
+      param = opt;
       displayArr = ['popup', 'dialog', 'iframe', 'touch', 'async', 'hidden', 'none'];
       param.method = 'feed';
       param.link = _shareUrl || _indexUrl;
