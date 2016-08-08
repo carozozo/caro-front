@@ -153,12 +153,13 @@ cf.regLib('router', function(cf) {
       var htmlName;
       htmlName = caro.addTail(pageName, '.html');
       $.ajax('template/' + htmlName).success(function(html) {
-        var $container, $page, doPageFn, doneFn, nowPageDoneFn;
+        var $container, $nowPage, $page, doPageFn, doneFn, nowPageDoneFn;
         if (!html) {
           return self.goPage();
         }
+        $nowPage = self.$page;
         $container = _cfg.container ? $('#' + _cfg.container) || _$container : void 0;
-        $page = $('<div/>').addClass('cf-page').css({
+        self.$page = $page = $('<div/>').addClass('cf-page').css({
           width: '100%',
           height: '100%'
         });
@@ -171,20 +172,19 @@ cf.regLib('router', function(cf) {
           });
         };
         nowPageDoneFn = function() {
-          self.$page && self.$page.remove();
-          $page.html(html).appendTo($container);
-        };
-        doneFn = function() {
           var pageFn;
+          $nowPage && $nowPage.remove();
+          $page.html(html).appendTo($container);
+          doPageFn(self._prePage);
           pageFn = self._page[pageName];
           pageFn && pageFn(cf, $page);
-          self.$page = $page;
+        };
+        doneFn = function() {
           doPageFn(self._aftPage);
           bindHashChange();
         };
-        doPageFn(self._prePage);
-        if (self.$page && self.transitionFn) {
-          self.transitionFn(cf, self.$page, $page, nowPageDoneFn, doneFn);
+        if ($nowPage && self.transitionFn) {
+          self.transitionFn(cf, $nowPage, $page, nowPageDoneFn, doneFn);
         } else {
           nowPageDoneFn();
           doneFn();
