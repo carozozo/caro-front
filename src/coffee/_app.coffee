@@ -11,14 +11,6 @@ do(window, $, caro, MobileDetect) ->
   self.$document = $(document)
   ### 同 $('body')  ###
   self.$body = {}
-  ### 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 ###
-  self._docReady = {
-    50: []
-  }
-  ### 儲存註冊的 controller fns ###
-  self._ctrl = {}
-  ### 儲存註冊的 module fns ###
-  self._module = {}
   ### 是否為 localhost ###
   self.isLocal = false
   ### 是否為 local test 模式(由 config 設定) ###
@@ -43,6 +35,15 @@ do(window, $, caro, MobileDetect) ->
     pathnameArr = location.pathname.split('/')
     pathnameArr.pop()
     location.protocol + '//' + location.host + caro.addTail(pathnameArr.join('/'), '/')
+
+  ### 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 ###
+  _docReady = {
+    50: []
+  }
+  ### 儲存註冊的 controller fns ###
+  _ctrl = {}
+  ### 儲存註冊的 module fns ###
+  _module = {}
 
   genTraceFn = (name) ->
     fn = ->
@@ -82,8 +83,8 @@ do(window, $, caro, MobileDetect) ->
 
     ### 註冊 document ready 要執行的 cb ###
     self.regDocReady = (fn, index = 50) ->
-      self._docReady[index] = [] unless self._docReady[index]
-      self._docReady[index].push(fn)
+      _docReady[index] = [] unless _docReady[index]
+      _docReady[index].push(fn)
       return
 
     ### 產生 trace 用的 fn, 會在 console 顯示訊息(IE8 之前不支援 console) ###
@@ -110,7 +111,7 @@ do(window, $, caro, MobileDetect) ->
   do(self, $) ->
     reg = (type, name, fn, page) ->
       return _trace.err(type, name, 'without function') if !fn
-      typeObj = if type is 'ctrl' then self._ctrl else self._module
+      typeObj = if type is 'ctrl' then _ctrl else _module
       _html = null
       if !typeObj[name] and !$.fn[name]
         if page
@@ -180,7 +181,7 @@ do(window, $, caro, MobileDetect) ->
   $(->
     self.$body = $('body')
     self.isLocalTest = self.isLocal and self.config('cf').isLocalTest
-    caro.forEach self._docReady, (docReadyObj) ->
+    caro.forEach _docReady, (docReadyObj) ->
       caro.forEach docReadyObj, (docReadyFn) ->
         docReadyFn and docReadyFn(self)
       return

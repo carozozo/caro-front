@@ -1,7 +1,7 @@
 
 /* CaroFront 核心程式 */
 (function(window, $, caro, MobileDetect) {
-  var _trace, genTraceFn, self;
+  var _ctrl, _docReady, _module, _trace, genTraceFn, self;
   self = {};
 
   /* 儲存從 config 讀取到的設定 */
@@ -18,23 +18,6 @@
 
   /* 同 $('body') */
   self.$body = {};
-
-  /* 儲存呼叫 controller 後產生的 DOM 物件, 依名稱分類 */
-  self.$ctrl = {};
-
-  /* 儲存呼叫 module 後產生的 DOM 物件, 依名稱分類 */
-  self.$module = {};
-
-  /* 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 */
-  self._docReady = {
-    50: []
-  };
-
-  /* 儲存註冊的 controller fns */
-  self._ctrl = {};
-
-  /* 儲存註冊的 module fns */
-  self._module = {};
 
   /* 是否為 localhost */
   self.isLocal = false;
@@ -71,6 +54,17 @@
     pathnameArr.pop();
     return location.protocol + '//' + location.host + caro.addTail(pathnameArr.join('/'), '/');
   })(window);
+
+  /* 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 */
+  _docReady = {
+    50: []
+  };
+
+  /* 儲存註冊的 controller fns */
+  _ctrl = {};
+
+  /* 儲存註冊的 module fns */
+  _module = {};
   genTraceFn = function(name) {
     var fn;
     fn = function() {
@@ -121,10 +115,10 @@
       if (index == null) {
         index = 50;
       }
-      if (!self._docReady[index]) {
-        self._docReady[index] = [];
+      if (!_docReady[index]) {
+        _docReady[index] = [];
       }
-      self._docReady[index].push(fn);
+      _docReady[index].push(fn);
     };
 
     /* 產生 trace 用的 fn, 會在 console 顯示訊息(IE8 之前不支援 console) */
@@ -154,12 +148,11 @@
   (function(self, $) {
     var reg;
     reg = function(type, name, fn, page) {
-      var _html, typeDomObj, typeObj;
+      var _html, typeObj;
       if (!fn) {
         return _trace.err(type, name, 'without function');
       }
-      typeObj = type === 'ctrl' ? self._ctrl : self._module;
-      typeDomObj = type === 'ctrl' ? self.$ctrl : self.$module;
+      typeObj = type === 'ctrl' ? _ctrl : _module;
       _html = null;
       if (!typeObj[name] && !$.fn[name]) {
         if (page) {
@@ -180,7 +173,6 @@
             $dom.html(_html);
           }
           $dom = fn.apply($dom, args);
-          typeDomObj[name] = $dom;
           return $dom;
         };
         _trace(type, name, 'registered');
@@ -245,7 +237,7 @@
   $(function() {
     self.$body = $('body');
     self.isLocalTest = self.isLocal && self.config('cf').isLocalTest;
-    return caro.forEach(self._docReady, function(docReadyObj) {
+    return caro.forEach(_docReady, function(docReadyObj) {
       caro.forEach(docReadyObj, function(docReadyFn) {
         return docReadyFn && docReadyFn(self);
       });
