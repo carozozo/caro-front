@@ -1,12 +1,11 @@
 
 /* 客製化頁面跳轉效果 */
 cf.regLib('routeAnimate', function(cf) {
-  var self, tl, tm;
+  var self, tl;
   self = {};
-  tm = cf.require('TweenMax');
   tl = cf.require('TimelineMax');
 
-  /* 當下頁面往左邊出場, 下個頁面入場 */
+  /* 左移換場效果 */
   self.left = function(opt) {
     var _router;
     if (opt == null) {
@@ -16,9 +15,10 @@ cf.regLib('routeAnimate', function(cf) {
     return _router.transitionFn = function(cf, $nowPage, $nextPage, nowPageDone, done) {
       var duration, tl1;
       _router.blockGoPage();
-      duration = opt.duration || 0.4;
+      duration = opt.duration || .8;
+      duration = duration / 2;
       tl1 = new tl();
-      return tl1.to($nowPage, duration, {
+      tl1.to($nowPage, duration, {
         position: 'absolute',
         'margin-left': '-100%',
         ease: Power0.easeNone,
@@ -39,7 +39,7 @@ cf.regLib('routeAnimate', function(cf) {
     };
   };
 
-  /* 當下頁面往右邊出場, 下個頁面入場 */
+  /* 右移換場效果 */
   self.right = function(opt) {
     var _router;
     if (opt == null) {
@@ -49,9 +49,10 @@ cf.regLib('routeAnimate', function(cf) {
     return _router.transitionFn = function(cf, $nowPage, $nextPage, nowPageDone, done) {
       var duration, tl1;
       _router.blockGoPage();
-      duration = opt.duration || .4;
+      duration = opt.duration || .8;
+      duration = duration / 2;
       tl1 = new tl();
-      return tl1.to($nowPage, duration, {
+      tl1.to($nowPage, duration, {
         position: 'absolute',
         'margin-left': '100%',
         ease: Power0.easeNone,
@@ -71,7 +72,7 @@ cf.regLib('routeAnimate', function(cf) {
     };
   };
 
-  /* 縮放入場效果 */
+  /* 縮放換場效果 */
   self.scale = function(opt) {
     var _router;
     if (opt == null) {
@@ -81,9 +82,10 @@ cf.regLib('routeAnimate', function(cf) {
     return _router.transitionFn = function(cf, $nowPage, $nextPage, nowPageDone, done) {
       var duration, tl1;
       _router.blockGoPage();
-      duration = opt.duration || 0.4;
+      duration = opt.duration || .8;
+      duration = duration / 2;
       tl1 = new tl();
-      return tl1.to($nowPage, duration, {
+      tl1.to($nowPage, duration, {
         scale: 0,
         opacity: 0,
         ease: Power0.easeNone,
@@ -106,7 +108,7 @@ cf.regLib('routeAnimate', function(cf) {
     };
   };
 
-  /* fade 入場效果 */
+  /* fade 換場效果 */
   self.fade = function(opt) {
     var _router;
     if (opt == null) {
@@ -116,9 +118,10 @@ cf.regLib('routeAnimate', function(cf) {
     return _router.transitionFn = function(cf, $nowPage, $nextPage, nowPageDone, done) {
       var duration, tl1;
       _router.blockGoPage();
-      duration = opt.duration || 0.4;
+      duration = opt.duration || .8;
+      duration = duration / 2;
       tl1 = new tl();
-      return tl1.to($nowPage, duration, {
+      tl1.to($nowPage, duration, {
         opacity: 0,
         onComplete: function() {
           nowPageDone();
@@ -133,6 +136,11 @@ cf.regLib('routeAnimate', function(cf) {
         }
       });
     };
+  };
+
+  /* 清除換場效果 */
+  self.clear = function() {
+    cf.router.transitionFn = null;
   };
   return self;
 });

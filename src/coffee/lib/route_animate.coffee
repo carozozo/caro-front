@@ -1,15 +1,15 @@
 ### 客製化頁面跳轉效果 ###
 cf.regLib 'routeAnimate', (cf) ->
   self = {}
-  tm = cf.require('TweenMax')
   tl = cf.require('TimelineMax')
 
-  ### 當下頁面往左邊出場, 下個頁面入場 ###
+  ### 左移換場效果 ###
   self.left = (opt = {}) ->
     _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, nowPageDone, done) ->
       _router.blockGoPage()
-      duration = opt.duration or 0.4
+      duration = opt.duration or .8
+      duration = duration / 2
       tl1 = new tl()
       tl1.to($nowPage, duration,
         position: 'absolute'
@@ -27,12 +27,14 @@ cf.regLib 'routeAnimate', (cf) ->
           done()
           return
       )
-  ### 當下頁面往右邊出場, 下個頁面入場 ###
+      return
+  ### 右移換場效果 ###
   self.right = (opt = {}) ->
     _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, nowPageDone, done) ->
       _router.blockGoPage()
-      duration = opt.duration or .4
+      duration = opt.duration or .8
+      duration = duration / 2
       tl1 = new tl()
       tl1.to($nowPage, duration,
         position: 'absolute'
@@ -49,12 +51,14 @@ cf.regLib 'routeAnimate', (cf) ->
           done()
           return
       )
-  ### 縮放入場效果 ###
+      return
+  ### 縮放換場效果 ###
   self.scale = (opt = {}) ->
     _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, nowPageDone, done) ->
       _router.blockGoPage()
-      duration = opt.duration or 0.4
+      duration = opt.duration or .8
+      duration = duration / 2
       tl1 = new tl()
       tl1.to($nowPage, duration,
         scale: 0
@@ -75,12 +79,14 @@ cf.regLib 'routeAnimate', (cf) ->
           _router.approveGoPage()
           done()
       , '-=' + duration / 2)
-  ### fade 入場效果 ###
+      return
+  ### fade 換場效果 ###
   self.fade = (opt = {}) ->
     _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, nowPageDone, done) ->
       _router.blockGoPage()
-      duration = opt.duration or 0.4
+      duration = opt.duration or .8
+      duration = duration / 2
       tl1 = new tl()
       tl1.to($nowPage, duration, {
         opacity: 0
@@ -94,4 +100,9 @@ cf.regLib 'routeAnimate', (cf) ->
           done()
           return
       })
+      return
+  ### 清除換場效果 ###
+  self.clear = ->
+    cf.router.transitionFn = null
+    return
   self

@@ -44,6 +44,6 @@ cf.regCtrl 'commonPage', ->
 
   $self
 
-cf.router.regAftPage ->
+cf.router.regPrePage ->
   cf.router.$page.commonPage()
   return
