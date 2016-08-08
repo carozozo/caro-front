@@ -33,7 +33,11 @@ cf.regCtrl 'commonPage', ->
     $codeTargetArr.push($($codeTarget).caroModal())
   )
   $self.find('.codeLink').each((i, $link) ->
-    $($link).dom().onClick(->
+    $link = $($link)
+    $span = $('<span>').addClass('link')
+    html = $link.html()
+    $link.removeClass('link').html($span.html(html))
+    $span.dom().onClick(->
       $codeTargetArr[i].showModal()
     )
   )

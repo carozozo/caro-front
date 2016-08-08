@@ -32,7 +32,12 @@ cf.regCtrl('commonPage', function() {
     return $codeTargetArr.push($($codeTarget).caroModal());
   });
   $self.find('.codeLink').each(function(i, $link) {
-    return $($link).dom().onClick(function() {
+    var $span, html;
+    $link = $($link);
+    $span = $('<span>').addClass('link');
+    html = $link.html();
+    $link.removeClass('link').html($span.html(html));
+    return $span.dom().onClick(function() {
       return $codeTargetArr[i].showModal();
     });
   });
