@@ -115,6 +115,7 @@ cf.regLib 'router', (cf) ->
       htmlName = caro.addTail(pageName, '.html')
       $.ajax('template/' + htmlName).success((html) ->
         return self.goPage() unless html
+        $container = if _cfg.container then $('#' + _cfg.container) or _$container
         $page = $('<div/>').addClass('cf-page').css(
           width: '100%'
           height: '100%'
@@ -129,10 +130,12 @@ cf.regLib 'router', (cf) ->
             return
           return
 
-        doneFn = ->
-          $container = if _cfg.container then $('#' + _cfg.container) or _$container
+        nowPageDoneFn = ->
           self.$page and self.$page.remove()
-          $page.html(html).appendTo($container).show()
+          $page.html(html).appendTo($container)
+          return
+
+        doneFn = ->
           pageFn = self._page[pageName]
           pageFn and pageFn(cf, $page)
           self.$page = $page
@@ -141,10 +144,10 @@ cf.regLib 'router', (cf) ->
           return
 
         doPageFn(self._prePage)
-
-        if self.transitionFn
-          self.transitionFn(cf, self.$page, $page, doneFn)
+        if self.$page and self.transitionFn
+          self.transitionFn(cf, self.$page, $page, nowPageDoneFn, doneFn)
         else
+          nowPageDoneFn()
           doneFn()
         return
       ).error ->
