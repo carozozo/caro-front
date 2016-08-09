@@ -22,7 +22,6 @@ cf.regLib 'router', (cf) ->
   caro = cf.require('caro')
   window = cf.require('window')
   _cfg = cf.config('router')
-  _$container = cf.$body
   _isGoPage = true
   _trace = cf.genTraceFn('router')
   #  _trace.startTrace();
@@ -124,7 +123,7 @@ cf.regLib 'router', (cf) ->
       pageMap = self._page
       go = ->
         $nowPage = self.$page
-        $container = if _cfg.container then $('#' + _cfg.container) or _$container
+        $container = if _cfg.container then $('#' + _cfg.container) else cf.$body
         $page = $('<div/>').addClass('cf-page').css(
           width: '100%'
           height: '100%'

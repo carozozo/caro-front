@@ -5,9 +5,9 @@ cf.regLib('website', function(cf) {
   caro = cf.require('caro');
   window = cf.require('window');
   location = cf.require('location');
-  _cfg = cf.config('website');
+  _cfg = cf.config('website') || {};
   self = {};
-  self.imgUrl = _imgUrl = caro.addTail(_cfg.imgUrl) || 'images/';
+  self.imgUrl = _imgUrl = _cfg.imgUrl ? caro.addTail(_cfg.imgUrl, '/') : 'images/';
 
   /* 取得 images 路徑 */
   self.getImgUrl = function(imgFileName) {

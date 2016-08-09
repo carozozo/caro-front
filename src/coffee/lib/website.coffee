@@ -3,10 +3,10 @@ cf.regLib 'website', (cf) ->
   caro = cf.require('caro')
   window = cf.require('window')
   location = cf.require('location')
-  _cfg = cf.config('website')
+  _cfg = cf.config('website') or {}
 
   self = {}
-  self.imgUrl = _imgUrl = caro.addTail(_cfg.imgUrl) or 'images/'
+  self.imgUrl = _imgUrl = if _cfg.imgUrl then caro.addTail(_cfg.imgUrl, '/') else 'images/'
 
   ### 取得 images 路徑 ###
   self.getImgUrl = (imgFileName = '') ->
