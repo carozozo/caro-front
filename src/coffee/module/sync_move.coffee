@@ -88,7 +88,6 @@ cf.regModule 'cfSyncMove', (opt = {}) ->
     tm.to($self, 1, moveObj)
     clearTimeout($self.data("syncMoveCheck." + _triggerName));
     $self.data("syncMoveCheck." + _triggerName, setTimeout(->
-      console.log 1
       _stopMove and _stopMove()
     , 250))
     return

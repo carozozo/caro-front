@@ -113,7 +113,6 @@ cf.regModule('cfSyncMove', function(opt) {
     tm.to($self, 1, moveObj);
     clearTimeout($self.data("syncMoveCheck." + _triggerName));
     $self.data("syncMoveCheck." + _triggerName, setTimeout(function() {
-      console.log(1);
       return _stopMove && _stopMove();
     }, 250));
   };
