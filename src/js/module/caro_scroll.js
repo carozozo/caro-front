@@ -1,6 +1,6 @@
 
 /* 捲軸自動滑動到 DOM 定點 的功能 */
-cf.regModule('caroScroll', function($contents, opt) {
+cf.regModule('cfScroll', function($contents, opt) {
   var $self, $window, _aftScroll, _basicY, _befScroll, _duration, _ease, _isLiveTop, _nowIndex, _offsetTop, _offsetTopArr, _onScroll, _triggerName, caro, cf, getContentTop, getOffsetTopArr, scrollToNowIndex, tm;
   if (opt == null) {
     opt = {};
@@ -29,7 +29,7 @@ cf.regModule('caroScroll', function($contents, opt) {
   _ease = opt.ease || Power2.easeOut;
 
   /* 綁定 scroll 的 name space */
-  _triggerName = opt.triggerName ? 'scroll.caroScroll.' + opt.triggerName : 'scroll.caroScroll';
+  _triggerName = opt.triggerName ? 'scroll.cfScroll.' + opt.triggerName : 'scroll.cfScroll';
 
   /* 捲動前的 cb */
   _befScroll = opt.befScroll;

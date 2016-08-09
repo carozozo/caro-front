@@ -1,6 +1,6 @@
 
 /* 檔案上傳 */
-cf.regModule('caroUpload', function(url, opt) {
+cf.regModule('cfUpload', function(url, opt) {
   var $, $form, $inputFile, $self, _befUpload, _err, _fileType, _files, _formName, _iframeName, _inputFileName, _isBefIe9, _moduleIndex, _multiple, _onSelected, _suc, accept, cf;
   if (opt == null) {
     opt = {};
@@ -9,15 +9,15 @@ cf.regModule('caroUpload', function(url, opt) {
   cf = $self.cf;
   $ = cf.require('$');
   _isBefIe9 = cf.isBefIe9;
-  _moduleIndex = cf.data('caroUploadIndex') || 1;
+  _moduleIndex = cf.data('cfUploadIndex') || 1;
   _files = [];
   _suc = null;
   _err = null;
-  _formName = 'caroUploadForm' + _moduleIndex;
-  _iframeName = 'caroUploadIframe' + _moduleIndex;
+  _formName = 'cfUploadForm' + _moduleIndex;
+  _iframeName = 'cfUploadIframe' + _moduleIndex;
 
   /* 上傳欄位的 name */
-  _inputFileName = opt.inputFileName || 'caroUploadInputFile' + _moduleIndex;
+  _inputFileName = opt.inputFileName || 'cfUploadInputFile' + _moduleIndex;
 
   /* 指定上傳格式 */
   _fileType = opt.fileType;
@@ -135,6 +135,6 @@ cf.regModule('caroUpload', function(url, opt) {
     });
     return $self;
   };
-  cf.data('caroUploadIndex', ++_moduleIndex);
+  cf.data('cfUploadIndex', ++_moduleIndex);
   return $self;
 });

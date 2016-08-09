@@ -1,11 +1,11 @@
 ### depend on jquery.mCustomScrollbar ###
 ### 自訂捲軸樣式, 客製化外掛 mCustomScrollbar 使用方式 ###
-cf.regModule 'caroScrollbar', (styleOpt = {}, scrollBarOpt = {}) ->
+cf.regModule 'cfScrollbar', (styleOpt = {}, scrollBarOpt = {}) ->
   ### styleOpt = 樣式參數 ###
   ### scrollBarOpt = 外掛 mCustomScrollbar 參數 ###
   $self = @
   cf = $self.cf
-  _trace = cf.genTraceFn('caroScrollbar')
+  _trace = cf.genTraceFn('cfScrollbar')
 
   ### 捲軸按鈕樣式 ###
   barCss = styleOpt.barCss

@@ -29,7 +29,7 @@ cf.regCtrl('commonPage', function() {
   });
   $codeTargetArr = [];
   $self.find('.codeTarget').each(function(i, $codeTarget) {
-    return $codeTargetArr.push($($codeTarget).caroModal());
+    return $codeTargetArr.push($($codeTarget).cfModal());
   });
   $self.find('.codeLink').each(function(i, $link) {
     var $span, html;

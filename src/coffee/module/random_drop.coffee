@@ -1,5 +1,5 @@
 ### 隨機產生滑落物件, 例如氣泡, 水滴效果, 需搭配圖檔 ###
-cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
+cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
   $self = @
   cf = $self.cf
   $ = cf.require('$')
@@ -10,7 +10,7 @@ cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
   Power2 = cf.require('Power2')
   $window = cf.$window
   _isKeepDrop = true
-  $container = $('<div/>').addClass('caroRandomDropContainer')
+  $container = $('<div/>').addClass('cfRandomDropContainer')
   _selfHeight = $self.height()
 
   ### 產生物件的 x 軸範圍 ###
@@ -175,8 +175,8 @@ cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
       , 1, amount)
     else
       createDrop()
-    trigger1 = 'blur.caroRandomDrop.' + nameSpace
-    trigger2 = 'focus.caroRandomDrop.' + nameSpace
+    trigger1 = 'blur.cfRandomDrop.' + nameSpace
+    trigger2 = 'focus.cfRandomDrop.' + nameSpace
     $window.off(trigger1).on(trigger1, ->
       _isKeepDrop = false
     )
@@ -192,7 +192,7 @@ cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
 
   ### 當 click 時, 產生隨機物件 ###
   $self.clickCreate = ($target = $container, nameSpace) ->
-    triggerName = 'click.caroRandomDrop'
+    triggerName = 'click.cfRandomDrop'
     triggerName += '.' + nameSpace if nameSpace
     $target.off(triggerName).on(triggerName, (e) ->
       mouseX = e.pageX
@@ -223,9 +223,9 @@ cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
         top: top
         isKeepDrop: false
       })
-    triggerName1 = 'mousemove.caroRandomDrop'
+    triggerName1 = 'mousemove.cfRandomDrop'
     triggerName1 += '.' + nameSpace if nameSpace
-    triggerName2 = 'touchmove.caroRandomDrop'
+    triggerName2 = 'touchmove.cfRandomDrop'
     triggerName2 += '.' + nameSpace if nameSpace
     $target.off(triggerName1).on(triggerName1, triggerMoveFn)
     $target.off(triggerName2).on(triggerName2, triggerMoveFn)

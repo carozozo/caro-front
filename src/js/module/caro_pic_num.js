@@ -1,6 +1,6 @@
 
 /* 用圖片顯示數字, 需搭配圖檔 */
-cf.regModule('caroPicNum', function() {
+cf.regModule('cfPicNum', function() {
   var $imgArr, $imgs, $self, cf, tweenMax;
   $self = this;
   cf = $self.cf;

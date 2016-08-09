@@ -1,6 +1,6 @@
 
 /* 隨機產生滑落物件, 例如氣泡, 水滴效果, 需搭配圖檔 */
-cf.regModule('caroRandomDrop', function($imgArr, opt) {
+cf.regModule('cfRandomDrop', function($imgArr, opt) {
   var $, $container, $self, $window, Power2, _containerLeft, _containerTop, _isKeepDrop, _selfHeight, amount, caro, cf, createDrop, getLengthIfFn, getRandomInRange, imgLength, inEndDuration, inStartDuration, maxDistance, maxDuration, maxRandomMs, maxStartX, maxStartY, minDistance, minDuration, minRandomMs, minScale, minStartX, minStartY, pickupImg, randomBezierArray, randomDuration, randomInEndDuration, randomInStartDuration, randomLeft, randomMs, randomNewTop, randomTop, reverse, rotationRange, tl, tm, xRange;
   if (opt == null) {
     opt = {};
@@ -15,7 +15,7 @@ cf.regModule('caroRandomDrop', function($imgArr, opt) {
   Power2 = cf.require('Power2');
   $window = cf.$window;
   _isKeepDrop = true;
-  $container = $('<div/>').addClass('caroRandomDropContainer');
+  $container = $('<div/>').addClass('cfRandomDropContainer');
   _selfHeight = $self.height();
 
   /* 產生物件的 x 軸範圍 */
@@ -235,8 +235,8 @@ cf.regModule('caroRandomDrop', function($imgArr, opt) {
     } else {
       createDrop();
     }
-    trigger1 = 'blur.caroRandomDrop.' + nameSpace;
-    trigger2 = 'focus.caroRandomDrop.' + nameSpace;
+    trigger1 = 'blur.cfRandomDrop.' + nameSpace;
+    trigger2 = 'focus.cfRandomDrop.' + nameSpace;
     $window.off(trigger1).on(trigger1, function() {
       return _isKeepDrop = false;
     });
@@ -258,7 +258,7 @@ cf.regModule('caroRandomDrop', function($imgArr, opt) {
     if ($target == null) {
       $target = $container;
     }
-    triggerName = 'click.caroRandomDrop';
+    triggerName = 'click.cfRandomDrop';
     if (nameSpace) {
       triggerName += '.' + nameSpace;
     }
@@ -304,11 +304,11 @@ cf.regModule('caroRandomDrop', function($imgArr, opt) {
         isKeepDrop: false
       });
     };
-    triggerName1 = 'mousemove.caroRandomDrop';
+    triggerName1 = 'mousemove.cfRandomDrop';
     if (nameSpace) {
       triggerName1 += '.' + nameSpace;
     }
-    triggerName2 = 'touchmove.caroRandomDrop';
+    triggerName2 = 'touchmove.cfRandomDrop';
     if (nameSpace) {
       triggerName2 += '.' + nameSpace;
     }

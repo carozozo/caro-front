@@ -1,8 +1,8 @@
 ### depend on jquery.mousewheel ###
 ### 增加 mousewheel 的易讀性 ###
-cf.regModule 'caroWheel', (triggerName, fn) ->
+cf.regModule 'cfWheel', (triggerName, fn) ->
   $self = @
-  triggerName = 'mousewheel.caroWheel.' + triggerName
+  triggerName = 'mousewheel.cfWheel.' + triggerName
 
   ifWheelDownOrRight = (delta) ->
     ### deltaY < 0 = 向下滾動 ###

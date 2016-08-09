@@ -1,10 +1,10 @@
 ### 日期下拉選單 ###
-cf.regModule 'caroDateDropdown', (opt = {}) ->
+cf.regModule 'cfDateDropdown', (opt = {}) ->
   $self = @
   $year = (opt.$year or $self.dom('[name="year"]'))
   $month = (opt.$month or $self.dom('[name="month"]'))
   $day = (opt.$day or $self.dom('[name="day"]'))
-  _triggerName = 'change.caroDateDropdown'
+  _triggerName = 'change.cfDateDropdown'
 
   daysInMonth = (year, month) ->
     new Date(year, month, 0).getDate()

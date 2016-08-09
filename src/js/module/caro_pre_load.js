@@ -2,7 +2,7 @@
 /* depend on preloadjs-0.4.1 */
 
 /* 預載檔案 */
-cf.regModule('caroPreLoad', function(files, _progressFn, _completeFn) {
+cf.regModule('cfPreLoad', function(files, _progressFn, _completeFn) {
   var $self, cf, createjs;
   $self = this;
   cf = $self.cf;

@@ -1,5 +1,5 @@
 ### 地址下拉選單 ###
-cf.regModule 'caroAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
+cf.regModule 'cfAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
   $self = @
   _addrMap = {
     '基隆市': [

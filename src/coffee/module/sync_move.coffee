@@ -1,5 +1,5 @@
 ### 計算滑鼠和基準點的距離，同步移動 DOM ###
-cf.regModule 'caroSyncMove', (opt = {}) ->
+cf.regModule 'cfSyncMove', (opt = {}) ->
   $self = @
   cf = $self.cf
   $window = cf.$window
@@ -30,8 +30,8 @@ cf.regModule 'caroSyncMove', (opt = {}) ->
   _aftMove = opt.aftMove
   ### 滑鼠移動的 name space 防止重複觸發 ###
   _triggerName = opt.triggerName
-  _triggerName1 = 'mousemove.caroSyncMove'
-  _triggerName2 = 'touchmove.caroSyncMove'
+  _triggerName1 = 'mousemove.cfSyncMove'
+  _triggerName2 = 'touchmove.cfSyncMove'
 
   if _triggerName
     _triggerName1 += '.' + _triggerName

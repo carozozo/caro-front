@@ -3,7 +3,7 @@
 客製化滑鼠樣式
 $mouse = 會跟著滑鼠移動的物件, 請放在 $self 裡面 -> 可當作是滑鼠指標
  */
-cf.regModule('caroMouseStyle', function($mouse, opt) {
+cf.regModule('cfMouseStyle', function($mouse, opt) {
   var $self, _duration, _triggerName, cf, tm;
   if (opt == null) {
     opt = {};
@@ -11,7 +11,7 @@ cf.regModule('caroMouseStyle', function($mouse, opt) {
   $self = this;
   cf = $self.cf;
   tm = cf.require('TweenMax');
-  _triggerName = 'mousemove.caroMouseStyle';
+  _triggerName = 'mousemove.cfMouseStyle';
 
   /* $mouse 移動時間 */
   _duration = opt.duration >= 0 ? opt.duration : .3;

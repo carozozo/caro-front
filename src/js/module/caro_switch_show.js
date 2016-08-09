@@ -5,7 +5,7 @@ $domList: 要顯示的 dom 列表
 e.g. [$('#dom1'), $('#dom2')]
 defType: 預設顯示方式 [fade/up/down/lef/right/'']
  */
-cf.regModule('caroSwitchShow', function($domList, opt) {
+cf.regModule('cfSwitchShow', function($domList, opt) {
   var $self, _aftShow, _befShow, _currentIndex, _defType, caro, cf, switchShow, tl;
   if (opt == null) {
     opt = {};

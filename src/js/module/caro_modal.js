@@ -1,6 +1,6 @@
 
 /* modal 視窗 */
-cf.regModule('caroModal', function(opt) {
+cf.regModule('cfModal', function(opt) {
   var $, $background, $body, $inner, $outer, $self, _basicStyle, _index, _isClickClose, _zIndex, cf, moduleData;
   if (opt == null) {
     opt = {};
@@ -13,13 +13,13 @@ cf.regModule('caroModal', function(opt) {
   /* 是否點選內容之外的部分就 close modal */
   _isClickClose = opt.isClickClose === false ? opt.isClickClose : true;
   moduleData = (function() {
-    if (!cf.data('caroModal')) {
-      cf.data('caroModal', {
+    if (!cf.data('cfModal')) {
+      cf.data('cfModal', {
         index: 1,
         zIndex: 99999
       });
     }
-    return cf.data('caroModal');
+    return cf.data('cfModal');
   })();
   _index = moduleData.index;
   _zIndex = moduleData.zIndex;

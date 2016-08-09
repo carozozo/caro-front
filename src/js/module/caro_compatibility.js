@@ -1,6 +1,6 @@
 
 /* form 欄位相容性處理 */
-cf.regModule('caroCompatibility', function() {
+cf.regModule('cfCompatibility', function() {
   var $self, _isBefIe8, cf;
   $self = this;
   cf = $self.cf;

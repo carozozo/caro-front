@@ -1,6 +1,6 @@
 
 /* 將 array 資料放到 DOM, 以 list 方式呈現, 例如得獎名單 */
-cf.regModule('caroListDom', function(targetSelector, listData, opt) {
+cf.regModule('cfListDom', function(targetSelector, listData, opt) {
   var $self, $target, cb;
   if (opt == null) {
     opt = {};

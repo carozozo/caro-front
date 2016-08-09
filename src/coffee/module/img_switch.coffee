@@ -1,5 +1,5 @@
 ### img 切換圖片 ###
-cf.regModule 'caroImgSwitch', ->
+cf.regModule 'cfImgSwitch', ->
   $self = @
   cf = $self.cf
   currentIndex = 0

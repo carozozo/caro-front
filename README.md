@@ -14,25 +14,25 @@
 - cf.website : 網頁函式庫
 
 ### module 介紹
-- caroAddrDropdown : 地址下拉選單
-- caroAnimated : 簡化外掛 Animate.css 使用方式
-- caroCircleShow : DOM circle 輪播效果
-- caroCompatibility : form 欄位相容性處理
-- caroDateDropdown : 日期下拉選單
-- caroImgSwitch : img 切換圖片
-- caroJumpNum : 亂數效果, 數字會亂跳, 最後顯示結果
-- caroListDom : 將 array 資料放到 DOM, 以 list 方式呈現, 例如得獎名單
-- caroModal : modal 視窗
-- caroMouseStyle : 客製化滑鼠樣式
-- caroPicNum : 用圖片顯示數字, 需搭配圖檔
-- caroPreLoad : 預載檔案, 一般用在 loading 頁面
-- caroRandomDrop : 隨機產生滑落物件, 例如氣泡, 水滴效果, 需搭配圖檔
-- caroScale : DOM 隨目標大小自動縮放, 預設為 $(window)
-- caroScroll : 捲軸自動滑動到 DOM 定點 的功能
-- caroScrollbar : 自訂捲軸樣式, 客製化外掛 mCustomScrollbar 使用方式
-- caroSwitchShow : 輪流顯示 DOM, 預設顯示第一個
-- caroSyncMove : 計算滑鼠和基準點的距離，同步移動 DOM
-- caroUpload : 檔案上傳
-- caroValidator : 表單驗證
-- caroWheel : 綁定滑鼠滾輪 event, 客製化外掛 jquery.mousewheel 使用方式
+- cfAddrDropdown : 地址下拉選單
+- cfAnimated : 簡化外掛 Animate.css 使用方式
+- cfCircleShow : DOM circle 輪播效果
+- cfCompatibility : form 欄位相容性處理
+- cfDateDropdown : 日期下拉選單
+- cfImgSwitch : img 切換圖片
+- cfJumpNum : 亂數效果, 數字會亂跳, 最後顯示結果
+- cfListDom : 將 array 資料放到 DOM, 以 list 方式呈現, 例如得獎名單
+- cfModal : modal 視窗
+- cfMouseStyle : 客製化滑鼠樣式
+- cfPicNum : 用圖片顯示數字, 需搭配圖檔
+- cfPreLoad : 預載檔案, 一般用在 loading 頁面
+- cfRandomDrop : 隨機產生滑落物件, 例如氣泡, 水滴效果, 需搭配圖檔
+- cfScale : DOM 隨目標大小自動縮放, 預設為 $(window)
+- cfScroll : 捲軸自動滑動到 DOM 定點 的功能
+- cfScrollbar : 自訂捲軸樣式, 客製化外掛 mCustomScrollbar 使用方式
+- cfSwitchShow : 輪流顯示 DOM, 預設顯示第一個
+- cfSyncMove : 計算滑鼠和基準點的距離，同步移動 DOM
+- cfUpload : 檔案上傳
+- cfValidator : 表單驗證
+- cfWheel : 綁定滑鼠滾輪 event, 客製化外掛 jquery.mousewheel 使用方式
 - dom : 提供基本 fns

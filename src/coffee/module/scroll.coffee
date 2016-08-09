@@ -1,5 +1,5 @@
 ### 捲軸自動滑動到 DOM 定點 的功能 ###
-cf.regModule 'caroScroll', ($contents, opt = {}) ->
+cf.regModule 'cfScroll', ($contents, opt = {}) ->
   $self = @
   cf = $self.cf
   $window = cf.$window
@@ -19,7 +19,7 @@ cf.regModule 'caroScroll', ($contents, opt = {}) ->
   ### 捲動 ease 效果 ###
   _ease = opt.ease or Power2.easeOut
   ### 綁定 scroll 的 name space ###
-  _triggerName = if opt.triggerName then 'scroll.caroScroll.' + opt.triggerName else 'scroll.caroScroll'
+  _triggerName = if opt.triggerName then 'scroll.cfScroll.' + opt.triggerName else 'scroll.cfScroll'
   ### 捲動前的 cb ###
   _befScroll = opt.befScroll
   ### 捲動時的 cb ###

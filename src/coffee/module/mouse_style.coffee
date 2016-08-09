@@ -2,11 +2,11 @@
 客製化滑鼠樣式
 $mouse = 會跟著滑鼠移動的物件, 請放在 $self 裡面 -> 可當作是滑鼠指標
 ###
-cf.regModule 'caroMouseStyle', ($mouse, opt = {}) ->
+cf.regModule 'cfMouseStyle', ($mouse, opt = {}) ->
   $self = @
   cf = $self.cf
   tm = cf.require('TweenMax')
-  _triggerName = 'mousemove.caroMouseStyle'
+  _triggerName = 'mousemove.cfMouseStyle'
   ### $mouse 移動時間 ###
   _duration = if opt.duration >= 0 then opt.duration else .3
 

@@ -1,6 +1,6 @@
 
 /* img 切換圖片 */
-cf.regModule('caroImgSwitch', function() {
+cf.regModule('cfImgSwitch', function() {
   var $self, caro, cf, currentIndex, imgArr, interval;
   $self = this;
   cf = $self.cf;

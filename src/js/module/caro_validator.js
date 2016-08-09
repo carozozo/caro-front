@@ -1,6 +1,6 @@
 
 /* 表單驗證 */
-cf.regModule('caroValidator', function(opt) {
+cf.regModule('cfValidator', function(opt) {
   var $, $doms, $self, _errInfo, _validateMap, addToDomMap, caro, cf, coverToDomList, regValidate, requireAll, setErrInfo, setValidateDef, trimDomVal, validateCaptcha, validateEmail, validateMinLength, validateMobile, validateNum, validateRequire, validateRocId;
   if (opt == null) {
     opt = {};

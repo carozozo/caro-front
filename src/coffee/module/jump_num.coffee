@@ -1,5 +1,5 @@
 ### 亂數效果(數字會亂跳, 最後顯示結果) ###
-cf.regModule 'caroJumpNum', ->
+cf.regModule 'cfJumpNum', ->
   $self = @
 
   ###

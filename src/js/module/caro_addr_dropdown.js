@@ -1,6 +1,6 @@
 
 /* 地址下拉選單 */
-cf.regModule('caroAddrDropdown', function($cityDom, $areaDom, opt) {
+cf.regModule('cfAddrDropdown', function($cityDom, $areaDom, opt) {
   var $self, _addrMap, _islandMap, appendAreaDropdown, areaText, areaVal, cityText, cityVal, createDropdown, isIncludeIsland, withCode;
   if (opt == null) {
     opt = {};

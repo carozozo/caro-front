@@ -1,5 +1,5 @@
 ### modal 視窗 ###
-cf.regModule 'caroModal', (opt = {}) ->
+cf.regModule 'cfModal', (opt = {}) ->
   $self = @
   cf = $self.cf
   $body = cf.$body
@@ -7,11 +7,11 @@ cf.regModule 'caroModal', (opt = {}) ->
   ### 是否點選內容之外的部分就 close modal ###
   _isClickClose = if opt.isClickClose is false then opt.isClickClose else true
   moduleData = do ->
-    unless cf.data('caroModal')
-      cf.data 'caroModal',
+    unless cf.data('cfModal')
+      cf.data 'cfModal',
         index: 1
         zIndex: 99999
-    cf.data 'caroModal'
+    cf.data 'cfModal'
   _index = moduleData.index
   _zIndex = moduleData.zIndex
   _basicStyle =
@@ -23,7 +23,7 @@ cf.regModule 'caroModal', (opt = {}) ->
     'z-index': ++_zIndex
 
   $background = do ($) ->
-    $('<div></div>').attr('id', 'caro-modal-background' + _index)
+    $('<div></div>').attr('id', 'cf-modal-background' + _index)
     .css(
       opacity: 0.8
       'background-color': '#000'
@@ -34,7 +34,7 @@ cf.regModule 'caroModal', (opt = {}) ->
     $self.css(
       width: '100%'
     )
-    $('<div></div>').attr('id', 'caro-modal-inner' + _index).css(
+    $('<div></div>').attr('id', 'cf-modal-inner' + _index).css(
       width: selfWidth
       'margin-left': 'auto'
       'margin-right': 'auto'
@@ -44,7 +44,7 @@ cf.regModule 'caroModal', (opt = {}) ->
     ).append($self)
 
   $outer = do($) ->
-    $('<div></div>').attr('id', 'caro-modal-outer' + _index)
+    $('<div></div>').attr('id', 'cf-modal-outer' + _index)
     .css(_basicStyle).on('click', (e) ->
       return unless _isClickClose and e.target is @
       $self.closeModal()

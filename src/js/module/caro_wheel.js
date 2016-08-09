@@ -2,10 +2,10 @@
 /* depend on jquery.mousewheel */
 
 /* 增加 mousewheel 的易讀性 */
-cf.regModule('caroWheel', function(triggerName, fn) {
+cf.regModule('cfWheel', function(triggerName, fn) {
   var $self, ifWheelDownOrRight;
   $self = this;
-  triggerName = 'mousewheel.caroWheel.' + triggerName;
+  triggerName = 'mousewheel.cfWheel.' + triggerName;
   ifWheelDownOrRight = function(delta) {
 
     /* deltaY < 0 = 向下滾動 */

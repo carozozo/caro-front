@@ -1,6 +1,6 @@
 ### depend on preloadjs-0.4.1 ###
 ### 預載檔案 ###
-cf.regModule 'caroPreLoad', (files, _progressFn, _completeFn) ->
+cf.regModule 'cfPreLoad', (files, _progressFn, _completeFn) ->
   $self = @
   cf = $self.cf
   createjs = cf.require('createjs')

@@ -1,17 +1,17 @@
 ### 檔案上傳 ###
-cf.regModule 'caroUpload', (url, opt = {}) ->
+cf.regModule 'cfUpload', (url, opt = {}) ->
   $self = @
   cf = $self.cf
   $ = cf.require '$'
   _isBefIe9 = cf.isBefIe9
-  _moduleIndex = cf.data('caroUploadIndex') or 1
+  _moduleIndex = cf.data('cfUploadIndex') or 1
   _files = [];
   _suc = null;
   _err = null;
-  _formName = 'caroUploadForm' + _moduleIndex
-  _iframeName = 'caroUploadIframe' + _moduleIndex
+  _formName = 'cfUploadForm' + _moduleIndex
+  _iframeName = 'cfUploadIframe' + _moduleIndex
   ### 上傳欄位的 name ###
-  _inputFileName = opt.inputFileName or 'caroUploadInputFile' + _moduleIndex
+  _inputFileName = opt.inputFileName or 'cfUploadInputFile' + _moduleIndex
   ### 指定上傳格式 ###
   _fileType = opt.fileType
   ### 是否可以多重選取 ###
@@ -117,5 +117,5 @@ cf.regModule 'caroUpload', (url, opt = {}) ->
     }
     $self
 
-  cf.data('caroUploadIndex', ++_moduleIndex)
+  cf.data('cfUploadIndex', ++_moduleIndex)
   $self
