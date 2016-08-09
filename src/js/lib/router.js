@@ -55,12 +55,13 @@ cf.regLib('router', function(cf) {
     self.regAftPage = caro.partial(regPageCb, 'aftPage');
 
     /* 註冊 [當 Router 載入頁面後] 要執行的對應 function */
-    self.regPage = function(name, cb) {
-      var pageObj;
-      pageObj = self._page;
-      if (!pageObj[name]) {
-        pageObj[name] = cb;
-        _trace('Page', name, ' registered');
+    self.regPage = function(pageName, fn) {
+      var pageMap;
+      pageMap = self._page;
+      if (!pageMap[pageName]) {
+        pageMap[pageName] = {};
+        pageMap[pageName].fn = fn;
+        _trace('Page', pageName, ' registered');
       }
     };
   })(self, caro);
@@ -136,7 +137,7 @@ cf.regLib('router', function(cf) {
 
   /* 頁面載入相關 */
   (function(cf, self, window, $) {
-    var bindHashChange, doPageFns, getBodyContent, unbindHashChange;
+    var bindHashChange, doPageFns, setPageContent, unbindHashChange;
     bindHashChange = function() {
       window.onhashchange = function() {
 
@@ -156,14 +157,11 @@ cf.regLib('router', function(cf) {
         });
       });
     };
-    getBodyContent = function(pageName) {
-      var htmlName;
-      htmlName = caro.addTail(pageName, '.html');
-      $.ajax('template/' + htmlName).success(function(html) {
+    setPageContent = function(pageName) {
+      var go, htmlName, pageMap;
+      pageMap = self._page;
+      go = function() {
         var $container, $nowPage, $page, doneFn, setPage;
-        if (!html) {
-          return self.goPage();
-        }
         $nowPage = self.$page;
         $container = _cfg.container ? $('#' + _cfg.container) || _$container : void 0;
         $page = $('<div/>').addClass('cf-page').css({
@@ -171,11 +169,12 @@ cf.regLib('router', function(cf) {
           height: '100%'
         });
         setPage = function() {
-          var pageFn;
+          var html, pageFn;
+          html = pageMap[pageName].html;
+          pageFn = pageMap[pageName].fn;
           $page.html(html).appendTo($container);
           self.$page = $page;
           self.pageName = pageName;
-          pageFn = self._page[pageName];
           pageFn && pageFn(cf, $page);
           return doPageFns(self._aftPage);
         };
@@ -190,9 +189,36 @@ cf.regLib('router', function(cf) {
           setPage();
           doneFn();
         }
-      }).error(function() {
-        self.goPage('index');
-      });
+      };
+      if (!(pageMap[pageName] && pageMap[pageName].html)) {
+        htmlName = caro.addTail(pageName, '.html');
+        $.ajax('template/' + htmlName).success(function(html) {
+          if (!pageMap[pageName]) {
+            pageMap[pageName] = {};
+          }
+          pageMap[pageName].html = html;
+          go();
+        }).error(function() {
+
+          /* 嘗試換頁到 index */
+          var firstPage, indexInfo, pageNameArr;
+          indexInfo = caro.find(pageMap, function(val, pageName) {
+            return pageName === 'index';
+          });
+          if (indexInfo) {
+            return self.goPage('index');
+          }
+
+          /* 嘗試換頁到第一個註冊的頁面 */
+          pageNameArr = caro.keys(pageMap);
+          firstPage = pageNameArr[0];
+          if (firstPage) {
+            return self.goPage(firstPage);
+          }
+        });
+        return;
+      }
+      go();
     };
 
     /* 換頁, 不指定頁面時會依 url hash 判斷 */
@@ -211,7 +237,7 @@ cf.regLib('router', function(cf) {
       _trace('Start goPage:', pageName);
       unbindHashChange();
       window.location.hash = pageName + search;
-      getBodyContent(pageName);
+      setPageContent(pageName);
     };
 
     /* 阻止換頁, 執行後, router.goPage 不會被觸發 */

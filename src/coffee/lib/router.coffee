@@ -40,11 +40,12 @@ cf.regLib 'router', (cf) ->
     ### 註冊 [當 Router 載入頁面後] 要執行的 function ###
     self.regAftPage = caro.partial(regPageCb, 'aftPage')
     ### 註冊 [當 Router 載入頁面後] 要執行的對應 function ###
-    self.regPage = (name, cb) ->
-      pageObj = self._page
-      if !pageObj[name]
-        pageObj[name] = cb
-        _trace 'Page', name, ' registered'
+    self.regPage = (pageName, fn) ->
+      pageMap = self._page
+      unless pageMap[pageName]
+        pageMap[pageName] = {}
+        pageMap[pageName].fn = fn
+        _trace 'Page', pageName, ' registered'
       return
     return
 
@@ -119,22 +120,21 @@ cf.regLib 'router', (cf) ->
         return
       return
 
-    getBodyContent = (pageName) ->
-      htmlName = caro.addTail(pageName, '.html')
-      $.ajax('template/' + htmlName).success((html) ->
-        return self.goPage() unless html
+    setPageContent = (pageName) ->
+      pageMap = self._page
+      go = ->
         $nowPage = self.$page
         $container = if _cfg.container then $('#' + _cfg.container) or _$container
         $page = $('<div/>').addClass('cf-page').css(
           width: '100%'
           height: '100%'
         )
-
         setPage = ->
+          html = pageMap[pageName].html
+          pageFn = pageMap[pageName].fn
           $page.html(html).appendTo($container)
           self.$page = $page
           self.pageName = pageName
-          pageFn = self._page[pageName]
           pageFn and pageFn(cf, $page)
           doPageFns(self._aftPage)
 
@@ -150,9 +150,27 @@ cf.regLib 'router', (cf) ->
           setPage()
           doneFn()
         return
-      ).error ->
-        self.goPage('index')
+
+      unless pageMap[pageName] and pageMap[pageName].html
+        htmlName = caro.addTail(pageName, '.html')
+        $.ajax('template/' + htmlName).success((html) ->
+          pageMap[pageName] = {} unless pageMap[pageName]
+          pageMap[pageName].html = html
+          go()
+          return
+        ).error(->
+          ### 嘗試換頁到 index ###
+          indexInfo = caro.find(pageMap, (val, pageName) ->
+            return pageName is 'index'
+          )
+          return self.goPage('index') if indexInfo
+          ### 嘗試換頁到第一個註冊的頁面 ###
+          pageNameArr = caro.keys(pageMap)
+          firstPage = pageNameArr[0]
+          self.goPage(firstPage) if firstPage
+        )
         return
+      go()
       return
 
     ### 換頁, 不指定頁面時會依 url hash 判斷 ###
@@ -167,7 +185,7 @@ cf.regLib 'router', (cf) ->
       _trace 'Start goPage:', pageName
       unbindHashChange()
       window.location.hash = pageName + search
-      getBodyContent pageName
+      setPageContent pageName
       return
 
     ### 阻止換頁, 執行後, router.goPage 不會被觸發 ###
