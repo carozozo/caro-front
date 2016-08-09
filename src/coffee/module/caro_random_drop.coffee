@@ -33,20 +33,33 @@ cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
   _containerLeft = $container.offset().left
   _containerTop = $container.offset().top
 
-  minRandomMs = opt.minRandomMs or 0 # 間隔最短多少毫秒產生新物件
-  maxRandomMs = opt.maxRandomMs or minRandomMs + 1000 # 間隔最長多少毫秒產生新物件
-  inStartDuration = opt.inStartDuration or 0 # 物件產生時，要停留在原地的時間
-  inEndDuration = opt.inEndDuration or 0 # 物件移動完成時，要停留在原地的時間
-  minDuration = opt.minDuration or 3 # 最小移動時間
-  maxDuration = opt.maxDuration or 5 # 最大移動時間
-  minDistance = opt.minDistance or 0 # 最小移動距離
+  ### 間隔最短多少毫秒產生新物件 ###
+  minRandomMs = opt.minRandomMs or 0
+  ### 間隔最長多少毫秒產生新物件 ###
+  maxRandomMs = opt.maxRandomMs or minRandomMs + 1000
+  ### 物件產生時，要停留在原地的時間 ###
+  inStartDuration = opt.inStartDuration or 0
+  ### 物件移動完成時，要停留在原地的時間 ###
+  inEndDuration = opt.inEndDuration or 0
+  ### 最小移動時間 ###
+  minDuration = opt.minDuration or 3
+  ### 最大移動時間 ###
+  maxDuration = opt.maxDuration or 5
+  ### 最小移動距離 ###
+  minDistance = opt.minDistance or 0
+  ### 最大移動距離 ###
   maxDistance = opt.maxDistance or ->
-    $container.height() # 最大移動距離
-  minScale = opt.minScale or 1 # 每次隨機產生的物件，最小縮放值
-  rotationRange = opt.rotationRange or 0 # 移動時的旋轉角度範圍
-  xRange = opt.xRange or 0 # 橫向移動範圍
-  reverse = opt.reverse or false # 反轉方向
-  amount = opt.amount or 1 # 每次產生的物件數量
+    $container.height()
+  ### 每次隨機產生的物件，最小縮放值 ###
+  minScale = opt.minScale or 1
+  ### 移動時的旋轉角度範圍 ###
+  rotationRange = opt.rotationRange or 0
+  ### 橫向移動範圍 ###
+  xRange = opt.xRange or 0
+  ### 反轉方向 ###
+  reverse = opt.reverse
+  ### 每次產生的物件數量 ###
+  amount = opt.amount or 1
 
   imgLength = $imgArr.length
 
@@ -96,7 +109,7 @@ cf.regModule 'caroRandomDrop', ($imgArr, opt = {}) ->
   randomNewTop = (imgHeight, top) ->
     maxDis = getLengthIfFn(maxDistance)
     distance = getRandomInRange(minDistance, maxDis)
-    if !reverse
+    unless reverse
       imgMaxY = _selfHeight - imgHeight
       newTop = top + distance
       newTop = imgMaxY if(newTop > imgMaxY)

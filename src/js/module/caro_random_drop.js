@@ -38,20 +38,46 @@ cf.regModule('caroRandomDrop', function($imgArr, opt) {
   }).appendTo($self);
   _containerLeft = $container.offset().left;
   _containerTop = $container.offset().top;
+
+  /* 間隔最短多少毫秒產生新物件 */
   minRandomMs = opt.minRandomMs || 0;
+
+  /* 間隔最長多少毫秒產生新物件 */
   maxRandomMs = opt.maxRandomMs || minRandomMs + 1000;
+
+  /* 物件產生時，要停留在原地的時間 */
   inStartDuration = opt.inStartDuration || 0;
+
+  /* 物件移動完成時，要停留在原地的時間 */
   inEndDuration = opt.inEndDuration || 0;
+
+  /* 最小移動時間 */
   minDuration = opt.minDuration || 3;
+
+  /* 最大移動時間 */
   maxDuration = opt.maxDuration || 5;
+
+  /* 最小移動距離 */
   minDistance = opt.minDistance || 0;
+
+  /* 最大移動距離 */
   maxDistance = opt.maxDistance || function() {
     return $container.height();
   };
+
+  /* 每次隨機產生的物件，最小縮放值 */
   minScale = opt.minScale || 1;
+
+  /* 移動時的旋轉角度範圍 */
   rotationRange = opt.rotationRange || 0;
+
+  /* 橫向移動範圍 */
   xRange = opt.xRange || 0;
-  reverse = opt.reverse || false;
+
+  /* 反轉方向 */
+  reverse = opt.reverse;
+
+  /* 每次產生的物件數量 */
   amount = opt.amount || 1;
   imgLength = $imgArr.length;
   caro.forEach($imgArr, function($img) {
