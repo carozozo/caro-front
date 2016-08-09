@@ -1,29 +1,25 @@
 ### 客製化頁面跳轉效果 ###
 cf.regLib 'routeAnimate', (cf) ->
   self = {}
+  tm = cf.require('TweenMax')
   tl = cf.require('TimelineMax')
 
   ### 左移換場效果 ###
   self.left = (opt = {}) ->
     _router = cf.router
-    _router.transitionFn = (cf, $nowPage, $nextPage, nowPageDone, done) ->
-      _router.blockGoPage()
+    _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       duration = opt.duration or .8
       duration = duration / 2
-      tl1 = new tl()
-      tl1.to($nowPage, duration,
+      tm.to($nowPage, duration,
         position: 'absolute'
         'margin-left': '-100%'
         ease: Power0.easeNone
-        onComplete: ->
-          nowPageDone()
-          return
-      ).fromTo($nextPage, duration, {'margin-left': '100%'},
+      )
+      tm.fromTo($nextPage, duration, {'margin-left': '100%'},
         'margin-left': 0
         delay: .1
         ease: Power0.easeNone
         onComplete: ->
-          _router.approveGoPage()
           done()
           return
       )
@@ -31,23 +27,18 @@ cf.regLib 'routeAnimate', (cf) ->
   ### 右移換場效果 ###
   self.right = (opt = {}) ->
     _router = cf.router
-    _router.transitionFn = (cf, $nowPage, $nextPage, nowPageDone, done) ->
-      _router.blockGoPage()
+    _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       duration = opt.duration or .8
       duration = duration / 2
-      tl1 = new tl()
-      tl1.to($nowPage, duration,
+      tm.to($nowPage, duration,
         position: 'absolute'
         'margin-left': '100%'
         ease: Power0.easeNone
-        onComplete: ->
-          nowPageDone()
-          return
-      ).fromTo($nextPage, duration, {'margin-left': '-100%'},
+      )
+      tm.fromTo($nextPage, duration, {'margin-left': '-100%'},
         'margin-left': 0
         ease: Power0.easeNone
         onComplete: ->
-          _router.approveGoPage()
           done()
           return
       )
@@ -55,19 +46,21 @@ cf.regLib 'routeAnimate', (cf) ->
   ### 縮放換場效果 ###
   self.scale = (opt = {}) ->
     _router = cf.router
-    _router.transitionFn = (cf, $nowPage, $nextPage, nowPageDone, done) ->
-      _router.blockGoPage()
+    _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       duration = opt.duration or .8
       duration = duration / 2
+      $nextPage.hide()
       tl1 = new tl()
       tl1.to($nowPage, duration,
         scale: 0
         opacity: 0
         ease: Power0.easeNone
         onComplete: ->
-          nowPageDone()
+          $nowPage.hide()
+          $nextPage.show()
           return
-      ).fromTo($nextPage, duration,
+      )
+      .fromTo($nextPage, duration,
         scale: 0
         opacity: 0
       ,
@@ -75,28 +68,27 @@ cf.regLib 'routeAnimate', (cf) ->
         opacity: 1
         ease: Power0.easeNone
         onComplete: ->
-          $nextPage.css('transform', '')
-          _router.approveGoPage()
           done()
-      , '-=' + duration / 2)
+          return
+      )
       return
   ### fade 換場效果 ###
   self.fade = (opt = {}) ->
     _router = cf.router
-    _router.transitionFn = (cf, $nowPage, $nextPage, nowPageDone, done) ->
-      _router.blockGoPage()
+    _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
       duration = opt.duration or .8
       duration = duration / 2
+      $nextPage.hide()
       tl1 = new tl()
       tl1.to($nowPage, duration, {
         opacity: 0
         onComplete: ->
-          nowPageDone()
+          $nowPage.hide()
+          $nextPage.show()
           return
       }).fromTo($nextPage, duration, {opacity: 0}, {
         opacity: 1
         onComplete: ->
-          _router.approveGoPage()
           done()
           return
       })

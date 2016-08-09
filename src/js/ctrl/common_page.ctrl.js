@@ -44,6 +44,6 @@ cf.regCtrl('commonPage', function() {
   return $self;
 });
 
-cf.router.regPrePage(function() {
+cf.router.regAftPage(function() {
   cf.router.$page.commonPage();
 });

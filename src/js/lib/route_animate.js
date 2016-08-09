@@ -1,8 +1,9 @@
 
 /* 客製化頁面跳轉效果 */
 cf.regLib('routeAnimate', function(cf) {
-  var self, tl;
+  var self, tl, tm;
   self = {};
+  tm = cf.require('TweenMax');
   tl = cf.require('TimelineMax');
 
   /* 左移換場效果 */
@@ -12,27 +13,22 @@ cf.regLib('routeAnimate', function(cf) {
       opt = {};
     }
     _router = cf.router;
-    return _router.transitionFn = function(cf, $nowPage, $nextPage, nowPageDone, done) {
-      var duration, tl1;
-      _router.blockGoPage();
+    return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
+      var duration;
       duration = opt.duration || .8;
       duration = duration / 2;
-      tl1 = new tl();
-      tl1.to($nowPage, duration, {
+      tm.to($nowPage, duration, {
         position: 'absolute',
         'margin-left': '-100%',
-        ease: Power0.easeNone,
-        onComplete: function() {
-          nowPageDone();
-        }
-      }).fromTo($nextPage, duration, {
+        ease: Power0.easeNone
+      });
+      tm.fromTo($nextPage, duration, {
         'margin-left': '100%'
       }, {
         'margin-left': 0,
         delay: .1,
         ease: Power0.easeNone,
         onComplete: function() {
-          _router.approveGoPage();
           done();
         }
       });
@@ -46,26 +42,21 @@ cf.regLib('routeAnimate', function(cf) {
       opt = {};
     }
     _router = cf.router;
-    return _router.transitionFn = function(cf, $nowPage, $nextPage, nowPageDone, done) {
-      var duration, tl1;
-      _router.blockGoPage();
+    return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
+      var duration;
       duration = opt.duration || .8;
       duration = duration / 2;
-      tl1 = new tl();
-      tl1.to($nowPage, duration, {
+      tm.to($nowPage, duration, {
         position: 'absolute',
         'margin-left': '100%',
-        ease: Power0.easeNone,
-        onComplete: function() {
-          nowPageDone();
-        }
-      }).fromTo($nextPage, duration, {
+        ease: Power0.easeNone
+      });
+      tm.fromTo($nextPage, duration, {
         'margin-left': '-100%'
       }, {
         'margin-left': 0,
         ease: Power0.easeNone,
         onComplete: function() {
-          _router.approveGoPage();
           done();
         }
       });
@@ -79,18 +70,19 @@ cf.regLib('routeAnimate', function(cf) {
       opt = {};
     }
     _router = cf.router;
-    return _router.transitionFn = function(cf, $nowPage, $nextPage, nowPageDone, done) {
+    return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration, tl1;
-      _router.blockGoPage();
       duration = opt.duration || .8;
       duration = duration / 2;
+      $nextPage.hide();
       tl1 = new tl();
       tl1.to($nowPage, duration, {
         scale: 0,
         opacity: 0,
         ease: Power0.easeNone,
         onComplete: function() {
-          nowPageDone();
+          $nowPage.hide();
+          $nextPage.show();
         }
       }).fromTo($nextPage, duration, {
         scale: 0,
@@ -100,11 +92,9 @@ cf.regLib('routeAnimate', function(cf) {
         opacity: 1,
         ease: Power0.easeNone,
         onComplete: function() {
-          $nextPage.css('transform', '');
-          _router.approveGoPage();
-          return done();
+          done();
         }
-      }, '-=' + duration / 2);
+      });
     };
   };
 
@@ -115,23 +105,23 @@ cf.regLib('routeAnimate', function(cf) {
       opt = {};
     }
     _router = cf.router;
-    return _router.transitionFn = function(cf, $nowPage, $nextPage, nowPageDone, done) {
+    return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration, tl1;
-      _router.blockGoPage();
       duration = opt.duration || .8;
       duration = duration / 2;
+      $nextPage.hide();
       tl1 = new tl();
       tl1.to($nowPage, duration, {
         opacity: 0,
         onComplete: function() {
-          nowPageDone();
+          $nowPage.hide();
+          $nextPage.show();
         }
       }).fromTo($nextPage, duration, {
         opacity: 0
       }, {
         opacity: 1,
         onComplete: function() {
-          _router.approveGoPage();
           done();
         }
       });
