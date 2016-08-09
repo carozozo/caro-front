@@ -111,43 +111,43 @@ cf.regLib 'router', (cf) ->
       window.onhashchange = null
       return
 
+    doPageFns = (pageObj) ->
+      caro.forEach pageObj, (fns) ->
+        caro.forEach fns, (fn) ->
+          fn and fn(self)
+          return
+        return
+      return
+
     getBodyContent = (pageName) ->
       htmlName = caro.addTail(pageName, '.html')
       $.ajax('template/' + htmlName).success((html) ->
         return self.goPage() unless html
         $nowPage = self.$page
         $container = if _cfg.container then $('#' + _cfg.container) or _$container
-        self.$page = $page = $('<div/>').addClass('cf-page').css(
+        $page = $('<div/>').addClass('cf-page').css(
           width: '100%'
           height: '100%'
         )
-        self.pageName = pageName
 
-        doPageFn = (pageObj) ->
-          caro.forEach pageObj, (fns) ->
-            caro.forEach fns, (fn) ->
-              fn and fn(self)
-              return
-            return
-          return
-
-        nowPageDoneFn = ->
-          $nowPage and $nowPage.remove()
+        setPage = ->
           $page.html(html).appendTo($container)
-          doPageFn(self._prePage)
+          self.$page = $page
+          self.pageName = pageName
           pageFn = self._page[pageName]
           pageFn and pageFn(cf, $page)
-          return
+          doPageFns(self._aftPage)
 
         doneFn = ->
-          doPageFn(self._aftPage)
+          $nowPage and $nowPage.remove()
           bindHashChange()
           return
 
         if $nowPage and self.transitionFn
-          self.transitionFn(cf, $nowPage, $page, nowPageDoneFn, doneFn)
+          setPage()
+          self.transitionFn(cf, $nowPage, $page, doneFn)
         else
-          nowPageDoneFn()
+          setPage()
           doneFn()
         return
       ).error ->
@@ -157,6 +157,7 @@ cf.regLib 'router', (cf) ->
 
     ### 換頁, 不指定頁面時會依 url hash 判斷 ###
     self.goPage = (hashName) ->
+      doPageFns(self._prePage)
       pageName = self.getPageByHash(hashName) or 'index'
       search = self.getSearchByHash(hashName)
       search = '?' + search if search

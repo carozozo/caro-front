@@ -136,7 +136,7 @@ cf.regLib('router', function(cf) {
 
   /* 頁面載入相關 */
   (function(cf, self, window, $) {
-    var bindHashChange, getBodyContent, unbindHashChange;
+    var bindHashChange, doPageFns, getBodyContent, unbindHashChange;
     bindHashChange = function() {
       window.onhashchange = function() {
 
@@ -149,44 +149,45 @@ cf.regLib('router', function(cf) {
       /* 不要讓 window 監聽 hash 值改變 */
       window.onhashchange = null;
     };
+    doPageFns = function(pageObj) {
+      caro.forEach(pageObj, function(fns) {
+        caro.forEach(fns, function(fn) {
+          fn && fn(self);
+        });
+      });
+    };
     getBodyContent = function(pageName) {
       var htmlName;
       htmlName = caro.addTail(pageName, '.html');
       $.ajax('template/' + htmlName).success(function(html) {
-        var $container, $nowPage, $page, doPageFn, doneFn, nowPageDoneFn;
+        var $container, $nowPage, $page, doneFn, setPage;
         if (!html) {
           return self.goPage();
         }
         $nowPage = self.$page;
         $container = _cfg.container ? $('#' + _cfg.container) || _$container : void 0;
-        self.$page = $page = $('<div/>').addClass('cf-page').css({
+        $page = $('<div/>').addClass('cf-page').css({
           width: '100%',
           height: '100%'
         });
-        self.pageName = pageName;
-        doPageFn = function(pageObj) {
-          caro.forEach(pageObj, function(fns) {
-            caro.forEach(fns, function(fn) {
-              fn && fn(self);
-            });
-          });
-        };
-        nowPageDoneFn = function() {
+        setPage = function() {
           var pageFn;
-          $nowPage && $nowPage.remove();
           $page.html(html).appendTo($container);
-          doPageFn(self._prePage);
+          self.$page = $page;
+          self.pageName = pageName;
           pageFn = self._page[pageName];
           pageFn && pageFn(cf, $page);
+          return doPageFns(self._aftPage);
         };
         doneFn = function() {
-          doPageFn(self._aftPage);
+          $nowPage && $nowPage.remove();
           bindHashChange();
         };
         if ($nowPage && self.transitionFn) {
-          self.transitionFn(cf, $nowPage, $page, nowPageDoneFn, doneFn);
+          setPage();
+          self.transitionFn(cf, $nowPage, $page, doneFn);
         } else {
-          nowPageDoneFn();
+          setPage();
           doneFn();
         }
       }).error(function() {
@@ -197,6 +198,7 @@ cf.regLib('router', function(cf) {
     /* 換頁, 不指定頁面時會依 url hash 判斷 */
     self.goPage = function(hashName) {
       var pageName, search;
+      doPageFns(self._prePage);
       pageName = self.getPageByHash(hashName) || 'index';
       search = self.getSearchByHash(hashName);
       if (search) {
