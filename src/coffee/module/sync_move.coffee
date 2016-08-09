@@ -28,6 +28,8 @@ cf.regModule 'cfSyncMove', (opt = {}) ->
   _befMove = opt.befMove
   ### 移動之後的 cb ###
   _aftMove = opt.aftMove
+  ### 停止移動之後的 cb ###
+  _stopMove = opt.stopMove
   ### 滑鼠移動的 name space 防止重複觸發 ###
   _triggerName = opt.triggerName
   _triggerName1 = 'mousemove.cfSyncMove'
@@ -56,7 +58,7 @@ cf.regModule 'cfSyncMove', (opt = {}) ->
       y: null
       onComplete: ->
         _aftMove and _aftMove(infoObj)
-        return
+
     }
     baseX = if caro.isFunction(_baseX) then _baseX() else _baseX
     if caro.isNumber(baseX)
@@ -84,7 +86,13 @@ cf.regModule 'cfSyncMove', (opt = {}) ->
 
     return if _befMove and _befMove(infoObj) is false
     tm.to($self, 1, moveObj)
+    clearTimeout($self.data("syncMoveCheck." + _triggerName));
+    $self.data("syncMoveCheck." + _triggerName, setTimeout(->
+      console.log 1
+      _stopMove and _stopMove()
+    , 250))
     return
+
 
   $document.on(_triggerName1, triggerFn)
   $document.on(_triggerName2, triggerFn)

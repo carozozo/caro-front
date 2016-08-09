@@ -32,7 +32,7 @@ cf.regModule('cfModal', function(opt) {
     'z-index': ++_zIndex
   };
   $background = (function($) {
-    return $('<div></div>').attr('id', 'caro-modal-background' + _index).css({
+    return $('<div></div>').attr('id', 'cf-modal-background' + _index).css({
       opacity: 0.8,
       'background-color': '#000'
     }).css(_basicStyle).hide();
@@ -43,7 +43,7 @@ cf.regModule('cfModal', function(opt) {
     $self.css({
       width: '100%'
     });
-    return $('<div></div>').attr('id', 'caro-modal-inner' + _index).css({
+    return $('<div></div>').attr('id', 'cf-modal-inner' + _index).css({
       width: selfWidth,
       'margin-left': 'auto',
       'margin-right': 'auto',
@@ -53,7 +53,7 @@ cf.regModule('cfModal', function(opt) {
     }).append($self);
   })($);
   $outer = (function($) {
-    return $('<div></div>').attr('id', 'caro-modal-outer' + _index).css(_basicStyle).on('click', function(e) {
+    return $('<div></div>').attr('id', 'cf-modal-outer' + _index).css(_basicStyle).on('click', function(e) {
       if (!(_isClickClose && e.target === this)) {
         return;
       }
