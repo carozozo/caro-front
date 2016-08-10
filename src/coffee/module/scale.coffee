@@ -7,7 +7,7 @@ cf.regModule 'cfScale', (opt = {}) ->
 
   $target = opt.$target or cf.$window
   ### 綁定 resize 的 name space ###
-  _triggerName = if opt.triggerName then 'resize.cfAutoScale.' + opt.triggerName else 'resize.caroAutoScale'
+  _triggerName = if opt.triggerName then 'resize.cfAutoScale.' + opt.triggerName else 'resize.cfAutoScale'
   ### 指定觸發縮放的 $target 寬度範圍 ###
   _startX = if caro.isNumber(opt.startX) then opt.startX else 1100
   _endX = if caro.isNumber(opt.endX) then opt.endX else 1920

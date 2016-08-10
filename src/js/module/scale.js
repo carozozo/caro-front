@@ -12,7 +12,7 @@ cf.regModule('cfScale', function(opt) {
   $target = opt.$target || cf.$window;
 
   /* 綁定 resize 的 name space */
-  _triggerName = opt.triggerName ? 'resize.cfAutoScale.' + opt.triggerName : 'resize.caroAutoScale';
+  _triggerName = opt.triggerName ? 'resize.cfAutoScale.' + opt.triggerName : 'resize.cfAutoScale';
 
   /* 指定觸發縮放的 $target 寬度範圍 */
   _startX = caro.isNumber(opt.startX) ? opt.startX : 1100;
