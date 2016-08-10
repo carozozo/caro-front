@@ -102,6 +102,7 @@ cf.regModule('cfDateDropdown', function(opt) {
     if (month || month === '') {
       $month.val(month);
     }
+    updateNumberOfDays();
     if (day || day === '') {
       $day.val(day);
     }

@@ -81,6 +81,7 @@ cf.regModule 'cfDateDropdown', (opt = {}) ->
   $self.setDate = (year, month, day) ->
     $year.val(year) if year or year is ''
     $month.val(month) if month or month is ''
+    updateNumberOfDays()
     $day.val(day) if day or day is ''
     $self
 
