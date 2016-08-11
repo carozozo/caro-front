@@ -98,7 +98,11 @@ cf.regLib('tracking', function(cf) {
         break;
       default:
         fn = function(pageName) {
-          return _trace('[No tracking] PageView:', pageName);
+          pageName = pageName.trim();
+          if (_prefix) {
+            pageName = _prefix + '_' + pageName;
+          }
+          return validatePage('[NoTracking]', pageName);
         };
     }
     return fn;
@@ -155,7 +159,15 @@ cf.regLib('tracking', function(cf) {
         break;
       default:
         fn = function(category, label) {
-          return _trace('[No tracking] Event category:', category, ', label:', label);
+          var action;
+          action = action.trim();
+          label = label.trim();
+          category = category.trim();
+          if (_prefix) {
+            action = _prefix + '_' + action;
+            label = _prefix + '_' + label;
+          }
+          validateEvent('[NoTracking]', category, action, label);
         };
     }
     return fn;
@@ -179,16 +191,16 @@ cf.regDocReady(function(cf) {
       (function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
-          (i[r].q = i[r].q || []).push(arguments);
+          return (i[r].q = i[r].q || []).push(arguments);
         };
         i[r].l = 1 * new Date;
         a = s.createElement(o);
         m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
-        m.parentNode.insertBefore(a, m);
+        return m.parentNode.insertBefore(a, m);
       })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-      ga('create', _tagId, 'auto');
+      return ga('create', _tagId, 'auto');
     },
     2: function() {
       var dataLayer, f, i, j;
@@ -203,9 +215,10 @@ cf.regDocReady(function(cf) {
       j = document.createElement('script');
       j.async = true;
       j.src = '//www.googletagmanager.com/gtm.js?id=' + i;
-      f.parentNode.insertBefore(j, f);
+      return f.parentNode.insertBefore(j, f);
     }
   };
   downloadSdkFn = _sdkFnMap[_type];
   downloadSdkFn && downloadSdkFn();
+  return self;
 });
