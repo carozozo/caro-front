@@ -58,6 +58,9 @@ cf.regLib('ajax', function(cf) {
     };
     ajaxObj.success(function(res) {
       var resErr;
+      if (caro.isString(res)) {
+        res = JSON.parse(res);
+      }
       if (!(caro.isObject(res) && _responseErrKey)) {
         return;
       }

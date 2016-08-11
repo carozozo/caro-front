@@ -44,6 +44,7 @@ cf.regLib 'ajax', (cf) ->
       ajaxObj
 
     ajaxObj.success (res) ->
+      res = JSON.parse(res) if caro.isString(res)
       return unless caro.isObject(res) and _responseErrKey
       resErr = res[_responseErrKey]
       unless resErr
