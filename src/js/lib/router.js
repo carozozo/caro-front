@@ -112,18 +112,18 @@ cf.regLib('router', function(cf) {
 
     /* 從 hash 取得目前頁面名稱 */
     self.getPageByHash = function(hash) {
-      if (hash) {
-        return parseUrlHashToObj(hash).page;
+      if (hash == null) {
+        hash = location.hash;
       }
-      return parseUrlHashToObj(location.hash).page;
+      return parseUrlHashToObj(hash).page;
     };
 
     /* 從 hash 取得 search param */
     self.getSearchByHash = function(hash) {
-      if (hash) {
-        return parseUrlHashToObj(hash).search;
+      if (hash == null) {
+        hash = location.hash;
       }
-      return parseUrlHashToObj(location.hash).search;
+      return parseUrlHashToObj(hash).search;
     };
 
     /* 從 hash 取得 search param 並轉換成物件 */
@@ -136,19 +136,7 @@ cf.regLib('router', function(cf) {
 
   /* 頁面載入相關 */
   (function(cf, self, window, $) {
-    var bindHashChange, doPageFns, setPageContent, unbindHashChange;
-    bindHashChange = function() {
-      window.onhashchange = function() {
-
-        /* 當 window 監聽到 url hash 值改變時, 跳轉頁面 */
-        self.goPage();
-      };
-    };
-    unbindHashChange = function() {
-
-      /* 不要讓 window 監聽 hash 值改變 */
-      window.onhashchange = null;
-    };
+    var doPageFns, setPageContent;
     doPageFns = function(pageObj) {
       caro.forEach(pageObj, function(fns) {
         caro.forEach(fns, function(fn) {
@@ -175,11 +163,10 @@ cf.regLib('router', function(cf) {
           self.$page = $page;
           self.pageName = pageName;
           pageFn && pageFn(cf, $page);
-          return doPageFns(self._aftPage);
+          doPageFns(self._aftPage);
         };
         doneFn = function() {
           $nowPage && $nowPage.remove();
-          bindHashChange();
         };
         if ($nowPage && self.transitionFn) {
           setPage();
@@ -212,7 +199,7 @@ cf.regLib('router', function(cf) {
           pageNameArr = caro.keys(pageMap);
           firstPage = pageNameArr[0];
           if (firstPage) {
-            return self.goPage(firstPage);
+            self.goPage(firstPage);
           }
         });
         return;
@@ -234,19 +221,18 @@ cf.regLib('router', function(cf) {
         return;
       }
       _trace('Start goPage:', pageName);
-      unbindHashChange();
       window.location.hash = pageName + search;
       setPageContent(pageName);
     };
 
     /* 阻止換頁, 執行後, router.goPage 不會被觸發 */
     self.blockGoPage = function() {
-      return _isGoPage = false;
+      _isGoPage = false;
     };
 
     /* 允許換頁, 執行後, router.goPage 可以被觸發 */
     self.approveGoPage = function() {
-      return _isGoPage = true;
+      _isGoPage = true;
     };
   })(cf, self, window, $);
   return self;

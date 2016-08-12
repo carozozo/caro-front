@@ -30,7 +30,7 @@ cf.regLib('alert', function(cf) {
     $box.css({
       'margin-left': -$box.outerWidth() / 2
     });
-    return tl1.from($box, .6, {
+    tl1.from($box, .6, {
       y: -$box.outerHeight(),
       ease: Back.easeOut.config(2)
     });

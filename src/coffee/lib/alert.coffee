@@ -26,3 +26,4 @@ cf.regLib 'alert', (cf) ->
       y: -$box.outerHeight()
       ease: Back.easeOut.config(2)
     )
+    return

@@ -102,7 +102,7 @@ cf.regLib('tracking', function(cf) {
           if (_prefix) {
             pageName = _prefix + '_' + pageName;
           }
-          return validatePage('[NoTracking]', pageName);
+          validatePage('[NoTracking]', pageName);
         };
     }
     return fn;
@@ -158,8 +158,10 @@ cf.regLib('tracking', function(cf) {
         };
         break;
       default:
-        fn = function(category, label) {
-          var action;
+        fn = function(action, label, category) {
+          if (category == null) {
+            category = _defCategory;
+          }
           action = action.trim();
           label = label.trim();
           category = category.trim();
@@ -200,7 +202,7 @@ cf.regDocReady(function(cf) {
         a.src = g;
         return m.parentNode.insertBefore(a, m);
       })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-      return ga('create', _tagId, 'auto');
+      ga('create', _tagId, 'auto');
     },
     2: function() {
       var dataLayer, f, i, j;
@@ -215,7 +217,7 @@ cf.regDocReady(function(cf) {
       j = document.createElement('script');
       j.async = true;
       j.src = '//www.googletagmanager.com/gtm.js?id=' + i;
-      return f.parentNode.insertBefore(j, f);
+      f.parentNode.insertBefore(j, f);
     }
   };
   downloadSdkFn = _sdkFnMap[_type];

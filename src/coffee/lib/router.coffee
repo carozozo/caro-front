@@ -81,14 +81,12 @@ cf.regLib 'router', (cf) ->
       obj
 
     ### 從 hash 取得目前頁面名稱 ###
-    self.getPageByHash = (hash) ->
-      return parseUrlHashToObj(hash).page if hash
-      parseUrlHashToObj(location.hash).page
+    self.getPageByHash = (hash = location.hash) ->
+      parseUrlHashToObj(hash).page
 
     ### 從 hash 取得 search param ###
-    self.getSearchByHash = (hash) ->
-      return parseUrlHashToObj(hash).search if hash
-      parseUrlHashToObj(location.hash).search
+    self.getSearchByHash = (hash = location.hash) ->
+      parseUrlHashToObj(hash).search
 
     ### 從 hash 取得 search param 並轉換成物件 ###
     self.parseUrlSearch = (hash) ->
@@ -99,18 +97,6 @@ cf.regLib 'router', (cf) ->
 
   ### 頁面載入相關 ###
   do(cf, self, window, $) ->
-    bindHashChange = ->
-      window.onhashchange = ->
-        ### 當 window 監聽到 url hash 值改變時, 跳轉頁面 ###
-        self.goPage()
-        return
-      return
-
-    unbindHashChange = ->
-      ### 不要讓 window 監聽 hash 值改變 ###
-      window.onhashchange = null
-      return
-
     doPageFns = (pageObj) ->
       caro.forEach pageObj, (fns) ->
         caro.forEach fns, (fn) ->
@@ -136,10 +122,9 @@ cf.regLib 'router', (cf) ->
           self.pageName = pageName
           pageFn and pageFn(cf, $page)
           doPageFns(self._aftPage)
-
+          return
         doneFn = ->
           $nowPage and $nowPage.remove()
-          bindHashChange()
           return
 
         if $nowPage and self.transitionFn
@@ -167,6 +152,7 @@ cf.regLib 'router', (cf) ->
           pageNameArr = caro.keys(pageMap)
           firstPage = pageNameArr[0]
           self.goPage(firstPage) if firstPage
+          return
         )
         return
       go()
@@ -182,7 +168,6 @@ cf.regLib 'router', (cf) ->
         _trace 'Block goPage:', pageName
         return
       _trace 'Start goPage:', pageName
-      unbindHashChange()
       window.location.hash = pageName + search
       setPageContent pageName
       return
@@ -190,10 +175,12 @@ cf.regLib 'router', (cf) ->
     ### 阻止換頁, 執行後, router.goPage 不會被觸發 ###
     self.blockGoPage = ->
       _isGoPage = false
+      return
 
     ### 允許換頁, 執行後, router.goPage 可以被觸發 ###
     self.approveGoPage = ->
       _isGoPage = true
+      return
 
     return
 

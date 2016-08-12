@@ -61,15 +61,16 @@ cf.regLib('ajax', function(cf) {
       if (caro.isString(res)) {
         res = JSON.parse(res);
       }
-      if (!(caro.isObject(res) && _responseErrKey)) {
+      if (caro.isObject(res)) {
+        resErr = res[_responseErrKey];
+        if (!resErr) {
+          _sucCb && _sucCb(res);
+        } else {
+          _errCb && _errCb(resErr);
+        }
         return;
       }
-      resErr = res[_responseErrKey];
-      if (!resErr) {
-        _sucCb && _sucCb(res);
-      } else {
-        _errCb && _errCb(resErr);
-      }
+      _sucCb && _sucCb(res);
     });
 
     /* 如果呼叫 ajax 發生錯誤, 顯示要 alert 的訊息 */

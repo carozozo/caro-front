@@ -45,12 +45,14 @@ cf.regLib 'ajax', (cf) ->
 
     ajaxObj.success (res) ->
       res = JSON.parse(res) if caro.isString(res)
-      return unless caro.isObject(res) and _responseErrKey
-      resErr = res[_responseErrKey]
-      unless resErr
-        _sucCb and _sucCb(res)
-      else
-        _errCb and _errCb(resErr)
+      if caro.isObject(res)
+        resErr = res[_responseErrKey]
+        unless resErr
+          _sucCb and _sucCb(res)
+        else
+          _errCb and _errCb(resErr)
+        return
+      _sucCb and _sucCb(res)
       return
 
     ### 如果呼叫 ajax 發生錯誤, 顯示要 alert 的訊息 ###

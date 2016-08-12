@@ -73,6 +73,7 @@ cf.regLib 'tracking', (cf) ->
           pageName = pageName.trim()
           pageName = _prefix + '_' + pageName if _prefix
           validatePage('[NoTracking]', pageName)
+          return
     fn
 
   ### 發送 event ###
@@ -107,7 +108,7 @@ cf.regLib 'tracking', (cf) ->
             'virtualLabel': label
           return
       else
-        fn = (category, label) ->
+        fn = (action, label, category = _defCategory) ->
           action = action.trim()
           label = label.trim()
           category = category.trim()
@@ -146,6 +147,7 @@ cf.regDocReady((cf) ->
         m.parentNode.insertBefore a, m
       )(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga')
       ga('create', _tagId, 'auto')
+      return
 
     2: ->
       _trace 'Start download google tag manager, _tagId:', _tagId
@@ -159,6 +161,7 @@ cf.regDocReady((cf) ->
       j.async = true
       j.src = '//www.googletagmanager.com/gtm.js?id=' + i
       f.parentNode.insertBefore j, f
+      return
 
   downloadSdkFn = _sdkFnMap[_type]
   downloadSdkFn and downloadSdkFn()
