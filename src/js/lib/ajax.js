@@ -1,7 +1,7 @@
 
 /* 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式 */
 cf.regLib('ajax', function(cf) {
-  var $, _alert, _cfg, _errMsg, _isTest, _responseErrKey, caro, generateAjaxOpt, self;
+  var $, $loading, _alert, _cfg, _errMsg, _isTest, _responseErrKey, caro, generateAjaxOpt, hideLoading, self, showLoading;
   self = {};
   $ = cf.require('$');
   caro = cf.require('caro');
@@ -10,6 +10,25 @@ cf.regLib('ajax', function(cf) {
   _isTest = cf.isLocal || _cfg.isTestMode;
   _errMsg = _cfg.errMsg;
   _alert = cf.alert || cf.require('alert');
+  $loading = (function() {
+    $loading = $('<div/>').css({
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      'background-color': 'rgba(0, 0, 0, 0.6)',
+      width: '100%',
+      height: '100%',
+      'z-index': 9999
+    });
+    $loading.$msg = $('<div/>').css({
+      'font-size': '1.5em',
+      'text-align': 'center',
+      color: '#fff'
+    }).appendTo($loading);
+    $loading.msgArr = ['Loading.', 'Loading..', 'Loading...'];
+    $loading.count = 0;
+    return $loading;
+  })();
   generateAjaxOpt = function(url, data, extendOpt) {
     var opt;
     opt = {
@@ -22,12 +41,39 @@ cf.regLib('ajax', function(cf) {
     }
     return caro.assign(opt, extendOpt || {});
   };
+  showLoading = function() {
+    $loading.$msg.css({
+      'margin-top': cf.$window.height() / 2
+    });
+    $loading.$msg.html($loading.msgArr[$loading.count]);
+    $loading.interval = setInterval(function() {
+      $loading.count++;
+      if ($loading.count === $loading.msgArr.length) {
+        $loading.count = 0;
+      }
+      $loading.$msg.html($loading.msgArr[$loading.count]);
+    }, 500);
+    $loading.appendTo(cf.$body).fadeIn();
+  };
+  hideLoading = function() {
+    setTimeout(function() {
+      clearInterval($loading.interval);
+      return $loading.fadeOut(function() {
+        $loading.remove();
+      });
+    }, 500);
+  };
 
   /* 呼叫 ajax, 測試模式時會調用 opt.fakeResponse */
   self.callAjax = function(url, data, opt) {
     var _errCb, _sucCb, ajaxObj, ajaxOpt;
     if (opt == null) {
       opt = {};
+    }
+
+    /* 是否隱藏 loading 畫面 */
+    if (!opt.isHideLoading) {
+      showLoading();
     }
     if (_isTest) {
       ajaxObj = {};
@@ -79,6 +125,11 @@ cf.regLib('ajax', function(cf) {
     ajaxObj.error(function() {
       if (_errMsg) {
         _alert(_errMsg);
+      }
+    });
+    ajaxObj.complete(function() {
+      if (!opt.isHideLoading) {
+        hideLoading();
       }
     });
     return ajaxObj;
