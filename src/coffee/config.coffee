@@ -36,6 +36,14 @@ do (cf) ->
     shareUrl: 'http://www.demo.com/'
   })
   ###
+  imgUrl: 指定圖片網址(不設置代表本地端)
+  redirectPhone: 如果 device 為 phone, 則跳轉至 phone 專用網頁, 不設則不跳轉
+  ###
+  cf.config('website', {
+    imgUrl: 'http://www.demo.com/images'
+    redirectPhone: ''
+  })
+  ###
   type: 追蹤模式, 0: 不追蹤, 1: GA tracking, 2: GTM tracking
   tagId: 追蹤碼編號
   defCategory: 預設發送 event 的 category
@@ -46,14 +54,9 @@ do (cf) ->
     tagId: 'UA-77059085-1'
     defCategory: 'caroFront'
     prefix: 'caroFront'
-  })
-  ###
-  imgUrl: 指定圖片網址(不設置代表本地端)
-  redirectPhone: 如果 device 為 phone, 則跳轉至 phone 專用網頁, 不設則不跳轉
-  ###
-  cf.config('website', {
-    imgUrl: 'http://www.demo.com/images'
-    redirectPhone: ''
+    gtmEventKey: {
+
+    }
   })
 
   ### 當首頁網址符合時, 載入不同的設定 ###
