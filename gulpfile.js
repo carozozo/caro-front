@@ -23,8 +23,6 @@
   var uglify = require('gulp-uglify');
   // 監聽檔案
   var watch = require('gulp-watch');
-  // 取得 bower 的 main file
-  var mainBowerFiles = require('main-bower-files');
 
   var config = require('./gulpfile_config.js');
   var _imgDir = config.imgDir;
@@ -33,7 +31,6 @@
   var _cssDir = config.cssDir;
   var _prodJsName = config.prodJsName;
   var _prodCssName = config.prodCssName;
-  var _isMinImg = config.isMinImg;
   var _injectFileArr = config.injectFileArr;
   var _injectHeadArr = config.injectHeadArr;
   var _injectExcludeArr = config.injectExcludeArr;
@@ -165,13 +162,6 @@
     });
   };
 
-  var buildBower = function () {
-    var bowerDir = srcDir + '/_bower';
-    del.sync([bowerDir]);
-    return gulp.src(mainBowerFiles())
-      .pipe(gulp.dest(bowerDir));
-  };
-
   var buildJs = function (isUseMap, cb) {
     var allJsArr = injectHeadArr.concat(allSrcJsFiles).concat('!' + allSrcCssFiles);
     if (isUseMap) {
@@ -261,7 +251,6 @@
   gulp.task('buildImgWithMin', function () {
     buildImg(true);
   });
-  gulp.task('buildBower', buildBower);
   gulp.task('build', buildDev);
   gulp.task('buildProd', buildProd);
   gulp.task('buildProdWithMap', function () {
