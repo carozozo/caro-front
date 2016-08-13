@@ -1,11 +1,15 @@
 
 /* 一些單元程式 */
 cf.regLib('unit', function(cf) {
-  var $, caro, self, window;
+  var $, _cfg, _imgUrl, caro, location, self, window;
   self = {};
+  $ = cf.require('$');
   caro = cf.require('caro');
   window = cf.require('window');
-  $ = cf.require('$');
+  location = cf.require('location');
+  _cfg = cf.config('unit') || {};
+  self = {};
+  self.imgUrl = _imgUrl = _cfg.imgUrl ? caro.addTail(_cfg.imgUrl, '/') : 'images/';
 
   /* window.open 進階版 */
   self.open = function(url, specs, replace, msg) {
@@ -100,6 +104,17 @@ cf.regLib('unit', function(cf) {
         return $dom.css('background-image', 'url(' + cf.website.getImgUrl(img) + ')');
       }
     });
+  };
+
+  /* 取得 images 路徑 */
+  self.getImgUrl = function(imgFileName) {
+    if (imgFileName == null) {
+      imgFileName = '';
+    }
+    if (imgFileName.indexOf('/') === 0) {
+      imgFileName = imgFileName.replace('/', '');
+    }
+    return _imgUrl + imgFileName.replace('images/', '');
   };
   return self;
 });

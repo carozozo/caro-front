@@ -28,7 +28,7 @@
   /*
   isDownloadSdk: 是否要載入 fb-sdk
   sdkVersion: fb sdk 版本
-  redirectAfterLogin: 當登入 fb 後, 要跳轉的 template 頁面, 沒設時會回首頁
+  redirectAfterLogin: 當登入 fb 後要跳轉的頁面, 沒設時會回首頁
   appId: 網站所使用的 fb-app-id
   shareUrl: 分享網址, 需要可以在網路上找的到的 url, 所以不能用 localhost
    */
@@ -37,16 +37,14 @@
     sdkVersion: 'v2.7',
     redirectAfterLogin: 'go_back',
     appId: '1111111111111111',
-    shareUrl: 'http://www.demo.com/'
+    shareUrl: 'https://carozozo.github.io/caro-front/'
   });
 
   /*
-  imgUrl: 指定圖片網址(不設置代表本地端)
-  redirectPhone: 如果 device 為 phone, 則跳轉至 phone 專用網頁, 不設則不跳轉
+  imgUrl: 指定圖片網址, 不設置代表本地端
    */
-  cf.config('website', {
-    imgUrl: 'http://www.demo.com/images',
-    redirectPhone: ''
+  cf.config('unit', {
+    imgUrl: 'http://www.demo.com/images'
   });
 
   /*

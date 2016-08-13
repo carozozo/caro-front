@@ -1,9 +1,14 @@
 ### 一些單元程式 ###
 cf.regLib 'unit', (cf) ->
   self = {}
+  $ = cf.require('$')
   caro = cf.require('caro')
   window = cf.require('window')
-  $ = cf.require('$')
+  location = cf.require('location')
+  _cfg = cf.config('unit') or {}
+
+  self = {}
+  self.imgUrl = _imgUrl = if _cfg.imgUrl then caro.addTail(_cfg.imgUrl, '/') else 'images/'
 
   ### window.open 進階版 ###
   self.open = (url, specs, replace, msg) ->
@@ -68,5 +73,10 @@ cf.regLib 'unit', (cf) ->
         $dom.css('background-image', 'url(' + cf.website.getImgUrl(img) + ')')
     )
     return
+
+  ### 取得 images 路徑 ###
+  self.getImgUrl = (imgFileName = '') ->
+    imgFileName = imgFileName.replace('/', '') if imgFileName.indexOf('/') is 0
+    _imgUrl + imgFileName.replace('images/', '')
 
   self
