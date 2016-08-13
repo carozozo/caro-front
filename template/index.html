@@ -11,9 +11,9 @@
   <div class="title">開發方式</div>
   <div class="subContent">
     <div>運用 gulp 自動掃描檔案並部署網站</div>
-    <div>運用 bower 控管外掛</div>
+    <div>運用 bower 控管外掛, 如不使用可直接移除</div>
     <div>可根據不同的 url 載入相對應的 config</div>
-    <div>以 jQuery 搭配 gsap 實現 DOM 的動態控制</div>
+    <div>以 jQuery 作為基礎動態控制</div>
   </div>
 </div>
 <div class="content">
@@ -33,14 +33,12 @@
   </div>
 </div>
 <div class="content">
-  <div class="title">使用 libraries</div>
+  <div class="title">引用 libraries</div>
   <div class="subContent">
     <div>caro.js </div>
     <div>jQuery</div>
     <div>lodash</div>
     <div>mobile-detect</div>
-    <div>moment</div>
-    <div>gsap</div>
   </div>
 </div>
 <div class="content">
@@ -69,45 +67,47 @@
 <div class="content">
   <div class="title">gulp 執行指令</div>
   <div class="subContent">
-    <div>gulp buildImg : 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
-    <div>gulp buildImgWithMin : 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
-    <div>gulp buildBower : 將 bower 下載的外掛(bower_components), 載到 src 底下</div>
-    <div>gulp buildProd : 壓縮到 /dist 底下</div>
-    <div>gulp buildProdWithMap : 壓縮到 /dist 底下, 並產生 sourceMap</div>
-    <div>gulp : 自動部署, 並啟動 localhost server</div>
-    <div>gulp prod : 自動部署壓縮到 /dist 底下, 並啟動 localhost server</div>
+    <div>gulp buildImg: 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
+    <div>gulp buildImgWithMin: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
+    <div>gulp buildProd: 壓縮到 /dist 底下</div>
+    <div>gulp buildProdWithMap: 壓縮到 /dist 底下, 並產生 sourceMap</div>
+    <div>gulp: 自動部署, 並啟動 localhost server</div>
+    <div>gulp prod: 自動部署壓縮到 /dist 底下, 並啟動 localhost server</div>
   </div>
 </div>
 <div class="content">
   <div class="title">主要檔案介紹</div>
   <div class="subContent">
-    <div>main.html : 頁面 layout </div>
-    <div>src/_app : cf 主函式</div>
-    <div>src/config : 設定檔, 視使用情形修改  </div>
+    <div>src/_app: cf 主函式</div>
+    <div>src/config: 設定檔, 視使用情形修改  </div>
   </div>
 </div>
 <div class="content">
   <div class="title">資料夾基本介紹 </div>
   <div class="subContent">
-    <div>_bower : bower 下載的檔案 </div>
-    <div>_compatibility : 瀏覽器相容性 程式</div>
-    <div>_plugin : 外掛程式</div>
-    <div>api : 後端 api   檔</div>
-    <div>coffee : coffee script 檔</div>
-    <div>css : css 檔</div>
-    <div>images : 圖檔</div>
-    <div>js : js 檔</div>
-    <div>template : 分頁內容 html  </div>
+    <div>_compatibility: 瀏覽器相容性 程式, 如不考慮相容性可直接移除</div>
+    <div>_plugin: 外掛程式</div>
+    <div>api: 後端 api   檔</div>
+  </div>
+</div>
+<div class="content">
+  <div class="title">對應 gulpfile_config.js 的設定資料夾基本介紹 </div>
+  <div class="subContent">
+    <div>coffee: coffee script 檔, 對應 </div>
+    <div>css: css 檔</div>
+    <div>images: 圖檔</div>
+    <div>js: js 檔</div>
+    <div>template: 分頁內容  </div>
   </div>
 </div>
 <div class="content">
   <div class="title">coffee/js 分類 </div>
   <div class="subContent">
-    <div>ctrl : controller 模組, 類似 plugin, 用於網站客製化的功能 (e.g. 每個分頁都會有的選單) </div>
-    <div>lib : 一般函式庫</div>
-    <div>module : framework 專用外掛</div>
-    <div>page : 內頁程式 </div>
-    <div>serv : 頁面函式庫</div>
+    <div>ctrl: controller 模組, 類似 plugin, 用於網站客製化的功能 (e.g. 每個分頁都會有的選單) </div>
+    <div>lib: 一般函式庫</div>
+    <div>module: framework 專用外掛</div>
+    <div>page: 內頁程式 </div>
+    <div>serv: 頁面函式庫</div>
   </div>
 </div>
 <div class="content">
