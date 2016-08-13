@@ -10,12 +10,17 @@ cf.regLib('router', function(cf) {
   /* 當下頁面的 Dom */
   self.$page = null;
 
+  /* 儲存轉換頁面前要執行的 fns, 裡面的 key 為執行順序 */
+  self._befPage = {
+    50: []
+  };
+
   /* 儲存載入頁面前要執行的 fns, 裡面的 key 為執行順序 */
   self._prePage = {
     50: []
   };
 
-  /* 儲存載入頁面時要執行的對應 fn */
+  /* 儲存載入頁面後要執行的對應 fn */
   self._page = {};
 
   /* 儲存載入頁面後要執行的 fns, 裡面的 key 為執行順序 */
@@ -23,11 +28,11 @@ cf.regLib('router', function(cf) {
     50: []
   };
 
+  /* 換頁效果程式 */
+  self._transitionFn = null;
+
   /* 當下頁面名稱 */
   self.pageName = '';
-
-  /* 換頁程式 */
-  self.transitionFn = null;
   $ = cf.require('$');
   caro = cf.require('caro');
   window = cf.require('window');
@@ -35,7 +40,7 @@ cf.regLib('router', function(cf) {
   _isGoPage = true;
   _trace = cf.genTraceFn('router');
 
-  /* 註冊 page 載入完成後 callback */
+  /* 註冊 page 載入前後的 callback */
   (function(self, caro) {
     var regPageCb;
     regPageCb = function(type, fn, index) {
@@ -49,6 +54,9 @@ cf.regLib('router', function(cf) {
       }
       pageObj[index].push(fn);
     };
+
+    /* 註冊 [當 Router 準備換頁前] 要執行的 function */
+    self.regBefPage = caro.partial(regPageCb, 'befPage');
 
     /* 註冊 [當 Router 載入頁面前] 要執行的 function */
     self.regPrePage = caro.partial(regPageCb, 'prePage');
@@ -171,9 +179,9 @@ cf.regLib('router', function(cf) {
         doneFn = function() {
           $nowPage && $nowPage.remove();
         };
-        if ($nowPage && self.transitionFn) {
+        if ($nowPage && self._transitionFn) {
           setPage();
-          self.transitionFn(cf, $nowPage, $page, doneFn);
+          self._transitionFn(cf, $nowPage, $page, doneFn);
         } else {
           setPage();
           doneFn();
@@ -213,7 +221,7 @@ cf.regLib('router', function(cf) {
     /* 換頁, 不指定頁面時會依 url hash 判斷 */
     self.goPage = function(hashName) {
       var pageName, search;
-      doPageFns(self._prePage);
+      doPageFns(self._befPage);
       pageName = self.getPageByHash(hashName) || 'index';
       search = self.getSearchByHash(hashName);
       if (search) {

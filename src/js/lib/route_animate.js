@@ -13,7 +13,7 @@ cf.regLib('routeAnimate', function(cf) {
       opt = {};
     }
     _router = cf.router;
-    return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
+    return _router._transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration;
       _router.$container.css({
         overflow: 'hidden'
@@ -45,7 +45,7 @@ cf.regLib('routeAnimate', function(cf) {
       opt = {};
     }
     _router = cf.router;
-    return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
+    return _router._transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration;
       _router.$container.css({
         overflow: 'hidden'
@@ -76,7 +76,7 @@ cf.regLib('routeAnimate', function(cf) {
       opt = {};
     }
     _router = cf.router;
-    return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
+    return _router._transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration, tl1;
       duration = opt.duration || .8;
       duration = duration / 2;
@@ -111,7 +111,7 @@ cf.regLib('routeAnimate', function(cf) {
       opt = {};
     }
     _router = cf.router;
-    return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
+    return _router._transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration, tl1;
       duration = opt.duration || .8;
       duration = duration / 2;
@@ -136,7 +136,7 @@ cf.regLib('routeAnimate', function(cf) {
 
   /* 清除換場效果 */
   self.clear = function() {
-    cf.router.transitionFn = null;
+    cf.router._transitionFn = null;
   };
   return self;
 });

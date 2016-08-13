@@ -5,20 +5,24 @@ cf.regLib 'router', (cf) ->
   self.$container = null
   ### 當下頁面的 Dom ###
   self.$page = null
+  ### 儲存轉換頁面前要執行的 fns, 裡面的 key 為執行順序 ###
+  self._befPage = {
+    50: []
+  }
   ### 儲存載入頁面前要執行的 fns, 裡面的 key 為執行順序 ###
   self._prePage = {
     50: []
   }
-  ### 儲存載入頁面時要執行的對應 fn ###
+  ### 儲存載入頁面後要執行的對應 fn ###
   self._page = {}
   ### 儲存載入頁面後要執行的 fns, 裡面的 key 為執行順序 ###
   self._aftPage = {
     50: []
   }
+  ### 換頁效果程式 ###
+  self._transitionFn = null
   ### 當下頁面名稱 ###
   self.pageName = ''
-  ### 換頁程式 ###
-  self.transitionFn = null
 
   $ = cf.require('$')
   caro = cf.require('caro')
@@ -28,7 +32,7 @@ cf.regLib 'router', (cf) ->
   _trace = cf.genTraceFn('router')
   #  _trace.startTrace();
 
-  ### 註冊 page 載入完成後 callback ###
+  ### 註冊 page 載入前後的 callback ###
   do(self, caro) ->
     regPageCb = (type, fn, index = 50) ->
       pageObj = self['_' + type]
@@ -36,6 +40,8 @@ cf.regLib 'router', (cf) ->
       pageObj[index].push(fn)
       return
 
+    ### 註冊 [當 Router 準備換頁前] 要執行的 function ###
+    self.regBefPage = caro.partial(regPageCb, 'befPage')
     ### 註冊 [當 Router 載入頁面前] 要執行的 function ###
     self.regPrePage = caro.partial(regPageCb, 'prePage')
     ### 註冊 [當 Router 載入頁面後] 要執行的 function ###
@@ -129,9 +135,9 @@ cf.regLib 'router', (cf) ->
           $nowPage and $nowPage.remove()
           return
 
-        if $nowPage and self.transitionFn
+        if $nowPage and self._transitionFn
           setPage()
-          self.transitionFn(cf, $nowPage, $page, doneFn)
+          self._transitionFn(cf, $nowPage, $page, doneFn)
         else
           setPage()
           doneFn()
@@ -162,7 +168,7 @@ cf.regLib 'router', (cf) ->
 
     ### 換頁, 不指定頁面時會依 url hash 判斷 ###
     self.goPage = (hashName) ->
-      doPageFns(self._prePage)
+      doPageFns(self._befPage)
       pageName = self.getPageByHash(hashName) or 'index'
       search = self.getSearchByHash(hashName)
       search = '?' + search if search

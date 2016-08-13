@@ -7,7 +7,7 @@ cf.regLib 'routeAnimate', (cf) ->
   ### 左移換場效果 ###
   self.left = (opt = {}) ->
     _router = cf.router
-    _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
+    _router._transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.$container.css(
         overflow: 'hidden'
       )
@@ -30,7 +30,7 @@ cf.regLib 'routeAnimate', (cf) ->
   ### 右移換場效果 ###
   self.right = (opt = {}) ->
     _router = cf.router
-    _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
+    _router._transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.$container.css(
         overflow: 'hidden'
       )
@@ -52,7 +52,7 @@ cf.regLib 'routeAnimate', (cf) ->
   ### 縮放換場效果 ###
   self.scale = (opt = {}) ->
     _router = cf.router
-    _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
+    _router._transitionFn = (cf, $nowPage, $nextPage, done) ->
       duration = opt.duration or .8
       duration = duration / 2
       $nextPage.hide()
@@ -81,7 +81,7 @@ cf.regLib 'routeAnimate', (cf) ->
   ### fade 換場效果 ###
   self.fade = (opt = {}) ->
     _router = cf.router
-    _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
+    _router._transitionFn = (cf, $nowPage, $nextPage, done) ->
       duration = opt.duration or .8
       duration = duration / 2
       $nextPage.hide()
@@ -101,6 +101,6 @@ cf.regLib 'routeAnimate', (cf) ->
       return
   ### 清除換場效果 ###
   self.clear = ->
-    cf.router.transitionFn = null
+    cf.router._transitionFn = null
     return
   self
