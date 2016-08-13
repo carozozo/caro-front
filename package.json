@@ -22,6 +22,6 @@
     "gulp-inject": "latest",
     "gulp-sourcemaps": "latest",
     "gulp-uglify": "latest",
-    "gulp-watch": "latest",
+    "gulp-watch": "latest"
   }
 }
