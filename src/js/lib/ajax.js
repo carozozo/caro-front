@@ -61,7 +61,9 @@ cf.regLib('ajax', function(cf) {
       if (caro.isString(res)) {
         res = JSON.parse(res);
       }
-      if (caro.isObject(res)) {
+
+      /* 如果有設置 errorKey, 而且回傳的是物件 */
+      if (_responseErrKey && caro.isObject(res)) {
         resErr = res[_responseErrKey];
         if (!resErr) {
           _sucCb && _sucCb(res);

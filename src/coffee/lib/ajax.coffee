@@ -45,7 +45,8 @@ cf.regLib 'ajax', (cf) ->
 
     ajaxObj.success (res) ->
       res = JSON.parse(res) if caro.isString(res)
-      if caro.isObject(res)
+      ### 如果有設置 errorKey, 而且回傳的是物件 ###
+      if _responseErrKey and caro.isObject(res)
         resErr = res[_responseErrKey]
         unless resErr
           _sucCb and _sucCb(res)
