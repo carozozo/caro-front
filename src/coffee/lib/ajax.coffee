@@ -24,7 +24,7 @@ cf.regLib 'ajax', (cf) ->
       'text-align': 'center'
       color: '#fff'
     ).appendTo($loading)
-    $loading.msgArr = ['Loading.', 'Loading..', 'Loading...']
+    $loading.msgArr = ['Loading', 'Loading.', 'Loading..', 'Loading...']
     $loading.count = 0
     $loading
 
