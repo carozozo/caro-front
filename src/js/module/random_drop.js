@@ -235,13 +235,13 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     } else {
       createDrop();
     }
-    trigger1 = 'blur.cfRandomDrop.' + nameSpace;
+    trigger1 = 'focusout.cfRandomDrop.' + nameSpace;
     trigger2 = 'focus.cfRandomDrop.' + nameSpace;
     $window.off(trigger1).on(trigger1, function() {
-      return _isKeepDrop = false;
+      _isKeepDrop = false;
     });
     $window.off(trigger2).on(trigger2, function() {
-      return $self.startDrop(nameSpace);
+      $self.startDrop(nameSpace);
     });
     return $self;
   };

@@ -7,6 +7,8 @@ cf.regModule 'cfScrollbar', (styleOpt = {}, scrollBarOpt = {}) ->
   cf = $self.cf
   _trace = cf.genTraceFn('cfScrollbar')
 
+  ### 捲軸名稱 ###
+  name = styleOpt.name or ''
   ### 捲軸按鈕樣式 ###
   barCss = styleOpt.barCss
   ### 捲軸樣式 ###
@@ -21,11 +23,15 @@ cf.regModule 'cfScrollbar', (styleOpt = {}, scrollBarOpt = {}) ->
       onCreateFn = callbacksOpt.onCreate
       delete callbacksOpt.onCreate
     return
-  mainOpt = caro.assign({theme: 'my-theme'}, scrollBarOpt)
+  themeName = if name then 'my-theme-' + name else 'my-theme'
+  mainOpt = caro.assign(
+    scrollbarPosition: 'outside'
+    theme: themeName
+  , scrollBarOpt)
   mainOpt.callbacks = caro.assign(callbacksOpt, onCreate: ->
     onCreateFn() if onCreateFn
-    $('.mCS-my-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar').css barCss if barCss
-    $('.mCS-my-theme.mCSB_scrollTools .mCSB_draggerRail').css lineCss if lineCss
+    $('.mCS-' + themeName + '.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar').css barCss if barCss
+    $('.mCS-' + themeName + '.mCSB_scrollTools .mCSB_draggerRail').css lineCss if lineCss
     $('.mCSB_scrollTools').css opacity: 1
     return
   )

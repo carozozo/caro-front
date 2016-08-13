@@ -175,13 +175,15 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
       , 1, amount)
     else
       createDrop()
-    trigger1 = 'blur.cfRandomDrop.' + nameSpace
+    trigger1 = 'focusout.cfRandomDrop.' + nameSpace
     trigger2 = 'focus.cfRandomDrop.' + nameSpace
     $window.off(trigger1).on(trigger1, ->
       _isKeepDrop = false
+      return
     )
     $window.off(trigger2).on(trigger2, ->
       $self.startDrop(nameSpace)
+      return
     )
     $self
 
