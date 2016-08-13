@@ -6,3 +6,9 @@ cf.router.regPage('index', function(cf, $page) {
   _tracking.page('index');
   return $page;
 });
+
+cf.regDocReady(function() {
+  $('#headerTitle').dom().onClick(function() {
+    cf.router.goPage('index');
+  });
+});

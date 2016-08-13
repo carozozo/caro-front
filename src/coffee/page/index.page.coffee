@@ -5,3 +5,9 @@ cf.router.regPage 'index', (cf, $page) ->
 
   _tracking.page('index')
   $page
+
+cf.regDocReady ->
+  $('#headerTitle').dom().onClick ->
+    cf.router.goPage('index')
+    return
+  return

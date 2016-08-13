@@ -8,6 +8,9 @@ cf.regLib 'routeAnimate', (cf) ->
   self.left = (opt = {}) ->
     _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
+      _router.$container.css(
+        overflow: 'hidden'
+      )
       duration = opt.duration or .8
       duration = duration / 2
       tm.to($nowPage, duration,
@@ -28,6 +31,9 @@ cf.regLib 'routeAnimate', (cf) ->
   self.right = (opt = {}) ->
     _router = cf.router
     _router.transitionFn = (cf, $nowPage, $nextPage, done) ->
+      _router.$container.css(
+        overflow: 'hidden'
+      )
       duration = opt.duration or .8
       duration = duration / 2
       tm.to($nowPage, duration,

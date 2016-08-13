@@ -15,6 +15,9 @@ cf.regLib('routeAnimate', function(cf) {
     _router = cf.router;
     return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration;
+      _router.$container.css({
+        overflow: 'hidden'
+      });
       duration = opt.duration || .8;
       duration = duration / 2;
       tm.to($nowPage, duration, {
@@ -44,6 +47,9 @@ cf.regLib('routeAnimate', function(cf) {
     _router = cf.router;
     return _router.transitionFn = function(cf, $nowPage, $nextPage, done) {
       var duration;
+      _router.$container.css({
+        overflow: 'hidden'
+      });
       duration = opt.duration || .8;
       duration = duration / 2;
       tm.to($nowPage, duration, {
