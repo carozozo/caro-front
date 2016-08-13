@@ -2,6 +2,12 @@
 /* 頁面跳轉程式 */
 cf.regLib('router', function(cf) {
   var $, _cfg, _isGoPage, _trace, caro, self, window;
+  $ = cf.require('$');
+  caro = cf.require('caro');
+  window = cf.require('window');
+  _cfg = cf.config('router');
+  _isGoPage = true;
+  _trace = cf.genTraceFn('router');
   self = {};
 
   /* 當下頁面的容器 */
@@ -33,12 +39,7 @@ cf.regLib('router', function(cf) {
 
   /* 當下頁面名稱 */
   self.pageName = '';
-  $ = cf.require('$');
-  caro = cf.require('caro');
-  window = cf.require('window');
-  _cfg = cf.config('router');
-  _isGoPage = true;
-  _trace = cf.genTraceFn('router');
+  self.templateDir = _cfg.templateDir ? caro.addTail(_cfg.templateDir, '/') : 'template/';
 
   /* 註冊 page 載入前後的 callback */
   (function(self, caro) {
@@ -189,7 +190,7 @@ cf.regLib('router', function(cf) {
       };
       if (!(pageMap[pageName] && pageMap[pageName].html)) {
         htmlName = caro.addTail(pageName, '.html');
-        $.ajax('template/' + htmlName).success(function(html) {
+        $.ajax(self.templateDir + htmlName).success(function(html) {
           if (!pageMap[pageName]) {
             pageMap[pageName] = {};
           }

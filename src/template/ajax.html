@@ -16,12 +16,12 @@
 <div class="content">
   <div class="title">函式</div>
   <div class="subContent">
-    <div class="tip2">callAjax(url, [data], [opt = {}]) : 用法同 $.ajax, 另支援函式 .suc 和 .err</div>
+    <div class="tip2">callAjax(url, [data], [opt = {}]): 用法同 $.ajax, 另支援函式 .suc 和 .err</div>
     <div class="subTitle">opt 參數</div>
     <div>同 $.ajax 的 options</div>
-    <div>fakeResponse : 測試用 response</div>
-    <div>isHideLoading : 呼叫時是否隱藏 loading 畫面, 預設 false</div>
-    <div class="link codeLink">範例 : 設定檔 responseErrKey = 'error'</div>
+    <div>fakeResponse: 測試用 response</div>
+    <div>isHideLoading: 呼叫時是否隱藏 loading 畫面, 預設 false</div>
+    <div class="link codeLink">範例: 設定檔 responseErrKey = 'error'</div>
     <div class="code codeTarget">
       <div class="codeMark">// 使用 post</div>
       cf.ajax('/api/post.php', {data:123}).suc(function(res) {
@@ -30,7 +30,7 @@
       <div class="codeMark">&nbsp;&nbsp;// 使用 ajax 執行成功, 但有 res.error, 則 err = res.error</div>
       })
     </div>
-    <div class="link codeLink">範例 : 設定檔 isTestMode = true -> 則直接調用 fakeResponse</div>
+    <div class="link codeLink">範例: 設定檔 isTestMode = true -> 則直接調用 fakeResponse</div>
     <div class="code codeTarget">
       <div class="codeMark">// 使用 get, 且設置 fakeResponse</div>
       cf.ajax('/api/get.php', null, {<br/>

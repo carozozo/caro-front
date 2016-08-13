@@ -1,5 +1,13 @@
 ### 頁面跳轉程式 ###
 cf.regLib 'router', (cf) ->
+  $ = cf.require('$')
+  caro = cf.require('caro')
+  window = cf.require('window')
+  _cfg = cf.config('router')
+  _isGoPage = true
+  _trace = cf.genTraceFn('router')
+  #  _trace.startTrace();
+
   self = {}
   ### 當下頁面的容器 ###
   self.$container = null
@@ -23,14 +31,7 @@ cf.regLib 'router', (cf) ->
   self._transitionFn = null
   ### 當下頁面名稱 ###
   self.pageName = ''
-
-  $ = cf.require('$')
-  caro = cf.require('caro')
-  window = cf.require('window')
-  _cfg = cf.config('router')
-  _isGoPage = true
-  _trace = cf.genTraceFn('router')
-  #  _trace.startTrace();
+  self.templateDir = if _cfg.templateDir then caro.addTail(_cfg.templateDir, '/') else 'template/'
 
   ### 註冊 page 載入前後的 callback ###
   do(self, caro) ->
@@ -145,7 +146,7 @@ cf.regLib 'router', (cf) ->
 
       unless pageMap[pageName] and pageMap[pageName].html
         htmlName = caro.addTail(pageName, '.html')
-        $.ajax('template/' + htmlName).success((html) ->
+        $.ajax(self.templateDir + htmlName).success((html) ->
           pageMap[pageName] = {} unless pageMap[pageName]
           pageMap[pageName].html = html
           go()

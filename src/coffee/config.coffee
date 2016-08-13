@@ -6,9 +6,11 @@ do (cf) ->
     isLocalTest: true
   })
   ###
-  container: 頁面容器的 html id, 沒設置時, 預設容器為 $('body')
+  templateDir: 放置分頁的資料夾路徑, 未設置代表根目錄
+  container: 頁面容器的 DOM id, 未設置時預設容器為 $('body')
   ###
   cf.config('router', {
+    templateDir: 'template/'
     container: 'container'
   })
   ###
