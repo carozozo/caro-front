@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: rgb(21, 25, 24) 0 0;
+  background: rgb(14, 18, 6) 0 0;
   color: #eaeaea;
   font-size: 18px;
   line-height: 2;
@@ -17,11 +17,11 @@ header {
   padding: 20px 0 20px 10px;
   z-index: 9999;
 
-  background: linear-gradient(90deg, #4c524d, #292f2b, #4c524d);
+  background: linear-gradient(45deg, #2d3813, #2d3813, #2d3813, #9ac045, #2d3813, #2d3813, #2d3813);
   background-size: 600% 600%;
-  -webkit-animation: headerBgColor 15s ease infinite;
-  -moz-animation: headerBgColor 15s ease infinite;
-  animation: headerBgColor 15s ease infinite;
+  -webkit-animation: headerBgColor 20s ease infinite;
+  -moz-animation: headerBgColor 20s ease infinite;
+  animation: headerBgColor 20s ease infinite;
 }
 
 #headerTitle {
