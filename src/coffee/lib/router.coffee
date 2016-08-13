@@ -1,6 +1,8 @@
 ### 頁面跳轉程式 ###
 cf.regLib 'router', (cf) ->
   self = {}
+  ### 當下頁面的容器 ###
+  self.$container = null
   ### 當下頁面的 Dom ###
   self.$page = null
   ### 儲存載入頁面前要執行的 fns, 裡面的 key 為執行順序 ###
@@ -109,7 +111,7 @@ cf.regLib 'router', (cf) ->
       pageMap = self._page
       go = ->
         $nowPage = self.$page
-        $container = if _cfg.container then $('#' + _cfg.container) else cf.$body
+        self.$container = if _cfg.container then $('#' + _cfg.container) else cf.$body
         $page = $('<div/>').addClass('cf-page').css(
           width: '100%'
           height: '100%'
@@ -117,7 +119,7 @@ cf.regLib 'router', (cf) ->
         setPage = ->
           html = pageMap[pageName].html
           pageFn = pageMap[pageName].fn
-          $page.html(html).appendTo($container)
+          $page.html(html).appendTo(self.$container)
           self.$page = $page
           self.pageName = pageName
           pageFn and pageFn(cf, $page)

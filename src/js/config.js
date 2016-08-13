@@ -8,7 +8,7 @@
   });
 
   /*
-  container: 頁面載具的 html id, 沒設則預設 <body>
+  container: 頁面容器的 html id, 沒設置時, 預設容器為 $('body')
    */
   cf.config('router', {
     container: 'container'

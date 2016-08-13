@@ -4,6 +4,9 @@ cf.regLib('router', function(cf) {
   var $, _cfg, _isGoPage, _trace, caro, self, window;
   self = {};
 
+  /* 當下頁面的容器 */
+  self.$container = null;
+
   /* 當下頁面的 Dom */
   self.$page = null;
 
@@ -148,9 +151,9 @@ cf.regLib('router', function(cf) {
       var go, htmlName, pageMap;
       pageMap = self._page;
       go = function() {
-        var $container, $nowPage, $page, doneFn, setPage;
+        var $nowPage, $page, doneFn, setPage;
         $nowPage = self.$page;
-        $container = _cfg.container ? $('#' + _cfg.container) : cf.$body;
+        self.$container = _cfg.container ? $('#' + _cfg.container) : cf.$body;
         $page = $('<div/>').addClass('cf-page').css({
           width: '100%',
           height: '100%'
@@ -159,7 +162,7 @@ cf.regLib('router', function(cf) {
           var html, pageFn;
           html = pageMap[pageName].html;
           pageFn = pageMap[pageName].fn;
-          $page.html(html).appendTo($container);
+          $page.html(html).appendTo(self.$container);
           self.$page = $page;
           self.pageName = pageName;
           pageFn && pageFn(cf, $page);
