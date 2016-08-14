@@ -4,7 +4,7 @@ body {
   background: rgb(14, 18, 6) 0 0;
   color: #eaeaea;
   font-size: 18px;
-  line-height: 2;
+  line-height: 1.3em;
   font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
 }
 
@@ -27,7 +27,6 @@ header {
 
 #headerTitle {
   font-size: 2em;
-  line-height: 1.5;
   font-weight: bold;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   color: #b5e853;
@@ -153,10 +152,11 @@ header {
 .mainTitle {
   overflow: hidden;
   font-size: 2em;
+  line-height: 1.5em;
   border-bottom: solid #ffffff;
   z-index: 100;
-  height: 2em;
   padding-left: 10px;
+  height: 57px;
 }
 
 .content {
@@ -172,6 +172,7 @@ header {
   margin: 0 0 10px 0;
   padding: 5px 10px;
   background: #555555;
+  line-height: 2em;
 }
 
 .subTitle {
@@ -179,6 +180,7 @@ header {
   padding: 5px;
   background: #ececec;
   color: #161616;
+  line-height: 2em;
 }
 
 .subTitle2 {
@@ -186,6 +188,7 @@ header {
   padding: 5px;
   background: #92bb43;
   color: #ececec;
+  line-height: 2em;
 }
 
 .subTitle3 {
@@ -193,6 +196,7 @@ header {
   padding: 5px;
   background: #a02721;
   color: #ececec;
+  line-height: 2em;
 }
 
 .tip {
