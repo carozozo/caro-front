@@ -171,8 +171,9 @@ header {
   font-size: 1.5em;
   margin: 0 0 10px 0;
   padding: 5px 10px;
-  background: #555555;
-  line-height: 2em;
+  line-height: 1.2em;
+  border-radius: 5px;
+  background: -webkit-linear-gradient(45deg, rgba(40, 40, 40, 1), rgba(154, 192, 69, 0.5), rgba(254, 254, 254, 0));
 }
 
 .subTitle {
