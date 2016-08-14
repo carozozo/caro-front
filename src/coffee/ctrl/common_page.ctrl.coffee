@@ -14,6 +14,9 @@ cf.regCtrl 'commonPage', ->
     x: -50
   , '-=0.3').from($mainTitle, .7,
     width: 200
+    onComplete: ->
+      $mainTitle.css(width: '100%')
+      return
   ).from($content, .5,
     opacity: 0
   , '-=0.3')
@@ -41,6 +44,14 @@ cf.regCtrl 'commonPage', ->
       $codeTargetArr[i].showModal()
     )
   )
+
+  $self.dom('.title').each (i, $title) ->
+    $title = $($title).dom()
+    $subContents = $title.parents('.content').find('.subContent')
+    $title.onClick ->
+      $subContents.slideToggle()
+      return
+    return
 
   $self
 

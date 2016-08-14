@@ -13,7 +13,12 @@ cf.regCtrl('commonPage', function() {
     opacity: 0,
     x: -50
   }, '-=0.3').from($mainTitle, .7, {
-    width: 200
+    width: 200,
+    onComplete: function() {
+      $mainTitle.css({
+        width: '100%'
+      });
+    }
   }).from($content, .5, {
     opacity: 0
   }, '-=0.3');
@@ -39,6 +44,14 @@ cf.regCtrl('commonPage', function() {
     $link.removeClass('link').html($span.html(html));
     return $span.dom().onClick(function() {
       return $codeTargetArr[i].showModal();
+    });
+  });
+  $self.dom('.title').each(function(i, $title) {
+    var $subContents;
+    $title = $($title).dom();
+    $subContents = $title.parents('.content').find('.subContent');
+    $title.onClick(function() {
+      $subContents.slideToggle();
     });
   });
   return $self;

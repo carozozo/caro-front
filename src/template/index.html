@@ -30,14 +30,14 @@
     <br/>
 
     <div>然後中間又經過了一些磨練和波折後</div>
-    <div>在來到現在的公司後, 就此決定開發一套專屬的前端 Framework</div>
-    <div>而現下最流行的前端 Framework Angular, React 好不好用?</div>
-    <div>答案或許是, 但總是有太多規範和限制</div>
+    <div>接觸到現在流行的前端 Framework Angular, React</div>
+    <div>那麼它們好不好用? 答案或許是, 但總是有太多規範和限制</div>
     <div>而且那樣的架構已經把 js 和 html 綁定在一起了</div>
     <br/>
 
-    <div>所以, 我最終還是選擇了 jQuery Library 作為基底</div>
-    <div>以基本功能為出發點, 可以自由開發屬於自己的函式庫和功能</div>
+    <div>在來到現在的公司後, 就此決定開發一套專屬的前端 Framework</div>
+    <div>所以, 我最終還是選擇了自己最熟悉的 jQuery Library 作為基底</div>
+    <div>以最小限度的限制, 又可以自由擴充的函式庫和功能</div>
     <div><span class="tip2">CaroFront</span> 就這麼漸漸形成了</div>
     <br/>
 
@@ -56,9 +56,12 @@
   <div class="subContent">
     <div class="subTitle">特色</div>
     <div class="subContent">
-      <div>以 jQuery 作為基礎動態控制</div>
+      <div class="subTitle2">以 jQuery 作為基礎</div>
+      <div class="subContent">
+        <div>客製並優化功能, 作為開發基礎</div>
+      </div>
       <div class="subTitle2">動態 config</div>
-      <div>可根據不同的 url (例如 localhost, test, develop, production..)載入相對應的設定, 減少開發複雜度</div>
+      <div>可根據不同的 url (例如 localhost, develop, production)載入相對應的設定, 減少開發複雜度</div>
       <div class="subTitle2">支援 .coffee </div>
       <div class="subContent">
         <div>在 gulp 時會自動 watch 並編譯成 js </div>
@@ -74,9 +77,18 @@
   <div class="subContent">
     <div class="subTitle">工具</div>
     <div class="subContent">
-      <div>npm</div>
-      <div>gulp</div>
-      <div>bower</div>
+      <div>
+        <a class="link" href="https://www.npmjs.com/" target="_blank"> npm </a>
+        : Node.js Package 管理
+      </div>
+      <div>
+        <a class="link" href="http://gulpjs.com/" target="_blank"> gulp </a>
+        : 專案開發管理
+      </div>
+      <div>
+        <a class="link" href="https://bower.io/" target="_blank"> bower </a>
+        : 前端外掛管理
+      </div>
     </div>
   </div>
   <div class="subContent">
@@ -91,12 +103,12 @@
   <div class="subContent">
     <div class="subTitle">gulp 執行指令</div>
     <div class="subContent">
-      <div>gulp buildImg: 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
-      <div>gulp buildImgWithMin: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
-      <div>gulp buildProd: 壓縮到 /dist 底下</div>
-      <div>gulp buildProdWithMap: 壓縮到 /dist 底下, 並產生 sourceMap</div>
-      <div>gulp: 自動部署, 並啟動 localhost server</div>
-      <div>gulp prod: 自動部署壓縮到 /dist 底下, 並啟動 localhost server</div>
+      <div><span class="tip2">gulp buildImg</span>: 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
+      <div><span class="tip2">gulp buildImgWithMin</span>: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
+      <div><span class="tip2">gulp buildProd</span>: 壓縮到 /dist 底下</div>
+      <div><span class="tip2">gulp buildProdWithMap</span>: 壓縮到 /dist 底下, 並產生 sourceMap</div>
+      <div><span class="tip2">gulp</span>: 自動部署, 並啟動 localhost server</div>
+      <div><span class="tip2">gulp prod</span>: 自動部署壓縮到 /dist 底下, 並啟動 localhost server</div>
     </div>
   </div>
 </div>
@@ -105,10 +117,22 @@
   <div class="subContent">
     <div class="subTitle">引用 libraries</div>
     <div class="subContent">
-      <div>caro.js </div>
-      <div>jQuery</div>
-      <div>lodash</div>
-      <div>mobile-detect</div>
+      <div>
+        <a class="link" href="https://github.com/carozozo/caro" target="_blank">caro.js </a>
+        : 依附於 lodash 的擴充函式庫
+      </div>
+      <div>
+        <a class="link" href="https://jquery.com/" target="_blank">jQuery</a>
+        : 提供 Browser 基本, 應用函式庫
+      </div>
+      <div>
+        <a class="link" href="https://lodash.com/" target="_blank">lodash</a>
+        : 提供基本, 應用函式庫
+      </div>
+      <div>
+        <a class="link" href="http://hgoebl.github.io/mobile-detect.js/" target="_blank">mobile-detect</a>
+        : 判斷載具函式庫
+      </div>
     </div>
   </div>
   <div class="subContent">

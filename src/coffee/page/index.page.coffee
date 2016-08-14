@@ -6,14 +6,6 @@ cf.router.regPage 'index', (cf, $page) ->
 
   _tracking.page('index')
 
-  $page.dom('.title').each (i, $title) ->
-    $title = $($title).dom()
-    $subContents = $title.parent().dom('.subContent')
-    $title.onClick ->
-      $subContents.fadeToggle()
-      return
-    return
-
   $page
 
 cf.regDocReady ->
