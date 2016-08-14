@@ -206,11 +206,19 @@ header {
   font-weight: bolder;
 }
 
-.codeMark {
+.mark1 {
+  color: #ececec;
+}
+
+.mark2 {
   color: #92bb43;
 }
 
-.code {
+.mark3 {
+  color: #a02721;
+}
+
+.block {
   margin: 10px 0;
   padding: 10px;
   background: #dddddd;
