@@ -9,11 +9,12 @@ cf.regCtrl('commonPage', function() {
   $mainTitle = $self.dom('.mainTitle');
   subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3'];
   caro.forEach(subTitleClassArr, function(className) {
-    $self.dom('.' + className).mapDom(function($class) {
+    $self.dom('.' + className).mapDom(function($subTitle) {
       var $span, html;
       $span = $('<span>').addClass(className);
-      html = $class.html();
-      $class.removeClass(className).html($span.html(html));
+      html = $subTitle.html();
+      $subTitle.removeClass(className).html($span.html(html));
+      $subTitle.next('div').addClass('subContent');
     });
   });
   $codeTargetArr = $self.dom('.codeTarget').mapDom(function($codeTarget) {
@@ -30,6 +31,7 @@ cf.regCtrl('commonPage', function() {
   });
   $title = $self.dom('.title').eachDom((function($title, i) {
     var $subContents, colorIndex;
+    $title.next('div').addClass('subContent');
     $subContents = $title.parents('.content').find('.subContent').hide();
     colorIndex = i % 4 + 1;
     $title.aClass('title' + colorIndex).onClick(function() {
