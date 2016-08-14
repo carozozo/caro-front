@@ -23,35 +23,39 @@ cf.regCtrl 'commonPage', ->
 
   titleClassArr = ['title', 'subTitle', 'subTitle2', 'subTitle3']
   caro.forEach(titleClassArr, (className) ->
-    $self.find('.' + className).each((i, $class) ->
-      $class = $($class)
+    $self.dom('.' + className).mapDom(($class) ->
       $span = $('<span>').addClass(className)
       html = $class.html()
       $class.removeClass(className).html($span.html(html))
+      return
     )
+    return
   )
 
-  $codeTargetArr = []
-  $self.find('.codeTarget').each((i, $codeTarget) ->
-    $codeTargetArr.push($($codeTarget).addClass('block').cfModal())
+  $codeTargetArr = $self.dom('.codeTarget').mapDom(($codeTarget) ->
+    $codeTarget.addClass('block').cfModal()
+    return
   )
-  $self.find('.codeLink').each((i, $link) ->
-    $link = $($link)
-    $span = $('<span>').addClass('link')
+
+  $self.dom('.codeLink').eachDom(($link, i) ->
+    $span = $('<span>').dom().aClass('link')
     html = $link.html()
     $link.removeClass('link').html($span.html(html))
-    $span.dom().onClick(->
+    $span.onClick(->
       $codeTargetArr[i].showModal()
+      return
     )
+    return
   )
 
-  $self.dom('.title').each (i, $title) ->
-    $title = $($title).dom()
+  $self.dom('.title').eachDom (($title) ->
     $subContents = $title.parents('.content').find('.subContent')
-    $title.onClick ->
+    $title.onClick(->
       $subContents.slideToggle()
       return
+    )
     return
+  )
 
   $self
 

@@ -17,10 +17,6 @@ cf.regModule('dom', function(selector, cb) {
   } else {
     $self = this;
   }
-  if ($self.length < 1) {
-    _trace.err('Can not find Dom:', selector);
-    return $self;
-  }
 
   /* 屬性相關 */
   (function() {
@@ -264,6 +260,30 @@ cf.regModule('dom', function(selector, cb) {
 
   /* Unit 相關 */
   (function($) {
+
+    /* each 進階版, 直接賦予 dom 外掛的屬性 */
+    $self.eachDom = function(cb) {
+      return $self.each(function(i, element) {
+        var $dom;
+        $dom = $(element).dom();
+        return cb && cb($dom, i);
+      });
+    };
+
+    /* map 進階版, 直接賦予 dom 外掛的屬性, 並回傳 array */
+    $self.mapDom = function(cb) {
+      var arr;
+      arr = [];
+      $self.each(function(i, element) {
+        var $dom;
+        $dom = $(element).dom();
+        if (cb && cb($dom, i) === false) {
+          return true;
+        }
+        return arr.push($dom);
+      });
+      return arr;
+    };
 
     /* trace 用, 計算本身數量 */
     $self.countSelf = function(msg) {

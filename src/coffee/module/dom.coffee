@@ -14,9 +14,6 @@ cf.regModule 'dom', (selector, cb) ->
     $self = @find(selector)
   else
     $self = @
-  if $self.length < 1
-    _trace.err 'Can not find Dom:', selector
-    return $self
 
   ### 屬性相關 ###
   do ->
@@ -174,6 +171,19 @@ cf.regModule 'dom', (selector, cb) ->
 
   ### Unit 相關 ###
   do($) ->
+    ### each 進階版, 直接賦予 dom 外掛的屬性 ###
+    $self.eachDom = (cb) ->
+      $self.each (i, element) ->
+        $dom = $(element).dom()
+        cb and cb($dom, i)
+    ### map 進階版, 直接賦予 dom 外掛的屬性, 並回傳 array ###
+    $self.mapDom = (cb) ->
+      arr = []
+      $self.each (i, element) ->
+        $dom = $(element).dom()
+        return true if cb and cb($dom, i) is false
+        arr.push $dom
+      arr
     ### trace 用, 計算本身數量 ###
     $self.countSelf = (msg) ->
       msg = msg or ''

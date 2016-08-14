@@ -24,36 +24,32 @@ cf.regCtrl('commonPage', function() {
   }, '-=0.3');
   titleClassArr = ['title', 'subTitle', 'subTitle2', 'subTitle3'];
   caro.forEach(titleClassArr, function(className) {
-    return $self.find('.' + className).each(function(i, $class) {
+    $self.dom('.' + className).mapDom(function($class) {
       var $span, html;
-      $class = $($class);
       $span = $('<span>').addClass(className);
       html = $class.html();
-      return $class.removeClass(className).html($span.html(html));
+      $class.removeClass(className).html($span.html(html));
     });
   });
-  $codeTargetArr = [];
-  $self.find('.codeTarget').each(function(i, $codeTarget) {
-    return $codeTargetArr.push($($codeTarget).addClass('block').cfModal());
+  $codeTargetArr = $self.dom('.codeTarget').mapDom(function($codeTarget) {
+    $codeTarget.addClass('block').cfModal();
   });
-  $self.find('.codeLink').each(function(i, $link) {
+  $self.dom('.codeLink').eachDom(function($link, i) {
     var $span, html;
-    $link = $($link);
-    $span = $('<span>').addClass('link');
+    $span = $('<span>').dom().aClass('link');
     html = $link.html();
     $link.removeClass('link').html($span.html(html));
-    return $span.dom().onClick(function() {
-      return $codeTargetArr[i].showModal();
+    $span.onClick(function() {
+      $codeTargetArr[i].showModal();
     });
   });
-  $self.dom('.title').each(function(i, $title) {
+  $self.dom('.title').eachDom((function($title) {
     var $subContents;
-    $title = $($title).dom();
     $subContents = $title.parents('.content').find('.subContent');
     $title.onClick(function() {
       $subContents.slideToggle();
     });
-  });
+  }));
   return $self;
 });
 
