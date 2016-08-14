@@ -1,7 +1,7 @@
 <div class="mainTitle">CaroFront(cf) 簡介</div>
 <div class="content">
   <div class="title">前言</div>
-  <div class="subContent">
+  <div>
     <div>剛出社會時, 原本對自己的未來矇懞懂懂</div>
     <div>當了半年多的業務, 也當過作業員, 後來因為興趣做了兩年美編</div>
     <div>因緣際會下接觸了 PHP, 也開始自學 Web 相關的知識</div>
@@ -46,39 +46,35 @@
 </div>
 <div class="content">
   <div class="title">關於開發</div>
-  <div class="subContent">
-    <div class="subTitle">方式</div>
-    <div class="subContent">
+  <div>
+    <div class="subTitle1">方式</div>
+    <div>
       <div>運用 gulp 自動掃描檔案並部署網站</div>
       <div>運用 bower 控管外掛</div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">特色</div>
-    <div class="subContent">
+    <div class="subTitle1">特色</div>
+    <div>
       <div class="subTitle2">以 jQuery 作為基礎</div>
-      <div class="subContent">
+      <div>
         <div>客製並優化功能, 作為開發基礎</div>
       </div>
       <div class="subTitle2">動態 config</div>
-      <div class="subContent">
+      <div>
         <div>可根據不同的 url (例如 localhost, develop, production)載入相對應的設定, 減少開發複雜度</div>
       </div>
       <div class="subTitle2">支援 .coffee </div>
-      <div class="subContent">
+      <div>
         <div>在 gulp 時會自動 watch 並編譯成 js </div>
         <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下</div>
         <div>所以如果不使用 coffee script 請直接移除</div>
       </div>
       <div class="subTitle2">使用 inject file </div>
-      <div class="subContent">
+      <div>
         <div>在 gulp 時會掃描 js / css 檔, 並寫入 script, link tag 到 src/index.html</div>
       </div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">工具</div>
-    <div class="subContent">
+    <div class="subTitle1">工具</div>
+    <div>
       <div>
         <a class="link" href="https://www.npmjs.com/" target="_blank"> npm </a>
         : Node.js Package 管理
@@ -92,19 +88,15 @@
         : 前端外掛管理
       </div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">安裝</div>
-    <div class="subContent">
+    <div class="subTitle1">安裝</div>
+    <div>
       <div>安裝 npm </div>
       <div>npm install -g bower 安裝 bower</div>
       <div>npm i 安裝開發檔案 </div>
       <div>bower i 安裝 Framework 基本函式庫</div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">gulp 執行指令</div>
-    <div class="subContent">
+    <div class="subTitle1">gulp 執行指令</div>
+    <div>
       <div><span class="tip2">gulp buildImg</span>: 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
       <div><span class="tip2">gulp buildImgWithMin</span>: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
       <div><span class="tip2">gulp buildProd</span>: 壓縮到 /dist 底下</div>
@@ -116,9 +108,9 @@
 </div>
 <div class="content">
   <div class="title">內容介紹</div>
-  <div class="subContent">
-    <div class="subTitle">引用 libraries</div>
-    <div class="subContent">
+  <div>
+    <div class="subTitle1">引用 libraries</div>
+    <div>
       <div>
         <a class="link" href="https://github.com/carozozo/caro" target="_blank">caro.js </a>
         : 依附於 lodash 的擴充函式庫
@@ -136,58 +128,44 @@
         : 判斷載具函式庫
       </div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">主要檔案介紹</div>
-    <div class="subContent">
+    <div class="subTitle1">主要檔案介紹</div>
+    <div>
       <div>src/_app: cf 主函式</div>
       <div>src/config: 設定檔, 視使用情形修改  </div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">工作分配</div>
-    <div class="subContent">
+    <div class="subTitle1">工作分配</div>
+    <div>
       <div>Lib / Serv 負責提供函式庫, 處理程式及資料邏輯</div>
       <div>Module / Ctrl 負責 UI 單位元件</div>
       <div>Page 負責頁面功能及動態整合</div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">資料夾基本介紹</div>
-    <div class="subContent">
+    <div class="subTitle1">資料夾基本介紹</div>
+    <div>
       <div>_compatibility: 瀏覽器相容性 程式, 如不考慮相容性可直接移除</div>
       <div>_plugin: 外掛程式</div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">對應 gulpfile_config.js 的設定資料夾基本介紹 </div>
-    <div class="subContent">
+    <div class="subTitle1">對應 gulpfile_config.js 的設定資料夾基本介紹 </div>
+    <div>
       <div>coffee: coffee script 檔</div>
       <div>css: css 檔</div>
       <div>images: 圖檔</div>
       <div>js: js 檔</div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">js and coffee 分類 </div>
-    <div class="subContent">
+    <div class="subTitle1">js and coffee 分類 </div>
+    <div>
       <div>ctrl: controller 模組, 類似 plugin, 用於網站客製化的功能 (e.g. 每個分頁都會有的選單) </div>
       <div>lib: 一般函式庫</div>
       <div>module: Framework 專用外掛</div>
       <div>page: 內頁程式 </div>
       <div>serv: 頁面函式庫</div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">lib / serv 函式庫介紹</div>
-    <div class="subContent">
+    <div class="subTitle1">lib / serv 函式庫介紹</div>
+    <div>
       <div>差別只在於作用域不同 , 可依照使用者需求自行定義</div>
       <div>lib 適用所有專案, serv 為專案邏輯處理</div>
     </div>
-  </div>
-  <div class="subContent">
-    <div class="subTitle">module / ctrl 模組介紹</div>
-    <div class="subContent">
+    <div class="subTitle1">module / ctrl 模組介紹</div>
+    <div>
       <div> 用法類似 jQuery plugin , 可依照使用者需求自行定義</div>
       <div> module 適用所有專案, ctrl 為專案客製化功能 </div>
     </div>
@@ -195,7 +173,7 @@
 </div>
 <div class="content">
   <div class="title">lib 介紹</div>
-  <div class="subContent">
+  <div>
     <div>cf.ajax : $.ajax 延伸並簡化 success function; 可設定測試模式, 用來模擬 api response</div>
     <div>cf.alert : 用 popup 模擬 alert 的功能, 避免 browser 禁用 alert</div>
     <div>cf.cookie : 設置和讀取 cookie</div>
@@ -207,7 +185,7 @@
 </div>
 <div class="content">
   <div class="title">module 介紹</div>
-  <div class="subContent">
+  <div>
     <div>cfAddrDropdown : 地址下拉選單</div>
     <div>cfAnimated : 簡化外掛 Animate.css 使用方式</div>
     <div>cfCircleShow : DOM circle 輪播效果</div>
