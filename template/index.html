@@ -2,125 +2,168 @@
 <div class="content">
   <div class="title">前言</div>
   <div class="subContent">
-    <div>前端 Web 開發用 framework</div>
-    <div>針對目前開發項目遇到的問題做客製優化</div>
-    <div>減少開發時間及累積開發成果</div>
+    <div>剛出社會時, 原本對自己的未來矇懞懂懂</div>
+    <div>當了半年多的業務, 也當過作業員, 後來因為興趣做了兩年美編</div>
+    <div>然後在因緣際會下接觸了 PHP, 然後開始自學 Web 相關的知識</div>
+    <div>而這也成了我身為 Web Developer 的起點</div>
+    <br/>
+
+    <div>而這一路上走來, 從後端接觸到前端, 再由前端研究到後端, 來來回回</div>
+    <div>JavaScript, PHP, ActionScript, Java, Node.js</div>
+    <br/>
+
+    <div>當中也開始接觸了一些程式架構</div>
+    <div>JAva 的 Structs, Sprint</div>
+    <div>Php 的 Smarty, CodeIgniter, Yii, OwnCloud</div>
+    <div>JavaScript 的 jQuery, Angular, React, Bootstrap</div>
+    <div>Node.js 的 Express, Sails</div>
+    <br/>
+
+    <div>而在這當中, 影響我對深的就是由德國人開發的 OwnCloud 程式架構</div>
+    <div>在一步步熟悉架構之後, 我漸漸的有了一個想法</div>
+    <h2 class="tip3">何不自己開發一個 Framework, 一套屬於自己的開發工具?</h2>
+
+    <div>於是, 當我在網路旅行社接觸 Node.js 之後</div>
+    <div>一套專門為當時開發的前後端 Framework, TravelGlobal OA-System 就這樣誕生了</div>
+    <div>但那時還稱不上成熟, 因為有太多專門為公司需求而開發的項目</div>
+    <div>當我試圖把功能切分開來的時候, 卻因為公司政策的關係而停擺</div>
+    <br/>
+
+    <div>然後中間又經過了一些磨練和波折後</div>
+    <div>在來到現在的公司後, 就此決定開發一套專屬的前端 Framework</div>
+    <div>而現下最流行的前端 Framework Angular, React 好不好用?</div>
+    <div>答案或許是, 但總是有太多規範和限制</div>
+    <div>而且那樣的架構已經把 js 和 html 綁定在一起了</div>
+    <br/>
+
+    <div>所以, 我最終還是選擇了 jQuery Library 作為基底</div>
+    <div>以基本功能為出發點, 可以自由開發屬於自己的函式庫和功能</div>
+    <div><span class="tip2">CaroFront</span> 就這麼漸漸形成了</div>
+    <br/>
+
+    <div>2016/08/14 by Caro.Huang</div>
   </div>
 </div>
 <div class="content">
-  <div class="title">開發方式</div>
+  <div class="title">關於開發</div>
   <div class="subContent">
-    <div>運用 gulp 自動掃描檔案並部署網站</div>
-    <div>運用 bower 控管外掛, 如不使用可直接移除</div>
-    <div>可根據不同的 url 載入相對應的 config</div>
-    <div>以 jQuery 作為基礎動態控制</div>
+    <div class="subTitle">方式</div>
+    <div class="subContent">
+      <div>運用 gulp 自動掃描檔案並部署網站</div>
+      <div>運用 bower 控管外掛</div>
+    </div>
+  </div>
+  <div class="subContent">
+    <div class="subTitle">特色</div>
+    <div class="subContent">
+      <div>以 jQuery 作為基礎動態控制</div>
+      <div class="subTitle2">動態 config</div>
+      <div>可根據不同的 url (例如 localhost, test, develop, production..)載入相對應的設定, 減少開發複雜度</div>
+      <div class="subTitle2">支援 .coffee </div>
+      <div class="subContent">
+        <div>在 gulp 時會自動 watch 並編譯成 js </div>
+        <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下</div>
+        <div>所以如果不使用 coffee script 請直接移除</div>
+      </div>
+      <div class="subTitle2">使用 inject file </div>
+      <div class="subContent">
+        <div>在 gulp 時會掃描 js / css 檔, 並寫入 script, link tag 到 src/index.html</div>
+      </div>
+    </div>
+  </div>
+  <div class="subContent">
+    <div class="subTitle">工具</div>
+    <div class="subContent">
+      <div>npm</div>
+      <div>gulp</div>
+      <div>bower</div>
+    </div>
+  </div>
+  <div class="subContent">
+    <div class="subTitle">安裝</div>
+    <div class="subContent">
+      <div>安裝 npm </div>
+      <div>npm install -g bower 安裝 bower</div>
+      <div>npm i 安裝開發檔案 </div>
+      <div>bower i 安裝 Framework 基本函式庫</div>
+    </div>
+  </div>
+  <div class="subContent">
+    <div class="subTitle">gulp 執行指令</div>
+    <div class="subContent">
+      <div>gulp buildImg: 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
+      <div>gulp buildImgWithMin: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
+      <div>gulp buildProd: 壓縮到 /dist 底下</div>
+      <div>gulp buildProdWithMap: 壓縮到 /dist 底下, 並產生 sourceMap</div>
+      <div>gulp: 自動部署, 並啟動 localhost server</div>
+      <div>gulp prod: 自動部署壓縮到 /dist 底下, 並啟動 localhost server</div>
+    </div>
   </div>
 </div>
 <div class="content">
-  <div class="title">工作分配</div>
+  <div class="title">內容介紹</div>
   <div class="subContent">
-    <div>Lib / Serv 負責提供函式庫, 處理程式及資料邏輯</div>
-    <div>Module / Ctrl 負責 UI 單位元件</div>
-    <div>Page 負責頁面功能及動態整合</div>
+    <div class="subTitle">引用 libraries</div>
+    <div class="subContent">
+      <div>caro.js </div>
+      <div>jQuery</div>
+      <div>lodash</div>
+      <div>mobile-detect</div>
+    </div>
   </div>
-</div>
-<div class="content">
-  <div class="title">開發用工具</div>
   <div class="subContent">
-    <div>npm</div>
-    <div>gulp</div>
-    <div>bower</div>
+    <div class="subTitle">主要檔案介紹</div>
+    <div class="subContent">
+      <div>src/_app: cf 主函式</div>
+      <div>src/config: 設定檔, 視使用情形修改  </div>
+    </div>
   </div>
-</div>
-<div class="content">
-  <div class="title">引用 libraries</div>
   <div class="subContent">
-    <div>caro.js </div>
-    <div>jQuery</div>
-    <div>lodash</div>
-    <div>mobile-detect</div>
+    <div class="subTitle">工作分配</div>
+    <div class="subContent">
+      <div>Lib / Serv 負責提供函式庫, 處理程式及資料邏輯</div>
+      <div>Module / Ctrl 負責 UI 單位元件</div>
+      <div>Page 負責頁面功能及動態整合</div>
+    </div>
   </div>
-</div>
-<div class="content">
-  <div class="title">支援 .coffee </div>
   <div class="subContent">
-    <div>在 gulp 時會自動 watch 並編譯成 js </div>
-    <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下</div>
-    <div>所以如果不使用 coffee script 請直接移除</div>
+    <div class="subTitle">資料夾基本介紹</div>
+    <div class="subContent">
+      <div>_compatibility: 瀏覽器相容性 程式, 如不考慮相容性可直接移除</div>
+      <div>_plugin: 外掛程式</div>
+    </div>
   </div>
-</div>
-<div class="content">
-  <div class="title">使用 inject file </div>
   <div class="subContent">
-    <div>在 gulp 時會掃描 js / css 檔, 並寫入 script, link tag 到 src/index.html</div>
+    <div class="subTitle">對應 gulpfile_config.js 的設定資料夾基本介紹 </div>
+    <div class="subContent">
+      <div>coffee: coffee script 檔</div>
+      <div>css: css 檔</div>
+      <div>images: 圖檔</div>
+      <div>js: js 檔</div>
+    </div>
   </div>
-</div>
-<div class="content">
-  <div class="title">基本安裝</div>
   <div class="subContent">
-    <div>安裝 npm </div>
-    <div>npm install -g bower 安裝 bower </div>
-    <div>npm i 安裝開發檔案 </div>
-    <div>bower i 安裝 framework 基本函式庫</div>
+    <div class="subTitle">js and coffee 分類 </div>
+    <div class="subContent">
+      <div>ctrl: controller 模組, 類似 plugin, 用於網站客製化的功能 (e.g. 每個分頁都會有的選單) </div>
+      <div>lib: 一般函式庫</div>
+      <div>module: Framework 專用外掛</div>
+      <div>page: 內頁程式 </div>
+      <div>serv: 頁面函式庫</div>
+    </div>
   </div>
-</div>
-<div class="content">
-  <div class="title">gulp 執行指令</div>
   <div class="subContent">
-    <div>gulp buildImg: 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
-    <div>gulp buildImgWithMin: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
-    <div>gulp buildProd: 壓縮到 /dist 底下</div>
-    <div>gulp buildProdWithMap: 壓縮到 /dist 底下, 並產生 sourceMap</div>
-    <div>gulp: 自動部署, 並啟動 localhost server</div>
-    <div>gulp prod: 自動部署壓縮到 /dist 底下, 並啟動 localhost server</div>
+    <div class="subTitle">lib / serv 函式庫介紹</div>
+    <div class="subContent">
+      <div>差別只在於作用域不同 , 可依照使用者需求自行定義</div>
+      <div>lib 應用於特定功能, serv 應用於 page 的邏輯處理</div>
+    </div>
   </div>
-</div>
-<div class="content">
-  <div class="title">主要檔案介紹</div>
   <div class="subContent">
-    <div>src/_app: cf 主函式</div>
-    <div>src/config: 設定檔, 視使用情形修改  </div>
-  </div>
-</div>
-<div class="content">
-  <div class="title">資料夾基本介紹 </div>
-  <div class="subContent">
-    <div>_compatibility: 瀏覽器相容性 程式, 如不考慮相容性可直接移除</div>
-    <div>_plugin: 外掛程式</div>
-    <div>api: 後端 api   檔</div>
-  </div>
-</div>
-<div class="content">
-  <div class="title">對應 gulpfile_config.js 的設定資料夾基本介紹 </div>
-  <div class="subContent">
-    <div>coffee: coffee script 檔, 對應 </div>
-    <div>css: css 檔</div>
-    <div>images: 圖檔</div>
-    <div>js: js 檔</div>
-    <div>template: 分頁內容  </div>
-  </div>
-</div>
-<div class="content">
-  <div class="title">coffee/js 分類 </div>
-  <div class="subContent">
-    <div>ctrl: controller 模組, 類似 plugin, 用於網站客製化的功能 (e.g. 每個分頁都會有的選單) </div>
-    <div>lib: 一般函式庫</div>
-    <div>module: framework 專用外掛</div>
-    <div>page: 內頁程式 </div>
-    <div>serv: 頁面函式庫</div>
-  </div>
-</div>
-<div class="content">
-  <div class="title">lib/serv 函式庫差別</div>
-  <div class="subContent">
-    <div>差別只在於作用域不同 </div>
-    <div>lib 應用於特定功能, serv 應用於 page 的邏輯處理</div>
-  </div>
-</div>
-<div class="content">
-  <div class="title">module/ctrl 模組差別</div>
-  <div class="subContent">
-    <div> 用法類似 jQuery plugin, 差別只在於作用域不同 </div>
-    <div> module 適用所有專案, ctrl 為專案客製化功能 </div>
+    <div class="subTitle">module / ctrl 模組介紹</div>
+    <div class="subContent">
+      <div> 用法類似 jQuery plugin , 可依照使用者需求自行定義</div>
+      <div> module 適用所有專案, ctrl 為專案客製化功能 </div>
+    </div>
   </div>
 </div>
