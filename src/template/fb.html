@@ -20,89 +20,83 @@
   <div class="title">函式</div>
   <div class="subContent">
     <div class="tip2">regInitCb(name, cb): 註冊當 fb-sdk init 完成後要執行的 cb</div>
-  </div>
-  <div class="subContent">
     <div class="tip2">isReady(): 判斷 FB 是否 ready</div>
-  </div>
-  <div class="subContent">
     <div class="tip2">getAppId(): 取得 FB APP id</div>
-  </div>
-  <div class="subContent">
     <div class="tip2">getUserId(): 取得 user id</div>
-  </div>
-  <div class="subContent">
     <div class="tip2">getAccessToken(): 取得 access token</div>
-  </div>
-  <div class="subContent">
     <div class="tip2">
       getLoginStatus(): 取得登入狀態, 同FB.getLoginStatus, 另支援函式 .suc 和 .err;
       <a class="link" href="https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/" target="_blank"> 官方文件 </a>
     </div>
-    <div class="link codeLink">範例</div>
-    <div class="block codeTarget">
-      <div>cf.fb.getLoginStatus().suc(function(){</div>
-      <div class="mark2">&nbsp;&nbsp;// 狀態是登入</div>
-      <div>}).err(function(err){</div>
-      <div class="mark2">&nbsp;&nbsp;// 狀態是未登入</div>
-      <div>});</div>
+    <div class="subContent">
+      <div class="codeLink">範例</div>
+      <div class="codeTarget">
+        <div>cf.fb.getLoginStatus().suc(function(){</div>
+        <div class="mark2">&nbsp;&nbsp;// 狀態是登入</div>
+        <div>}).err(function(err){</div>
+        <div class="mark2">&nbsp;&nbsp;// 狀態是未登入</div>
+        <div>});</div>
+      </div>
     </div>
-  </div>
-  <div class="subContent">
     <div class="tip2">
       login([opt={}]): 登入, 同 FB.login, 另支援函式 .suc 和 .err;
       <a class="link" href="https://developers.facebook.com/docs/reference/javascript/FB.login/" target="_blank"> 官方文件 </a>
     </div>
-    <div class="subTitle">opt 參數</div>
-    <div>同 FB.login 的 options</div>
-    <div class="link codeLink">範例</div>
-    <div class="block codeTarget">
-      <div class="mark2">// 會自動開啟 fb login 視窗</div>
-      <div>cf.fb.login().suc(function(){</div>
-      <div class="mark2">&nbsp;&nbsp;// 狀態是登入</div>
-      <div>}).err(function(err){</div>
-      <div class="mark2">&nbsp;&nbsp;// 狀態是未登入</div>
-      <div>});</div>
+    <div class="subContent">
+      <div class="subTitle">opt 參數</div>
+      <div class="subContent">
+        <div>同 FB.login 的 options</div>
+      </div>
+      <div class="codeLink">範例</div>
+      <div class="codeTarget">
+        <div class="mark2">// 會自動開啟 fb login 視窗</div>
+        <div>cf.fb.login().suc(function(){</div>
+        <div class="mark2">&nbsp;&nbsp;// 狀態是登入</div>
+        <div>}).err(function(err){</div>
+        <div class="mark2">&nbsp;&nbsp;// 狀態是未登入</div>
+        <div>});</div>
+      </div>
     </div>
-  </div>
-  <div class="subContent">
     <div class="tip2">
       logout(): 登出, 同 FB.logout, 另支援函式 .suc 和 .err;
       <a class="link" href="https://developers.facebook.com/docs/reference/javascript/FB.logout/" target="_blank"> 官方文件 </a>
     </div>
-    <div class="link codeLink">範例</div>
-    <div class="block codeTarget">
-      <div>cf.fb.logout().suc(function(){</div>
-      <div class="mark2">&nbsp;&nbsp;// 狀態是登入</div>
-      <div>}).err(function(err){</div>
-      <div class="mark2">&nbsp;&nbsp;// 狀態是未登入</div>
-      <div>});</div>
+    <div class="subContent">
+      <div class="codeLink">範例</div>
+      <div class="codeTarget">
+        <div>cf.fb.logout().suc(function(){</div>
+        <div class="mark2">&nbsp;&nbsp;// 狀態是登入</div>
+        <div>}).err(function(err){</div>
+        <div class="mark2">&nbsp;&nbsp;// 狀態是未登入</div>
+        <div>});</div>
+      </div>
     </div>
-  </div>
-  <div class="subContent">
     <div class="tip2">
       getProfile(fieldArr=[]): 取得 user 資料, 另支援函式 .suc 和 .err
       <a class="link" href="https://developers.facebook.com/docs/graph-api/reference/user/" target="_blank"> 官方文件 </a>
     </div>
     <div class="subTitle">fieldArr</div>
     <div>資料欄位陣列, 預設['id', 'name', 'email', 'gender']</div>
-    <div class="link codeLink">範例</div>
-    <div class="block codeTarget">
-      <div>cf.fb.getProfile().suc(function(res){</div>
-      <div class="mark2">&nbsp;&nbsp;// 成功取得 res</div>
-      <div>}).err(function(err){</div>
-      <div class="mark2">&nbsp;&nbsp;// 呼叫失敗</div>
-      <div>});</div>
+    <div class="subContent">
+      <div class="codeLink">範例</div>
+      <div class="codeTarget">
+        <div>cf.fb.getProfile().suc(function(res){</div>
+        <div class="mark2">&nbsp;&nbsp;// 成功取得 res</div>
+        <div>}).err(function(err){</div>
+        <div class="mark2">&nbsp;&nbsp;// 呼叫失敗</div>
+        <div>});</div>
+      </div>
     </div>
-  </div>
-  <div class="subContent">
     <div class="tip2">
       feed([opt={}]): 分享 fb-app, 另支援函式 .suc 和 .err;
       <a class="link" href="https://developers.facebook.com/docs/sharing/reference/feed-dialog/" target="_blank"> 官方文件 </a>
     </div>
     <div class="subTitle">opt 參數</div>
-    <div>同官方文件; 分享連結由 config 設定, 或自動取得目前所在的 url</div>
-    <div class="link codeLink">範例: 設定檔 shareUrl = 'https://carozozo.github.io/caro-front/'</div>
-    <div class="block codeTarget">
+    <div class="subContent">
+      <div>同官方文件; 分享連結由 config 設定, 或自動取得目前所在的 url</div>
+    </div>
+    <div class="codeLink">範例: 設定檔 shareUrl = 'https://carozozo.github.io/caro-front/'</div>
+    <div class="codeTarget">
       <div class="mark2">// 會自動開啟 fb feed 視窗</div>
       <div>cf.fb.feed().suc(function(res){</div>
       <div class="mark2">&nbsp;&nbsp;// 分享成功</div>

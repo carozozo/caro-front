@@ -34,7 +34,7 @@ cf.regCtrl('commonPage', function() {
   });
   $codeTargetArr = [];
   $self.find('.codeTarget').each(function(i, $codeTarget) {
-    return $codeTargetArr.push($($codeTarget).cfModal());
+    return $codeTargetArr.push($($codeTarget).addClass('block').cfModal());
   });
   $self.find('.codeLink').each(function(i, $link) {
     var $span, html;

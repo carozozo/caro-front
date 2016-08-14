@@ -33,7 +33,7 @@ cf.regCtrl 'commonPage', ->
 
   $codeTargetArr = []
   $self.find('.codeTarget').each((i, $codeTarget) ->
-    $codeTargetArr.push($($codeTarget).cfModal())
+    $codeTargetArr.push($($codeTarget).addClass('block').cfModal())
   )
   $self.find('.codeLink').each((i, $link) ->
     $link = $($link)
