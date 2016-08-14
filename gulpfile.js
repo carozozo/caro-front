@@ -90,7 +90,7 @@
       });
   };
 
-  var injectFiles = function () {
+  var injectFiles = function (type) {
     var doInject = function (source, name) {
       return inject(gulp.src(source, {read: false}), {
         name: name,
@@ -102,16 +102,36 @@
       var outputDir = isDev ? srcDir : distDir;
       var file = outputDir + '/' + fileName;
       if (isDev) {
-        gulp.src(file)
-          .pipe(doInject(injectHeadArr, 'head'))
-          .pipe(doInject(injectOtherArr, 'other'))
-          .pipe(doInject([], 'app'))
-          .pipe(gulp.dest(outputDir));
+        if (!type) {
+          gulp.src(file)
+            .pipe(doInject(injectHeadArr, 'headJs'))
+            .pipe(doInject(injectHeadArr, 'headCss'))
+            .pipe(doInject(injectOtherArr, 'otherJs'))
+            .pipe(doInject(injectOtherArr, 'otherCss'))
+            .pipe(doInject([], 'app'))
+            .pipe(gulp.dest(outputDir));
+        }
+        if (type === 'js') {
+          gulp.src(file)
+            .pipe(doInject(injectHeadArr, 'headJs'))
+            .pipe(doInject(injectOtherArr, 'otherJs'))
+            .pipe(doInject([], 'app'))
+            .pipe(gulp.dest(outputDir));
+        }
+        if (type === 'css') {
+          gulp.src(file)
+            .pipe(doInject(injectHeadArr, 'headCss'))
+            .pipe(doInject(injectOtherArr, 'otherCss'))
+            .pipe(doInject([], 'app'))
+            .pipe(gulp.dest(outputDir));
+        }
         return
       }
       gulp.src(file)
-        .pipe(doInject([], 'head'))
-        .pipe(doInject([], 'other'))
+        .pipe(doInject([], 'headJs'))
+        .pipe(doInject([], 'headCss'))
+        .pipe(doInject([], 'otherJs'))
+        .pipe(doInject([], 'otherCss'))
         .pipe(doInject([distJsDir + '/' + _prodJsName, distCssDir + '/' + _prodCssName], 'app'))
         .pipe(gulp.dest(outputDir));
     });
@@ -265,9 +285,13 @@
         if (f.isNull()) {
           del.sync(srcJsDir + '/' + relative.replace('.coffee', '.js'));
         }
-        compileCoffee(srcCoffeeDir + '/' + relative, function () {
-          injectFiles();
-        });
+        compileCoffee(srcCoffeeDir + '/' + relative);
+      });
+      watch(allSrcJsFiles, function () {
+        injectFiles('js');
+      });
+      watch(allSrcCssFiles, function () {
+        injectFiles('css');
       });
     });
   });
