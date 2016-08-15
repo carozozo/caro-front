@@ -13,19 +13,26 @@ cf.regLib 'routeAnimate', (cf) ->
       )
       duration = opt.duration or .8
       duration = duration / 2
+      position = $nextPage.css('position')
       tm.to($nowPage, duration,
-        position: 'absolute'
+        position: 'fixed'
         'margin-left': '-100%'
         ease: Power0.easeNone
       )
-      tm.fromTo($nextPage, duration, {'margin-left': '100%'},
+      tm.fromTo($nextPage, duration, {
+        position: 'fixed'
+        'margin-left': '100%'
+      }, {
         'margin-left': 0
         delay: .1
         ease: Power0.easeNone
         onComplete: ->
+          $nextPage.css(
+            position: position
+          )
           done()
           return
-      )
+      })
       return
   ### 右移換場效果 ###
   self.right = (opt = {}) ->
@@ -36,18 +43,25 @@ cf.regLib 'routeAnimate', (cf) ->
       )
       duration = opt.duration or .8
       duration = duration / 2
+      position = $nextPage.css('position')
       tm.to($nowPage, duration,
-        position: 'absolute'
-        'margin-left': '100%'
+        position: 'fixed'
+        'margin-left': '-100%'
         ease: Power0.easeNone
       )
-      tm.fromTo($nextPage, duration, {'margin-left': '-100%'},
+      tm.fromTo($nextPage, duration, {
+        position: 'fixed'
+        'margin-left': '100%'
+      }, {
         'margin-left': 0
         ease: Power0.easeNone
         onComplete: ->
+          $nextPage.css(
+            position: position
+          )
           done()
           return
-      )
+      })
       return
   ### 縮放換場效果 ###
   self.scale = (opt = {}) ->

@@ -14,24 +14,29 @@ cf.regLib('routeAnimate', function(cf) {
     }
     _router = cf.router;
     return _router._transitionFn = function(cf, $nowPage, $nextPage, done) {
-      var duration;
+      var duration, position;
       _router.$container.css({
         overflow: 'hidden'
       });
       duration = opt.duration || .8;
       duration = duration / 2;
+      position = $nextPage.css('position');
       tm.to($nowPage, duration, {
-        position: 'absolute',
+        position: 'fixed',
         'margin-left': '-100%',
         ease: Power0.easeNone
       });
       tm.fromTo($nextPage, duration, {
+        position: 'fixed',
         'margin-left': '100%'
       }, {
         'margin-left': 0,
         delay: .1,
         ease: Power0.easeNone,
         onComplete: function() {
+          $nextPage.css({
+            position: position
+          });
           done();
         }
       });
@@ -46,23 +51,28 @@ cf.regLib('routeAnimate', function(cf) {
     }
     _router = cf.router;
     return _router._transitionFn = function(cf, $nowPage, $nextPage, done) {
-      var duration;
+      var duration, position;
       _router.$container.css({
         overflow: 'hidden'
       });
       duration = opt.duration || .8;
       duration = duration / 2;
+      position = $nextPage.css('position');
       tm.to($nowPage, duration, {
-        position: 'absolute',
-        'margin-left': '100%',
+        position: 'fixed',
+        'margin-left': '-100%',
         ease: Power0.easeNone
       });
       tm.fromTo($nextPage, duration, {
-        'margin-left': '-100%'
+        position: 'fixed',
+        'margin-left': '100%'
       }, {
         'margin-left': 0,
         ease: Power0.easeNone,
         onComplete: function() {
+          $nextPage.css({
+            position: position
+          });
           done();
         }
       });
