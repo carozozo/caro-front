@@ -2,7 +2,7 @@
 <div class="content">
   <div class="title">前言</div>
   <div>
-    <div>剛出社會時, 原本對自己的未來矇懞懂懂</div>
+    <div>剛出社會時, 對未來矇懞懂懂</div>
     <div>當了半年多的業務, 也當過作業員, 後來因為興趣做了兩年美編</div>
     <div>因緣際會下接觸了 PHP, 也開始自學 Web 相關的知識</div>
     <div>而這也是我成為 Web Developer 的起點</div>
@@ -19,25 +19,25 @@
     <div>Node.js 的 Express, Sails</div>
     <br/>
 
-    <div>而在這當中, 影響我對深的就是由德國人開發的 OwnCloud 程式架構</div>
-    <div>在一步步熟悉架構之後, 我漸漸的有了一個想法</div>
+    <div>而在這當中, 影響我對深的就是由德國人開發的 OwnCloud</div>
+    <div>在一步步熟悉之後, 漸漸的有了一個想法</div>
     <h2 class="tip3">何不自己開發一個 Framework, 一套屬於自己的開發工具?</h2>
 
-    <div>於是, 當我在網路旅行社接觸 Node.js 之後</div>
+    <div>於是, 當我開始接觸 Node.js 之後</div>
     <div>一套專門為當時開發的前後端 Framework, TravelGlobal OA-System 就這樣誕生了</div>
-    <div>但那時還稱不上成熟, 因為有太多專門為公司需求而開發的項目</div>
+    <div>但因為有太多專門為公司需求而開發的項目, 那時還稱不上成熟</div>
     <div>當我試圖把功能切分開來的時候, 卻因為公司政策的關係而停擺</div>
     <br/>
 
-    <div>其後, 中間又經過了一些磨練和波折</div>
+    <div>其後又經過了一些磨練和波折</div>
     <div>也接觸到現在流行的前端 Framework Angular, React</div>
     <div>它們好不好用? 答案或許是, 但總是有太多規範和限制</div>
     <div>而且那樣的架構已經把 js 和 html 綁定在一起了</div>
     <br/>
 
-    <div>在來到現在的公司後, 就此決定開發一套專屬的前端 Framework</div>
-    <div>所以, 我最終還是選擇了自己最熟悉的 jQuery Library 作為基底</div>
-    <div>以最小限度的限制, 又可以自由擴充的函式庫和功能</div>
+    <div>來到現在的公司後, 就此決定開發一套專屬的前端 Framework</div>
+    <div>所以選擇了自己最熟悉的 jQuery Library 作為基底</div>
+    <div>以最小限度的限制(或者是沒有), 又可以自由擴充函式庫和功能</div>
     <div><span class="tip2">CaroFront</span> 就這麼漸漸形成了</div>
     <br/>
 
@@ -66,11 +66,11 @@
       <div>
         <div>在 gulp 時會自動 watch 並編譯成 js </div>
         <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下</div>
-        <div>所以如果不使用 coffee script 請直接移除</div>
+        <div class="tip3">所以如果不使用 coffee script 請直接移除</div>
       </div>
       <div class="subTitle2">使用 inject file </div>
       <div>
-        <div>在 gulp 時會掃描 js / css 檔, 並寫入 script, link tag 到 src/index.html</div>
+        <div>在 gulp 時會掃描 js / css 檔, 並寫入 script, link tag 到 gulpfile_config 設定的檔案</div>
       </div>
     </div>
     <div class="subTitle1">工具</div>
@@ -93,7 +93,7 @@
       <div>安裝 npm </div>
       <div>npm install -g bower 安裝 bower</div>
       <div>npm i 安裝開發檔案 </div>
-      <div>bower i 安裝 Framework 基本函式庫</div>
+      <div>bower i 安裝 Framework 需要的基本函式庫</div>
     </div>
     <div class="subTitle1">gulp 執行指令</div>
     <div>
@@ -101,7 +101,7 @@
       <div><span class="tip2">gulp buildImgWithMin</span>: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
       <div><span class="tip2">gulp buildProd</span>: 壓縮到 /dist 底下</div>
       <div><span class="tip2">gulp buildProdWithMap</span>: 壓縮到 /dist 底下, 並產生 sourceMap</div>
-      <div><span class="tip2">gulp</span>: 自動部署, 並啟動 localhost server</div>
+      <div><span class="tip2">gulp</span>: 自動部署, 啟動 localhost server 並監聽 coffee, js, css 檔案</div>
       <div><span class="tip2">gulp prod</span>: 自動部署壓縮到 /dist 底下, 並啟動 localhost server</div>
     </div>
   </div>
@@ -109,7 +109,7 @@
 <div class="content">
   <div class="title">內容介紹</div>
   <div>
-    <div class="subTitle1">引用 libraries</div>
+    <div class="subTitle1">需要的基本函式庫</div>
     <div>
       <div>
         <a class="link" href="https://github.com/carozozo/caro" target="_blank">caro.js </a>
@@ -117,15 +117,15 @@
       </div>
       <div>
         <a class="link" href="https://jquery.com/" target="_blank">jQuery</a>
-        : 提供 Browser 基本, 應用函式庫
+        : 提供 Browser 基本及應用函式庫
       </div>
       <div>
         <a class="link" href="https://lodash.com/" target="_blank">lodash</a>
-        : 提供基本, 應用函式庫
+        : 提供基本及應用函式庫
       </div>
       <div>
         <a class="link" href="http://hgoebl.github.io/mobile-detect.js/" target="_blank">mobile-detect</a>
-        : 判斷載具函式庫
+        : 判斷載具函式庫, 應用於 RWC 及相容性處理
       </div>
     </div>
     <div class="subTitle1">主要檔案介紹</div>
@@ -141,8 +141,8 @@
     </div>
     <div class="subTitle1">資料夾基本介紹</div>
     <div>
-      <div>_compatibility: 瀏覽器相容性 程式, 如不考慮相容性可直接移除</div>
-      <div>_plugin: 外掛程式</div>
+      <div>_compatibility: 瀏覽器相容性 程式, <spa class="tip2">如不考慮相容性可直接移除</spa></div>
+      <div>_plugin: 外部函式庫及外掛程式</div>
     </div>
     <div class="subTitle1">對應 gulpfile_config.js 的設定資料夾基本介紹 </div>
     <div>
@@ -153,7 +153,7 @@
     </div>
     <div class="subTitle1">js and coffee 分類 </div>
     <div>
-      <div>ctrl: controller 模組, 類似 plugin, 用於網站客製化的功能 (e.g. 每個分頁都會有的選單) </div>
+      <div>ctrl: controller 模組, 類似 plugin, 用於網站客製化的功能 (e.g. 頁面右邊的選單) </div>
       <div>lib: 一般函式庫</div>
       <div>module: Framework 專用外掛</div>
       <div>page: 內頁程式 </div>
@@ -187,7 +187,6 @@
   <div class="title">module 介紹</div>
   <div>
     <div>cfAddrDropdown : 地址下拉選單</div>
-    <div>cfAnimated : 簡化外掛 Animate.css 使用方式</div>
     <div>cfCircleShow : DOM circle 輪播效果</div>
     <div>cfCompatibility : form 欄位相容性處理</div>
     <div>cfDateDropdown : 日期下拉選單</div>
