@@ -1,6 +1,5 @@
 ### 一些單元程式 ###
 cf.regLib 'unit', (cf) ->
-  self = {}
   $ = cf.require('$')
   caro = cf.require('caro')
   window = cf.require('window')

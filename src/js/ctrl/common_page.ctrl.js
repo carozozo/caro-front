@@ -52,7 +52,9 @@ cf.regCtrl('commonPage', function() {
   }).staggerFrom($title, .3, {
     y: -20,
     opacity: 0
-  }, .2, '-=0.3');
+  }, .2, '-=0.3', function() {
+    return $($('.subContent')[0]).slideDown();
+  });
   return $self;
 });
 

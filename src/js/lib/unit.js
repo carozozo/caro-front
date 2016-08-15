@@ -2,7 +2,6 @@
 /* 一些單元程式 */
 cf.regLib('unit', function(cf) {
   var $, _cfg, _imgUrl, caro, location, self, window;
-  self = {};
   $ = cf.require('$');
   caro = cf.require('caro');
   window = cf.require('window');

@@ -58,7 +58,8 @@ cf.regCtrl 'commonPage', ->
   ).staggerFrom($title, .3,
     y: -20
     opacity: 0
-  , .2, '-=0.3')
+  , .2, '-=0.3', -> $($('.subContent')[0]).slideDown()
+  )
 
   $self
 
