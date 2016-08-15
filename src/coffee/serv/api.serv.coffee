@@ -4,10 +4,10 @@ cf.regServ 'api', (cf) ->
   _cfg = cf.config('ajax')
   _isTest = cf.isLocal or _cfg.isTestMode
   _ajax = cf.ajax
-  _indexUrl = cf.indexUrl
+  _nowUrl = cf.nowUrl
 
   generateApiUrl = (apiName) ->
-    apiUrl = _indexUrl + 'api/'
+    apiUrl = _nowUrl + 'api/'
     apiUrl += apiName + '.ashx'
     apiUrl
 

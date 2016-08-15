@@ -29,12 +29,10 @@ do(window, $, caro, MobileDetect) ->
   self.isBefIe8 = false
   ### 瀏覽器是否為 IE9 之前的版本   ###
   self.isBefIe9 = false
-  ### 首頁網址 ###
-  self.indexUrl = do(window) ->
+  ### 所在網址, 不包含 hash 和 search ###
+  self.nowUrl = do(window) ->
     location = window.location
-    pathnameArr = location.pathname.split('/')
-    pathnameArr.pop()
-    location.protocol + '//' + location.host + caro.addTail(pathnameArr.join('/'), '/')
+    location.protocol + '//' + location.host + location.pathname
 
   ### 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 ###
   _docReady = {
@@ -145,12 +143,12 @@ do(window, $, caro, MobileDetect) ->
   ### config 相關 ###
   do(self, window, caro) ->
     _cfg = self.$$config
-    indexUrl = self.indexUrl.replace('https://', '')
-    indexUrl = indexUrl.replace('http://', '')
+    nowUrl = self.nowUrl.replace('https://', '')
+    nowUrl = nowUrl.replace('http://', '')
     ### 比對符合的首頁網址, 並 assign config ###
     self.regDifCfg = (url, cfg) ->
       url = caro.addTail(url, '/')
-      return if indexUrl isnt url
+      return if nowUrl isnt url
       caro.forEach(cfg, (subCfg, subCfgKey) ->
         _cfg[subCfgKey] = caro.assign(_cfg[subCfgKey], subCfg)
       )

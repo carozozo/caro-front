@@ -1,7 +1,7 @@
 
 /* 客製化 facebook api 呼叫程式 */
 cf.regLib('fb', function(cf) {
-  var _alert, _appId, _authResponse, _cfg, _indexUrl, _initCbMap, _isPhone, _isReady, _isUserConnected, _redirectAfterLogin, _sdkVersion, _shareUrl, _trace, _urlAftLogin, caro, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
+  var _alert, _appId, _authResponse, _cfg, _initCbMap, _isPhone, _isReady, _isUserConnected, _nowUrl, _redirectAfterLogin, _sdkVersion, _shareUrl, _trace, _urlAftLogin, caro, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
   self = {};
   caro = cf.require('caro');
   window = cf.require('window');
@@ -18,7 +18,7 @@ cf.regLib('fb', function(cf) {
   /* https://developers.facebook.com/docs/facebook-login/permissions */
   _isUserConnected = false;
   _authResponse = {};
-  _indexUrl = cf.indexUrl;
+  _nowUrl = cf.nowUrl;
 
   /* 取得登入 FB 後要跳轉的網址 */
   _urlAftLogin = (function() {
@@ -26,7 +26,7 @@ cf.regLib('fb', function(cf) {
     urlArr = ['https://'];
     urlArr.push(_isPhone ? 'm' : 'www');
     urlArr.push('.facebook.com/dialog/oauth?client_id=' + _appId + '&scope=&auth_type=rerequest');
-    pageAfterLogin = _redirectAfterLogin ? caro.addTail(_redirectAfterLogin, '.html') : _indexUrl;
+    pageAfterLogin = _redirectAfterLogin ? caro.addTail(_redirectAfterLogin, '.html') : _nowUrl;
     urlArr.push('&redirect_uri=' + pageAfterLogin);
     return urlArr.join('');
   })();
@@ -241,7 +241,7 @@ cf.regLib('fb', function(cf) {
       param = opt;
       displayArr = ['popup', 'dialog', 'iframe', 'touch', 'async', 'hidden', 'none'];
       param.method = 'feed';
-      param.link = _shareUrl || _indexUrl;
+      param.link = _shareUrl || _nowUrl;
       param.caption = param.caption || param.link;
       if (param.display && displayArr.indexOf(param.display) < 0) {
         delete param.display;

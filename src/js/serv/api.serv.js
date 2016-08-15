@@ -1,15 +1,15 @@
 
 /* 自定義 api */
 cf.regServ('api', function(cf) {
-  var _ajax, _cfg, _indexUrl, _isTest, generateApiUrl, self;
+  var _ajax, _cfg, _isTest, _nowUrl, generateApiUrl, self;
   self = {};
   _cfg = cf.config('ajax');
   _isTest = cf.isLocal || _cfg.isTestMode;
   _ajax = cf.ajax;
-  _indexUrl = cf.indexUrl;
+  _nowUrl = cf.nowUrl;
   generateApiUrl = function(apiName) {
     var apiUrl;
-    apiUrl = _indexUrl + 'api/';
+    apiUrl = _nowUrl + 'api/';
     apiUrl += apiName + '.ashx';
     return apiUrl;
   };

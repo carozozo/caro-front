@@ -46,13 +46,11 @@
   /* 瀏覽器是否為 IE9 之前的版本 */
   self.isBefIe9 = false;
 
-  /* 首頁網址 */
-  self.indexUrl = (function(window) {
-    var location, pathnameArr;
+  /* 所在網址, 不包含 hash 和 search */
+  self.nowUrl = (function(window) {
+    var location;
     location = window.location;
-    pathnameArr = location.pathname.split('/');
-    pathnameArr.pop();
-    return location.protocol + '//' + location.host + caro.addTail(pathnameArr.join('/'), '/');
+    return location.protocol + '//' + location.host + location.pathname;
   })(window);
 
   /* 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 */
@@ -190,15 +188,15 @@
 
   /* config 相關 */
   (function(self, window, caro) {
-    var _cfg, indexUrl;
+    var _cfg, nowUrl;
     _cfg = self.$$config;
-    indexUrl = self.indexUrl.replace('https://', '');
-    indexUrl = indexUrl.replace('http://', '');
+    nowUrl = self.nowUrl.replace('https://', '');
+    nowUrl = nowUrl.replace('http://', '');
 
     /* 比對符合的首頁網址, 並 assign config */
     self.regDifCfg = function(url, cfg) {
       url = caro.addTail(url, '/');
-      if (indexUrl !== url) {
+      if (nowUrl !== url) {
         return;
       }
       caro.forEach(cfg, function(subCfg, subCfgKey) {

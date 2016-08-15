@@ -15,13 +15,13 @@ cf.regLib 'fb', (cf) ->
   ### https://developers.facebook.com/docs/facebook-login/permissions ###
   _isUserConnected = false
   _authResponse = {}
-  _indexUrl = cf.indexUrl
+  _nowUrl = cf.nowUrl
   ### 取得登入 FB 後要跳轉的網址 ###
   _urlAftLogin = do ->
     urlArr = ['https://']
     urlArr.push if _isPhone then 'm' else 'www'
     urlArr.push '.facebook.com/dialog/oauth?client_id=' + _appId + '&scope=&auth_type=rerequest'
-    pageAfterLogin = if _redirectAfterLogin then caro.addTail(_redirectAfterLogin, '.html') else _indexUrl
+    pageAfterLogin = if _redirectAfterLogin then caro.addTail(_redirectAfterLogin, '.html') else _nowUrl
     urlArr.push '&redirect_uri=' + pageAfterLogin
     urlArr.join('')
 
@@ -199,7 +199,7 @@ cf.regLib 'fb', (cf) ->
         'none'
       ]
       param.method = 'feed'
-      param.link = _shareUrl or _indexUrl
+      param.link = _shareUrl or _nowUrl
       param.caption = param.caption or param.link
       if param.display and displayArr.indexOf(param.display) < 0
         delete param.display
