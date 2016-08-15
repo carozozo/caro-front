@@ -1,5 +1,5 @@
 
-/* 頁面跳轉程式 */
+/* 分頁跳轉程式 */
 cf.regLib('router', function(cf) {
   var $, _cfg, _isGoPage, _trace, caro, self, window;
   $ = cf.require('$');
@@ -10,26 +10,26 @@ cf.regLib('router', function(cf) {
   _trace = cf.genTraceFn('router');
   self = {};
 
-  /* 當下頁面的容器 */
+  /* 當下分頁的容器 */
   self.$container = null;
 
-  /* 當下頁面的 Dom */
+  /* 當下分頁的 Dom */
   self.$page = null;
 
-  /* 儲存轉換頁面前要執行的 fns, 裡面的 key 為執行順序 */
+  /* 儲存每次執行 cf.goPage 前要執行的 fns, 裡面的 key 為執行順序 */
   self._befPage = {
     50: []
   };
 
-  /* 儲存載入頁面前要執行的 fns, 裡面的 key 為執行順序 */
+  /* 儲存載入分頁前要執行的 fns, 裡面的 key 為執行順序 */
   self._prePage = {
     50: []
   };
 
-  /* 儲存載入頁面後要執行的對應 fn */
+  /* 儲存載入分頁後要執行的對應 fn */
   self._page = {};
 
-  /* 儲存載入頁面後要執行的 fns, 裡面的 key 為執行順序 */
+  /* 儲存載入分頁後要執行的 fns, 裡面的 key 為執行順序 */
   self._aftPage = {
     50: []
   };
@@ -37,10 +37,14 @@ cf.regLib('router', function(cf) {
   /* 換頁效果程式 */
   self._transitionFn = null;
 
-  /* 當下頁面名稱 */
+  /* 當下分頁名稱 */
   self.pageName = '';
+
+  /* 記錄要放置分頁的資料夾路徑 */
   self.templateDir = caro.addTail(_cfg.templateDir || '', '/');
-  self.templateFileType = caro.addHead(_cfg.templateFileType || 'html', '.');
+
+  /* 記錄要載入的分頁副檔名 */
+  self.templateExtname = caro.addHead(_cfg.templateExtname || 'html', '.');
 
   /* 註冊 page 載入前後的 callback */
   (function(self, caro) {
@@ -60,13 +64,13 @@ cf.regLib('router', function(cf) {
     /* 註冊 [當 Router 準備換頁前] 要執行的 function */
     self.regBefPage = caro.partial(regPageCb, 'befPage');
 
-    /* 註冊 [當 Router 載入頁面前] 要執行的 function */
+    /* 註冊 [當 Router 載入分頁前] 要執行的 function */
     self.regPrePage = caro.partial(regPageCb, 'prePage');
 
-    /* 註冊 [當 Router 載入頁面後] 要執行的 function */
+    /* 註冊 [當 Router 載入分頁後] 要執行的 function */
     self.regAftPage = caro.partial(regPageCb, 'aftPage');
 
-    /* 註冊 [當 Router 載入頁面後] 要執行的對應 function */
+    /* 註冊 [當 Router 載入分頁後] 要執行的對應 function */
     self.regPage = function(pageName, fn) {
       var pageMap;
       pageMap = self._page;
@@ -123,7 +127,7 @@ cf.regLib('router', function(cf) {
       return obj;
     };
 
-    /* 從 hash 取得目前頁面名稱 */
+    /* 從 hash 取得目前分頁名稱 */
     self.getPageByHash = function(hash) {
       if (hash == null) {
         hash = location.hash;
@@ -147,18 +151,21 @@ cf.regLib('router', function(cf) {
     };
   })(caro, window);
 
-  /* 頁面載入相關 */
+  /* 分頁載入相關 */
   (function(cf, self, window, $) {
     var doPageFns, setPageContent;
-    doPageFns = function(pageObj) {
+    doPageFns = function(pageObj, $page) {
       caro.forEach(pageObj, function(fns) {
         caro.forEach(fns, function(fn) {
-          fn && fn(self);
+          fn && fn(cf, $page);
         });
       });
     };
-    setPageContent = function(pageName) {
-      var go, pageFile, pageMap;
+    setPageContent = function(pageName, opt) {
+      var fileType, go, pageFile, pageMap;
+      if (opt == null) {
+        opt = {};
+      }
       pageMap = self._page;
       go = function() {
         var $nowPage, $page, doneFn, setPage;
@@ -175,8 +182,9 @@ cf.regLib('router', function(cf) {
           $page.html(html).appendTo(self.$container);
           self.$page = $page;
           self.pageName = pageName;
+          doPageFns(self._prePage, $page);
           pageFn && pageFn(cf, $page);
-          doPageFns(self._aftPage);
+          doPageFns(self._aftPage, $page);
         };
         doneFn = function() {
           $nowPage && $nowPage.remove();
@@ -190,7 +198,8 @@ cf.regLib('router', function(cf) {
         }
       };
       if (!(pageMap[pageName] && pageMap[pageName].html)) {
-        pageFile = caro.addTail(pageName, self.templateFileType);
+        fileType = opt.fileType || self.templateExtname;
+        pageFile = caro.addTail(pageName, fileType);
         $.ajax(self.templateDir + pageFile).success(function(html) {
           if (!pageMap[pageName]) {
             pageMap[pageName] = {};
@@ -208,7 +217,7 @@ cf.regLib('router', function(cf) {
             return self.goPage('index');
           }
 
-          /* 嘗試換頁到第一個註冊的頁面 */
+          /* 嘗試換頁到第一個註冊的分頁 */
           pageNameArr = caro.keys(pageMap);
           firstPage = pageNameArr[0];
           if (firstPage) {
@@ -220,8 +229,8 @@ cf.regLib('router', function(cf) {
       go();
     };
 
-    /* 換頁, 不指定頁面時會依 url hash 判斷 */
-    self.goPage = function(hashName) {
+    /* 換頁, 不指定分頁時會依 url hash 判斷 */
+    self.goPage = function(hashName, opt) {
       var pageName, search;
       doPageFns(self._befPage);
       pageName = self.getPageByHash(hashName) || 'index';
@@ -235,7 +244,7 @@ cf.regLib('router', function(cf) {
       }
       _trace('Start goPage:', pageName);
       window.location.hash = pageName + search;
-      setPageContent(pageName);
+      setPageContent(pageName, opt);
     };
 
     /* 阻止換頁, 執行後, router.goPage 不會被觸發 */

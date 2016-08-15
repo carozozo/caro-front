@@ -1,4 +1,4 @@
-### 頁面跳轉程式 ###
+### 分頁跳轉程式 ###
 cf.regLib 'router', (cf) ->
   $ = cf.require('$')
   caro = cf.require('caro')
@@ -9,30 +9,32 @@ cf.regLib 'router', (cf) ->
   #  _trace.startTrace();
 
   self = {}
-  ### 當下頁面的容器 ###
+  ### 當下分頁的容器 ###
   self.$container = null
-  ### 當下頁面的 Dom ###
+  ### 當下分頁的 Dom ###
   self.$page = null
-  ### 儲存轉換頁面前要執行的 fns, 裡面的 key 為執行順序 ###
+  ### 儲存每次執行 cf.goPage 前要執行的 fns, 裡面的 key 為執行順序 ###
   self._befPage = {
     50: []
   }
-  ### 儲存載入頁面前要執行的 fns, 裡面的 key 為執行順序 ###
+  ### 儲存載入分頁前要執行的 fns, 裡面的 key 為執行順序 ###
   self._prePage = {
     50: []
   }
-  ### 儲存載入頁面後要執行的對應 fn ###
+  ### 儲存載入分頁後要執行的對應 fn ###
   self._page = {}
-  ### 儲存載入頁面後要執行的 fns, 裡面的 key 為執行順序 ###
+  ### 儲存載入分頁後要執行的 fns, 裡面的 key 為執行順序 ###
   self._aftPage = {
     50: []
   }
   ### 換頁效果程式 ###
   self._transitionFn = null
-  ### 當下頁面名稱 ###
+  ### 當下分頁名稱 ###
   self.pageName = ''
+  ### 記錄要放置分頁的資料夾路徑 ###
   self.templateDir = caro.addTail(_cfg.templateDir or '', '/')
-  self.templateFileType = caro.addHead(_cfg.templateFileType or 'html', '.')
+  ### 記錄要載入的分頁副檔名 ###
+  self.templateExtname = caro.addHead(_cfg.templateExtname or 'html', '.')
 
   ### 註冊 page 載入前後的 callback ###
   do(self, caro) ->
@@ -44,11 +46,11 @@ cf.regLib 'router', (cf) ->
 
     ### 註冊 [當 Router 準備換頁前] 要執行的 function ###
     self.regBefPage = caro.partial(regPageCb, 'befPage')
-    ### 註冊 [當 Router 載入頁面前] 要執行的 function ###
+    ### 註冊 [當 Router 載入分頁前] 要執行的 function ###
     self.regPrePage = caro.partial(regPageCb, 'prePage')
-    ### 註冊 [當 Router 載入頁面後] 要執行的 function ###
+    ### 註冊 [當 Router 載入分頁後] 要執行的 function ###
     self.regAftPage = caro.partial(regPageCb, 'aftPage')
-    ### 註冊 [當 Router 載入頁面後] 要執行的對應 function ###
+    ### 註冊 [當 Router 載入分頁後] 要執行的對應 function ###
     self.regPage = (pageName, fn) ->
       pageMap = self._page
       unless pageMap[pageName]
@@ -90,7 +92,7 @@ cf.regLib 'router', (cf) ->
       ), obj
       obj
 
-    ### 從 hash 取得目前頁面名稱 ###
+    ### 從 hash 取得目前分頁名稱 ###
     self.getPageByHash = (hash = location.hash) ->
       parseUrlHashToObj(hash).page
 
@@ -105,17 +107,17 @@ cf.regLib 'router', (cf) ->
 
     return
 
-  ### 頁面載入相關 ###
+  ### 分頁載入相關 ###
   do(cf, self, window, $) ->
-    doPageFns = (pageObj) ->
+    doPageFns = (pageObj, $page) ->
       caro.forEach pageObj, (fns) ->
         caro.forEach fns, (fn) ->
-          fn and fn(self)
+          fn and fn(cf, $page)
           return
         return
       return
 
-    setPageContent = (pageName) ->
+    setPageContent = (pageName, opt = {}) ->
       pageMap = self._page
       go = ->
         $nowPage = self.$page
@@ -130,8 +132,9 @@ cf.regLib 'router', (cf) ->
           $page.html(html).appendTo(self.$container)
           self.$page = $page
           self.pageName = pageName
+          doPageFns(self._prePage, $page)
           pageFn and pageFn(cf, $page)
-          doPageFns(self._aftPage)
+          doPageFns(self._aftPage, $page)
           return
         doneFn = ->
           $nowPage and $nowPage.remove()
@@ -146,7 +149,8 @@ cf.regLib 'router', (cf) ->
         return
 
       unless pageMap[pageName] and pageMap[pageName].html
-        pageFile = caro.addTail(pageName, self.templateFileType)
+        fileType = opt.fileType or self.templateExtname
+        pageFile = caro.addTail(pageName, fileType)
         $.ajax(self.templateDir + pageFile).success((html) ->
           pageMap[pageName] = {} unless pageMap[pageName]
           pageMap[pageName].html = html
@@ -158,7 +162,7 @@ cf.regLib 'router', (cf) ->
             return pageName is 'index'
           )
           return self.goPage('index') if indexInfo
-          ### 嘗試換頁到第一個註冊的頁面 ###
+          ### 嘗試換頁到第一個註冊的分頁 ###
           pageNameArr = caro.keys(pageMap)
           firstPage = pageNameArr[0]
           self.goPage(firstPage) if firstPage
@@ -168,8 +172,8 @@ cf.regLib 'router', (cf) ->
       go()
       return
 
-    ### 換頁, 不指定頁面時會依 url hash 判斷 ###
-    self.goPage = (hashName) ->
+    ### 換頁, 不指定分頁時會依 url hash 判斷 ###
+    self.goPage = (hashName, opt) ->
       doPageFns(self._befPage)
       pageName = self.getPageByHash(hashName) or 'index'
       search = self.getSearchByHash(hashName)
@@ -179,7 +183,7 @@ cf.regLib 'router', (cf) ->
         return
       _trace 'Start goPage:', pageName
       window.location.hash = pageName + search
-      setPageContent pageName
+      setPageContent pageName, opt
       return
 
     ### 阻止換頁, 執行後, router.goPage 不會被觸發 ###

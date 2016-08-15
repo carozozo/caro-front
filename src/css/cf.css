@@ -287,6 +287,14 @@ header {
 .subTitle3 {
   margin: 20px 0 10px;
   padding: 5px;
+  background: #217284;
+  color: #e5e5e5;
+  line-height: 2em;
+}
+
+.subTitle3 {
+  margin: 20px 0 10px;
+  padding: 5px;
   background: #80161a;
   color: #e5e5e5;
   line-height: 2em;
@@ -307,11 +315,16 @@ header {
   font-weight: bolder;
 }
 
+.tip4 {
+  color: #33adc7;
+  font-weight: bolder;
+}
+
 .block {
   margin: 10px 0;
   padding: 10px;
   background: #e5e5e5;
-  width: 70%;
+  width: 90%;
   min-width: 200px;
   color: #0E1206;
   overflow: auto;
