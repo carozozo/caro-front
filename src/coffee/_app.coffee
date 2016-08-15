@@ -113,8 +113,6 @@ do(window, $, caro, MobileDetect) ->
       _html = null
       if !typeObj[name] and !$.fn[name]
         if page
-          page = 'template/' + page
-          page += '.html'
           $.ajax(page).success((html) ->
             _html = html
             return

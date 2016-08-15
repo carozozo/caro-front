@@ -154,8 +154,6 @@
       _html = null;
       if (!typeObj[name] && !$.fn[name]) {
         if (page) {
-          page = 'template/' + page;
-          page += '.html';
           $.ajax(page).success(function(html) {
             _html = html;
           }).error(function() {
