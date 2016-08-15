@@ -31,7 +31,8 @@ cf.regLib 'router', (cf) ->
   self._transitionFn = null
   ### 當下頁面名稱 ###
   self.pageName = ''
-  self.templateDir = if _cfg.templateDir then caro.addTail(_cfg.templateDir, '/') else 'template/'
+  self.templateDir = caro.addTail(_cfg.templateDir or '', '/')
+  self.templateFileType = caro.addHead(_cfg.templateFileType or 'html', '.')
 
   ### 註冊 page 載入前後的 callback ###
   do(self, caro) ->
@@ -145,8 +146,8 @@ cf.regLib 'router', (cf) ->
         return
 
       unless pageMap[pageName] and pageMap[pageName].html
-        htmlName = caro.addTail(pageName, '.html')
-        $.ajax(self.templateDir + htmlName).success((html) ->
+        pageFile = caro.addTail(pageName, self.templateFileType)
+        $.ajax(self.templateDir + pageFile).success((html) ->
           pageMap[pageName] = {} unless pageMap[pageName]
           pageMap[pageName].html = html
           go()

@@ -39,7 +39,8 @@ cf.regLib('router', function(cf) {
 
   /* 當下頁面名稱 */
   self.pageName = '';
-  self.templateDir = _cfg.templateDir ? caro.addTail(_cfg.templateDir, '/') : 'template/';
+  self.templateDir = caro.addTail(_cfg.templateDir || '', '/');
+  self.templateFileType = caro.addHead(_cfg.templateFileType || 'html', '.');
 
   /* 註冊 page 載入前後的 callback */
   (function(self, caro) {
@@ -157,7 +158,7 @@ cf.regLib('router', function(cf) {
       });
     };
     setPageContent = function(pageName) {
-      var go, htmlName, pageMap;
+      var go, pageFile, pageMap;
       pageMap = self._page;
       go = function() {
         var $nowPage, $page, doneFn, setPage;
@@ -189,8 +190,8 @@ cf.regLib('router', function(cf) {
         }
       };
       if (!(pageMap[pageName] && pageMap[pageName].html)) {
-        htmlName = caro.addTail(pageName, '.html');
-        $.ajax(self.templateDir + htmlName).success(function(html) {
+        pageFile = caro.addTail(pageName, self.templateFileType);
+        $.ajax(self.templateDir + pageFile).success(function(html) {
           if (!pageMap[pageName]) {
             pageMap[pageName] = {};
           }
