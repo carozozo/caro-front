@@ -253,19 +253,19 @@ header {
 }
 
 .title1 {
-  background: -webkit-linear-gradient(45deg, #828282, #bdbdbd, rgba(255, 255, 255, 0));
+  background: -webkit-linear-gradient(45deg, #828282, #bdbdbd, rgba(255, 255, 255, 0) 95%);
 }
 
 .title2 {
-  background: -webkit-linear-gradient(45deg, #354712, #8cbb2e, rgba(255, 255, 255, 0));
+  background: -webkit-linear-gradient(45deg, #354712, #8cbb2e, rgba(255, 255, 255, 0) 95%);
 }
 
 .title3 {
-  background: -webkit-linear-gradient(45deg, #80161a, #c72228, rgba(255, 255, 255, 0));
+  background: -webkit-linear-gradient(45deg, #80161a, #c72228, rgba(255, 255, 255, 0) 95%);
 }
 
 .title4 {
-  background: -webkit-linear-gradient(45deg, #217284, #33adc7, rgba(255, 255, 255, 0));
+  background: -webkit-linear-gradient(45deg, #217284, #33adc7, rgba(255, 255, 255, 0) 95%);
 }
 
 .subTitle1 {
