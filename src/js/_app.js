@@ -153,22 +153,25 @@
       typeObj = type === 'ctrl' ? _ctrl : _module;
       _html = null;
       if (!typeObj[name] && !$.fn[name]) {
-        if (page) {
-          $.ajax(page).success(function(html) {
-            _html = html;
-          }).error(function() {
-            _trace.err('Can not get' + type + 'page:', page);
-          });
-        }
         typeObj[name] = $.fn[name] = function() {
           var $dom, args;
           $dom = this;
           args = arguments;
           $dom.cf = self;
-          if (_html) {
-            $dom.html(_html);
+          if (page && !_html) {
+            $.ajax(page).success(function(html) {
+              _html = html;
+              $dom.html(_html);
+              $dom = fn.apply($dom, args);
+            }).error(function() {
+              _trace.err('Can not get' + type + 'page:', page);
+            });
+          } else {
+            if (_html) {
+              $dom.html(_html);
+            }
+            $dom = fn.apply($dom, args);
           }
-          $dom = fn.apply($dom, args);
           return $dom;
         };
         _trace(type, name, 'registered');
