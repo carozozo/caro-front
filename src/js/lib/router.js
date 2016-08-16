@@ -44,7 +44,7 @@ cf.regLib('router', function(cf) {
   self.templateDir = caro.addTail(_cfg.templateDir || '', '/');
 
   /* 記錄要載入的分頁副檔名 */
-  self.templateExtname = caro.addHead(_cfg.templateExtname || 'html', '.');
+  self.templateExtname = _cfg.templateExtname ? caro.addHead(_cfg.templateExtname, '.') : '';
 
   /* 註冊 page 載入前後的 callback */
   (function(self, caro) {

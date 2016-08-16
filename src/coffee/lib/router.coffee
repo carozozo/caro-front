@@ -34,7 +34,7 @@ cf.regLib 'router', (cf) ->
   ### 記錄要放置分頁的資料夾路徑 ###
   self.templateDir = caro.addTail(_cfg.templateDir or '', '/')
   ### 記錄要載入的分頁副檔名 ###
-  self.templateExtname = caro.addHead(_cfg.templateExtname or 'html', '.')
+  self.templateExtname = if _cfg.templateExtname then caro.addHead( _cfg.templateExtname, '.') else ''
 
   ### 註冊 page 載入前後的 callback ###
   do(self, caro) ->

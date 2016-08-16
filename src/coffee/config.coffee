@@ -7,12 +7,12 @@ do (cf) ->
   })
   ###
   templateDir: 放置分頁的資料夾路徑, 未設置代表根目錄
-  templateExtname: 放置分頁的檔案類型, 例如 html, php, jsp, 未設置代表 html
+  templateExtname: 放置的分頁路徑副檔名, 例如 html, php, jsp
   container: 分頁容器的 DOM id, 未設置時預設容器為 $('body')
   ###
   cf.config('router', {
     templateDir: 'template'
-    templateExtname: ''
+    templateExtname: '.html'
     container: 'container'
   })
   ###
