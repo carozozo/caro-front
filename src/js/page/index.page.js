@@ -13,3 +13,10 @@ cf.regDocReady(function() {
     cf.router.goPage('index');
   });
 });
+
+cf.router.regAftPage(function() {
+  cf.unit.getImgSize($('#img'), function(width, height) {
+    console.log(width);
+    return console.log(height);
+  });
+});

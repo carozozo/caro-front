@@ -7,75 +7,52 @@ cf.regLib 'unit', (cf) ->
   _cfg = cf.config('unit') or {}
 
   self = {}
-  self.imgUrl = _imgUrl = if _cfg.imgUrl then caro.addTail(_cfg.imgUrl, '/') else 'images/'
+  _imgPath = if _cfg.imgPath then caro.addTail(_cfg.imgPath, '/') else 'images/'
 
   ### window.open 進階版 ###
-  self.open = (url, specs, replace, msg) ->
+  self.open = () ->
     pop = null
-    if(specs and replace)
-      pop = window.open(url, specs, replace)
-    else if(specs)
-      pop = window.open(url, specs)
-    else
-      pop = window.open(url)
+    window.open.apply(window, arguments)
     setTimeout(->
       if !pop or pop.outerHeight is 0
-        msg = msg or '您的瀏覽器已封鎖彈出視窗'
+        msg = '您的瀏覽器已封鎖彈出視窗'
         return cf.alert(msg) if cf.alert
         alert(msg)
     , 25)
     return
 
-  ### 取得圖片真實大小 ###
+  ### 判斷是否為 jQuery 物件 ###
+  self.ifJquery = (arg) ->
+    arg instanceof jQuery
+
+  ### 取得圖片真實寬高 ###
   self.getImgSize = ($img, cb) ->
     $('<img/>').attr('src', $img.attr('src')).load ->
-      cb width: @width height: @height
+      cb(@width, @height)
       return
     return
 
-  ### 轉換成 array ###
-  self.coverArrIfNot = (arr) ->
-    if caro.isArray(arr) then arr else [arr]
-
-  ### 是否為 jQuery 物件 ###
-  self.ifJquery = (tar) ->
-    tar instanceof jQuery
-
-  ### 轉換圖片路徑 ###
-  self.replaceImgPath = ($target) ->
-    hasHttp = (str) ->
-      index = str.indexOf('http://')
-      index2 = str.indexOf('https://')
-      return index if index > -1
-      return index2 if index2 > -1
-      null
-    $target.find('*').each((i, $dom) ->
-      $dom = $($dom)
-      ### 置換圖片路徑 ###
-      src = $dom.attr('src')
-      if src and src.indexOf('images/') > -1
-        src = src.replace('images/', '')
-        $dom.attr('src', cf.website.getImgUrl(src))
-      ### 置換背景圖片路徑 ###
-      background = $dom.css('background')
-      backgroundImage = $dom.css('background-image')
-      if background
-        index = hasHttp(background)
-        if index isnt null
-          url = background.substring(index, background.indexOf('")'))
-      if(backgroundImage)
-        index = hasHttp(background)
-        if index isnt null
-          url = background.substring(index, background.indexOf('")'))
-      if(url)
-        img = url.substr(url.lastIndexOf('/') + 1)
-        $dom.css('background-image', 'url(' + cf.website.getImgUrl(img) + ')')
-    )
-    return
-
-  ### 取得 images 路徑 ###
-  self.getImgUrl = (imgFileName = '') ->
+  ### 取得圖片路徑 ###
+  self.getImgPath = (imgFileName = '') ->
     imgFileName = imgFileName.replace('/', '') if imgFileName.indexOf('/') is 0
-    _imgUrl + imgFileName.replace('images/', '')
+    _imgPath + imgFileName
+
+  ### 轉換 $dom 的圖片路徑, 由 css 設定的同樣有效 ###
+  self.replaceImgPath = ($dom, imgPath = _imgPath) ->
+    imgPath = caro.addTail(imgPath, '/')
+    setFilePath = (path) ->
+      fileName = path.substr(path.lastIndexOf('/') + 1)
+      imgPath + fileName
+    ### 置換圖片路徑 ###
+    src = $dom.attr('src')
+    $dom.attr('src', setFilePath(src)) if src
+    ### 置換背景圖片路徑 ###
+    background = $dom.css('background')
+    backgroundImage = $dom.css('background-image')
+    back = background or backgroundImage
+    if back
+      url = background.substring(back.indexOf('("') + 2, back.indexOf('")'))
+      $dom.css('background-image', 'url(' + setFilePath(url) + ')') if url
+    return
 
   self

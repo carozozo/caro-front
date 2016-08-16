@@ -1,29 +1,24 @@
 
 /* 一些單元程式 */
 cf.regLib('unit', function(cf) {
-  var $, _cfg, _imgUrl, caro, location, self, window;
+  var $, _cfg, _imgPath, caro, location, self, window;
   $ = cf.require('$');
   caro = cf.require('caro');
   window = cf.require('window');
   location = cf.require('location');
   _cfg = cf.config('unit') || {};
   self = {};
-  self.imgUrl = _imgUrl = _cfg.imgUrl ? caro.addTail(_cfg.imgUrl, '/') : 'images/';
+  _imgPath = _cfg.imgPath ? caro.addTail(_cfg.imgPath, '/') : 'images/';
 
   /* window.open 進階版 */
-  self.open = function(url, specs, replace, msg) {
+  self.open = function() {
     var pop;
     pop = null;
-    if (specs && replace) {
-      pop = window.open(url, specs, replace);
-    } else if (specs) {
-      pop = window.open(url, specs);
-    } else {
-      pop = window.open(url);
-    }
+    window.open.apply(window, arguments);
     setTimeout(function() {
+      var msg;
       if (!pop || pop.outerHeight === 0) {
-        msg = msg || '您的瀏覽器已封鎖彈出視窗';
+        msg = '您的瀏覽器已封鎖彈出視窗';
         if (cf.alert) {
           return cf.alert(msg);
         }
@@ -32,88 +27,58 @@ cf.regLib('unit', function(cf) {
     }, 25);
   };
 
-  /* 取得圖片真實大小 */
+  /* 判斷是否為 jQuery 物件 */
+  self.ifJquery = function(arg) {
+    return arg instanceof jQuery;
+  };
+
+  /* 取得圖片真實寬高 */
   self.getImgSize = function($img, cb) {
     $('<img/>').attr('src', $img.attr('src')).load(function() {
-      cb({
-        width: this.width({
-          height: this.height
-        })
-      });
+      cb(this.width, this.height);
     });
   };
 
-  /* 轉換成 array */
-  self.coverArrIfNot = function(arr) {
-    if (caro.isArray(arr)) {
-      return arr;
-    } else {
-      return [arr];
-    }
-  };
-
-  /* 是否為 jQuery 物件 */
-  self.ifJquery = function(tar) {
-    return tar instanceof jQuery;
-  };
-
-  /* 轉換圖片路徑 */
-  self.replaceImgPath = function($target) {
-    var hasHttp;
-    hasHttp = function(str) {
-      var index, index2;
-      index = str.indexOf('http://');
-      index2 = str.indexOf('https://');
-      if (index > -1) {
-        return index;
-      }
-      if (index2 > -1) {
-        return index2;
-      }
-      return null;
-    };
-    $target.find('*').each(function(i, $dom) {
-      var background, backgroundImage, img, index, src, url;
-      $dom = $($dom);
-
-      /* 置換圖片路徑 */
-      src = $dom.attr('src');
-      if (src && src.indexOf('images/') > -1) {
-        src = src.replace('images/', '');
-        $dom.attr('src', cf.website.getImgUrl(src));
-      }
-
-      /* 置換背景圖片路徑 */
-      background = $dom.css('background');
-      backgroundImage = $dom.css('background-image');
-      if (background) {
-        index = hasHttp(background);
-        if (index !== null) {
-          url = background.substring(index, background.indexOf('")'));
-        }
-      }
-      if (backgroundImage) {
-        index = hasHttp(background);
-        if (index !== null) {
-          url = background.substring(index, background.indexOf('")'));
-        }
-      }
-      if (url) {
-        img = url.substr(url.lastIndexOf('/') + 1);
-        return $dom.css('background-image', 'url(' + cf.website.getImgUrl(img) + ')');
-      }
-    });
-  };
-
-  /* 取得 images 路徑 */
-  self.getImgUrl = function(imgFileName) {
+  /* 取得圖片路徑 */
+  self.getImgPath = function(imgFileName) {
     if (imgFileName == null) {
       imgFileName = '';
     }
     if (imgFileName.indexOf('/') === 0) {
       imgFileName = imgFileName.replace('/', '');
     }
-    return _imgUrl + imgFileName.replace('images/', '');
+    return _imgPath + imgFileName;
+  };
+
+  /* 轉換 $dom 的圖片路徑, 由 css 設定的同樣有效 */
+  self.replaceImgPath = function($dom, imgPath) {
+    var back, background, backgroundImage, setFilePath, src, url;
+    if (imgPath == null) {
+      imgPath = _imgPath;
+    }
+    imgPath = caro.addTail(imgPath, '/');
+    setFilePath = function(path) {
+      var fileName;
+      fileName = path.substr(path.lastIndexOf('/') + 1);
+      return imgPath + fileName;
+    };
+
+    /* 置換圖片路徑 */
+    src = $dom.attr('src');
+    if (src) {
+      $dom.attr('src', setFilePath(src));
+    }
+
+    /* 置換背景圖片路徑 */
+    background = $dom.css('background');
+    backgroundImage = $dom.css('background-image');
+    back = background || backgroundImage;
+    if (back) {
+      url = background.substring(back.indexOf('("') + 2, back.indexOf('")'));
+      if (url) {
+        $dom.css('background-image', 'url(' + setFilePath(url) + ')');
+      }
+    }
   };
   return self;
 });

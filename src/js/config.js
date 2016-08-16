@@ -45,10 +45,10 @@
   });
 
   /*
-  imgUrl: 指定圖片網址, 不設置代表本地端
+  imgPath: 放置圖片的路徑, 預設 'images/'
    */
   cf.config('unit', {
-    imgUrl: 'http://www.demo.com/images'
+    imgPath: 'https://carozozo.github.io/caro-front/images/'
   });
 
   /*
@@ -77,8 +77,8 @@
       appId: '3333333333333333',
       shareUrl: 'http://www.demo.com/demo3/'
     },
-    website: {
-      imgUrl: 'http://www.demo.com/demo3/images/'
+    unit: {
+      imgPath: 'http://www.demo.com/demo3/images/'
     }
   });
 })(cf);

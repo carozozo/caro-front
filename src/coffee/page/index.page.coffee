@@ -13,3 +13,10 @@ cf.regDocReady ->
     cf.router.goPage('index')
     return
   return
+
+cf.router.regAftPage ->
+  cf.unit.getImgSize($('#img'),(width,height)->
+    console.log width
+    console.log height
+  )
+  return
