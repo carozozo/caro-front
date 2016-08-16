@@ -43,13 +43,8 @@
   </div>
 </div>
 <div class="content">
-  <div class="title">關於開發</div>
+  <div class="title">內容介紹</div>
   <div>
-    <div class="subTitle1">方式</div>
-    <div>
-      <div>運用 gulp 自動掃描檔案並部署網站</div>
-      <div>運用 bower 控管外掛</div>
-    </div>
     <div class="subTitle1">特色</div>
     <div>
       <div class="subTitle2">以 jQuery 作為基礎</div>
@@ -60,53 +55,7 @@
       <div>
         <div>可根據不同的 url (例如 localhost, develop, production)載入相對應的設定, 減少開發複雜度</div>
       </div>
-      <div class="subTitle2">支援 .coffee </div>
-      <div>
-        <div>在 gulp 時會自動 watch 並編譯成 js </div>
-        <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下</div>
-        <div class="tip3">所以如果不使用 coffee script 請直接移除</div>
-      </div>
-      <div class="subTitle2">使用 inject file </div>
-      <div>
-        <div>在 gulp 時會掃描 js / css 檔, 並寫入 script, link tag 到 gulpfile_config 設定的檔案</div>
-      </div>
     </div>
-    <div class="subTitle1">工具</div>
-    <div>
-      <div>
-        <a class="link" href="https://www.npmjs.com/" target="_blank"> npm </a>
-        : Node.js Package 管理
-      </div>
-      <div>
-        <a class="link" href="http://gulpjs.com/" target="_blank"> gulp </a>
-        : 專案開發管理
-      </div>
-      <div>
-        <a class="link" href="https://bower.io/" target="_blank"> bower </a>
-        : 前端外掛管理
-      </div>
-    </div>
-    <div class="subTitle1">安裝</div>
-    <div>
-      <div>安裝 npm </div>
-      <div>npm install -g bower 安裝 bower</div>
-      <div>npm i 安裝開發檔案 </div>
-      <div>bower i 安裝 Framework 需要的基本函式庫</div>
-    </div>
-    <div class="subTitle1">gulp 執行指令</div>
-    <div>
-      <div><span class="tip2">gulp buildImg</span>: 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
-      <div><span class="tip2">gulp buildImgWithMin</span>: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
-      <div><span class="tip2">gulp buildProd</span>: 壓縮到 /dist 底下</div>
-      <div><span class="tip2">gulp buildProdWithMap</span>: 壓縮到 /dist 底下, 並產生 sourceMap</div>
-      <div><span class="tip2">gulp</span>: 自動部署, 啟動 localhost server 並監聽 coffee, js, css 檔案</div>
-      <div><span class="tip2">gulp prod</span>: 自動部署壓縮到 /dist 底下, 並啟動 localhost server</div>
-    </div>
-  </div>
-</div>
-<div class="content">
-  <div class="title">內容介紹</div>
-  <div>
     <div class="subTitle1">需要的基本函式庫</div>
     <div>
       <div>
@@ -205,5 +154,60 @@
     <div>cfValidator : 表單驗證</div>
     <div>cfWheel : 綁定滑鼠滾輪 event, 客製化外掛 jquery.mousewheel 使用方式</div>
     <div>dom : 提供基本 fns</div>
+  </div>
+</div>
+<div class="content">
+  <div class="title">自動化開發管理</div>
+  <div>
+    <div class="subTitle1">說明</div>
+    <div>
+      <div>運用 gulp 自動掃描檔案並部署網站</div>
+      <div>運用 bower 控管外掛</div>
+      <div class="tip3">如無此需求可將相關檔案移除, 只使用 src 底下的檔案也可進行網站製作</div>
+    </div>
+    <div class="subTitle1">特色</div>
+    <div>
+      <div class="subTitle2">支援 .coffee </div>
+      <div>
+        <div>在 gulp 時會自動 watch 並編譯成 js </div>
+        <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下</div>
+        <div class="tip3">所以如果不使用 coffee script 請直接移除</div>
+      </div>
+      <div class="subTitle2">使用 inject file </div>
+      <div>
+        <div>在 gulp 時會掃描 js / css 檔, 並寫入 script, link tag 到 gulpfile_config 設定的檔案</div>
+      </div>
+    </div>
+    <div class="subTitle1">工具</div>
+    <div>
+      <div>
+        <a class="link" href="https://www.npmjs.com/" target="_blank"> npm </a>
+        : Node.js Package 管理
+      </div>
+      <div>
+        <a class="link" href="http://gulpjs.com/" target="_blank"> gulp </a>
+        : 專案開發管理
+      </div>
+      <div>
+        <a class="link" href="https://bower.io/" target="_blank"> bower </a>
+        : 前端外掛管理
+      </div>
+    </div>
+    <div class="subTitle1">安裝</div>
+    <div>
+      <div>安裝 npm </div>
+      <div>npm install -g bower 安裝 bower</div>
+      <div>npm i 安裝開發檔案 </div>
+      <div>bower i 安裝 Framework 需要的基本函式庫</div>
+    </div>
+    <div class="subTitle1">gulp 執行指令</div>
+    <div>
+      <div><span class="tip2">gulp buildImg</span>: 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
+      <div><span class="tip2">gulp buildImgWithMin</span>: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
+      <div><span class="tip2">gulp buildProd</span>: 壓縮到 /dist 底下</div>
+      <div><span class="tip2">gulp buildProdWithMap</span>: 壓縮到 /dist 底下, 並產生 sourceMap</div>
+      <div><span class="tip2">gulp</span>: 自動部署, 啟動 localhost server 並監聽 coffee, js, css 檔案</div>
+      <div><span class="tip2">gulp prod</span>: 自動部署壓縮到 /dist 底下, 並啟動 localhost server</div>
+    </div>
   </div>
 </div>
