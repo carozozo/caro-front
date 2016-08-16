@@ -4,43 +4,48 @@ cf.regModule('cfJumpNum', function() {
   var $self;
   $self = this;
 
-  /*
-  在指定的時間內, 數字會亂跳, 時間到會顯示目標數字
-  targetNum: 目標數字
-  opt.maxSecond: 跳動的總時間(1秒)
-  opt.ms: 每幾毫秒跳一次(100毫秒)
-   */
+  /* 在指定的時間內, 數字會亂跳, 時間到會顯示目標數字 */
   $self.interval = function(targetNum, opt) {
-    var count, interval, maxSecond, ms, num, times;
-    opt = opt || {};
+    var count, interval, ms, num, range, time, times;
+    if (opt == null) {
+      opt = {};
+    }
     num = 0;
-    maxSecond = opt.maxSecond || 1;
+
+    /* 跳動的總時間(1秒) */
+    time = opt.time || 1;
+
+    /* 每幾毫秒跳一次 */
     ms = opt.ms || 100;
-    times = maxSecond * 1000 / ms;
+
+    /* 跳動的數字範圍 */
+    range = opt.range || 100000;
+    times = time * 1000 / ms;
     count = 0;
     interval = setInterval((function() {
       if (++count > times) {
         num = targetNum;
         clearInterval(interval);
       } else {
-        num = caro.randomInt(100000);
+        num = caro.randomInt(range);
       }
       $self.html(num);
     }), ms);
   };
 
-  /*
-  在指定的時間內, 數字會亂數增加到目標數字為止
-  targetNum: 目標數字
-  opt.range: 跳動的數字範圍
-  opt.ms: 每幾毫秒跳一次(100毫秒)
-   */
+  /* 在指定的時間內, 數字會亂數增加到目標數字為止 */
   $self.intervalAdd = function(targetNum, opt) {
     var interval, ms, num, range;
-    opt = opt || {};
+    if (opt == null) {
+      opt = {};
+    }
     num = 0;
-    range = opt.range || targetNum;
+
+    /* 每幾毫秒跳一次 */
     ms = opt.ms || 100;
+
+    /* 每次增加的數字範圍 */
+    range = opt.range || 1;
     interval = setInterval((function() {
       num += parseInt(Math.random() * range);
       if (num >= targetNum) {

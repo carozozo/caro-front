@@ -1,31 +1,53 @@
 #menuMain {
   position: fixed;
   right: 0;
+  top: 130px;
   z-index: 9999;
-  vertical-align: middle;
 }
 
-#menuBtn {
-  padding: 20px 10px;
+.menuBtn {
+  padding: 30px 15px;
   cursor: pointer;
   text-align: center;
-  color: #161616;
-  background: #dddddd;
+}
+
+#libBtn {
+  background: #80161a;
+}
+
+#moduleBtn {
+  margin-top: 10px;
+  background: #217284;
+}
+
+.menuContent {
+  margin-top: -50px;
+  padding: 50px 0 50px 50px;
+}
+
+.menuItemBox {
+  margin: 10px auto;
+}
+
+.arrowBtn {
+  cursor: pointer;
+  text-align: center;
+  padding: 5px 10px;
+  /*color: #161616;*/
+  background: #608020;
 }
 
 .menuItem {
   cursor: pointer;
   text-align: center;
   padding: 5px 10px;
-  margin-top: 10px;
+  margin: 5px 0 5px auto;
   color: #dddddd;
-  background: #161616;
+  background: #0E1206;
   border-top: 3px solid #dddddd;
   border-left: 3px solid #dddddd;
   border-bottom: 3px solid #dddddd;
   min-width: 70px;
-  margin-left: auto;
-  margin-right: 0;
 }
 
 .menuItem:hover {

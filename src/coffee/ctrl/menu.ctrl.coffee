@@ -3,73 +3,125 @@ cf.regCtrl 'menu', ->
   $self = @
   cf = $self.cf
   tm = cf.require('TweenMax')
-  $window = cf.$window
-  _router = cf.router
-  _height = 0
-  _moving = false
 
-  $menuContent = $self.dom('#menuContent')
-  contentWidth = $menuContent.width()
+  ### menu 列表最大高度 ###
+  _menuItemBoxHeight = 350
+  ### 每次捲動高度 ###
+  _menuScrollStep = _menuItemBoxHeight
+  $menuBtn = $self.dom('.menuBtn')
+  $libBtn = $self.dom('#libBtn')
+  $moduleBtn = $self.dom('#moduleBtn')
+  $menuContent = $self.dom('.menuContent')
+  $menuItemBox = $self.dom('.menuItemBox')
 
-  setPosition = ->
-    $self.css
-      top: ($window.height() - _height) / 2
-    return
-  hideMenu = ->
-    return if _moving
-    _moving = true
-    tm.to($self, .3
-      x: contentWidth
-      onComplete: ->
-        $menuBtn.fadeIn()
-        _moving = false
-        return
+  $menuLibItemBox = $self.dom('#menuLibItemBox')
+  $menuLibItemInnerBox = $menuLibItemBox.find('.innerBox')
+  $menuLibItemInnerBox.$$top = 0
+  $menuLibContent = $self.dom('#menuLibContent')
+  $upLibBtn = $self.dom('#upLibBtn')
+  $downLibBtn = $self.dom('#downLibBtn')
+  $menuLibItemBox.$$height = $menuLibItemBox.height()
+  _minLibTop = _menuItemBoxHeight - $menuLibItemBox.$$height - 5
+
+  $menuModuleItemBox = $self.dom('#menuModuleItemBox')
+  $menuModuleItemInnerBox = $menuModuleItemBox.find('.innerBox')
+  $menuModuleItemInnerBox.$$top = 0
+  $menuModuleContent = $self.dom('#menuModuleContent')
+  $upModuleBtn = $self.dom('#upModuleBtn')
+  $downModuleBtn = $self.dom('#downModuleBtn')
+  $menuModuleItemBox.$$height = $menuModuleItemBox.height()
+  _minModuleTop = _menuItemBoxHeight - $menuModuleItemBox.$$height - 5
+
+  if _minLibTop > -1
+    $upLibBtn.hide()
+    $downLibBtn.hide()
+  if _minModuleTop > -1
+    $upModuleBtn.hide()
+    $downModuleBtn.hide()
+
+  $menuItemBox.css(
+    'max-height': _menuItemBoxHeight
+    overflow: 'hidden'
+  )
+  $menuLibContent.hide()
+  $menuModuleContent.hide()
+  $menuLibContent.$$width = $menuLibContent.width()
+  $menuModuleContent.$$width = $menuModuleContent.width()
+
+  $menuLibContent.dom('.menuItem').eachDom(($item) ->
+    $item.onClick(->
+      id = $item.id()
+      cf.router.goPage('lib/' + id)
+      return
     )
-    return
-  showMenu = ->
-    return if _moving
-    _moving = true
-    $menuBtn.hide()
-    tm.to($self, .3
-      x: 0
-      onComplete: ->
-        _moving = false
-        return
-    )
-    return
-
-  $self.dom('.menuItem', ($menuItem) ->
-    $menuItem.each((i, $item) ->
-      $item = $($item).dom()
-      itemWidth = $item.width()
-      itemHeight = $item.height()
-      itemMarginTop = $item.getMargin('top')
-      id = $item.attr('id')
-      pageName = id.replace('menu', '').toLowerCase()
-      _height += itemHeight + itemMarginTop
-      $item.css(
-        width: itemWidth
-      )
-      $item.on('mouseenter', ->
-        tm.to($item, .2,
-          width: itemWidth * 1.5
-        )
-      ).on('mouseleave', ->
-        tm.to($item, .2,
-          width: itemWidth
-        )
-      ).on('click', ->
-        _router.goPage(pageName)
-      )
+  )
+  $menuModuleContent.dom('.menuItem').eachDom(($item) ->
+    $item.onClick(->
+      id = $item.id()
+      cf.router.goPage('module/' + id)
+      return
     )
   )
 
-  $menuBtn = $self.dom('#menuBtn').on('mouseenter', showMenu)
-  $self.on('mouseleave', hideMenu)
-  setPosition()
-  hideMenu()
-  $window.on('resize.menu', setPosition)
+  showMenu = (type) ->
+    $menuBtn.hide()
+    $content = if type is 'lib' then $menuLibContent else $menuModuleContent
+    $content.show()
+    tm.from($content, .5,
+      x: $menuLibContent.$$width
+    )
+    return
+
+  hideMenu = ->
+    $menuBtn.fadeIn()
+    $menuContent.hide()
+    return
+
+  $libBtn.on('mouseenter', ->
+    showMenu('lib')
+  )
+  $moduleBtn.on('mouseenter', ->
+    showMenu()
+  )
+  $menuContent.on('mouseleave', ->
+    hideMenu()
+  )
+
+  $upLibBtn.on('click', ->
+    newTop = $menuLibItemInnerBox.$$top + _menuScrollStep
+    newTop = 0 if newTop > 0
+    $menuLibItemInnerBox.$$top = newTop
+    tm.to($menuModuleItemInnerBox, 1,
+      y: newTop
+    )
+  )
+  $downLibBtn.on('click', ->
+    newTop = $menuLibItemInnerBox.$$top - _menuScrollStep
+    newTop = _minLibTop if newTop < _minLibTop
+    $menuLibItemInnerBox.$$top = newTop
+    tm.to($menuLibItemInnerBox, 1,
+      y: newTop
+    )
+  )
+  $upModuleBtn.on('click', ->
+    newTop = $menuModuleItemInnerBox.$$top + _menuScrollStep
+    newTop = 0 if newTop > 0
+    $menuModuleItemInnerBox.$$top = newTop
+    tm.to($menuModuleItemInnerBox, 1,
+      y: newTop
+    )
+  )
+  $downModuleBtn.on('click', ->
+    newTop = $menuModuleItemInnerBox.$$top - _menuScrollStep
+    newTop = _minModuleTop if newTop < _minModuleTop
+    $menuModuleItemInnerBox.$$top = newTop
+    tm.to($menuModuleItemInnerBox, 1,
+      y: newTop
+    )
+  )
+
   $self
+, 'template/menu.ctrl.html'
 
 cf.regDocReady (cf) ->
   $ = cf.require('$')

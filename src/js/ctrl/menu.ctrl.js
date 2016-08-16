@@ -1,80 +1,135 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 menu.ctrl.html 檔並寫入 template */
 cf.regCtrl('menu', function() {
-  var $menuBtn, $menuContent, $self, $window, _height, _moving, _router, cf, contentWidth, hideMenu, setPosition, showMenu, tm;
+  var $downLibBtn, $downModuleBtn, $libBtn, $menuBtn, $menuContent, $menuItemBox, $menuLibContent, $menuLibItemBox, $menuLibItemInnerBox, $menuModuleContent, $menuModuleItemBox, $menuModuleItemInnerBox, $moduleBtn, $self, $upLibBtn, $upModuleBtn, _menuItemBoxHeight, _menuScrollStep, _minLibTop, _minModuleTop, cf, hideMenu, showMenu, tm;
   $self = this;
   cf = $self.cf;
   tm = cf.require('TweenMax');
-  $window = cf.$window;
-  _router = cf.router;
-  _height = 0;
-  _moving = false;
-  $menuContent = $self.dom('#menuContent');
-  contentWidth = $menuContent.width();
-  setPosition = function() {
-    $self.css({
-      top: ($window.height() - _height) / 2
+
+  /* menu 列表最大高度 */
+  _menuItemBoxHeight = 350;
+
+  /* 每次捲動高度 */
+  _menuScrollStep = _menuItemBoxHeight;
+  $menuBtn = $self.dom('.menuBtn');
+  $libBtn = $self.dom('#libBtn');
+  $moduleBtn = $self.dom('#moduleBtn');
+  $menuContent = $self.dom('.menuContent');
+  $menuItemBox = $self.dom('.menuItemBox');
+  $menuLibItemBox = $self.dom('#menuLibItemBox');
+  $menuLibItemInnerBox = $menuLibItemBox.find('.innerBox');
+  $menuLibItemInnerBox.$$top = 0;
+  $menuLibContent = $self.dom('#menuLibContent');
+  $upLibBtn = $self.dom('#upLibBtn');
+  $downLibBtn = $self.dom('#downLibBtn');
+  $menuLibItemBox.$$height = $menuLibItemBox.height();
+  _minLibTop = _menuItemBoxHeight - $menuLibItemBox.$$height - 5;
+  $menuModuleItemBox = $self.dom('#menuModuleItemBox');
+  $menuModuleItemInnerBox = $menuModuleItemBox.find('.innerBox');
+  $menuModuleItemInnerBox.$$top = 0;
+  $menuModuleContent = $self.dom('#menuModuleContent');
+  $upModuleBtn = $self.dom('#upModuleBtn');
+  $downModuleBtn = $self.dom('#downModuleBtn');
+  $menuModuleItemBox.$$height = $menuModuleItemBox.height();
+  _minModuleTop = _menuItemBoxHeight - $menuModuleItemBox.$$height - 5;
+  if (_minLibTop > -1) {
+    $upLibBtn.hide();
+    $downLibBtn.hide();
+  }
+  if (_minModuleTop > -1) {
+    $upModuleBtn.hide();
+    $downModuleBtn.hide();
+  }
+  $menuItemBox.css({
+    'max-height': _menuItemBoxHeight,
+    overflow: 'hidden'
+  });
+  $menuLibContent.hide();
+  $menuModuleContent.hide();
+  $menuLibContent.$$width = $menuLibContent.width();
+  $menuModuleContent.$$width = $menuModuleContent.width();
+  $menuLibContent.dom('.menuItem').eachDom(function($item) {
+    return $item.onClick(function() {
+      var id;
+      id = $item.id();
+      cf.router.goPage('lib/' + id);
+    });
+  });
+  $menuModuleContent.dom('.menuItem').eachDom(function($item) {
+    return $item.onClick(function() {
+      var id;
+      id = $item.id();
+      cf.router.goPage('module/' + id);
+    });
+  });
+  showMenu = function(type) {
+    var $content;
+    $menuBtn.hide();
+    $content = type === 'lib' ? $menuLibContent : $menuModuleContent;
+    $content.show();
+    tm.from($content, .5, {
+      x: $menuLibContent.$$width
     });
   };
   hideMenu = function() {
-    if (_moving) {
-      return;
-    }
-    _moving = true;
-    tm.to($self, .3, {
-      x: contentWidth,
-      onComplete: function() {
-        $menuBtn.fadeIn();
-        _moving = false;
-      }
-    });
+    $menuBtn.fadeIn();
+    $menuContent.hide();
   };
-  showMenu = function() {
-    if (_moving) {
-      return;
+  $libBtn.on('mouseenter', function() {
+    return showMenu('lib');
+  });
+  $moduleBtn.on('mouseenter', function() {
+    return showMenu();
+  });
+  $menuContent.on('mouseleave', function() {
+    return hideMenu();
+  });
+  $upLibBtn.on('click', function() {
+    var newTop;
+    newTop = $menuLibItemInnerBox.$$top + _menuScrollStep;
+    if (newTop > 0) {
+      newTop = 0;
     }
-    _moving = true;
-    $menuBtn.hide();
-    tm.to($self, .3, {
-      x: 0,
-      onComplete: function() {
-        _moving = false;
-      }
-    });
-  };
-  $self.dom('.menuItem', function($menuItem) {
-    return $menuItem.each(function(i, $item) {
-      var id, itemHeight, itemMarginTop, itemWidth, pageName;
-      $item = $($item).dom();
-      itemWidth = $item.width();
-      itemHeight = $item.height();
-      itemMarginTop = $item.getMargin('top');
-      id = $item.attr('id');
-      pageName = id.replace('menu', '').toLowerCase();
-      _height += itemHeight + itemMarginTop;
-      $item.css({
-        width: itemWidth
-      });
-      return $item.on('mouseenter', function() {
-        return tm.to($item, .2, {
-          width: itemWidth * 1.5
-        });
-      }).on('mouseleave', function() {
-        return tm.to($item, .2, {
-          width: itemWidth
-        });
-      }).on('click', function() {
-        return _router.goPage(pageName);
-      });
+    $menuLibItemInnerBox.$$top = newTop;
+    return tm.to($menuModuleItemInnerBox, 1, {
+      y: newTop
     });
   });
-  $menuBtn = $self.dom('#menuBtn').on('mouseenter', showMenu);
-  $self.on('mouseleave', hideMenu);
-  setPosition();
-  hideMenu();
-  $window.on('resize.menu', setPosition);
+  $downLibBtn.on('click', function() {
+    var newTop;
+    newTop = $menuLibItemInnerBox.$$top - _menuScrollStep;
+    if (newTop < _minLibTop) {
+      newTop = _minLibTop;
+    }
+    $menuLibItemInnerBox.$$top = newTop;
+    return tm.to($menuLibItemInnerBox, 1, {
+      y: newTop
+    });
+  });
+  $upModuleBtn.on('click', function() {
+    var newTop;
+    newTop = $menuModuleItemInnerBox.$$top + _menuScrollStep;
+    if (newTop > 0) {
+      newTop = 0;
+    }
+    $menuModuleItemInnerBox.$$top = newTop;
+    return tm.to($menuModuleItemInnerBox, 1, {
+      y: newTop
+    });
+  });
+  $downModuleBtn.on('click', function() {
+    var newTop;
+    newTop = $menuModuleItemInnerBox.$$top - _menuScrollStep;
+    if (newTop < _minModuleTop) {
+      newTop = _minModuleTop;
+    }
+    $menuModuleItemInnerBox.$$top = newTop;
+    return tm.to($menuModuleItemInnerBox, 1, {
+      y: newTop
+    });
+  });
   return $self;
-});
+}, 'template/menu.ctrl.html');
 
 cf.regDocReady(function(cf) {
   var $;
