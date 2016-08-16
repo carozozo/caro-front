@@ -39,11 +39,10 @@ cf.regCtrl('commonPage', function() {
     });
   }));
   tl1 = new tl();
-  tl1.from($mainTitle, .5, {
+  tl1.from($mainTitle, .7, {
     opacity: 0,
-    x: -50
-  }, '-=0.3').from($mainTitle, .7, {
-    width: 200,
+    x: -50,
+    width: 0,
     onComplete: function() {
       $mainTitle.css({
         width: '100%'
@@ -53,7 +52,9 @@ cf.regCtrl('commonPage', function() {
     y: -20,
     opacity: 0
   }, .2, '-=0.3', function() {
-    return $($('.subContent')[0]).slideDown();
+    if (cf.router.pageName !== 'index') {
+      return $('.subContent').slideDown();
+    }
   });
   return $self;
 });

@@ -47,18 +47,17 @@ cf.regCtrl 'commonPage', ->
   )
 
   tl1 = new tl()
-  tl1.from($mainTitle, .5,
+  tl1.from($mainTitle, .7,
     opacity: 0
     x: -50
-  , '-=0.3').from($mainTitle, .7,
-    width: 200
+    width: 0
     onComplete: ->
       $mainTitle.css(width: '100%')
       return
   ).staggerFrom($title, .3,
     y: -20
     opacity: 0
-  , .2, '-=0.3', -> $($('.subContent')[0]).slideDown()
+  , .2, '-=0.3', -> $('.subContent').slideDown() unless cf.router.pageName is 'index'
   )
 
   $self
