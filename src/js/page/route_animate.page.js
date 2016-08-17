@@ -1,4 +1,4 @@
-cf.router.regPage('route_animate', function(cf, $page) {
+cf.router.regPage('lib/routeAnimate', function(cf, $page) {
   var _alert, _routeAnimate, window;
   window = cf.require('window');
   _alert = cf.alert;

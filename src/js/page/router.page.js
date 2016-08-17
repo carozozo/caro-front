@@ -1,4 +1,4 @@
-cf.router.regPage('router', function(cf, $page) {
+cf.router.regPage('lib/router', function(cf, $page) {
   var _alert, _router, window;
   window = cf.require('window');
   _alert = cf.alert;

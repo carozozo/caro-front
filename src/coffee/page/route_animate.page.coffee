@@ -1,4 +1,4 @@
-cf.router.regPage 'route_animate', (cf, $page) ->
+cf.router.regPage 'lib/routeAnimate', (cf, $page) ->
   window = cf.require('window')
   _alert = cf.alert
   _routeAnimate = cf.routeAnimate

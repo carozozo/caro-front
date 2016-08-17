@@ -431,17 +431,17 @@ cf.regModule 'cfAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
     ]
   }
   ### 縣市選單初始文字 ###
-  cityText = opt.defCityText or '請選擇縣市'
+  defCityText = opt.defCityText or '請選擇縣市'
   ### 縣市選單初始值 ###
-  cityVal = opt.defCityVal or ''
+  defCityVal = opt.defCityVal or ''
   ### 地區選單初始文字 ###
-  areaText = opt.defAreaText or '請選擇區域'
+  defAreaText = opt.defAreaText or '請選擇區域'
   ### 地區選單初始值 ###
-  areaVal = opt.defAreaVal or ''
+  defAreaVal = opt.defAreaVal or ''
   ### 是否包含離島 ###
   isIncludeIsland = opt.isIncludeIsland
   ### 地區選單是否要包含區碼 ###
-  withCode = opt.withCode
+  isWithCode = opt.isWithCode
 
   createDropdown = (text, val)->
     return $('<option />').html(text).val(val)
@@ -452,10 +452,10 @@ cf.regModule 'cfAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
     areaArr = _addrMap[$cityDom.val()]
     $areaDom.html('')
     if selectedIndex is 0
-      $areaDom.append(createDropdown(areaText, areaVal))
+      $areaDom.append(createDropdown(defAreaText, defAreaVal))
       return
     caro.forEach(areaArr, (area) ->
-      unless withCode
+      unless isWithCode
         areaStr = area.substring(3)
       else
         areaStr = area
@@ -467,8 +467,8 @@ cf.regModule 'cfAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
       return unless islandAreaArr
       _addrMap[city] = (_addrMap[city] or []).concat(islandAreaArr)
     )
-  $cityDom.html('').append(createDropdown(cityText, cityVal))
-  $areaDom.html('').append(createDropdown(areaText, areaVal))
+  $cityDom.html('').append(createDropdown(defCityText, defCityVal))
+  $areaDom.html('').append(createDropdown(defAreaText, defAreaVal))
   caro.forEach(_addrMap, (area, city) ->
     return unless area
     $cityDom.append(createDropdown(city, city))

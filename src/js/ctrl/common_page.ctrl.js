@@ -13,7 +13,9 @@ cf.regCtrl('commonPage', function() {
       var $span, html;
       $span = $('<span>').addClass(className);
       html = $subTitle.html();
-      $subTitle.removeClass(className).html($span.html(html));
+      $subTitle.removeClass(className).css({
+        'margin-top': 5
+      }).html($span.html(html));
       $subTitle.next('div').addClass('subContent');
     });
   });

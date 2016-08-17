@@ -1,4 +1,4 @@
-cf.router.regPage('cookie', function(cf, $page) {
+cf.router.regPage('lib/cookie', function(cf, $page) {
   var $getCookieName, $setCookieName, $setCookieVal, window;
   window = cf.require('window');
   $setCookieName = $page.dom('#setCookieName');

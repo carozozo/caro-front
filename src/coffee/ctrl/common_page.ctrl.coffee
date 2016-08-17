@@ -12,7 +12,9 @@ cf.regCtrl 'commonPage', ->
     $self.dom('.' + className).mapDom(($subTitle) ->
       $span = $('<span>').addClass(className)
       html = $subTitle.html()
-      $subTitle.removeClass(className).html($span.html(html))
+      $subTitle.removeClass(className).css(
+        'margin-top': 5
+      ).html($span.html(html))
       $subTitle.next('div').addClass('subContent')
       return
     )
