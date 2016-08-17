@@ -55,8 +55,8 @@
     </div>
     <div class="codeTarget">
       <div class="subTitle2">假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20</div>
-      cf.getSearchByHash();&nbsp;&nbsp;<span class="tip3">// {name: caro, age: 20}</span><br/>
-      cf.getSearchByHash('#router?name=huang');&nbsp;&nbsp;<span class="tip3">// '{name: huang}'</span>
+      cf.getSearchByHash();&nbsp;&nbsp;<span class="tip3">// {name: 'caro', age: '20'}</span><br/>
+      cf.getSearchByHash('#router?name=huang');&nbsp;&nbsp;<span class="tip3">// {name: 'huang'}</span>
     </div>
     <div class="tip2">
       regBefPage(fn, [執行順序=50]): 註冊每次執行 cf.goPage 前要執行的 fn
