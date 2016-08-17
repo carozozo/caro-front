@@ -160,18 +160,19 @@ cf.regModule('cfCircleShow', function($targetList, opt) {
   };
 
   /* 取得目前內容的 index */
-  $self.currentIndex = function() {
+  $self.getCurrentIndex = function() {
     return _currentIndex;
   };
 
   /* 自動輪播 */
   $self.autoPlay = function(ms, isNext) {
     var fn;
+    if (ms == null) {
+      ms = 1000;
+    }
     if (isNext == null) {
       isNext = true;
     }
-
-    /* 輪播 */
     fn = isNext ? $self.next : $self.prev;
     fn();
     _interval = setInterval(fn, ms);

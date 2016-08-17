@@ -120,12 +120,11 @@ cf.regModule 'cfCircleShow', ($targetList, opt = {}) ->
     $self
 
   ### 取得目前內容的 index ###
-  $self.currentIndex = ->
+  $self.getCurrentIndex = ->
     _currentIndex
 
   ### 自動輪播 ###
-  $self.autoPlay = (ms, isNext = true) ->
-    ### 輪播 ###
+  $self.autoPlay = (ms = 1000, isNext = true) ->
     fn = if isNext then $self.next else $self.prev
     fn()
     _interval = setInterval(fn, ms)
