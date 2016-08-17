@@ -35,9 +35,11 @@ cf.regCtrl 'menu', ->
     $menuBtnBox.hide()
     $content = if type is 'lib' then $menuLibContent else $menuModuleContent
     $content.show()
-    tm.from($content, .5,
+    tm.fromTo($content, .5, {
       x: $menuLibContent.$$originalWidth
-    )
+    }, {
+      x: 0
+    })
     return
 
   hideMenu = ->

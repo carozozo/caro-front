@@ -34,8 +34,10 @@ cf.regCtrl('menu', function() {
     $menuBtnBox.hide();
     $content = type === 'lib' ? $menuLibContent : $menuModuleContent;
     $content.show();
-    tm.from($content, .5, {
+    tm.fromTo($content, .5, {
       x: $menuLibContent.$$originalWidth
+    }, {
+      x: 0
     });
   };
   hideMenu = function() {
