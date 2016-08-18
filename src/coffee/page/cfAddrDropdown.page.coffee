@@ -1,6 +1,4 @@
 cf.router.regPage 'module/cfAddrDropdown', (cf, $page) ->
-  window = cf.require('window')
-
   caro.loop((i) ->
     $city = $page.dom('#city' + i)
     $area = $page.dom('#area' + i)

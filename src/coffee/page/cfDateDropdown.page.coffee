@@ -1,6 +1,4 @@
 cf.router.regPage 'module/cfDateDropdown', (cf, $page) ->
-  window = cf.require('window')
-
   $page.dom('.dateDropdown').eachDom(($dateDropdown, i) ->
     nameSpace = 'date' + i
     switch i

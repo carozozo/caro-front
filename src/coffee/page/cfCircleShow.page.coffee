@@ -1,6 +1,4 @@
 cf.router.regPage 'module/cfCircleShow', (cf, $page) ->
-  window = cf.require('window')
-
   colorArr = ['#828282', '#608020', '#80161a', '#217284']
   $demo1 = $page.dom('#demo1').css(
     position: 'absolute'

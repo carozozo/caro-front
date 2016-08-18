@@ -1,29 +1,19 @@
 ### img 切換圖片 ###
-cf.regModule 'cfImgSwitch', ->
+cf.regModule 'cfImgSwitch', (imgArr) ->
   $self = @
-  cf = $self.cf
   currentIndex = 0
-  caro = cf.require('caro')
-  imgArr = caro.values(arguments)
   interval = null
 
-  ### 新增圖片路徑 ###
-  $self.addImg = (imgSrc) ->
-    imgArr.push imgSrc
-    $self
-
   ### 切換圖片 ###
-  $self.switchImg = (i) ->
-    if caro.isUndefined(i)
-      i = currentIndex
-    if i > imgArr.length - 1
-      i = 0
+  $self.switchImg = (i = currentIndex) ->
+    i++
+    i = 0 if i > imgArr.length - 1
     $self.src imgArr[i]
-    currentIndex = ++i
+    currentIndex = i
     $self
 
   ### 自動切換圖片 ###
-  $self.autoSwitch = (ms) ->
+  $self.autoSwitch = (ms = 1000) ->
     count = 0
     interval = setInterval((->
       src = imgArr[count]
