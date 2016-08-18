@@ -1,36 +1,31 @@
 
 /* img 切換圖片 */
-cf.regModule('cfImgSwitch', function() {
-  var $self, caro, cf, currentIndex, imgArr, interval;
+cf.regModule('cfImgSwitch', function(imgArr) {
+  var $self, currentIndex, interval;
   $self = this;
-  cf = $self.cf;
   currentIndex = 0;
-  caro = cf.require('caro');
-  imgArr = caro.values(arguments);
   interval = null;
-
-  /* 新增圖片路徑 */
-  $self.addImg = function(imgSrc) {
-    imgArr.push(imgSrc);
-    return $self;
-  };
 
   /* 切換圖片 */
   $self.switchImg = function(i) {
-    if (caro.isUndefined(i)) {
+    if (i == null) {
       i = currentIndex;
     }
+    i++;
     if (i > imgArr.length - 1) {
       i = 0;
     }
     $self.src(imgArr[i]);
-    currentIndex = ++i;
+    currentIndex = i;
     return $self;
   };
 
   /* 自動切換圖片 */
   $self.autoSwitch = function(ms) {
     var count;
+    if (ms == null) {
+      ms = 1000;
+    }
     count = 0;
     interval = setInterval((function() {
       var src;
