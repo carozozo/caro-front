@@ -4,7 +4,7 @@
 e.g. 閏年的2月, 日期範圍會是 1~29 而不是 1~28
  */
 cf.regModule('cfDateDropdown', function(triggerName, opt) {
-  var $day, $month, $self, $year, _triggerName, daysInMonth, endYear, onSetMonth, onSetYear, setMonthOpt, setYearOpt, startYear, updateNumberOfDays;
+  var $day, $month, $self, $year, _triggerName, daysInMonth, endYear, onSetDay, onSetMonth, onSetYear, setMonthOpt, setYearOpt, startYear, updateNumberOfDays;
   if (opt == null) {
     opt = {};
   }
@@ -34,6 +34,9 @@ cf.regModule('cfDateDropdown', function(triggerName, opt) {
 
   /* 設置每個 month 的 options 時觸發的 cb */
   onSetMonth = opt.onSetMonth;
+
+  /* 設置每個 day 的 options 時觸發的 cb */
+  onSetDay = opt.onSetDay;
   _triggerName = 'change.cfDateDropdown.' + triggerName;
   daysInMonth = function(year, month) {
     return new Date(year, month, 0).getDate();
@@ -78,6 +81,14 @@ cf.regModule('cfDateDropdown', function(triggerName, opt) {
     }
     days = daysInMonth(year, month);
     for (i = j = 1, ref = days; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
+      if (onSetDay) {
+        if (onSetDay(i) === false) {
+          break;
+        }
+        if (onSetDay(i) === true) {
+          continue;
+        }
+      }
       $day.append($('<option />').val(i).html(i));
     }
   };

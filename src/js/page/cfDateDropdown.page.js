@@ -44,6 +44,11 @@ cf.router.regPage('module/cfDateDropdown', function(cf, $page) {
             if (i > 3 && i < 10) {
               return true;
             }
+          },
+          onSetDay: function(i) {
+            if (i > 10) {
+              return false;
+            }
           }
         });
     }

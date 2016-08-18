@@ -21,6 +21,8 @@ cf.regModule 'cfDateDropdown', (triggerName, opt = {}) ->
   onSetYear = opt.onSetYear
   ### 設置每個 month 的 options 時觸發的 cb ###
   onSetMonth = opt.onSetMonth
+  ### 設置每個 day 的 options 時觸發的 cb ###
+  onSetDay = opt.onSetDay
   _triggerName = 'change.cfDateDropdown.' + triggerName
 
   daysInMonth = (year, month) ->
@@ -51,6 +53,9 @@ cf.regModule 'cfDateDropdown', (triggerName, opt = {}) ->
     return if !year or !month
     days = daysInMonth(year, month)
     for i in [1..days]
+      if onSetDay
+        break if onSetDay(i) is false
+        continue if onSetDay(i) is true
       $day.append $('<option />').val(i).html(i)
     return
 

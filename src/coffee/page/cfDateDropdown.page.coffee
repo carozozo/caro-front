@@ -41,6 +41,9 @@ cf.router.regPage 'module/cfDateDropdown', (cf, $page) ->
           onSetMonth: (i) ->
             return true if(i > 3 and i < 10)
             return
+          onSetDay: (i) ->
+            return false if(i > 10)
+            return
         })
     return
   )

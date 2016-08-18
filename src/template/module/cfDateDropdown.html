@@ -20,6 +20,7 @@
       <div>endYear: 結束年份</div>
       <div>onSetYear: 設置每個 year 的 options 時觸發的 cb, return true 會跳過, return false 則終止設置</div>
       <div>onSetMonth: 設置每個 month 的 options 時觸發的 cb, return true 會跳過, return false 則終止設置</div>
+      <div>onSetDay: 設置每個 day 的 options 時觸發的 cb, return true 會跳過, return false 則終止設置</div>
     </div>
   </div>
 </div>
@@ -47,7 +48,7 @@
 
     <div class="subTitle2">指定下拉選單</div>
     <div>
-      <span class="codeLink">程式碼</span>
+      <span class="codeLink">範例</span>
       <span class="dateDropdown">
         <select class="day"></select>
         <select class="month"></select>
@@ -64,7 +65,7 @@
 
     <div class="subTitle2">指定年份範圍</div>
     <div>
-      <span class="codeLink">程式碼</span>
+      <span class="codeLink">範例</span>
       <span class="dateDropdown"></span>
     </div>
     <div class="codeTarget">
@@ -76,7 +77,7 @@
 
     <div class="subTitle2">利用 onSetYear 和 onSetMonth</div>
     <div>
-      <span class="codeLink">程式碼</span>
+      <span class="codeLink">範例</span>
       <span class="dateDropdown"></span>
     </div>
     <div class="codeTarget">
@@ -89,6 +90,10 @@
       &nbsp;&nbsp;onSetMonth: function(i) {<br/>
       &nbsp;&nbsp;&nbsp;&nbsp;if (i > 3 && i < 10) {<br/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+      &nbsp;&nbsp;onSetDay: function(i) {<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;if (i > 10) {<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br/>
       &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
       &nbsp;&nbsp;}<br/>
       });
