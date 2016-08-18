@@ -1,34 +1,75 @@
 
-/* 日期下拉選單 */
-cf.regModule('cfDateDropdown', function(opt) {
-  var $day, $month, $self, $year, _triggerName, daysInMonth, setMonthOpt, setYearOpt, updateNumberOfDays;
+/*
+自動化日期下拉選單, 日期下拉選單的值會依照所選的年和月改變
+e.g. 閏年的2月, 日期範圍會是 1~29 而不是 1~28
+ */
+cf.regModule('cfDateDropdown', function(triggerName, opt) {
+  var $day, $month, $self, $year, _triggerName, daysInMonth, endYear, onSetMonth, onSetYear, setMonthOpt, setYearOpt, startYear, updateNumberOfDays;
   if (opt == null) {
     opt = {};
   }
+
+  /*
+  triggerName: 指定 年和月在 on change 的 namespace, 避免多重觸發
+   */
   $self = this;
-  $year = opt.$year || $self.dom('[name="year"]');
-  $month = opt.$month || $self.dom('[name="month"]');
-  $day = opt.$day || $self.dom('[name="day"]');
-  _triggerName = 'change.cfDateDropdown';
+
+  /* 年份 <select> 容器 */
+  $year = opt.$year ? opt.$year : $('<select/>').appendTo($self);
+
+  /* 月份 <select> 容器 */
+  $month = opt.$month ? opt.$month : $('<select/>').appendTo($self);
+
+  /* 日期 <select> 容器 */
+  $day = opt.$day ? opt.$day : $('<select/>').appendTo($self);
+
+  /* 起始年份 */
+  startYear = opt.startYear || (new Date).getFullYear();
+
+  /* 結束年份 */
+  endYear = opt.endYear || startYear - 110;
+
+  /* 設置每個 year 的 options 時觸發的 cb */
+  onSetYear = opt.onSetYear;
+
+  /* 設置每個 month 的 options 時觸發的 cb */
+  onSetMonth = opt.onSetMonth;
+  _triggerName = 'change.cfDateDropdown.' + triggerName;
   daysInMonth = function(year, month) {
     return new Date(year, month, 0).getDate();
   };
   setYearOpt = function() {
-    var nowYear;
-    nowYear = (new Date).getFullYear();
+    var i, j, ref, ref1;
     $year.html('').append($('<option />').val('').html('年'));
-    caro.loop(function(i) {
-      return $year.append($('<option />').val(i).html(i));
-    }, nowYear, nowYear - 110);
+    for (i = j = ref = startYear, ref1 = endYear; ref <= ref1 ? j <= ref1 : j >= ref1; i = ref <= ref1 ? ++j : --j) {
+      if (onSetYear) {
+        if (onSetYear(i) === false) {
+          break;
+        }
+        if (onSetYear(i) === true) {
+          continue;
+        }
+      }
+      $year.append($('<option />').val(i).html(i));
+    }
   };
   setMonthOpt = function() {
+    var i, j;
     $month.html('').append($('<option />').val('').html('月'));
-    caro.loop(function(i) {
-      return $month.append($('<option />').val(i).html(i));
-    }, 1, 12);
+    for (i = j = 1; j <= 12; i = ++j) {
+      if (onSetMonth) {
+        if (onSetMonth(i) === false) {
+          break;
+        }
+        if (onSetMonth(i) === true) {
+          continue;
+        }
+      }
+      $month.append($('<option />').val(i).html(i));
+    }
   };
   updateNumberOfDays = function() {
-    var days, month, year;
+    var days, i, j, month, ref, year;
     $day.html('').append($('<option />').val('').html('日'));
     month = $month.val();
     year = $year.val();
@@ -36,62 +77,33 @@ cf.regModule('cfDateDropdown', function(opt) {
       return;
     }
     days = daysInMonth(year, month);
-    caro.loop(function(i) {
-      return $day.append($('<option />').val(i).html(i));
-    }, 1, days);
+    for (i = j = 1, ref = days; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
+      $day.append($('<option />').val(i).html(i));
+    }
   };
   setYearOpt();
   setMonthOpt();
   updateNumberOfDays();
-  $year.on(_triggerName, function() {
+  $year.off(_triggerName).on(_triggerName, function() {
     updateNumberOfDays();
   });
-  $month.on(_triggerName, function() {
+  $month.off(_triggerName).on(_triggerName, function() {
     updateNumberOfDays();
   });
 
   /* 取得下拉選單的日期 */
-  $self.getDate = function(opt) {
-    var day, month, sep, year;
-    opt = opt || {};
+  $self.getDate = function(separator) {
+    var day, month, year;
+    if (separator == null) {
+      separator = '/';
+    }
     year = $year.val();
     month = $month.val();
     day = $day.val();
-    sep = opt.sep || '/';
-    if (!year || !month || !day) {
+    if (!(year && month && day)) {
       return null;
     }
-    return year + sep + month + sep + day;
-  };
-
-  /* 設置下拉選單的內容 */
-  $self.setOptions = function(yearArr, monthArr, dayArr) {
-    var appendOptions;
-    appendOptions = function($dom, valArr) {
-      if (valArr.length < 1) {
-        return;
-      }
-      valArr = !caro.isArray(valArr) ? [valArr] : valArr;
-      $dom.empty();
-      caro.forEach(valArr, function(val) {
-        var $opt;
-        if (!val) {
-          return;
-        }
-        $opt = $('<option />').val(val).html(val);
-        $dom.append($opt);
-      });
-    };
-    if (yearArr) {
-      appendOptions($year, yearArr);
-    }
-    if (monthArr) {
-      appendOptions($month, monthArr);
-    }
-    if (dayArr) {
-      appendOptions($day, dayArr);
-    }
-    return $self;
+    return year + separator + month + separator + day;
   };
 
   /* 設置下拉選單選取的日期 */
@@ -111,9 +123,17 @@ cf.regModule('cfDateDropdown', function(opt) {
 
   /* disable 下拉選單 */
   $self.disableAll = function() {
-    $year.disable();
-    $month.disable();
-    $day.disable();
+    $year.prop('disabled', true);
+    $month.prop('disabled', true);
+    $day.prop('disabled', true);
+    return $self;
+  };
+
+  /* enable 下拉選單 */
+  $self.enableAll = function() {
+    $year.prop('disabled', false);
+    $month.prop('disabled', false);
+    $day.prop('disabled', false);
     return $self;
   };
   $self.$year = $year;
