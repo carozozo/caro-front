@@ -1,20 +1,69 @@
 <div class="mainTitle">cfListDom</div>
 <div class="content">
+  <div class="title">示範</div>
+  <div>
+    <div>
+      <div class="separator2"></div>
+      <div class="btn2" id="setList1Btn">setList</div>
+      <div class="btn2" id="setList2Btn">list反方向</div>
+      <div class="btn2" id="setList3Btn">改變寫入值並跳過第二筆</div>
+      <span class="codeLink">範例</span>
+    </div>
+    <div class="subContent">
+      <div class="separator1"></div>
+      list = [{name:'caro1', age:1}, {name:'caro2', age:2}, {name:'caro3', age:3}]
+    </div>
+    <div class="subContent">
+      <div class="separator1"></div>
+      <table border="1" cellpadding="5">
+        <tr class="listTr">
+          <td listKey="name">listKey="name"</td>
+          <td listKey="age">listKey="age"</td>
+        </tr>
+      </table>
+    </div>
+    <div class="codeTarget">
+      <div class="subTitle2">html</div>
+      <div>
+        <div>&lt;table border="1" cellpadding="5"&gt;</div>
+        <div class="tab1">&lt;tr class="listTr"&gt;</div>
+        <div class="tab2">&lt;td listKey="name"&gt;&lt;/td&gt;</div>
+        <div class="tab2">&lt;td listKey="age"&gt;&lt;/td&gt;</div>
+        <div class="tab1">&lt;/tr&gt;</div>
+        <div>&lt;/table&gt;</div>
+      </div>
+      <div class="subTitle2">js</div>
+      <div>
+        <div>var list = [{name: 'caro1', age: 1}, { name: 'caro2', age: 2}, {name: 'caro3', age: 3}];</div>
+        <div>$('.listTr').cfListDom(list, {</div>
+        <div class="tab1">cb: function(data, i, $dom) {</div>
+        <div class="tab2">if (i === 1) {return true;}</div>
+        <div class="tab2">$dom.css({color: '#00f'});</div>
+        <div class="tab2">data.name = '姓名: ' + data.name;</div>
+        <div class="tab2">data.age = '年齡: ' + data.age;</div>
+        <div class="tab1">}</div>
+        });
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content">
   <div class="title">簡介</div>
   <div>
+    將 object-array 資料放到 DOM, 以 list 方式呈現, 例如得獎名單<br/>
+    DOM 本身需要寫入 [listKey='xxx'] 標籤, 用來對應 object 裡面的 key
   </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
   <div>
-  </div>
-</div>
-<div class="content">
-  <div class="title">函式</div>
-  <div>
-  </div>
-</div><div class="content">
-  <div class="title">示範</div>
-  <div>
+    <div class="tip4">$('xxx').cfDateDropdown(objArr, opt = {})</div>
+    <div>objArr: 以 object 組成的 array</div>
+    <div class="subTitle1">opt 參數</div>
+    <div>
+      <div>befInsert: 每次置入 DOM 之前會呼叫的 cb(object,index,DOM); 回傳 true 會跳過, false 則停止繼續寫入下一筆</div>
+      <div>befInsert: 每次置入 DOM 之後會呼叫的 cb(object,index,DOM)</div>
+      <div>isAfter: list DOM 是否是放在 after</div>
+    </div>
   </div>
 </div>
