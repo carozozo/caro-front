@@ -311,7 +311,7 @@ select {
 
 .subTitle1 {
   margin: 20px 0 10px;
-  padding: 5px;
+  padding: 5px 10px;
   background: #828282;
   color: #e5e5e5;
   line-height: 2em;
@@ -319,7 +319,7 @@ select {
 
 .subTitle2 {
   margin: 20px 0 10px;
-  padding: 5px;
+  padding: 5px 10px;
   background: #608020;
   color: #e5e5e5;
   line-height: 2em;
@@ -327,7 +327,7 @@ select {
 
 .subTitle3 {
   margin: 20px 0 10px;
-  padding: 5px;
+  padding: 5px 10px;
   background: #80161a;
   color: #e5e5e5;
   line-height: 2em;
@@ -335,7 +335,7 @@ select {
 
 .subTitle4 {
   margin: 20px 0 10px;
-  padding: 5px;
+  padding: 5px 10px;
   background: #217284;
   color: #e5e5e5;
   line-height: 2em;
@@ -343,7 +343,7 @@ select {
 
 .subTitle5 {
   margin: 20px 0 10px;
-  padding: 5px;
+  padding: 5px 10px;
   background: #99990c;
   color: #e5e5e5;
   line-height: 2em;

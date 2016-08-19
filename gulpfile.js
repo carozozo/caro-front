@@ -17,6 +17,8 @@
   var imagemin = require('gulp-imagemin');
   // 自動加入 html-tag
   var inject = require('gulp-inject');
+  // template 引擎, 將 .pug 檔轉成 html
+  var pug = require('gulp-pug');
   // source 對應
   var sourcemaps = require('gulp-sourcemaps');
   // 檔案最小化
@@ -25,10 +27,11 @@
   var watch = require('gulp-watch');
 
   var config = require('./gulpfile_config.js');
-  var _imgDir = config.imgDir;
-  var _coffeeDir = config.coffeeDir;
-  var _jsDir = config.jsDir;
-  var _cssDir = config.cssDir;
+  var _imgDir = caro.addHead(config.imgDir || '', '/');
+  var _pugDir = caro.addHead(config.pugDir || '', './');
+  var _coffeeDir = caro.addHead(config.coffeeDir || '', './');
+  var _isUsePug = config.isUsePug;
+  var _isUseCoffee = config.isUseCoffee;
   var _prodJsName = config.prodJsName;
   var _prodCssName = config.prodCssName;
   var _injectFileArr = config.injectFileArr;
@@ -38,17 +41,13 @@
   var srcDir = './src';
   var distDir = './dist';
   var srcImgDir = srcDir + _imgDir;
-  var srcJsDir = srcDir + _jsDir;
-  var srcCoffeeDir = srcDir + _coffeeDir;
-  var distJsDir = distDir + _jsDir;
-  var distCssDir = distDir + _cssDir;
   // 檔案相關
   var allSrcFiles = srcDir + '/**/*.*';
+  var allPugFiles = _pugDir + '/**/*.pug';
+  var allCoffeeFiles = _coffeeDir + '/**/*.coffee';
   var allSrcJsFiles = srcDir + '/**/*.js';
-  var allSrcCoffeeFiles = srcCoffeeDir + '/**/*.coffee';
   var allSrcCssFiles = srcDir + '/**/*.css';
-  var allOtherSrcFilesArr = [allSrcFiles, '!' + allSrcJsFiles, '!' + allSrcCssFiles,
-    '!' + allSrcCoffeeFiles, '!**/.*'];
+  var allOtherSrcFilesArr = [allSrcFiles, '!' + allSrcJsFiles, '!' + allSrcCssFiles, '!**/.*'];
   var injectHeadArr = caro.map(_injectHeadArr, function (path) {
     return srcDir + '/' + path;
   });
@@ -77,17 +76,36 @@
       });
   };
 
+  var compilePug = function (pugFiles, cb) {
+    if (_isUsePug) {
+      gulp.src(pugFiles)
+        .pipe(pug({
+          pretty: true
+        }))
+        .pipe(gulp.dest(srcDir))
+        .on('end', function () {
+          cb && cb();
+        });
+      return;
+    }
+    cb && cb();
+  };
+
   var compileCoffee = function (coffeeFiles, cb) {
-    var coffeePipe = coffee({bare: true}).on('error', function (e) {
-      console.error('Got coffee error', e);
-      coffeePipe.end();
-    });
-    gulp.src(coffeeFiles, {base: srcCoffeeDir})
-      .pipe(coffeePipe)
-      .pipe(gulp.dest(srcJsDir))
-      .on('end', function () {
-        cb && cb();
+    if (_isUseCoffee) {
+      var coffeePipe = coffee({bare: true}).on('error', function (e) {
+        console.error('Got coffee error', e);
+        coffeePipe.end();
       });
+      gulp.src(coffeeFiles, {base: _coffeeDir})
+        .pipe(coffeePipe)
+        .pipe(gulp.dest(srcDir))
+        .on('end', function () {
+          cb && cb();
+        });
+      return;
+    }
+    cb && cb();
   };
 
   var injectFiles = function (type) {
@@ -132,7 +150,7 @@
         .pipe(doInject([], 'headCss'))
         .pipe(doInject([], 'otherJs'))
         .pipe(doInject([], 'otherCss'))
-        .pipe(doInject([distJsDir + '/' + _prodJsName, distCssDir + '/' + _prodCssName], 'app'))
+        .pipe(doInject([distDir + '/' + _prodJsName, distDir + '/' + _prodCssName], 'app'))
         .pipe(gulp.dest(outputDir));
     });
   };
@@ -174,7 +192,7 @@
       });
       var fileJson = JSON.stringify(fileArr);
       fileJson = 'cf.$$imgs = ' + fileJson;
-      fs.writeFile(srcJsDir + '/img.js', fileJson, function (err) {
+      fs.writeFile(srcDir + '/img.js', fileJson, function (err) {
         if (err) {
           return console.error(err);
         }
@@ -182,7 +200,7 @@
     });
   };
 
-  var buildJs = function (isUseMap, cb) {
+  var concatJs = function (isUseMap, cb) {
     var allJsArr = injectHeadArr.concat(allSrcJsFiles).concat('!' + allSrcCssFiles);
     if (isUseMap) {
       return gulp.src(allJsArr)
@@ -190,7 +208,7 @@
         .pipe(concat(_prodJsName))
         .pipe(uglify())
         .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(distJsDir))
+        .pipe(gulp.dest(distDir))
         .on('end', function () {
           cb && cb();
         });
@@ -198,13 +216,13 @@
     return gulp.src(allJsArr)
       .pipe(concat(_prodJsName))
       .pipe(uglify())
-      .pipe(gulp.dest(distJsDir))
+      .pipe(gulp.dest(distDir))
       .on('end', function () {
         cb && cb();
       });
   };
 
-  var buildCss = function (isUseMap, cb) {
+  var concatCss = function (isUseMap, cb) {
     var allCssArr = injectHeadArr.concat([allSrcCssFiles]).concat(['!' + allSrcJsFiles]);
     if (isUseMap) {
       return gulp.src(allCssArr)
@@ -212,7 +230,7 @@
         .pipe(cleanCss())
         .pipe(concat(_prodCssName))
         .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(distCssDir))
+        .pipe(gulp.dest(distDir))
         .on('end', function () {
           cb && cb();
         });
@@ -220,22 +238,30 @@
     return gulp.src(allCssArr)
       .pipe(cleanCss())
       .pipe(concat(_prodCssName))
-      .pipe(gulp.dest(distCssDir))
+      .pipe(gulp.dest(distDir))
       .on('end', function () {
         cb && cb();
       });
   };
 
+  var buildPug = function (cb) {
+    compilePug(allPugFiles, function () {
+      cb && cb();
+    });
+  };
+
   var buildCoffee = function (cb) {
-    compileCoffee(allSrcCoffeeFiles, function () {
+    compileCoffee(allCoffeeFiles, function () {
       cb && cb();
     });
   };
 
   var buildDev = function (cb) {
-    buildCoffee(function () {
-      injectFiles();
-      cb && cb();
+    buildPug(function () {
+      buildCoffee(function () {
+        injectFiles();
+        cb && cb();
+      });
     });
   };
 
@@ -243,24 +269,28 @@
     isDev = false;
     cleanDist();
     if (isUseMap) {
-      buildCoffee(function () {
-        buildJs(true, function () {
-          buildCss(true, function () {
-            copyOtherToDist(function () {
-              injectFiles();
-              cb && cb();
+      buildPug(function () {
+        buildCoffee(function () {
+          concatJs(true, function () {
+            concatCss(true, function () {
+              copyOtherToDist(function () {
+                injectFiles();
+                cb && cb();
+              });
             });
           });
         });
       });
       return;
     }
-    buildCoffee(function () {
-      buildJs(false, function () {
-        buildCss(false, function () {
-          copyOtherToDist(function () {
-            injectFiles();
-            cb && cb();
+    buildPug(function () {
+      buildCoffee(function () {
+        concatJs(false, function () {
+          concatCss(false, function () {
+            copyOtherToDist(function () {
+              injectFiles();
+              cb && cb();
+            });
           });
         });
       });
@@ -279,13 +309,23 @@
   gulp.task('default', function () {
     buildDev(function () {
       startHttpServ();
-      watch(allSrcCoffeeFiles, function (f) {
+      if (_isUsePug) {
+        watch(allPugFiles, function (f) {
+          var relative = f.relative;
+          // 如果該 pug 被移除 or 更名, 則移除對應的 html
+          if (f.isNull()) {
+            del.sync(srcDir + '/' + relative.replace('.pug', '.html'));
+          }
+          compilePug(_pugDir + '/' + relative);
+        });
+      }
+      watch(allCoffeeFiles, function (f) {
         var relative = f.relative;
         // 如果該 coffee 被移除 or 更名, 則移除對應的 js
         if (f.isNull()) {
-          del.sync(srcJsDir + '/' + relative.replace('.coffee', '.js'));
+          del.sync(srcDir + '/' + relative.replace('.coffee', '.js'));
         }
-        compileCoffee(srcCoffeeDir + '/' + relative);
+        compileCoffee(_coffeeDir + '/' + relative);
       });
       watch(allSrcJsFiles, function () {
         injectFiles('js');
@@ -300,5 +340,4 @@
       startHttpServ();
     });
   });
-
 })();

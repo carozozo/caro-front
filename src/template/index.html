@@ -2,8 +2,8 @@
 <div class="content">
   <div class="title">前言</div>
   <div>
+    <h3 class="tip5">這是一套屬於前端的框架</h3>
     <div>剛出社會時, 對未來矇懞懂懂</div>
-    <div>當了半年多的業務, 也當過作業員, 後來因為興趣做了兩年美編</div>
     <div>因緣際會下接觸了 PHP, 也開始自學 Web 相關的知識</div>
     <div>而這也是我成為 Web Developer 的起點</div>
     <br/>
@@ -19,7 +19,7 @@
 
     <div>而其中影響我對深的, 就是由德國人開發的 OwnCloud</div>
     <div>在一步步熟悉之後, 漸漸的有了一個想法</div>
-    <h2 class="tip3">何不自己開發一個 Framework, 一套屬於自己的開發工具?</h2>
+    <h3 class="tip3">何不自己開發一個 Framework, 一套屬於自己的模組?</h3>
 
     <div>於是, 當我開始接觸 Node.js 之後</div>
     <div>一套專門為當時開發的前後端 Framework, TravelGlobal OA-System 就這樣誕生了</div>
@@ -27,16 +27,15 @@
     <div>當我試圖把功能切分開來的時候, 卻因為公司政策的關係而停擺</div>
     <br/>
 
-    <div>其後又經過了一些磨練和波折</div>
-    <div>也接觸到現在流行的前端 Framework Angular, React</div>
+    <div>其後, 也接觸到現在流行的前端 Framework Angular, React</div>
     <div>它們好不好用? 答案或許是, 但總是有太多規範和限制</div>
     <div>而且那樣的架構已經把 js 和 html 綁定在一起了</div>
     <br/>
 
-    <div>來到現在的公司後, 就此決定開發一套專屬的前端 Framework</div>
-    <div>所以選擇了自己最熟悉的 jQuery Library 作為基底</div>
+    <div>所以來到現在的公司後, 就此決定開發一套專屬的前端 Framework</div>
+    <div>選擇了自己最熟悉的 jQuery Library 作為基底</div>
     <div>以最小限度的限制(或者是沒有), 又可以自由擴充函式庫和功能</div>
-    <div><span class="tip2">CaroFront</span> 就這麼漸漸形成了</div>
+    <div>然後 <span style="font-size:1.5em;" class="tip2">CaroFront</span> 就這麼漸漸形成了</div>
     <br/>
 
     <div>2016/08/14 by Caro.Huang</div>
@@ -88,17 +87,18 @@
     </div>
     <div class="subTitle1">資料夾基本介紹</div>
     <div>
-      <div>_compatibility: 瀏覽器相容性 程式, <spa class="tip3">如不考慮相容性可直接移除</spa></div>
-      <div>_plugin: 外部函式庫及外掛程式</div>
+      <div>compatibility: 瀏覽器相容性 程式,
+        <spa class="tip3">如不考慮相容性可直接移除</spa>
+      </div>
+      <div>plugin: 外部函式庫及外掛程式</div>
     </div>
     <div class="subTitle1">對應 gulpfile_config.js 的設定資料夾基本介紹 </div>
     <div>
-      <div>coffee: coffee script 檔</div>
       <div>css: css 檔</div>
       <div>images: 圖檔</div>
       <div>js: js 檔</div>
     </div>
-    <div class="subTitle1">js and coffee 分類 </div>
+    <div class="subTitle1">js 分類 </div>
     <div>
       <div>ctrl: controller 模組, 類似 plugin, 用於網站客製化的功能 (e.g. 頁面右邊的選單) </div>
       <div>lib: 一般函式庫</div>
@@ -163,13 +163,36 @@
       <div>運用 bower 控管外掛</div>
       <div class="tip3">如無此需求可將相關檔案移除, 只使用 src 底下的檔案也可進行網站製作</div>
     </div>
+    <div class="subTitle1">關於 gulpfile_config.js</div>
+    <div>
+      <div>gulpfile.js 專用設定檔</div>
+      <div class="subTitle2">項目</div>
+      <div>
+        <div>imgDir: 在 src 底下放圖片的資料夾</div>
+        <div>pugDir: 放 hug 的資料夾, 編譯後的 html 會放置在 /src 的相對路徑底下</div>
+        <div>coffeeDir: 放 coffee 的資料夾, 編譯後的 js 會放置在 /src 的相對路徑底下</div>
+        <div>isUsePug: 是否使用 pug 編譯 html</div>
+        <div>isUseCoffee: 是否使用 coffee 編譯 js</div>
+        <div>prodJsName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js 檔名</div>
+        <div>prodCssName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 css 檔名</div>
+        <div>injectFileArr: 要寫入 js/css tag 的檔案</div>
+        <div>injectHeadArr: 要優先自動掃描並加到 tag 的 js/css 檔案, <a class="link" href="https://github.com/es-shims/es5-shim" target="_blank">相容性程式</a>要優先載入</div>
+        <div>injectExcludeArr: 要排除自動掃描並加到 tag 的 js/css 檔案</div>
+      </div>
+    </div>
     <div class="subTitle1">特色</div>
     <div>
+      <div class="subTitle2">支援 .pug </div>
+      <div>
+        <div>在 gulp 時會自動 watch 並編譯成 html</div>
+        <div>在自動部署時, /pug 裡的 .pug 會編譯成 .html 並放到 /src 的相對路徑底下</div>
+        <div class="tip3">如不使用 pug 請直接移除資料夾, 並將 config.isUsePug 設為 false</div>
+      </div>
       <div class="subTitle2">支援 .coffee </div>
       <div>
         <div>在 gulp 時會自動 watch 並編譯成 js </div>
-        <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /js 底下</div>
-        <div class="tip3">所以如果不使用 coffee script 請直接移除</div>
+        <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /src 的相對路徑底下</div>
+        <div class="tip3">如不使用 coffee 請直接移除資料夾, 並將 config.isUseCoffee 設為 false</div>
       </div>
       <div class="subTitle2">使用 inject file </div>
       <div>
