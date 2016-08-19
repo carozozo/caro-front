@@ -26,14 +26,15 @@
   // 監聽檔案
   var watch = require('gulp-watch');
 
+  var randProdName = caro.random(3, {upper: false})
   var config = require('./gulpfile_config.js');
   var _imgDir = caro.addHead(config.imgDir || '', '/');
   var _pugDir = caro.addHead(config.pugDir || '', './');
   var _coffeeDir = caro.addHead(config.coffeeDir || '', './');
   var _isUsePug = config.isUsePug;
   var _isUseCoffee = config.isUseCoffee;
-  var _prodJsName = caro.addTail((config.prodJsName || 'caro-front') + '.' + caro.random(3, {upper: false}), '.js');
-  var _prodCssName = caro.addTail((config.prodCssName || 'caro-front' ) + '.' + caro.random(3, {upper: false}), '.css');
+  var _prodJsName = caro.addTail((config.prodJsName || 'caro-front') + '.' + randProdName, '.js');
+  var _prodCssName = caro.addTail((config.prodCssName || 'caro-front' ) + '.' + randProdName, '.css');
   var _injectFileArr = config.injectFileArr;
   var _injectHeadArr = config.injectHeadArr;
   var _injectExcludeArr = config.injectExcludeArr;
