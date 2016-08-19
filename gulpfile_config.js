@@ -18,7 +18,7 @@ module.exports = (function () {
   // 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js, css 檔名是否要加隨機碼
   config.isRandomName = true;
   // 執行 gulp prod / gulp buildProd 時, 是否加上 sourcemaps
-  config.isUseMaps = true;
+  config.isUseMaps = false;
   // 要寫入 js/css tag 的檔案
   config.injectFileArr = [
     'index.html'
