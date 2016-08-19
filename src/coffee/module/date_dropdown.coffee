@@ -32,8 +32,9 @@ cf.regModule 'cfDateDropdown', (triggerName, opt = {}) ->
     $year.html('').append $('<option />').val('').html('年')
     for i in [startYear..endYear]
       if onSetYear
-        break if onSetYear(i) is false
-        continue if onSetYear(i) is true
+        cbResult = onSetYear(i)
+        break if cbResult is false
+        continue if cbResult is true
       $year.append $('<option />').val(i).html(i)
     return
 
@@ -41,8 +42,9 @@ cf.regModule 'cfDateDropdown', (triggerName, opt = {}) ->
     $month.html('').append $('<option />').val('').html('月')
     for i in [1..12]
       if onSetMonth
-        break if onSetMonth(i) is false
-        continue if onSetMonth(i) is true
+        cbResult = onSetMonth(i)
+        break if cbResult is false
+        continue if cbResult is true
       $month.append $('<option />').val(i).html(i)
     return
 
@@ -54,8 +56,9 @@ cf.regModule 'cfDateDropdown', (triggerName, opt = {}) ->
     days = daysInMonth(year, month)
     for i in [1..days]
       if onSetDay
-        break if onSetDay(i) is false
-        continue if onSetDay(i) is true
+        cbResult = onSetDay(i)
+        break if cbResult is false
+        continue if cbResult is true
       $day.append $('<option />').val(i).html(i)
     return
 

@@ -42,14 +42,15 @@ cf.regModule('cfDateDropdown', function(triggerName, opt) {
     return new Date(year, month, 0).getDate();
   };
   setYearOpt = function() {
-    var i, j, ref, ref1;
+    var cbResult, i, j, ref, ref1;
     $year.html('').append($('<option />').val('').html('年'));
     for (i = j = ref = startYear, ref1 = endYear; ref <= ref1 ? j <= ref1 : j >= ref1; i = ref <= ref1 ? ++j : --j) {
       if (onSetYear) {
-        if (onSetYear(i) === false) {
+        cbResult = onSetYear(i);
+        if (cbResult === false) {
           break;
         }
-        if (onSetYear(i) === true) {
+        if (cbResult === true) {
           continue;
         }
       }
@@ -57,14 +58,15 @@ cf.regModule('cfDateDropdown', function(triggerName, opt) {
     }
   };
   setMonthOpt = function() {
-    var i, j;
+    var cbResult, i, j;
     $month.html('').append($('<option />').val('').html('月'));
     for (i = j = 1; j <= 12; i = ++j) {
       if (onSetMonth) {
-        if (onSetMonth(i) === false) {
+        cbResult = onSetMonth(i);
+        if (cbResult === false) {
           break;
         }
-        if (onSetMonth(i) === true) {
+        if (cbResult === true) {
           continue;
         }
       }
@@ -72,7 +74,7 @@ cf.regModule('cfDateDropdown', function(triggerName, opt) {
     }
   };
   updateNumberOfDays = function() {
-    var days, i, j, month, ref, year;
+    var cbResult, days, i, j, month, ref, year;
     $day.html('').append($('<option />').val('').html('日'));
     month = $month.val();
     year = $year.val();
@@ -82,10 +84,11 @@ cf.regModule('cfDateDropdown', function(triggerName, opt) {
     days = daysInMonth(year, month);
     for (i = j = 1, ref = days; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
       if (onSetDay) {
-        if (onSetDay(i) === false) {
+        cbResult = onSetDay(i);
+        if (cbResult === false) {
           break;
         }
-        if (onSetDay(i) === true) {
+        if (cbResult === true) {
           continue;
         }
       }
