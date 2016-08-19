@@ -32,8 +32,8 @@
   var _coffeeDir = caro.addHead(config.coffeeDir || '', './');
   var _isUsePug = config.isUsePug;
   var _isUseCoffee = config.isUseCoffee;
-  var _prodJsName = config.prodJsName;
-  var _prodCssName = config.prodCssName;
+  var _prodJsName = caro.addTail((config.prodJsName || 'caro-front') + '.' + caro.random(3, {upper: false}), '.js');
+  var _prodCssName = caro.addTail((config.prodCssName || 'caro-front' ) + '.' + caro.random(3, {upper: false}), '.css');
   var _injectFileArr = config.injectFileArr;
   var _injectHeadArr = config.injectHeadArr;
   var _injectExcludeArr = config.injectExcludeArr;

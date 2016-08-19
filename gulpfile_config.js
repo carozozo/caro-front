@@ -12,9 +12,9 @@ module.exports = (function () {
   config.isUseCoffee = true;
 
   // 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js 檔名
-  config.prodJsName = 'app.js';
+  config.prodJsName = 'caro-front';
   // 執行 gulp prod / gulp buildProd 後, 壓縮之後的 css 檔名
-  config.prodCssName = 'app.css';
+  config.prodCssName = 'caro-front';
   // 要寫入 js/css tag 的檔案
   config.injectFileArr = [
     'index.html'
