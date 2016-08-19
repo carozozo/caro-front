@@ -7,7 +7,7 @@ cf.regCtrl('commonPage', function() {
   $ = cf.require('$');
   tl = cf.require('TimelineMax');
   $mainTitle = $self.dom('.mainTitle');
-  subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3'];
+  subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3', 'subTitle4', 'subTitle5'];
   caro.forEach(subTitleClassArr, function(className) {
     $self.dom('.' + className).mapDom(function($subTitle) {
       var $span, html;
@@ -35,7 +35,7 @@ cf.regCtrl('commonPage', function() {
     var $subContents, colorIndex;
     $title.next('div').addClass('subContent');
     $subContents = $title.parents('.content').find('.subContent').hide();
-    colorIndex = i % 4 + 1;
+    colorIndex = i % 5 + 1;
     $title.aClass('title' + colorIndex).onClick(function() {
       $subContents.slideToggle();
     });

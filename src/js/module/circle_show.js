@@ -106,8 +106,8 @@ cf.regModule('cfCircleShow', function($targetList, opt) {
   movePosition = function(isSet) {
     return caro.forEach($targetList, function($target, i) {
       opt = {
-        top: getTop(i),
-        left: getLeft(i),
+        y: getTop(i),
+        x: getLeft(i),
         '-webkit-filter': 'brightness(' + getBrightness(i) + '%)',
         'filter': 'brightness(' + getBrightness(i) + '%)',
         scale: getScale(i),
@@ -118,17 +118,17 @@ cf.regModule('cfCircleShow', function($targetList, opt) {
       } else {
         tm.to($target, _duration, opt);
       }
-      tm.to($target, _duration / 2, {
+      tm.to($target, _duration / 4, {
         'z-index': getZindex(i)
       });
-      return _cb && _cb($target, i);
+      _cb && _cb($target, i);
     });
   };
   caro.forEach($targetList, function($target, i) {
     $target.css({
       position: 'absolute',
-      top: getTop(i),
-      left: getLeft(i),
+      y: getTop(i),
+      x: getLeft(i),
       'z-index': getZindex(i),
       '-webkit-filter': 'brightness(' + getBrightness(i) + '%)',
       'filter': 'brightness(' + getBrightness(i) + '%)'

@@ -1,5 +1,25 @@
 <div class="mainTitle">cfCircleShow</div>
 <div class="content">
+  <div class="title">示範</div>
+  <div style="height: 300px;">
+    <div class="separator2"></div>
+    <div class="btn2" id="nextBtn">next</div>
+    <div class="btn2" id="prevBtn">prev</div>
+    <div class="btn2" id="autoPlay1Btn">autoPlay</div>
+    <div class="btn2" id="autoPlay2Btn">autoPlay反方向</div>
+    <div class="btn2" id="stopPlayBtn">stop</div>
+    <div class="btn2" id="getCurrentIndexBtn">getCurrentIndex</div>
+    <div class="subContent">Current Index: <span id="currentIndex"></span></div>
+    <div id="demo1">
+      <div class="circleDom"></div>
+      <div class="circleDom"></div>
+      <div class="circleDom"></div>
+      <div class="circleDom"></div>
+      <div class="circleDom"></div>
+    </div>
+  </div>
+</div>
+<div class="content">
   <div class="title">簡介</div>
   <div>
     DOM 圓盤輪播效果
@@ -54,7 +74,7 @@
       autoPlay(ms, [isNext = true]): 自動輪播
       <span class="codeLink">範例</span><br/>
     </div>
-    <div class="subTitle1">參數</div>
+    <div class="subTitle4">參數</div>
     <div>
       <div>ms: 每次移動的毫秒數, 預設 1000</div>
       <div>isNext: 輪播方向, true 為順時針</div>
@@ -72,24 +92,6 @@
       cir.autoPlay();<br/>
       ...<br/>
       cir.stopPlay();
-    </div>
-  </div>
-</div>
-<div class="content">
-  <div class="title">示範</div>
-  <div>
-    <div class="btn2" id="nextBtn">next</div>
-    <div class="btn2" id="prevBtn">prev</div>
-    <div class="btn2" id="autoPlay1Btn">autoPlay</div>
-    <div class="btn2" id="autoPlay2Btn">autoPlay反方向</div>
-    <div class="btn2" id="stopPlayBtn">stop</div>
-    <div class="btn2" id="getCurrentIndexBtn">getCurrentIndex</div>
-    <div class="subContent">Current Index: <span id="currentIndex"></span></div>
-    <div id="demo1">
-      <div class="circleDom"></div>
-      <div class="circleDom"></div>
-      <div class="circleDom"></div>
-      <div class="circleDom"></div>
     </div>
   </div>
 </div>

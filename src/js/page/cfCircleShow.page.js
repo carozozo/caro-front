@@ -1,8 +1,7 @@
 cf.router.regPage('module/cfCircleShow', function(cf, $page) {
-  var $circleDom, $currentIndex, $demo1, colorArr;
-  colorArr = ['#828282', '#608020', '#80161a', '#217284'];
+  var $circleDom, $currentIndex, $demo1, bgColorArr;
+  bgColorArr = cf.data('bgColorArr');
   $demo1 = $page.dom('#demo1').css({
-    position: 'absolute',
     'margin-top': 20,
     'margin-left': 20,
     height: 180
@@ -11,7 +10,7 @@ cf.router.regPage('module/cfCircleShow', function(cf, $page) {
     $dom.css({
       width: 100,
       height: 120,
-      background: colorArr[i % colorArr.length]
+      background: bgColorArr[i % bgColorArr.length]
     });
   });
   $currentIndex = $page.dom('#currentIndex');

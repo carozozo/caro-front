@@ -7,7 +7,7 @@ cf.regCtrl 'commonPage', ->
 
   $mainTitle = $self.dom('.mainTitle')
 
-  subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3']
+  subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3', 'subTitle4', 'subTitle5']
   caro.forEach(subTitleClassArr, (className) ->
     $self.dom('.' + className).mapDom(($subTitle) ->
       $span = $('<span>').addClass(className)
@@ -40,7 +40,7 @@ cf.regCtrl 'commonPage', ->
   $title = $self.dom('.title').eachDom (($title, i) ->
     $title.next('div').addClass('subContent')
     $subContents = $title.parents('.content').find('.subContent').hide()
-    colorIndex = i % 4 + 1
+    colorIndex = i % 5 + 1
     $title.aClass('title' + colorIndex).onClick(->
       $subContents.slideToggle()
       return

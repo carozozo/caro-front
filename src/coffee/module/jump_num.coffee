@@ -3,7 +3,7 @@ cf.regModule 'cfJumpNum', ->
   $self = @
 
   ### 在指定的時間內, 數字會亂跳, 時間到會顯示目標數字 ###
-  $self.interval = (targetNum, opt = {}) ->
+  $self.intervalNum = (targetNum, opt = {}) ->
     num = 0
     ### 跳動的總時間(1秒) ###
     time = opt.time or 1
@@ -25,14 +25,14 @@ cf.regModule 'cfJumpNum', ->
     return
 
   ### 在指定的時間內, 數字會亂數增加到目標數字為止 ###
-  $self.intervalAdd = (targetNum, opt = {}) ->
+  $self.intervalAddNm = (targetNum, opt = {}) ->
     num = 0
     ### 每幾毫秒跳一次 ###
     ms = opt.ms or 100
     ### 每次增加的數字範圍 ###
     range = opt.range or 1
     interval = setInterval((->
-      num += parseInt(Math.random() * range)
+      num += Math.ceil(Math.random() * range)
       if num >= targetNum
         num = targetNum
         clearInterval interval

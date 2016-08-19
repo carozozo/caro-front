@@ -5,7 +5,7 @@ cf.regModule('cfJumpNum', function() {
   $self = this;
 
   /* 在指定的時間內, 數字會亂跳, 時間到會顯示目標數字 */
-  $self.interval = function(targetNum, opt) {
+  $self.intervalNum = function(targetNum, opt) {
     var count, interval, ms, num, range, time, times;
     if (opt == null) {
       opt = {};
@@ -34,7 +34,7 @@ cf.regModule('cfJumpNum', function() {
   };
 
   /* 在指定的時間內, 數字會亂數增加到目標數字為止 */
-  $self.intervalAdd = function(targetNum, opt) {
+  $self.intervalAddNm = function(targetNum, opt) {
     var interval, ms, num, range;
     if (opt == null) {
       opt = {};
@@ -47,7 +47,7 @@ cf.regModule('cfJumpNum', function() {
     /* 每次增加的數字範圍 */
     range = opt.range || 1;
     interval = setInterval((function() {
-      num += parseInt(Math.random() * range);
+      num += Math.ceil(Math.random() * range);
       if (num >= targetNum) {
         num = targetNum;
         clearInterval(interval);
