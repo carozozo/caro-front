@@ -12,14 +12,18 @@ module.exports = (function () {
   config.isUseCoffee = true;
 
   // 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js 檔名
-  config.prodJsName = 'caro-front';
+  config.jsName = 'caro-front';
   // 執行 gulp prod / gulp buildProd 後, 壓縮之後的 css 檔名
-  config.prodCssName = 'caro-front';
+  config.cssName = 'caro-front';
+  // 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js, css 檔名是否要加隨機碼
+  config.isRandomName = true;
+  // 執行 gulp prod / gulp buildProd 時, 是否加上 sourcemaps
+  config.isUseMaps = true;
   // 要寫入 js/css tag 的檔案
   config.injectFileArr = [
     'index.html'
   ];
-  // 要優先自動掃描並加到 tag 的 js/css 檔案, 相容性程式要優先載入 https://github.com/es-shims/es5-shim
+  // 要優先自動掃描並加到 tag 的 js/css 檔案, 相容性程式要優先載入, https://github.com/es-shims/es5-shim
   config.injectHeadArr = [
     'compatibility/es5-shim.min.js',
     'compatibility/es5-sham.min.js',

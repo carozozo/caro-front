@@ -173,8 +173,10 @@
         <div>coffeeDir: 放 coffee 的資料夾, 編譯後的 js 會放置在 /src 的相對路徑底下</div>
         <div>isUsePug: 是否使用 pug 編譯 html</div>
         <div>isUseCoffee: 是否使用 coffee 編譯 js</div>
-        <div>prodJsName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js 檔名</div>
-        <div>prodCssName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 css 檔名</div>
+        <div>jsName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js 檔名</div>
+        <div>cssName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 css 檔名</div>
+        <div>isRandomName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js, css 檔名是否要加隨機碼</div>
+        <div>isUseMaps: 執行 gulp prod / gulp buildProd 時, 是否加上 <a href="https://www.npmjs.com/package/gulp-sourcemaps" target="_blank">sourcemaps</a></div>
         <div>injectFileArr: 要寫入 js/css tag 的檔案</div>
         <div>injectHeadArr: 要優先自動掃描並加到 tag 的 js/css 檔案, <a class="link" href="https://github.com/es-shims/es5-shim" target="_blank">相容性程式</a>要優先載入</div>
         <div>injectExcludeArr: 要排除自動掃描並加到 tag 的 js/css 檔案</div>
@@ -226,7 +228,6 @@
       <div><span class="tip2">gulp buildImg</span>: 掃描 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
       <div><span class="tip2">gulp buildImgWithMin</span>: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出陣列到 /src/js/img.js</div>
       <div><span class="tip2">gulp buildProd</span>: 壓縮到 /dist 底下</div>
-      <div><span class="tip2">gulp buildProdWithMap</span>: 壓縮到 /dist 底下, 並產生 sourceMap</div>
       <div><span class="tip2">gulp</span>: 自動部署, 啟動 localhost server 並監聽 coffee, js, css 檔案</div>
       <div><span class="tip2">gulp prod</span>: 自動部署壓縮到 /dist 底下, 並啟動 localhost server</div>
     </div>

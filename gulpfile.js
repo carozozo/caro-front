@@ -26,18 +26,28 @@
   // 監聽檔案
   var watch = require('gulp-watch');
 
-  var randProdName = caro.random(3, {upper: false})
   var config = require('./gulpfile_config.js');
   var _imgDir = caro.addHead(config.imgDir || '', '/');
   var _pugDir = caro.addHead(config.pugDir || '', './');
   var _coffeeDir = caro.addHead(config.coffeeDir || '', './');
   var _isUsePug = config.isUsePug;
   var _isUseCoffee = config.isUseCoffee;
-  var _prodJsName = caro.addTail((config.prodJsName || 'caro-front') + '.' + randProdName, '.js');
-  var _prodCssName = caro.addTail((config.prodCssName || 'caro-front' ) + '.' + randProdName, '.css');
+  var _jsName = config.jsName || 'caro-front';
+  var _cssName = config.cssName || 'caro-front';
+  var _isRandomName = config.isRandomName;
+  var _isUseMaps = config.isUseMaps;
   var _injectFileArr = config.injectFileArr;
   var _injectHeadArr = config.injectHeadArr;
   var _injectExcludeArr = config.injectExcludeArr;
+
+  if (_isRandomName) {
+    var rand = caro.random(3, {upper: false});
+    _jsName += '.' + rand;
+    _cssName += '.' + rand;
+  }
+  _jsName += '.js';
+  _cssName += '.css';
+
   // 資料夾相關
   var srcDir = './src';
   var distDir = './dist';
@@ -146,12 +156,14 @@
         }
         return
       }
+      var jsPath = distDir + '/' + _jsName;
+      var cssPath = distDir + '/' + _cssName;
       gulp.src(file)
         .pipe(doInject([], 'headJs'))
         .pipe(doInject([], 'headCss'))
         .pipe(doInject([], 'otherJs'))
         .pipe(doInject([], 'otherCss'))
-        .pipe(doInject([distDir + '/' + _prodJsName, distDir + '/' + _prodCssName], 'app'))
+        .pipe(doInject([jsPath, cssPath], 'app'))
         .pipe(gulp.dest(outputDir));
     });
   };
@@ -201,12 +213,12 @@
     });
   };
 
-  var concatJs = function (isUseMap, cb) {
+  var concatJs = function (cb) {
     var allJsArr = injectHeadArr.concat(allSrcJsFiles).concat('!' + allSrcCssFiles);
-    if (isUseMap) {
+    if (_isUseMaps) {
       return gulp.src(allJsArr)
         .pipe(sourcemaps.init())
-        .pipe(concat(_prodJsName))
+        .pipe(concat(_jsName))
         .pipe(uglify())
         .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest(distDir))
@@ -215,7 +227,7 @@
         });
     }
     return gulp.src(allJsArr)
-      .pipe(concat(_prodJsName))
+      .pipe(concat(_jsName))
       .pipe(uglify())
       .pipe(gulp.dest(distDir))
       .on('end', function () {
@@ -223,13 +235,13 @@
       });
   };
 
-  var concatCss = function (isUseMap, cb) {
+  var concatCss = function (cb) {
     var allCssArr = injectHeadArr.concat([allSrcCssFiles]).concat(['!' + allSrcJsFiles]);
-    if (isUseMap) {
+    if (_isUseMaps) {
       return gulp.src(allCssArr)
         .pipe(sourcemaps.init())
         .pipe(cleanCss())
-        .pipe(concat(_prodCssName))
+        .pipe(concat(_cssName))
         .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest(distDir))
         .on('end', function () {
@@ -238,7 +250,7 @@
     }
     return gulp.src(allCssArr)
       .pipe(cleanCss())
-      .pipe(concat(_prodCssName))
+      .pipe(concat(_cssName))
       .pipe(gulp.dest(distDir))
       .on('end', function () {
         cb && cb();
@@ -266,28 +278,13 @@
     });
   };
 
-  var buildProd = function (cb, isUseMap) {
+  var buildProd = function (cb) {
     isDev = false;
     cleanDist();
-    if (isUseMap) {
-      buildPug(function () {
-        buildCoffee(function () {
-          concatJs(true, function () {
-            concatCss(true, function () {
-              copyOtherToDist(function () {
-                injectFiles();
-                cb && cb();
-              });
-            });
-          });
-        });
-      });
-      return;
-    }
     buildPug(function () {
       buildCoffee(function () {
-        concatJs(false, function () {
-          concatCss(false, function () {
+        concatJs(function () {
+          concatCss(function () {
             copyOtherToDist(function () {
               injectFiles();
               cb && cb();
@@ -304,9 +301,6 @@
   });
   gulp.task('build', buildDev);
   gulp.task('buildProd', buildProd);
-  gulp.task('buildProdWithMap', function () {
-    buildProd(null, true);
-  });
   gulp.task('default', function () {
     buildDev(function () {
       startHttpServ();
