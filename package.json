@@ -1,6 +1,6 @@
 {
   "name": "caro-front",
-  "version": "0.7.8",
+  "version": "0.8.8",
   "description": "前端 Web 開發用 framework",
   "author": "Caro.Huang <carozozo@yahoo.com.tw>",
   "repository": {
@@ -21,6 +21,7 @@
     "gulp-imagemin": "latest",
     "gulp-inject": "latest",
     "gulp-pug": "latest",
+    "gulp-rewrite-css": "latest",
     "gulp-sourcemaps": "latest",
     "gulp-uglify": "latest",
     "gulp-watch": "latest"

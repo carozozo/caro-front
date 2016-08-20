@@ -19,6 +19,8 @@
   var inject = require('gulp-inject');
   // template 引擎, 將 .pug 檔轉成 html
   var pug = require('gulp-pug');
+  // 轉換 css 裡面引用的 url
+  var rewriteCss = require('gulp-rewrite-css');
   // source 對應
   var sourcemaps = require('gulp-sourcemaps');
   // 檔案最小化
@@ -80,7 +82,7 @@
   };
 
   var copyOtherToDist = function (cb) {
-    gulp.src(allOtherSrcFilesArr)
+    gulp.src(allOtherSrcFilesArr, { nodir: true })
       .pipe(gulp.dest(distDir))
       .on('end', function () {
         cb && cb();
@@ -240,6 +242,7 @@
     if (_isUseMaps) {
       return gulp.src(allCssArr)
         .pipe(sourcemaps.init())
+        .pipe(rewriteCss({destination: srcDir}))
         .pipe(cleanCss())
         .pipe(concat(_cssName))
         .pipe(sourcemaps.write('./maps'))
@@ -249,6 +252,7 @@
         });
     }
     return gulp.src(allCssArr)
+      .pipe(rewriteCss({destination: srcDir}))
       .pipe(cleanCss())
       .pipe(concat(_cssName))
       .pipe(gulp.dest(distDir))
@@ -314,14 +318,16 @@
           compilePug(_pugDir + '/' + relative);
         });
       }
-      watch(allCoffeeFiles, function (f) {
-        var relative = f.relative;
-        // 如果該 coffee 被移除 or 更名, 則移除對應的 js
-        if (f.isNull()) {
-          del.sync(srcDir + '/' + relative.replace('.coffee', '.js'));
-        }
-        compileCoffee(_coffeeDir + '/' + relative);
-      });
+      if(_isUseCoffee){
+        watch(allCoffeeFiles, function (f) {
+          var relative = f.relative;
+          // 如果該 coffee 被移除 or 更名, 則移除對應的 js
+          if (f.isNull()) {
+            del.sync(srcDir + '/' + relative.replace('.coffee', '.js'));
+          }
+          compileCoffee(_coffeeDir + '/' + relative);
+        });
+      }
       watch(allSrcJsFiles, function () {
         injectFiles('js');
       });
