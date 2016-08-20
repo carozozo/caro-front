@@ -15,22 +15,18 @@
     div JavaScript 的 jQuery, Angular, React, Bootstrap
     div Node.js 的 Express, Sails
     br
-
     div 而其中影響我對深的, 就是由德國人開發的 OwnCloud
     div 在一步步熟悉之後, 漸漸的有了一個想法
     h3.tip3 何不自己開發一個 Framework, 一套屬於自己的模組?
-
     div 於是, 當我開始接觸 Node.js 之後
     div 一套專門為當時開發的前後端 Framework, TravelGlobal OA-System 就這樣誕生了
     div 但因為有太多專門為公司需求而開發的項目, 那時還稱不上成熟
     div 當我試圖把功能切分開來的時候, 卻因為公司政策的關係而停擺
     br
-
     div 其後, 也接觸到現在流行的前端 Framework Angular, React
     div 它們好不好用? 答案或許是, 但總是有太多規範和限制
     div 而且那樣的架構已經把 js 和 html 綁定在一起了
     br
-
     div 所以來到現在的公司後, 就此決定開發一套專屬的前端 Framework
     div 選擇了自己最熟悉的 jQuery Library 作為基底
     div 以最小限度的限制(或者是沒有), 又可以自由擴充函式庫和功能
@@ -54,7 +50,6 @@
       div 
         div 可根據不同的 url (例如 localhost, develop, production)載入相對應的設定, 減少開發複雜度
       
-    
     .subTitle1 需要的基本函式庫
     div 
       div 
@@ -73,7 +68,6 @@
         a.link(href='http://hgoebl.github.io/mobile-detect.js/', target='_blank') mobile-detect
         | : 判斷載具函式庫, 應用於 RWC 及相容性處理
       
-    
     .subTitle1 主要檔案介紹
     div 
       div src/_app: cf 主函式
@@ -116,8 +110,6 @@
       div  用法類似 jQuery plugin , 可依照使用者需求自行定義
       div  module 適用所有專案, ctrl 為專案客製化功能 
     
-  
-
 .content
   .title lib 列表
   div 
@@ -128,7 +120,6 @@
     div cf.routeAnimate : cf.router 擴充換頁效果
     div cf.router : 換頁函式庫, 使用 $.ajax 切換頁面, 並利用 url hash 記錄
     div cf.unit : 單元函式庫, 提供一些未分類函式
-  
 
 .content
   .title module 列表
@@ -178,7 +169,6 @@
         div isUseMaps: 執行 gulp prod / gulp buildProd 時, 是否加上 a.link(href='https://www.npmjs.com/package/gulp-sourcemaps', target='_blank') sourcemaps
         div injectFileArr: 要寫入 js/css tag 的檔案
         div injectHeadArr: 要優先自動掃描並加到 tag 的 js/css 檔案,
-          |
           a.link(href='https://github.com/es-shims/es5-shim', target='_blank') 相容性程式
           | 要優先載入
         div injectExcludeArr: 要排除自動掃描並加到 tag 的 js/css 檔案
