@@ -91,7 +91,7 @@
 
   var compilePug = function (pugFiles, cb) {
     if (_isUsePug) {
-      gulp.src(pugFiles)
+      gulp.src(pugFiles, {base: _pugDir})
         .pipe(pug({
           pretty: true
         }))
