@@ -1,0 +1,78 @@
+.mainTitle cfCircleShow
+.content
+  .title 示範
+  div(style='height: 300px;')
+    .separator2
+    #nextBtn.btn2 next
+    #prevBtn.btn2 prev
+    #autoPlay1Btn.btn2 autoPlay
+    #autoPlay2Btn.btn2 autoPlay反方向
+    #stopPlayBtn.btn2 stop
+    #getCurrentIndexBtn.btn2 getCurrentIndex
+    .subContent
+      | Current Index: 
+      span#currentIndex
+    #demo1
+      .circleDom
+      .circleDom
+      .circleDom
+      .circleDom
+      .circleDom
+.content
+  .title 簡介
+  div
+    | DOM 圓盤輪播效果
+.content
+  .title 參數
+  div
+    .tip4 $('xxx').cfCircleShow($targetList, [opt={}])
+    div $targetList: 要輪播的 DOM Array
+    .subTitle1 opt 參數
+    div
+      div zIndex: 當前 $target 的 z-index, 預設 999
+      div radios: 旋轉半徑, 預設 100
+      div duration: 移動時間, 預設 1
+      div minBrightness: 最後面的 DOM 的亮度百分比, 預設 50
+      div degreeTop: 每個 DOM 的 top 位移量, 預設 0
+      div minScale: 最後面的 $target 的 scale, 預設 1
+      div minScale: TweenMax ease 效果
+      div cb: 每次移動的 cb($target, i), 可取得每個 DOM 及該 DOM 目前的 index
+.content
+  .title 函式
+  div
+    .tip2
+      | next(): 顯示下一個內容
+      span.codeLink 範例
+    .codeTarget
+      div var cir = $('xxx').cfCircleShow([...]);
+      div cir.next();
+    .tip2
+      | prev(): 顯示上一個內容
+      span.codeLink 範例
+    .codeTarget
+      div var cir = $('xxx').cfCircleShow([...]);
+      div cir.prev();
+    .tip2
+      | getCurrentIndex(): 取得目前內容的 index
+      span.codeLink 範例
+    .codeTarget
+      div var cir = $('xxx').cfCircleShow([...]);
+      div var index = cir.getCurrentIndex();
+    .tip2
+      | autoPlay(ms, [isNext = true]): 自動輪播
+      span.codeLink 範例
+    .subTitle4 參數
+    div
+      div ms: 每次移動的毫秒數, 預設 1000
+      div isNext: 輪播方向, true 為順時針
+    .codeTarget
+      div var cir = $('xxx').cfCircleShow([...]);
+      div cir.autoPlay();
+    .tip2
+      | stopPlay(): 停止輪播
+      span.codeLink 範例
+    .codeTarget
+      div var cir = $('xxx').cfCircleShow([...]);
+      div  cir.autoPlay();
+      div ...
+      div cir.stopPlay();

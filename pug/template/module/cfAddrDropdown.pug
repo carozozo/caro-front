@@ -1,0 +1,34 @@
+.mainTitle cfAddrDropdown
+.content
+  .title 示範
+  div
+    .subTitle2 預設
+    .subContent
+      select#city1
+      select#area1
+    .subTitle2 包含離島
+    .subContent
+      select#city2
+      select#area2
+    .subTitle2 包含區碼
+    .subContent
+      select#city3
+      select#area3
+.content
+  .title 簡介
+  div
+    | 台灣地址下拉選單, 可設置是否包含離島
+.content
+  .title 參數
+  div
+    .tip4 $('xxx').cfAddrDropdown($cityDom, $areaDom,[opt={}]);
+    div $cityDom: 放置城市的 &lt;select&gt; 容器
+    div $areaDom: 放置地區的 &lt;select&gt; 容器
+    .subTitle1 opt 參數
+    div
+      div defCityText: 縣市選單初始文字, 預設 '請選擇縣市'
+      div defCityVal: 縣市選單初始值, 預設 ''
+      div defAreaText: 地區選單初始文字, 預設 '請選擇區域'
+      div defAreaVal: 地區選單初始值, 預設 ''
+      div isIncludeIsland: 是否包含離島, 預設 false
+      div isWithCode: 地區選單是否要包含區碼, 預設 false
