@@ -82,7 +82,7 @@
   };
 
   var copyOtherToDist = function (cb) {
-    gulp.src(allOtherSrcFilesArr, { nodir: true })
+    gulp.src(allOtherSrcFilesArr, {nodir: true})
       .pipe(gulp.dest(distDir))
       .on('end', function () {
         cb && cb();
@@ -91,7 +91,7 @@
 
   var compilePug = function (pugFiles, cb) {
     if (_isUsePug) {
-      var pugPipe = pug({pretty: true}).on('error', function(e){
+      var pugPipe = pug({pretty: true}).on('error', function (e) {
         console.error('Got pug error', e);
         pugPipe.end();
       });
@@ -143,15 +143,13 @@
             .pipe(doInject(injectOtherArr, 'otherCss'))
             .pipe(doInject([], 'app'))
             .pipe(gulp.dest(outputDir));
-        }
-        if (type === 'js') {
+        } else if (type === 'js') {
           gulp.src(file)
             .pipe(doInject(injectHeadArr, 'headJs'))
             .pipe(doInject(injectOtherArr, 'otherJs'))
             .pipe(doInject([], 'app'))
             .pipe(gulp.dest(outputDir));
-        }
-        if (type === 'css') {
+        } else if (type === 'css') {
           gulp.src(file)
             .pipe(doInject(injectHeadArr, 'headCss'))
             .pipe(doInject(injectOtherArr, 'otherCss'))
@@ -320,7 +318,7 @@
           compilePug(_pugDir + '/' + relative);
         });
       }
-      if(_isUseCoffee){
+      if (_isUseCoffee) {
         watch(allCoffeeFiles, function (f) {
           var relative = f.relative;
           // 如果該 coffee 被移除 or 更名, 則移除對應的 js
