@@ -1,0 +1,161 @@
+.mainTitle cf.router
+.content
+  .title 示範
+  div
+    .subContent
+      #getPageBtn.btn2 getPageByHash()
+      #getSearchBtn.btn2 getSearchByHash()
+      #getSearchObjBtn.btn2 parseUrlSearch()
+    .separator1
+    .subContent
+      #goPageBtn1.btn2 goPage('router')
+      #goPageBtn2.btn2 goPage()
+      #goPageBtn3.btn2 goPage('router?name=caro&age=20')
+    .separator1
+    .subContent
+      #blockGoPageBtn.btn2 blockGoPage()
+      #approveGoPageBtn.btn2 approveGoPage()
+.content
+  .title 簡介
+  div
+    | 換頁函式庫, 使用 $.ajax 切換分頁, 並利用 url hash 記錄
+.content
+  .title 設定檔
+  div
+    div templateDir: 放置分頁的資料夾路徑, 未設置代表根目錄
+    div templateExtname: 放置的分頁路徑副檔名, 例如 html, php, jsp
+    div container: 分頁容器的 DOM id, 未設置時預設容器為 $('body')
+.content
+  .title 屬性
+  div
+    div $container: 當前分頁的容器 DOM     div $page: 當前分頁 DOM
+    div _befPage: 儲存每次執行 cf.goPage 前要執行的 fns
+    div _prePage: 紀錄載入分頁前會執行的 fns     div _page: 當載入分頁後要執行的指定 fn      div _aftPage: 紀錄載入分頁後會執行的 fn s
+    div _transitionFn: 紀錄當前換頁效果 fn     div pageName: 當前分頁名稱     div templateDir: 記錄要放置分頁的資料夾路徑     div templateExtname: 記錄要載入的分頁副檔名
+.content
+  .title 函式
+  div
+    .tip2
+      | getPageByHash([hash]): 依照 url 的 hash 判斷目前的分頁路徑名稱
+      span.codeLink 範例
+    .codeTarget
+      .subTitle2 假設現在的 url 是 https://carozozo.github.io/caro-front/#a/b?search=2
+      div cf.getPageByHash();  
+        span.tip3 // 'a/b'
+      div cf.getPageByHash('#router?search=1');  
+        span.tip3 // 'router'
+    .tip2
+      | getSearchByHash([hash]): 依照 url 的 hash 判斷目前的 search
+      span.codeLink 範例
+    .codeTarget
+      .subTitle2 假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20
+      div cf.getSearchByHash();  
+        span.tip3 // 'name=caro&age=20'
+      div cf.getSearchByHash('#router?name=huang');  
+        span.tip3 // 'name=huang'
+    .tip2
+      | parseUrlSearch(): 依照 url 的 hash 裡面的 search 轉為 obj
+      span.codeLink 範例
+    .codeTarget
+      .subTitle2 假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20
+      div cf.getSearchByHash();  
+        span.tip3 // {name: 'caro', age: '20'}
+      div cf.getSearchByHash('#router?name=huang');  
+        span.tip3 // {name: 'huang'}
+    .tip2
+      | regBefPage(fn, [執行順序=50]): 註冊每次執行 cf.goPage 前要執行的 fn
+      span.codeLink 範例
+    .codeTarget
+      .tip2 // 每次執行 cf.goPage 前, 會先 alert 'b', 然後 alert 'a'
+      div cf.regBefPage(function(cf){
+      .tab1 alert('a');
+      div });
+      div cf.regBefPage(function(cf){
+      .tab1 alert('b');
+      div }, 1);
+    .tip2
+      | regPrePage(fn, [執行順序=50]): 註冊每次載入分頁前要執行的 fn
+      span.codeLink 範例
+    .codeTarget
+      .tip2 // 每次載入分頁前, 會先 alert 'b', 然後 alert 'a'
+      div cf.regPrePage(function(cf, $page){
+      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
+      .tab1 alert('a');
+      div });
+      div cf.regPrePage(function(cf, $page){
+      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
+      .tab1 alert('b');
+      div }, 1);
+    .tip2
+      | regAftPage(fn, [執行順序=50]): 註冊每次載入分頁後要執行的 fn
+      span.codeLink 範例
+    .codeTarget
+      .tip2 // 每次載入分頁後, 會先 alert 'b', 然後 alert 'a'
+      div cf.regAftPage(function(cf, $page){
+      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
+      .tab1 alert('a');
+      div });
+      div cf.regAftPage(function(cf, $page){
+      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
+      .tab1 alert('b');
+      div }, 1);
+    .tip2
+      | regPage(註冊分頁, fn): 註冊載入指定分頁後要執行的 fn
+      span.codeLink 範例
+    .codeTarget
+      .tip2 // 執行 cf.goPage('page1') 時, 會 alert 'a'
+      div cf.regPage('page1', function(cf, $page){
+      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
+      .tab1 alert('b');
+      div });
+      .tip2 // 執行 cf.goPage('page2') 時, 會 alert 'b'
+      div cf.regPage('page2', function(cf, $page){
+      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
+      div.tab1 alert('b');
+      div });
+    .tip2
+      | goPage([分頁路徑], [opt={}]): 換頁, 沒參數時會依據 url 的 hash 自動判斷
+      span.codeLink 範例
+    .subTitle1 opt 參數
+    div
+      div fileType: 要載入的分頁副檔名
+    .codeTarget
+      .subTitle2 設定檔 templateDir = 'temp', templateExtname = 'jsp'
+      div
+      .tip2 // 讀取 /temp/page1.jsp 裡的內容並寫入容器
+      div cf.goPage('page1');
+      .tip2 // 讀取 /temp/subPage/page1.jsp 裡的內容並寫入容器
+      div cf.goPage('subPage/page1');
+      .tip2 // 讀取 /temp/subPage/page2.html 裡的內容並寫入容器
+      div cf.goPage('subPage/page2', {fileType: 'html'});
+      .subTitle2 設定檔 templateDir = '', templateExtname = ''
+      div
+      .tip2 // 讀取 /subPage/page2 裡的內容並寫入容器
+      div cf.goPage('subPage/page2');
+    .tip2
+      | blockGoPage(): 呼叫後, 執行 router.goPage 不會換頁
+      span.codeLink 範例
+    .codeTarget
+      div cf.blockGoPage();
+      .tip2 // 不會換頁
+      div cf.goPage('index');
+    .tip2
+      | approveGoPage(): 呼叫後, 執行 router.goPage 可以換頁        span.codeLink 範例
+    .codeTarget
+      div cf.blockGoPage();
+      .tip2 // 不會換頁
+      div cf.goPage('index');
+      .separator2
+      div cf.approveGoPage();
+      .tip2 // 會換頁
+      div cf.goPage('index');
+.content
+  .title goPage 執行流程
+  div
+    div 執行儲存在 _befPage 裡的 fns
+    div 取得要載入的分頁名稱
+    div 透過 ajax 從 template 取得對應的分頁內容
+    div 執行儲存在 _prePage 裡的 fns
+    div 移除原本的分頁內容, 並置入目標分頁內容
+    div 執行對應的 _page fn
+    div 執行儲存在 _aftPage 裡的 fns
