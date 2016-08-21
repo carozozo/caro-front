@@ -1,0 +1,27 @@
+.mainTitle cf.cookie
+.content
+  .title 簡介
+  div
+    | 設置和讀取 cookie
+.content
+  .title 函式
+  div
+    div
+      .tip2 setCookie(cookieName, val, opt = {}): 設置 cookie
+      .subTitle1 opt 參數
+      div
+        div exdays: 有效天數
+        div path: 路徑
+        div domain: 網域
+      .block
+        | 請輸入 cookie name:
+        input#setCookieName.input60(type='text', value='user')
+        | 請輸入 cookie val:
+        input#setCookieVal.input60(type='text', value='caro')
+        #setCookieBtn.btn 設置
+    div
+      .tip2 getCookie(cookieName): 取得 cookie
+      .block
+        | 請輸入 cookie name:
+        input#getCookieName.input60(type='text', width='60')
+        #getCookieBtn.btn 取得

@@ -91,10 +91,12 @@
 
   var compilePug = function (pugFiles, cb) {
     if (_isUsePug) {
+      var pugPipe = pug({pretty: true}).on('error', function(e){
+        console.error('Got pug error', e);
+        pugPipe.end();
+      });
       gulp.src(pugFiles, {base: _pugDir})
-        .pipe(pug({
-          pretty: true
-        }))
+        .pipe(pugPipe)
         .pipe(gulp.dest(srcDir))
         .on('end', function () {
           cb && cb();
