@@ -1,0 +1,54 @@
+.mainTitle cfListDom
+.content
+  .title 示範
+  div
+    div
+      .separator2
+      #setList1Btn.btn2 setList
+      #setList2Btn.btn2 list反方向
+      #setList3Btn.btn2 改變寫入值並跳過第二筆
+      span.codeLink 範例
+    .subContent
+      .separator1
+      div list = [{name:'caro1', age:1}, {name:'caro2', age:2}, {name:'caro3', age:3}]
+    .subContent
+      .separator1
+      table(border='1', cellpadding='5')
+        tr.listTr
+          td(listkey='name') listKey="name"
+          td(listkey='age') listKey="age"
+    .codeTarget
+      .subTitle2 html
+      div
+        div &lt;table border="1" cellpadding="5"&gt;
+        .tab1 &lt;tr class="listTr"&gt;
+        .tab2 &lt;td listKey="name"&gt;&lt;/td&gt;
+        .tab2 &lt;td listKey="age"&gt;&lt;/td&gt;
+        .tab1 &lt;/tr&gt;
+        div &lt;/table&gt;
+      .subTitle2 js
+      div
+        div var list = [{name: 'caro1', age: 1}, { name: 'caro2', age: 2}, {name: 'caro3', age: 3}];
+        div $('.listTr').cfListDom(list, {
+        .tab1 cb: function(data, i, $dom) {
+        .tab2 if (i === 1) {return true;}
+        .tab2 $dom.css({color: '#00f'});
+        .tab2 data.name = '姓名: ' + data.name;
+        .tab2 data.age = '年齡: ' + data.age;
+        .tab1 }
+        div });
+.content
+  .title 簡介
+  div
+    div 將 object-array 資料放到 DOM, 以 list 方式呈現, 例如得獎名單
+    div DOM 本身需要寫入 [listKey='xxx'] 標籤, 用來對應 object 裡面的 key
+.content
+  .title 參數
+  div
+    .tip4 $('xxx').cfDateDropdown(objArr, opt = {})
+    div objArr: 以 object 組成的 array
+    .subTitle1 opt 參數
+    div
+      div befInsert: 每次置入 DOM 之前會呼叫的 cb(object,index,DOM); 回傳 true 會跳過, false 則停止繼續寫入下一筆
+      div befInsert: 每次置入 DOM 之後會呼叫的 cb(object,index,DOM)
+      div isAfter: list DOM 是否是放在 after

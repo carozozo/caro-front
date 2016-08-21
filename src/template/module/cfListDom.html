@@ -1,3 +1,4 @@
+
 <div class="mainTitle">cfListDom</div>
 <div class="content">
   <div class="title">示範</div>
@@ -6,19 +7,18 @@
       <div class="separator2"></div>
       <div class="btn2" id="setList1Btn">setList</div>
       <div class="btn2" id="setList2Btn">list反方向</div>
-      <div class="btn2" id="setList3Btn">改變寫入值並跳過第二筆</div>
-      <span class="codeLink">範例</span>
+      <div class="btn2" id="setList3Btn">改變寫入值並跳過第二筆</div><span class="codeLink">範例</span>
     </div>
     <div class="subContent">
       <div class="separator1"></div>
-      list = [{name:'caro1', age:1}, {name:'caro2', age:2}, {name:'caro3', age:3}]
+      <div>list = [{name:'caro1', age:1}, {name:'caro2', age:2}, {name:'caro3', age:3}]</div>
     </div>
     <div class="subContent">
       <div class="separator1"></div>
       <table border="1" cellpadding="5">
         <tr class="listTr">
-          <td listKey="name">listKey="name"</td>
-          <td listKey="age">listKey="age"</td>
+          <td listkey="name">listKey="name"</td>
+          <td listkey="age">listKey="age"</td>
         </tr>
       </table>
     </div>
@@ -42,7 +42,7 @@
         <div class="tab2">data.name = '姓名: ' + data.name;</div>
         <div class="tab2">data.age = '年齡: ' + data.age;</div>
         <div class="tab1">}</div>
-        });
+        <div>});</div>
       </div>
     </div>
   </div>
@@ -50,8 +50,8 @@
 <div class="content">
   <div class="title">簡介</div>
   <div>
-    將 object-array 資料放到 DOM, 以 list 方式呈現, 例如得獎名單<br/>
-    DOM 本身需要寫入 [listKey='xxx'] 標籤, 用來對應 object 裡面的 key
+    <div>將 object-array 資料放到 DOM, 以 list 方式呈現, 例如得獎名單</div>
+    <div>DOM 本身需要寫入 [listKey='xxx'] 標籤, 用來對應 object 裡面的 key</div>
   </div>
 </div>
 <div class="content">
