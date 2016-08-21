@@ -1,0 +1,44 @@
+.mainTitle cf.ajax
+.content
+  .title 簡介
+  div
+    | 延伸 $.ajax 並簡化 success function; 可設定測試模式, 用來模擬 api response
+.content
+  .title 設定檔
+  div
+    div isTestMode: 是否為 ajax 測試模式, true 的時候會使用假的 response 用來模擬狀況
+    div responseErrKey: 判斷 response 裡面是回傳 error 的 key
+    div errMsg: 當執行 ajax 發生錯誤時要 alert 的訊息, 不設置或空值則不顯示
+.content
+  .title 函式
+  div
+    .tip2
+      | callAjax(url, [data], [opt = {}]): 用法同 $.ajax, 另支援函式 .suc 和 .err;
+      span.codeLink 範例1
+      span.codeLink 範例2
+    .subTitle1 opt 參數
+    div
+      div 同 $.ajax 的 options
+      div fakeResponse: 測試用 response
+      div isHideLoading: 呼叫時是否隱藏 loading 畫面, 預設 false
+    .codeTarget
+      .subTitle2 設定檔 responseErrKey = 'errorMsg'
+      div
+        .tip2 // 使用 post
+        div cf.ajax('/api/post.php', {data:123}).suc(function(res) {
+        .tab1.tip2 // 使用 ajax 執行成功, 而且沒有 res.errorMsg
+        div }).err(function(err){
+        .tab1.tip2 // 使用 ajax 執行成功, 但有 res.errorMsg, 則 err = res.errorMsg
+        div })
+    .codeTarget
+      .subTitle2 設定檔 isTestMode = true -> 則直接調用 fakeResponse
+      div
+        .tip2 // 使用 get, 且設置 fakeResponse
+        div cf.ajax('/api/get.php', null, {
+        .tab1 isHideLoading: true
+        .tab1 fakeResponse: {err: null, data: 'You got it!'}
+        div }).suc(function(res) {
+        .tab1.tip2 // res = {err: null, data: 'You got it!'}
+        div }).err(function(err){
+        .tab1.tip2 // 這裡不會被執行
+        div })

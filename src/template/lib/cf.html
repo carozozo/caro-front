@@ -1,3 +1,4 @@
+
 <div class="mainTitle">cf</div>
 <div class="content">
   <div class="title">屬性</div>
@@ -24,139 +25,131 @@
   <div>
     <div class="tip2">require(str): 載入 global 變數, 避免直接呼叫 global 變數以增加效能 ;<span class="codeLink">範例</span></div>
     <div class="codeTarget">
-      $(function(){<br/>
-      <div class="tip2">&nbsp;&nbsp;// 將 global 變數 $ 轉為 local 變數使用</div>
-      &nbsp;&nbsp;var $ = cf.require('$');<br/>
-      &nbsp;&nbsp;$('.xxx').html('This is demo');<br/>
-      });<br/>
+      <div class="div">$(function(){</div>
+      <div class="tab1 tip2">  // 將 global 變數 $ 轉為 local 變數使用</div>
+      <div class="tab2">var $ = cf.require('$');</div>
+      <div class="tab2">$('.xxx').html('This is demo');</div>
+      <div>});</div>
+      <div class="separator2"></div>
     </div>
     <div class="tip2">data(key, [val]): 讀取 or 設置資料, 用於跨檔案存取 ;<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 設置 data</div>
-      cf.data('name', 'caro');<br/>
-      cf.data('file', {a:1, b:2});<br/>
+      <div>cf.data('name', 'caro');</div>
+      <div>cf.data('file', {a:1, b:2});</div>
       <div class="tip2">// 在其他 js 可取得 data</div>
-      var name = cf.data('name');&nbsp;&nbsp;<span class="tip3">// 'caro'</span><br/>
-      var file = cf.data('file');&nbsp;&nbsp;<span class="tip3">// {a:1, b:2}</span>
+      <div>var name = cf.data('name');  <span class="tip3">// 'caro'</span></div>
+      <div>var file = cf.data('file');  <span class="tip3">// {a:1, b:2}</span></div>
     </div>
     <div class="tip2">regDocReady(fn, [執行順序=50]): <span class="tip1">$( document ).ready()</span>進階版, 當頁面載入完畢時要執行的 fn ;<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 當整個頁面讀取完成之後, 會先 alert 'b', 然後 alert 'a'</div>
-      cf.regDocReady(function(){<br/>
-      &nbsp;&nbsp;alert('a');<br/>
-      });<br/>
-      cf.regDocReady(function(){<br/>
-      &nbsp;&nbsp;alert('b');<br/>
-      }, 1);
+      <div>cf.regDocReady(function(){</div>
+      <div class="tab1">alert('a');</div>
+      <div>});</div>
+      <div>cf.regDocReady(function(){</div>
+      <div class="tab1">alert('b');</div>
+      <div>}, 1);</div>
     </div>
-    <div class="tip2">genTraceFn(訊息標題): 產生 trace 用的 fn, 會在 console 顯示訊息(IE8 之前不支援 console);<span class="codeLink">範例</span></div>
+    <div class="tip2">genTraceFn(訊息標題): 產生 trace 用的 fn, 會在 console 顯示訊息,<span class="tip3"> IE8 之前不支援 console</span>;<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 產生 trace 程式</div>
-      var trace = cf.genTraceFn('Caro's msg');
+      <div>var trace = cf.genTraceFn('Caro's msg');</div>
       <div class="tip2">// 宣告可以在 console.log 印出 trace 訊息</div>
-      trace.startTrace();<br/>
+      <div>trace.startTrace();</div>
       <div class="tip2">// 如果沒有執行 trace.startTrace(), 則不會 log 訊息</div>
-      var name = 'Caro';<br/>
-      trace.log('My name is', name);&nbsp;&nbsp;<span class="tip3">// 'Caro's msg: My name is Caro'</span><br/>
+      <div>var name = 'Caro';</div>
+      <div>trace.log('My name is', name);  <span class="tip3">// 'Caro's msg: My name is Caro'</span></div>
       <div class="tip2">// 無論有無執行 trace.startTrace(), 都會 log 訊息</div>
-      trace.error('Got error');&nbsp;&nbsp;<span class="tip3">// 'Caro's msg: Got error'</span>
+      <div>trace.error('Got error');  <span class="tip3">// 'Caro's msg: Got error'</span></div>
     </div>
     <div class="tip2">regLib(註冊名稱, fn): 註冊函式 庫;<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 在其他地方可使用 cf.money.get() 和 cf.money.set()</div>
-      cf.regLib('money', function(cf){<br/>
-      &nbsp;&nbsp;var self = {};<br/>
-      &nbsp;&nbsp;var money = 1000;<br/>
-      &nbsp;&nbsp;self.get = function(){<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;return money;<br/>
-      &nbsp;&nbsp;}<br/>
-      &nbsp;&nbsp;self.set = function(m){<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;money = m;<br/>
-      &nbsp;&nbsp;}<br/>
-      &nbsp;&nbsp;return self;<br/>
-      });<br/>
-      <br/>
-      var m1 = cf.money.get();&nbsp;&nbsp;<span class="tip3">// 1000</span><br/>
-      cf.money.set(2000);<br/>
-      var m2 = cf.money.get();&nbsp;&nbsp;<span class="tip3">// 2000</span><br/>
+      <div>cf.regLib('money', function(cf){</div>
+      <div class="tab1">var self = {};</div>
+      <div class="tab1">var money = 1000;</div>
+      <div class="tab1">self.get = function(){ return money; }</div>
+      <div class="tab1">self.set = function(m){ money = m; }</div>
+      <div class="tab1">return self;</div>
+      <div>});</div>
+      <div class="separator2"></div>
+      <div>var m1 = cf.money.get();  <span class="tip3">// 1000</span></div>
+      <div>cf.money.set(2000);</div>
+      <div>var m2 = cf.money.get();  <span class="tip3">// 2000</span></div>
     </div>
     <div class="tip2">regServ(註冊名稱, fn): 註冊 service 函式 庫;<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 在其他地方可使用 cf.money.get() 和 cf.money.set()</div>
-      cf.regServ('money', function(cf){<br/>
-      &nbsp;&nbsp;var self = {};<br/>
-      &nbsp;&nbsp;var money = 1000;<br/>
-      &nbsp;&nbsp;self.get = function(){<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;return money;<br/>
-      &nbsp;&nbsp;}<br/>
-      &nbsp;&nbsp;self.set = function(m){<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;money = m;<br/>
-      &nbsp;&nbsp;}<br/>
-      &nbsp;&nbsp;return self;<br/>
-      });<br/>
-      <br/>
-      var m1 = cf.money.get();&nbsp;&nbsp;<span class="tip3">// 1000</span><br/>
-      cf.money.set(2000);<br/>
-      var m2 = cf.money.get();&nbsp;&nbsp;<span class="tip3">// 2000</span><br/>
+      <div>cf.regServ('money', function(cf){</div>
+      <div class="tab1">var self = {};</div>
+      <div class="tab1">var money = 1000;</div>
+      <div class="tab1">self.get = function(){ return money; }</div>
+      <div class="tab1">self.set = function(m){ money = m; }</div>
+      <div class="tab1">return self;</div>
+      <div>});</div>
+      <div class="separator2"></div>
+      <div>var m1 = cf.money.get();  <span class="tip3">// 1000</span></div>
+      <div>cf.money.set(2000);</div>
+      <div>var m2 = cf.money.get();  <span class="tip3">// 2000</span></div>
     </div>
     <div class="tip2">regCtrl(註冊名稱, fn, [要載入的 .html頁面]): 註冊 controller;<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 宣告 menu controller 外掛</div>
-      cf.regCtrl('menu', function(arg1, arg2){<br/>
-      &nbsp;&nbsp;var self = this;<br/>
-      &nbsp;&nbsp;<div class="tip2">// 可從 this 取得 cf</div>
-      &nbsp;&nbsp;var cf = self.cf;&nbsp;&nbsp;<br/>
-      &nbsp;&nbsp;...<br/>
-      &nbsp;&nbsp;...<br/>
-      });<br/>
-      <br/>
+      <div>cf.regCtrl('menu', function(arg1, arg2){</div>
+      <div class="tab1">var self = this;</div>
+      <div class="tab1 tip2">// 可從 this 取得 cf</div>
+      <div class="tab1">var cf = self.cf;  </div>
+      <div class="tab1">...</div>
+      <div class="tab1">...</div>
+      <div>});</div>
       <div class="tip2">// 產生 menu 物件並放到 body</div>
-      $('&lt;div/&gt;').menu().appendTo(cf.$body);
+      <div>$('&lt;div/&gt;').menu().appendTo(cf.$body);</div>
     </div>
     <div class="tip2">regModule(註冊名稱, fn, [要載入的 .html頁面]): 註冊 module;<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 宣告 menu module 外掛, 被使用時會寫入 template/menu.html 裡面的 layout</div>
-      cf.regCtrl('menu', function(arg1, arg2){<br/>
-      &nbsp;&nbsp;<div class="tip2">// 可從 this 取得 cf</div>
-      &nbsp;&nbsp;var cf = self.cf;&nbsp;&nbsp;<br/>
-      &nbsp;&nbsp;...<br/>
-      &nbsp;&nbsp;...<br/>
-      },'template/menu.html');<br/>
-      <br/>
+      <div>cf.regModule('menu', function(arg1, arg2){</div>
+      <div class="tab1">var self = this;</div>
+      <div class="tab1 tip2">// 可從 this 取得 cf</div>
+      <div class="tab1">var cf = self.cf;  </div>
+      <div class="tab1">...</div>
+      <div class="tab1">...</div>
+      <div>}, 'template/menu.html');</div>
       <div class="tip2">// 產生 menu 物件並放到 body</div>
-      $('&lt;div/&gt;').menu().appendTo(cf.$body);
+      <div>$('&lt;div/&gt;').menu().appendTo(cf.$body);</div>
     </div>
     <div class="tip2">config(註冊名稱, [config-obj]): 註冊 / 讀取 config;<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 設置 config</div>
-      cf.config('page', {<br/>
-      &nbsp;&nbsp;templateDir: 'template/',<br/>
-      &nbsp;&nbsp;container: 'container'<br/>
-      });
+      <div>cf.config('page', {</div>
+      <div class="tab1">templateDir: 'template/',</div>
+      <div class="tab1">container: 'container'</div>
+      <div>});</div>
       <div class="tip2">// 在其他 js 可取得 config</div>
-      var templateDir = cf.config('page').templateDir;&nbsp;&nbsp;<span class="tip3">// 'template/'</span><br/>
-      var container = cf.config('page').container;&nbsp;&nbsp;<span class="tip3">// 'container'</span>
+      <div>var templateDir = cf.config('page').templateDir;  <span class="tip3">// 'template/'</span></div>
+      <div> var container = cf.config('page').container;  <span class="tip3">// 'container'</span></div>
     </div>
     <div class="tip2">regDifCfg(url, 設定): 依據不同的 url 載入 config;<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 設置 config</div>
-      cf.config('page', {<br/>
-      &nbsp;&nbsp;templateDir: 'template/',<br/>
-      &nbsp;&nbsp;container: 'container'<br/>
-      });
+      <div>cf.config('page', {</div>
+      <div class="tab1">templateDir: 'template/',</div>
+      <div class="tab1">container: 'container'</div>
+      <div>});</div>
       <div class="tip2">// 設置網址對應 config</div>
-      cf.regDifCfg('demo.com.tw', {<br/>
-      &nbsp;&nbsp;page: {<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;templateDir: 'template2/',<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;container: 'container2'<br/>
-      &nbsp;&nbsp;}
-      });
+      <div>cf.regDifCfg('demo.com.tw', {</div>
+      <div class="tab1">page: {</div>
+      <div class="tab2">templateDir: 'template2/',</div>
+      <div class="tab2">container: 'container2'</div>
+      <div class="tab1">}</div>
+      <div>});</div>
       <div class="tip2">// 當網址是 http://demo.com.tw/ 或 https://demo.com.tw/ 時, 會載入對應的 config</div>
-      var templateDir = cf.config('page').templateDir;&nbsp;&nbsp;<span class="tip3">// 'template2/'</span><br/>
-      var container = cf.config('page').container;&nbsp;&nbsp;<span class="tip3">// 'container2'</span>
+      <div>var templateDir = cf.config('page').templateDir;  <span class="tip3">// 'template2/'</span></div>
+      <div>var container = cf.config('page').container;  <span class="tip3">// 'container2'</span></div>
       <div class="tip2">// 其他網址則取得預設的 config</div>
-      var templateDir = cf.config('page').templateDir;&nbsp;&nbsp;<span class="tip3">// 'template/'</span><br/>
-      var container = cf.config('page').container;&nbsp;&nbsp;<span class="tip3">// 'container'</span>
+      <div>var templateDir = cf.config('page').templateDir;  <span class="tip3">// 'template/'</span></div>
+      <div>var container = cf.config('page').container;  <span class="tip3">// 'container'</span></div>
     </div>
   </div>
 </div>
