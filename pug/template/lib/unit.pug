@@ -1,0 +1,51 @@
+.mainTitle cf.unit
+.content
+  .title 簡介
+  div
+    | 一些單元程式
+.content
+  .title 設定檔
+  div
+    div imgPath: 放置圖片的路徑, 預設 images
+.content
+  .title 函式
+  div
+    div
+      .tip2
+        | open(URL, [name], [specs], [replace]): window.open 進階版, 偵測被瀏覽器封鎖彈出視窗時會 alert 訊息
+    div
+      .tip2
+        | ifJquery(arg): 判斷是否為 jQuery 物件
+    div
+      .tip2
+        | getImgSize($img, cb): 取得圖片真實寬高
+        span.codeLink 範例
+      .codeTarget
+        .subTitle2 假設 html 裡有圖片 &lt;img id="img" src="images/logo.png"/&gt;
+        div
+          div cf.fb.getImgSize($('#img'), function(width, height){
+          .tab1 ...
+          div });
+    div
+      .tip2
+        | getImgPath([fileName='']): 取得圖片路徑
+        span.codeLink 範例
+      .codeTarget
+        .subTitle2 設定檔 imgPath = 'https://carozozo.github.io/caro-front/images'
+        div
+          div cf.unit.getImgPath('logo.png');  
+            span.tip3 // 'https://carozozo.github.io/caro-front/images/logo.png'
+    div
+      .tip2
+        | replaceImgPath($dom, [imgPath = config.imgPath]): 轉換 $dom 的圖片路徑, 由 css 設定的同樣有效
+        span.codeLink 範例
+      .codeTarget
+        .subTitle2 假設 html 裡有圖片 &lt;img id="img" src="images/logo.png"/&gt;
+        div
+          .tip2 // &lt;img id="img" src="https://carozozo.github.io/caro-front/images/logo.png"/&gt;
+          div cf.unit.replaceImgPath($('#img'),'https://carozozo.github.io/caro-front/images');
+        .separator2
+        .subTitle2 假設 html 裡有 &lt;div id="bg" style="background:url(images/bg.jpg)"/&gt;
+        div
+          .tip2 // &lt;img id="img" style="background:url(https://carozozo.github.io/caro-front/images/bg.jpg)"/&gt;
+          div cf.unit.replaceImgPath($('#bg'),'https://carozozo.github.io/caro-front/images');
