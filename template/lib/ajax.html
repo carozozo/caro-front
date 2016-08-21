@@ -1,9 +1,8 @@
+
 <div class="mainTitle">cf.ajax</div>
 <div class="content">
   <div class="title">簡介</div>
-  <div>
-    延伸 $.ajax 並簡化 success function; 可設定測試模式, 用來模擬 api response
-  </div>
+  <div>延伸 $.ajax 並簡化 success function; 可設定測試模式, 用來模擬 api response</div>
 </div>
 <div class="content">
   <div class="title">設定檔</div>
@@ -16,10 +15,7 @@
 <div class="content">
   <div class="title">函式</div>
   <div>
-    <div class="tip2">callAjax(url, [data], [opt = {}]): 用法同 $.ajax, 另支援函式 .suc 和 .err;
-      <span class="codeLink">範例1</span>
-      <span class="codeLink">範例2</span>
-    </div>
+    <div class="tip2">callAjax(url, [data], [opt = {}]): 用法同 $.ajax, 另支援函式 .suc 和 .err;<span class="codeLink">範例1</span><span class="codeLink">範例2</span></div>
     <div class="subTitle1">opt 參數</div>
     <div>
       <div>同 $.ajax 的 options</div>
@@ -28,26 +24,28 @@
     </div>
     <div class="codeTarget">
       <div class="subTitle2">設定檔 responseErrKey = 'errorMsg'</div>
-      <div></div>
-      <div class="tip2">// 使用 post</div>
-      cf.ajax('/api/post.php', {data:123}).suc(function(res) {
-      <div class="tip2">&nbsp;&nbsp;// 使用 ajax 執行成功, 而且沒有 res.errorMsg</div>
-      }).err(function(err){
-      <div class="tip2">&nbsp;&nbsp;// 使用 ajax 執行成功, 但有 res.errorMsg, 則 err = res.errorMsg</div>
-      })
+      <div>
+        <div class="tip2">// 使用 post</div>
+        <div>cf.ajax('/api/post.php', {data:123}).suc(function(res) {</div>
+        <div class="tab1 tip2">// 使用 ajax 執行成功, 而且沒有 res.errorMsg</div>
+        <div>}).err(function(err){</div>
+        <div class="tab1 tip2">// 使用 ajax 執行成功, 但有 res.errorMsg, 則 err = res.errorMsg</div>
+        <div>})</div>
+      </div>
     </div>
     <div class="codeTarget">
       <div class="subTitle2">設定檔 isTestMode = true -> 則直接調用 fakeResponse</div>
-      <div></div>
-      <div class="tip2">// 使用 get, 且設置 fakeResponse</div>
-      cf.ajax('/api/get.php', null, {<br/>
-      &nbsp;&nbsp;isHideLoading: true<br/>
-      &nbsp;&nbsp;fakeResponse: {err: null, data: 'You got it!'}<br/>
-      }).suc(function(res) {
-      <div class="tip2">&nbsp;&nbsp;// res = {err: null, data: 'You got it!'}</div>
-      }).err(function(err){
-      <div class="tip2">&nbsp;&nbsp;// 這裡不會被執行</div>
-      })
+      <div>
+        <div class="tip2">// 使用 get, 且設置 fakeResponse</div>
+        <div>cf.ajax('/api/get.php', null, {</div>
+        <div class="tab1">isHideLoading: true</div>
+        <div class="tab1">fakeResponse: {err: null, data: 'You got it!'}</div>
+        <div>}).suc(function(res) {</div>
+        <div class="tab1 tip2">// res = {err: null, data: 'You got it!'}</div>
+        <div>}).err(function(err){</div>
+        <div class="tab1 tip2">// 這裡不會被執行</div>
+        <div>})</div>
+      </div>
     </div>
   </div>
 </div>
