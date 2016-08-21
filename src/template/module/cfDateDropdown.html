@@ -1,75 +1,62 @@
+
 <div class="mainTitle">cfDateDropdown</div>
 <div class="content">
   <div class="title">示範</div>
   <div>
     <div class="subTitle2">預設</div>
-    <div>
-      <span class="dateDropdown"></span>
+    <div><span class="dateDropdown"></span>
       <div class="btn2" id="getDateBtn">getDate</div>
       <div class="btn2" id="setDateBtn">setDate</div>
       <div class="btn2" id="disableAllBtn">disableAll</div>
       <div class="btn2" id="enableAllBtn">enableAll</div>
     </div>
-
     <div class="subTitle2">指定下拉選單</div>
-    <div>
-      <span class="dateDropdown">
+    <div><span class="dateDropdown">
         <select class="day"></select>
         <select class="month"></select>
-        <select class="year"></select>
-      </span>
-      <span class="codeLink">範例</span>
-    </div>
+        <select class="year"></select></span><span class="codeLink">範例</span></div>
     <div class="codeTarget">
-      $('#xx').cfDateDropdown('xxx', {<br/>
-      &nbsp;&nbsp;$year: $dateDropdown.find('.year'),<br/>
-      &nbsp;&nbsp;$month: $dateDropdown.dom('.month'),<br/>
-      &nbsp;&nbsp;$day: $dateDropdown.dom('.day')<br/>
-      });
+      <div>$('#xx').cfDateDropdown('xxx', {</div>
+      <div class="tab1">$year: $dateDropdown.find('.year'),</div>
+      <div class="tab1">$month: $dateDropdown.dom('.month'),</div>
+      <div class="tab1">$day: $dateDropdown.dom('.day')</div>
+      <div>});</div>
     </div>
-
     <div class="subTitle2">指定年份範圍</div>
-    <div>
-      <span class="dateDropdown"></span>
-      <span class="codeLink">範例</span>
-    </div>
+    <div><span class="dateDropdown"></span><span class="codeLink">範例</span></div>
     <div class="codeTarget">
-      $('#xx').cfDateDropdown('xxx', {<br/>
-      &nbsp;&nbsp;startYear: 1999,<br/>
-      &nbsp;&nbsp;endYear: 2001<br/>
-      });
+      <div>$('#xx').cfDateDropdown('xxx', {</div>
+      <div class="tab1">startYear: 1999,</div>
+      <div class="tab1">endYear: 2001</div>
+      <div>});</div>
     </div>
-
     <div class="subTitle2">利用 onSetYear 和 onSetMonth</div>
-    <div>
-      <span class="dateDropdown"></span>
-      <span class="codeLink">範例</span>
-    </div>
+    <div><span class="dateDropdown"></span><span class="codeLink">範例</span></div>
     <div class="codeTarget">
-      $('#xx').cfDateDropdown('xxx', {<br/>
-      &nbsp;&nbsp;onSetYear: function(i) {<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;if (i < 2000) {<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-      &nbsp;&nbsp;},<br/>
-      &nbsp;&nbsp;onSetMonth: function(i) {<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;if (i > 3 && i < 10) {<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-      &nbsp;&nbsp;onSetDay: function(i) {<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;if (i > 10) {<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-      &nbsp;&nbsp;}<br/>
-      });
+      <div>$('#xx').cfDateDropdown('xxx', {</div>
+      <div class="tab1">onSetYear: function(i) {</div>
+      <div class="tab2">if (i < 2000) {</div>
+      <div class="tab3">return false;</div>
+      <div class="tab2">}</div>
+      <div class="tab1">},</div>
+      <div class="tab1">onSetMonth: function(i) {</div>
+      <div class="tab2">if (i > 3 && i < 10) {</div>
+      <div class="tab3">return true;</div>
+      <div class="tab2">}</div>
+      <div class="tab1">onSetDay: function(i) {</div>
+      <div class="tab2">if (i > 10) {</div>
+      <div class="tab3">return false;</div>
+      <div class="tab2">}</div>
+      <div class="tab1">}</div>
+      <div>});</div>
     </div>
   </div>
 </div>
 <div class="content">
   <div class="title">簡介</div>
   <div>
-    自動化日期下拉選單, 日期下拉選單的值會依照所選的年和月改變<br/>
-    e.g. 閏年的2月, 日期範圍會是 1~29 而不是 1~28
+    <div>自動化日期下拉選單, 日期下拉選單的值會依照所選的年和月改變</div>
+    <div>e.g. 閏年的2月, 日期範圍會是 1~29 而不是 1~28</div>
   </div>
 </div>
 <div class="content">
@@ -81,7 +68,7 @@
     <div>
       <div>$year: 指定年份 &lt;select&gt; 容器, 未設置則由外掛自動產生</div>
       <div>$month: 指定月份 &lt;select&gt; 容器, 未設置則由外掛自動產生</div>
-      <div>$day: 指定日期 &lt;select&lt; 容器, 未設置則由外掛自動產生</div>
+      <div>$day: 指定日期 <select< 容器, 未設置則由外掛自動產生</div>
       <div>startYear: 起始年份</div>
       <div>endYear: 結束年份</div>
       <div>onSetYear: 設置每個 year 的 options 時觸發的 cb, return true 會跳過, return false 則終止設置</div>
@@ -89,7 +76,6 @@
       <div>onSetDay: 設置每個 day 的 options 時觸發的 cb, return true 會跳過, return false 則終止設置</div>
     </div>
   </div>
-</div>
 </div>
 <div class="content">
   <div class="title">函式</div>

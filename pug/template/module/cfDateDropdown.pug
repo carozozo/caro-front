@@ -1,0 +1,81 @@
+.mainTitle cfDateDropdown
+.content
+  .title 示範
+  div
+    .subTitle2 預設
+    div
+      span.dateDropdown
+      #getDateBtn.btn2 getDate
+      #setDateBtn.btn2 setDate
+      #disableAllBtn.btn2 disableAll
+      #enableAllBtn.btn2 enableAll
+    .subTitle2 指定下拉選單
+    div
+      span.dateDropdown
+        select.day
+        select.month
+        select.year
+      span.codeLink 範例
+    .codeTarget
+      div $('#xx').cfDateDropdown('xxx', {
+      .tab1 $year: $dateDropdown.find('.year'),
+      .tab1 $month: $dateDropdown.dom('.month'),
+      .tab1 $day: $dateDropdown.dom('.day')
+      div });
+    .subTitle2 指定年份範圍
+    div
+      span.dateDropdown
+      span.codeLink 範例
+    .codeTarget
+      div $('#xx').cfDateDropdown('xxx', {
+      .tab1 startYear: 1999,
+      .tab1 endYear: 2001
+      div });
+    .subTitle2 利用 onSetYear 和 onSetMonth
+    div
+      span.dateDropdown
+      span.codeLink 範例
+    .codeTarget
+      div $('#xx').cfDateDropdown('xxx', {
+      .tab1 onSetYear: function(i) {
+      .tab2 if (i < 2000) {
+      .tab3 return false;
+      .tab2 }
+      .tab1 },
+      .tab1 onSetMonth: function(i) {
+      .tab2 if (i > 3 && i < 10) {
+      .tab3 return true;
+      .tab2 }
+      .tab1 onSetDay: function(i) {
+      .tab2 if (i > 10) {
+      .tab3 return false;
+      .tab2 }
+      .tab1 }
+      div });
+.content
+  .title 簡介
+  div
+    div 自動化日期下拉選單, 日期下拉選單的值會依照所選的年和月改變
+    div e.g. 閏年的2月, 日期範圍會是 1~29 而不是 1~28
+.content
+  .title 參數
+  div
+    .tip4 $('xxx').cfDateDropdown(triggerName, opt = {})
+    div triggerName: 指定年和月在 on change 的 namespace, 避免多重觸發
+    .subTitle opt 參數
+    div
+      div $year: 指定年份 &lt;select&gt; 容器, 未設置則由外掛自動產生
+      div $month: 指定月份 &lt;select&gt; 容器, 未設置則由外掛自動產生
+      div $day: 指定日期 <select< 容器, 未設置則由外掛自動產生
+      div startYear: 起始年份
+      div endYear: 結束年份
+      div onSetYear: 設置每個 year 的 options 時觸發的 cb, return true 會跳過, return false 則終止設置
+      div onSetMonth: 設置每個 month 的 options 時觸發的 cb, return true 會跳過, return false 則終止設置
+      div onSetDay: 設置每個 day 的 options 時觸發的 cb, return true 會跳過, return false 則終止設置
+.content
+  .title 函式
+  div
+    .tip2 setDate(year, month, day): 設置下拉選單選取的日期
+    .tip2 getDate([separator='/']): 取得選擇的日期, 如沒選擇會回傳 null
+    .tip2 disableAll(): disable 全部下拉選單
+    .tip2 enableAll(): enable 全部下拉選單

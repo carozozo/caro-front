@@ -1,0 +1,29 @@
+.mainTitle cfImgSwitch
+.content
+  .title 示範
+  div
+    div
+      .separator2
+      #switchImgBtn.btn2 switchImg
+      #switchImg1Btn.btn2 switchImg1
+      #autoSwitchBtn.btn2 autoSwitch
+      #stopSwitchBtn.btn2 stopSwitch
+    .subContent.bgGray1
+      .separator2
+      #imgBox
+        img#img
+.content
+  .title 簡介
+  div
+    | 切換 &lt;img&gt; 圖片
+.content
+  .title 參數
+  div
+    .tip4 $('xxx').cfImgSwitch([path, path2...])
+    div path: 圖片路徑, e.g. '/images/a.jpg'
+.content
+  .title 函式
+  div
+    .tip2 switchImg([i]): 切換圖片, i = 圖片 index, 不設置則自動換下一張
+    .tip2 autoSwitch([ms=1000]): 定時切換圖片
+    .tip2 stopSwitch(): 停止切換圖片
