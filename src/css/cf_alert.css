@@ -8,13 +8,12 @@
   left: 50%;
   min-width: 200px;
   max-width: 300px;
-  box-shadow: 5px 5px 20px grey;
+  box-shadow: 5px 5px 20px #808080;
   border-radius: 10px;
   border: 3px #808080;
   color: #0f1711;
   background: #fff;
 }
-
 .cfAlertBg {
   position: absolute;
   top: 0;
@@ -23,11 +22,9 @@
   height: 100%;
   z-index: 9999;
 }
-
 .cfAlertMsg {
   padding: 5px;
 }
-
 .cfAlertOkBtn {
   margin-bottom: 0;
   margin-top: 30px;

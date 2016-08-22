@@ -4,44 +4,37 @@
   top: 130px;
   z-index: 9999;
 }
-
 .menuBtn {
   padding: 30px 15px;
   cursor: pointer;
   text-align: center;
 }
-
 #libBtn {
-  background: #80161a;
+  background: #8b181c;
 }
-
 #moduleBtn {
   margin-top: 10px;
-  background: #217284;
+  background: #24798b;
 }
-
 .menuContent {
   margin-top: -50px;
   padding: 50px 0 50px 50px;
 }
-
 .innerBox {
   display: inline-block;
   vertical-align: top;
 }
-
 .menuItem {
   cursor: pointer;
   text-align: center;
   padding: 5px 10px;
   margin: 5px 0 5px auto;
-  color: #dddddd;
-  background: #0E1206;
-  border: 3px solid #dddddd;
+  color: #e5e5e5;
+  background: #0e1206;
+  border: 3px solid #e5e5e5;
   min-width: 70px;
 }
-
 .menuItem:hover {
-  color: #161616;
-  background: #dddddd;
+  color: #0e1206;
+  background: #e5e5e5;
 }

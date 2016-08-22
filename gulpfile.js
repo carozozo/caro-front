@@ -9,7 +9,7 @@
   var gulp = require('gulp');
   // 整理 css
   var cleanCss = require('gulp-clean-css');
-  // coffee script
+  // 將 coffee 檔轉成 js
   var coffee = require('gulp-coffee');
   // 檔案合併
   var concat = require('gulp-concat');
@@ -23,6 +23,8 @@
   var rewriteCss = require('gulp-rewrite-css');
   // source 對應
   var sourcemaps = require('gulp-sourcemaps');
+  // 將 stylus 檔轉成 css
+  var stylus = require('gulp-stylus');
   // 檔案最小化
   var uglify = require('gulp-uglify');
   // 監聽檔案
@@ -32,8 +34,10 @@
   var _imgDir = caro.addHead(config.imgDir || '', '/');
   var _pugDir = caro.addHead(config.pugDir || '', './');
   var _coffeeDir = caro.addHead(config.coffeeDir || '', './');
+  var _stylusDir = caro.addHead(config.stylusDir || '', './');
   var _isUsePug = config.isUsePug;
   var _isUseCoffee = config.isUseCoffee;
+  var _isUseStylus = config.isUseStylus;
   var _jsName = config.jsName || 'caro-front';
   var _cssName = config.cssName || 'caro-front';
   var _isRandomName = config.isRandomName;
@@ -58,6 +62,7 @@
   var allSrcFiles = srcDir + '/**/*.*';
   var allPugFiles = _pugDir + '/**/*.pug';
   var allCoffeeFiles = _coffeeDir + '/**/*.coffee';
+  var allStylusFiles = _stylusDir + '/**/*.styl';
   var allSrcJsFiles = srcDir + '/**/*.js';
   var allSrcCssFiles = srcDir + '/**/*.css';
   var allOtherSrcFilesArr = [allSrcFiles, '!' + allSrcJsFiles, '!' + allSrcCssFiles, '!**/.*'];
@@ -114,6 +119,23 @@
       });
       gulp.src(coffeeFiles, {base: _coffeeDir})
         .pipe(coffeePipe)
+        .pipe(gulp.dest(srcDir))
+        .on('end', function () {
+          cb && cb();
+        });
+      return;
+    }
+    cb && cb();
+  };
+
+  var compileStylus = function (stylusFiles, cb) {
+    if (_isUseStylus) {
+      var stylusPipe = stylus({bare: true}).on('error', function (e) {
+        console.error('Got stylus error', e);
+        stylusPipe.end();
+      });
+      gulp.src(stylusFiles, {base: _stylusDir})
+        .pipe(stylusPipe)
         .pipe(gulp.dest(srcDir))
         .on('end', function () {
           cb && cb();
@@ -273,11 +295,19 @@
     });
   };
 
+  var buildStylus = function (cb) {
+    compileStylus(allStylusFiles, function () {
+      cb && cb();
+    });
+  };
+
   var buildDev = function (cb) {
     buildPug(function () {
       buildCoffee(function () {
-        injectFiles();
-        cb && cb();
+        buildStylus(function () {
+          injectFiles();
+          cb && cb();
+        });
       });
     });
   };
@@ -287,11 +317,13 @@
     cleanDist();
     buildPug(function () {
       buildCoffee(function () {
-        concatJs(function () {
-          concatCss(function () {
-            copyOtherToDist(function () {
-              injectFiles();
-              cb && cb();
+        buildStylus(function () {
+          concatJs(function () {
+            concatCss(function () {
+              copyOtherToDist(function () {
+                injectFiles();
+                cb && cb();
+              });
             });
           });
         });
@@ -326,6 +358,16 @@
             del.sync(srcDir + '/' + relative.replace('.coffee', '.js'));
           }
           compileCoffee(_coffeeDir + '/' + relative);
+        });
+      }
+      if (_isUseStylus) {
+        watch(allStylusFiles, function (f) {
+          var relative = f.relative;
+          // 如果該 stylus 被移除 or 更名, 則移除對應的 css
+          if (f.isNull()) {
+            del.sync(srcDir + '/' + relative.replace('.styl', '.css'));
+          }
+          compileStylus(_stylusDir + '/' + relative);
         });
       }
       watch(allSrcJsFiles, function () {

@@ -169,6 +169,13 @@
         div 在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /src 的相對路徑底下
         .tip3 如不使用 coffee 請直接移除資料夾, 並將 config.isUseCoffee 設為 false
 
+      .subTitle2 支援
+        a.link(href='https://www.npmjs.com/package/gulp-stylus', target='_blank') .stylus 
+      div
+        div 在 gulp 時會自動 watch 並編譯成 css
+        div 在自動部署時, /stylus 裡的 .css 會編譯成 .css 並放到 /src 的相對路徑底下
+        .tip3 如不使用 stylus 請直接移除資料夾, 並將 config.isUseStylus 設為 false
+
       .subTitle2 使用
         a.link(href='https://www.npmjs.com/package/gulp-inject', target='_blank') gulp-inject
       div
@@ -182,8 +189,10 @@
         div imgDir: 在 src 底下放圖片的資料夾
         div pugDir: 放 hug 的資料夾, 編譯後的 html 會放置在 /src 的相對路徑底下
         div coffeeDir: 放 coffee 的資料夾, 編譯後的 js 會放置在 /src 的相對路徑底下
+        div stylusDir: 放 stylus 的資料夾, 編譯後的 css 會放置在 /src 的相對路徑底下
         div isUsePug: 是否使用 pug 編譯 html
         div isUseCoffee: 是否使用 coffee 編譯 js
+        div isUseStylus: 是否使用 stylus 編譯 css
         div jsName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js 檔名
         div cssName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 css 檔名
         div isRandomName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js, css 檔名是否要加隨機碼

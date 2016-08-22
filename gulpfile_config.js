@@ -6,10 +6,14 @@ module.exports = (function () {
   config.pugDir = 'pug';
   // 放 coffee 的資料夾, 編譯後的 js 會放置在 /src 的相對路徑底下
   config.coffeeDir = 'coffee';
+  // 放 stylus 的資料夾, 編譯後的 css 會放置在 /src 的相對路徑底下
+  config.stylusDir = 'stylus';
   // 是否使用 pug 編譯 html
   config.isUsePug = true;
   // 是否使用 coffee 編譯 js
   config.isUseCoffee = true;
+  // 是否使用 stylus 編譯 css
+  config.isUseStylus = true;
 
   // 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js 檔名
   config.jsName = 'caro-front';
