@@ -7,8 +7,8 @@ cf.regModule 'cfMouseStyle', ($mouse, opt = {}) ->
   cf = $self.cf
   tm = cf.require('TweenMax')
   _triggerName = 'mousemove.cfMouseStyle'
-  ### $mouse 移動時間 ###
-  _duration = if opt.duration >= 0 then opt.duration else .3
+  ### $mouse 延遲移動時間 ###
+  _delay = if opt.delay >= 0 then opt.delay else .3
 
   $mouse.css({
     position: 'absolute'
@@ -18,12 +18,9 @@ cf.regModule 'cfMouseStyle', ($mouse, opt = {}) ->
   $self.off(_triggerName).on(_triggerName, (e) ->
     pageX = e.pageX
     pageY = e.pageY
-    selfOffset = $self.offset()
-    selfX = selfOffset.left
-    selfY = selfOffset.top
-    tm.to($mouse, _duration, {
-      left: pageX - selfX
-      top: pageY - selfY
+    tm.to($mouse, _delay, {
+      left: pageX
+      top: pageY
     })
   ).css(
     cursor: 'none'

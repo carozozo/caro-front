@@ -4,7 +4,7 @@
 $mouse = 會跟著滑鼠移動的物件, 請放在 $self 裡面 -> 可當作是滑鼠指標
  */
 cf.regModule('cfMouseStyle', function($mouse, opt) {
-  var $self, _duration, _triggerName, cf, tm;
+  var $self, _delay, _triggerName, cf, tm;
   if (opt == null) {
     opt = {};
   }
@@ -13,22 +13,19 @@ cf.regModule('cfMouseStyle', function($mouse, opt) {
   tm = cf.require('TweenMax');
   _triggerName = 'mousemove.cfMouseStyle';
 
-  /* $mouse 移動時間 */
-  _duration = opt.duration >= 0 ? opt.duration : .3;
+  /* $mouse 延遲移動時間 */
+  _delay = opt.delay >= 0 ? opt.delay : .3;
   $mouse.css({
     position: 'absolute',
     'pointer-events': 'none'
   });
   $self.off(_triggerName).on(_triggerName, function(e) {
-    var pageX, pageY, selfOffset, selfX, selfY;
+    var pageX, pageY;
     pageX = e.pageX;
     pageY = e.pageY;
-    selfOffset = $self.offset();
-    selfX = selfOffset.left;
-    selfY = selfOffset.top;
-    return tm.to($mouse, _duration, {
-      left: pageX - selfX,
-      top: pageY - selfY
+    return tm.to($mouse, _delay, {
+      left: pageX,
+      top: pageY
     });
   }).css({
     cursor: 'none'

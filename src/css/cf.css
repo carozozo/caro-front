@@ -22,7 +22,7 @@
 .colorBlue1,
 .link,
 .tip4 {
-  color: #33adc7;
+  color: #34bfc7;
 }
 .colorBlue2 {
   color: #24798b;
@@ -257,7 +257,7 @@ select {
   background: -webkit-linear-gradient(45deg, #500e10, #c72228, rgba(255,255,255,0) 95%);
 }
 .title4 {
-  background: -webkit-linear-gradient(45deg, #144550, #33adc7, rgba(255,255,255,0) 95%);
+  background: -webkit-linear-gradient(45deg, #144550, #34bfc7, rgba(255,255,255,0) 95%);
 }
 .title5 {
   background: -webkit-linear-gradient(45deg, #505016, #c7c738, rgba(255,255,255,0) 95%);

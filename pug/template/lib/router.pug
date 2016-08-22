@@ -37,7 +37,7 @@
   div
     .tip2
       | getPageByHash([hash]): 依照 url 的 hash 判斷目前的分頁路徑名稱
-      span.codeLink 範例
+      span.codeLink 程式範例
     .codeTarget
       .subTitle2 假設現在的 url 是 https://carozozo.github.io/caro-front/#a/b?search=2
       div cf.getPageByHash();  
@@ -46,7 +46,7 @@
         span.tip3 // 'router'
     .tip2
       | getSearchByHash([hash]): 依照 url 的 hash 判斷目前的 search
-      span.codeLink 範例
+      span.codeLink 程式範例
     .codeTarget
       .subTitle2 假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20
       div cf.getSearchByHash();  
@@ -55,7 +55,7 @@
         span.tip3 // 'name=huang'
     .tip2
       | parseUrlSearch(): 依照 url 的 hash 裡面的 search 轉為 obj
-      span.codeLink 範例
+      span.codeLink 程式範例
     .codeTarget
       .subTitle2 假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20
       div cf.getSearchByHash();  
@@ -64,7 +64,7 @@
         span.tip3 // {name: 'huang'}
     .tip2
       | regBefPage(fn, [執行順序=50]): 註冊每次執行 cf.goPage 前要執行的 fn
-      span.codeLink 範例
+      span.codeLink 程式範例
     .codeTarget
       .tip2 // 每次執行 cf.goPage 前, 會先 alert 'b', 然後 alert 'a'
       div cf.regBefPage(function(cf){
@@ -75,7 +75,7 @@
       div }, 1);
     .tip2
       | regPrePage(fn, [執行順序=50]): 註冊每次載入分頁前要執行的 fn
-      span.codeLink 範例
+      span.codeLink 程式範例
     .codeTarget
       .tip2 // 每次載入分頁前, 會先 alert 'b', 然後 alert 'a'
       div cf.regPrePage(function(cf, $page){
@@ -88,7 +88,7 @@
       div }, 1);
     .tip2
       | regAftPage(fn, [執行順序=50]): 註冊每次載入分頁後要執行的 fn
-      span.codeLink 範例
+      span.codeLink 程式範例
     .codeTarget
       .tip2 // 每次載入分頁後, 會先 alert 'b', 然後 alert 'a'
       div cf.regAftPage(function(cf, $page){
@@ -101,7 +101,7 @@
       div }, 1);
     .tip2
       | regPage(註冊分頁, fn): 註冊載入指定分頁後要執行的 fn
-      span.codeLink 範例
+      span.codeLink 程式範例
     .codeTarget
       .tip2 // 執行 cf.goPage('page1') 時, 會 alert 'a'
       div cf.regPage('page1', function(cf, $page){
@@ -115,7 +115,7 @@
       div });
     .tip2
       | goPage([分頁路徑], [opt={}]): 換頁, 沒參數時會依據 url 的 hash 自動判斷
-      span.codeLink 範例
+      span.codeLink 程式範例
     .subTitle1 opt 參數
     div
       div fileType: 要載入的分頁副檔名
@@ -134,13 +134,13 @@
       div cf.goPage('subPage/page2');
     .tip2
       | blockGoPage(): 呼叫後, 執行 router.goPage 不會換頁
-      span.codeLink 範例
+      span.codeLink 程式範例
     .codeTarget
       div cf.blockGoPage();
       .tip2 // 不會換頁
       div cf.goPage('index');
     .tip2
-      | approveGoPage(): 呼叫後, 執行 router.goPage 可以換頁        span.codeLink 範例
+      | approveGoPage(): 呼叫後, 執行 router.goPage 可以換頁        span.codeLink 程式範例
     .codeTarget
       div cf.blockGoPage();
       .tip2 // 不會換頁

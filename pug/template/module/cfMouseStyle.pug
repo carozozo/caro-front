@@ -2,12 +2,21 @@
 .content
   .title 示範
   div
+    span.codeLink 程式範例
+    .codeTarget
+      div $mouseDiv = $('#mouseDiv');
+      div $mouse = $('#mouse').attr('src', 'images/hand.png');
+      div $mouseDiv.cfMouseStyle($mouse);
+    img#mouse
+    #mouseDiv.block
 .content
   .title 簡介
-  div
+  div 客製化滑鼠樣式
 .content
   .title 參數
   div
-.content
-  .title 函式
-  div
+    .tip4 $(xxx).cfMouseStyle($mouse, [opt={}])
+    div $mouse: 客製化的滑鼠 DOM
+    .subTitle1 opt 參數
+    div
+      div delay: $mouse 延遲移動時間
