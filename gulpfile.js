@@ -145,50 +145,55 @@
     cb && cb();
   };
 
-  var injectFiles = function (type) {
-    var doInject = function (source, name) {
-      return inject(gulp.src(source, {read: false}), {
-        name: name,
-        empty: true,
-        relative: true
-      })
-    };
-    caro.forEach(_injectFileArr, function (fileName) {
-      var outputDir = isDev ? srcDir : distDir;
-      var file = outputDir + '/' + fileName;
-      if (isDev) {
-        if (!type) {
-          gulp.src(file)
-            .pipe(doInject(injectHeadArr, 'headJs'))
-            .pipe(doInject(injectHeadArr, 'headCss'))
-            .pipe(doInject(injectOtherArr, 'otherJs'))
-            .pipe(doInject(injectOtherArr, 'otherCss'))
-            .pipe(doInject([], 'app'))
-            .pipe(gulp.dest(outputDir));
-        } else if (type === 'js') {
-          gulp.src(file)
-            .pipe(doInject(injectHeadArr, 'headJs'))
-            .pipe(doInject(injectOtherArr, 'otherJs'))
-            .pipe(doInject([], 'app'))
-            .pipe(gulp.dest(outputDir));
-        } else if (type === 'css') {
-          gulp.src(file)
-            .pipe(doInject(injectHeadArr, 'headCss'))
-            .pipe(doInject(injectOtherArr, 'otherCss'))
-            .pipe(doInject([], 'app'))
-            .pipe(gulp.dest(outputDir));
-        }
-        return
+  var doInject = function (source, name) {
+    return inject(gulp.src(source, {read: false}), {
+      name: name,
+      empty: true,
+      relative: true
+    })
+  };
+
+  var injectFile = function (fileName, type) {
+    var outputDir = isDev ? srcDir : distDir;
+    var file = outputDir + '/' + fileName;
+    if (isDev) {
+      if (!type) {
+        gulp.src(file)
+          .pipe(doInject(injectHeadArr, 'headJs'))
+          .pipe(doInject(injectHeadArr, 'headCss'))
+          .pipe(doInject(injectOtherArr, 'otherJs'))
+          .pipe(doInject(injectOtherArr, 'otherCss'))
+          .pipe(doInject([], 'app'))
+          .pipe(gulp.dest(outputDir));
+      } else if (type === 'js') {
+        gulp.src(file)
+          .pipe(doInject(injectHeadArr, 'headJs'))
+          .pipe(doInject(injectOtherArr, 'otherJs'))
+          .pipe(doInject([], 'app'))
+          .pipe(gulp.dest(outputDir));
+      } else if (type === 'css') {
+        gulp.src(file)
+          .pipe(doInject(injectHeadArr, 'headCss'))
+          .pipe(doInject(injectOtherArr, 'otherCss'))
+          .pipe(doInject([], 'app'))
+          .pipe(gulp.dest(outputDir));
       }
-      var jsPath = distDir + '/' + _jsName;
-      var cssPath = distDir + '/' + _cssName;
-      gulp.src(file)
-        .pipe(doInject([], 'headJs'))
-        .pipe(doInject([], 'headCss'))
-        .pipe(doInject([], 'otherJs'))
-        .pipe(doInject([], 'otherCss'))
-        .pipe(doInject([jsPath, cssPath], 'app'))
-        .pipe(gulp.dest(outputDir));
+      return
+    }
+    var jsPath = distDir + '/' + _jsName;
+    var cssPath = distDir + '/' + _cssName;
+    gulp.src(file)
+      .pipe(doInject([], 'headJs'))
+      .pipe(doInject([], 'headCss'))
+      .pipe(doInject([], 'otherJs'))
+      .pipe(doInject([], 'otherCss'))
+      .pipe(doInject([jsPath, cssPath], 'app'))
+      .pipe(gulp.dest(outputDir));
+  };
+
+  var injectFiles = function (type) {
+    caro.forEach(_injectFileArr, function (fileName) {
+      injectFile(fileName, type);
     });
   };
 
@@ -343,11 +348,14 @@
       if (_isUsePug) {
         watch(allPugFiles, function (f) {
           var relative = f.relative;
+          var relativeInSrc = relative.replace('.pug', '.html');
           // 如果該 pug 被移除 or 更名, 則移除對應的 html
           if (f.isNull()) {
-            del.sync(srcDir + '/' + relative.replace('.pug', '.html'));
+            del.sync(srcDir + '/' + relativeInSrc);
           }
-          compilePug(_pugDir + '/' + relative);
+          compilePug(_pugDir + '/' + relative, function () {
+            injectFile(relativeInSrc);
+          });
         });
       }
       if (_isUseCoffee) {
