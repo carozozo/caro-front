@@ -1,7 +1,7 @@
 cf.router.regPage 'module/cfMouseStyle', (cf, $page) ->
-  $mouseDiv = $page.dom('#mouseDiv').css(
+  $mouseArea = $page.dom('#mouseArea').css(
     height: 300
   )
   $mouse = $page.dom('#mouse').src('images/hand.png')
-  $mouseDiv.cfMouseStyle($mouse)
+  $mouseArea.cfMouseStyle($mouse)
   $page
