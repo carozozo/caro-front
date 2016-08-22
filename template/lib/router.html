@@ -1,30 +1,29 @@
+
 <div class="mainTitle">cf.router</div>
 <div class="content">
   <div class="title">示範</div>
   <div>
     <div class="subContent">
-      <div id="getPageBtn" class="btn2">getPageByHash()</div>
-      <div id="getSearchBtn" class="btn2">getSearchByHash()</div>
-      <div id="getSearchObjBtn" class="btn2">parseUrlSearch()</div>
+      <div class="btn2" id="getPageBtn">getPageByHash()</div>
+      <div class="btn2" id="getSearchBtn">getSearchByHash()</div>
+      <div class="btn2" id="getSearchObjBtn">parseUrlSearch()</div>
     </div>
     <div class="separator1"></div>
     <div class="subContent">
-      <div id="goPageBtn1" class="btn2">goPage('router')</div>
-      <div id="goPageBtn2" class="btn2">goPage()</div>
-      <div id="goPageBtn3" class="btn2">goPage('router?name=caro&age=20')</div>
+      <div class="btn2" id="goPageBtn1">goPage('router')</div>
+      <div class="btn2" id="goPageBtn2">goPage()</div>
+      <div class="btn2" id="goPageBtn3">goPage('router?name=caro&age=20')</div>
     </div>
     <div class="separator1"></div>
     <div class="subContent">
-      <div id="blockGoPageBtn" class="btn2">blockGoPage()</div>
-      <div id="approveGoPageBtn" class="btn2">approveGoPage()</div>
+      <div class="btn2" id="blockGoPageBtn">blockGoPage()</div>
+      <div class="btn2" id="approveGoPageBtn">approveGoPage()</div>
     </div>
   </div>
 </div>
 <div class="content">
   <div class="title">簡介</div>
-  <div>
-    換頁函式庫, 使用 $.ajax 切換分頁, 並利用 url hash 記錄
-  </div>
+  <div>換頁函式庫, 使用 $.ajax 切換分頁, 並利用 url hash 記錄</div>
 </div>
 <div class="content">
   <div class="title">設定檔</div>
@@ -37,118 +36,81 @@
 <div class="content">
   <div class="title">屬性</div>
   <div>
-    <div>$container: 當前分頁的容器 DOM </div>
-    <div>$page: 當前分頁 DOM</div>
+    <div>$container: 當前分頁的容器 DOM     div $page: 當前分頁 DOM</div>
     <div>_befPage: 儲存每次執行 cf.goPage 前要執行的 fns</div>
-    <div>_prePage: 紀錄載入分頁前會執行的 fns </div>
-    <div>_page: 當載入分頁後要執行的指定 fn  </div>
-    <div>_aftPage: 紀錄載入分頁後會執行的 fn s</div>
-    <div>_transitionFn: 紀錄當前換頁效果 fn </div>
-    <div>pageName: 當前分頁名稱 </div>
-    <div>templateDir: 記錄要放置分頁的資料夾路徑 </div>
-    <div>templateExtname: 記錄要載入的分頁副檔名</div>
+    <div>_prePage: 紀錄載入分頁前會執行的 fns     div _page: 當載入分頁後要執行的指定 fn      div _aftPage: 紀錄載入分頁後會執行的 fn s</div>
+    <div>_transitionFn: 紀錄當前換頁效果 fn     div pageName: 當前分頁名稱     div templateDir: 記錄要放置分頁的資料夾路徑     div templateExtname: 記錄要載入的分頁副檔名</div>
   </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
   <div>
-    <div class="tip2">
-      getPageByHash([hash]): 依照 url 的 hash 判斷目前的分頁路徑名稱
-      <span class="codeLink">範例</span>
-    </div>
+    <div class="tip2">getPageByHash([hash]): 依照 url 的 hash 判斷目前的分頁路徑名稱<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="subTitle2">假設現在的 url 是 https://carozozo.github.io/caro-front/#a/b?search=2</div>
-      cf.getPageByHash();&nbsp;&nbsp;<span class="tip3">// 'a/b'</span><br/>
-      cf.getPageByHash('#router?search=1');&nbsp;&nbsp;<span class="tip3">// 'router'</span>
+      <div>cf.getPageByHash();  <span class="tip3">// 'a/b'</span></div>
+      <div>cf.getPageByHash('#router?search=1');  <span class="tip3">// 'router'</span></div>
     </div>
-    <div class="tip2">
-      getSearchByHash([hash]): 依照 url 的 hash 判斷目前的 search
-      <span class="codeLink">範例</span>
-    </div>
+    <div class="tip2">getSearchByHash([hash]): 依照 url 的 hash 判斷目前的 search<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="subTitle2">假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20</div>
-      cf.getSearchByHash();&nbsp;&nbsp;<span class="tip3">// 'name=caro&age=20'</span><br/>
-      cf.getSearchByHash('#router?name=huang');&nbsp;&nbsp;<span class="tip3">// 'name=huang'</span>
+      <div>cf.getSearchByHash();  <span class="tip3">// 'name=caro&age=20'</span></div>
+      <div>cf.getSearchByHash('#router?name=huang');  <span class="tip3">// 'name=huang'</span></div>
     </div>
-    <div class="tip2">
-      parseUrlSearch(): 依照 url 的 hash 裡面的 search 轉為 obj
-      <span class="codeLink">範例</span>
-    </div>
+    <div class="tip2">parseUrlSearch(): 依照 url 的 hash 裡面的 search 轉為 obj<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="subTitle2">假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20</div>
-      cf.getSearchByHash();&nbsp;&nbsp;<span class="tip3">// {name: 'caro', age: '20'}</span><br/>
-      cf.getSearchByHash('#router?name=huang');&nbsp;&nbsp;<span class="tip3">// {name: 'huang'}</span>
+      <div>cf.getSearchByHash();  <span class="tip3">// {name: 'caro', age: '20'}</span></div>
+      <div>cf.getSearchByHash('#router?name=huang');  <span class="tip3">// {name: 'huang'}</span></div>
     </div>
-    <div class="tip2">
-      regBefPage(fn, [執行順序=50]): 註冊每次執行 cf.goPage 前要執行的 fn
-      <span class="codeLink">範例</span>
-    </div>
+    <div class="tip2">regBefPage(fn, [執行順序=50]): 註冊每次執行 cf.goPage 前要執行的 fn<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 每次執行 cf.goPage 前, 會先 alert 'b', 然後 alert 'a'</div>
-      cf.regBefPage(function(cf){<br/>
-      &nbsp;&nbsp;alert('a');<br/>
-      });<br/>
-      cf.regBefPage(function(cf){<br/>
-      &nbsp;&nbsp;alert('b');<br/>
-      }, 1);
+      <div>cf.regBefPage(function(cf){</div>
+      <div class="tab1">alert('a');</div>
+      <div>});</div>
+      <div>cf.regBefPage(function(cf){</div>
+      <div class="tab1">alert('b');</div>
+      <div>}, 1);</div>
     </div>
-    <div class="tip2">
-      regPrePage(fn, [執行順序=50]): 註冊每次載入分頁前要執行的 fn
-      <span class="codeLink">範例</span>
-    </div>
+    <div class="tip2">regPrePage(fn, [執行順序=50]): 註冊每次載入分頁前要執行的 fn<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 每次載入分頁前, 會先 alert 'b', 然後 alert 'a'</div>
-      cf.regPrePage(function(cf, $page){
-      &nbsp;&nbsp;
-      <div class="tip2">// $page 就是分頁的 jQuery DOM 物件</div>
-      &nbsp;&nbsp;alert('a');<br/>
-      });<br/>
-      cf.regPrePage(function(cf, $page){
-      &nbsp;&nbsp;
-      <div class="tip2">// $page 就是分頁的 jQuery DOM 物件</div>
-      &nbsp;&nbsp;alert('b');<br/>
-      }, 1);
+      <div>cf.regPrePage(function(cf, $page){</div>
+      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div class="tab1">alert('a');</div>
+      <div>});</div>
+      <div>cf.regPrePage(function(cf, $page){</div>
+      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div class="tab1">alert('b');</div>
+      <div>}, 1);</div>
     </div>
-    <div class="tip2">
-      regAftPage(fn, [執行順序=50]): 註冊每次載入分頁後要執行的 fn
-      <span class="codeLink">範例</span>
-    </div>
+    <div class="tip2">regAftPage(fn, [執行順序=50]): 註冊每次載入分頁後要執行的 fn<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 每次載入分頁後, 會先 alert 'b', 然後 alert 'a'</div>
-      cf.regAftPage(function(cf, $page){
-      &nbsp;&nbsp;
-      <div class="tip2">// $page 就是分頁的 jQuery DOM 物件</div>
-      &nbsp;&nbsp;alert('a');<br/>
-      });<br/>
-      cf.regAftPage(function(cf, $page){
-      &nbsp;&nbsp;
-      <div class="tip2">// $page 就是分頁的 jQuery DOM 物件</div>
-      &nbsp;&nbsp;alert('b');<br/>
-      }, 1);
+      <div>cf.regAftPage(function(cf, $page){</div>
+      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div class="tab1">alert('a');</div>
+      <div>});</div>
+      <div>cf.regAftPage(function(cf, $page){</div>
+      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div class="tab1">alert('b');</div>
+      <div>}, 1);</div>
     </div>
-    <div class="tip2">
-      regPage(註冊分頁, fn): 註冊載入指定分頁後要執行的 fn
-      <span class="codeLink">範例</span>
-    </div>
+    <div class="tip2">regPage(註冊分頁, fn): 註冊載入指定分頁後要執行的 fn<span class="codeLink">範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 執行 cf.goPage('page1') 時, 會 alert 'a'</div>
-      cf.regPage('page1', function(cf, $page){
-      &nbsp;&nbsp;
-      <div class="tip2">// $page 就是分頁的 jQuery DOM 物件</div>
-      &nbsp;&nbsp;alert('b');<br/>
-      });<br/>
-
+      <div>cf.regPage('page1', function(cf, $page){</div>
+      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div class="tab1">alert('b');</div>
+      <div>});</div>
       <div class="tip2">// 執行 cf.goPage('page2') 時, 會 alert 'b'</div>
-      cf.regPage('page2', function(cf, $page){
-      &nbsp;&nbsp;
-      <div class="tip2">// $page 就是分頁的 jQuery DOM 物件</div>
-      &nbsp;&nbsp;alert('b');<br/>
-      });<br/>
+      <div>cf.regPage('page2', function(cf, $page){</div>
+      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div class="tab1">alert('b');</div>
+      <div>});</div>
     </div>
-    <div class="tip2">
-      goPage([分頁路徑], [opt={}]): 換頁, 沒參數時會依據 url 的 hash 自動判斷
-      <span class="codeLink">範例</span>
-    </div>
+    <div class="tip2">goPage([分頁路徑], [opt={}]): 換頁, 沒參數時會依據 url 的 hash 自動判斷<span class="codeLink">範例</span></div>
     <div class="subTitle1">opt 參數</div>
     <div>
       <div>fileType: 要載入的分頁副檔名</div>
@@ -157,39 +119,31 @@
       <div class="subTitle2">設定檔 templateDir = 'temp', templateExtname = 'jsp'</div>
       <div></div>
       <div class="tip2">// 讀取 /temp/page1.jsp 裡的內容並寫入容器</div>
-      cf.goPage('page1');
+      <div>cf.goPage('page1');</div>
       <div class="tip2">// 讀取 /temp/subPage/page1.jsp 裡的內容並寫入容器</div>
-      cf.goPage('subPage/page1');
+      <div>cf.goPage('subPage/page1');</div>
       <div class="tip2">// 讀取 /temp/subPage/page2.html 裡的內容並寫入容器</div>
-      cf.goPage('subPage/page2', {fileType: 'html'});
+      <div>cf.goPage('subPage/page2', {fileType: 'html'});</div>
       <div class="subTitle2">設定檔 templateDir = '', templateExtname = ''</div>
       <div></div>
       <div class="tip2">// 讀取 /subPage/page2 裡的內容並寫入容器</div>
-      cf.goPage('subPage/page2');
+      <div>cf.goPage('subPage/page2');</div>
     </div>
-    <div class="tip2">
-      blockGoPage(): 呼叫後, 執行 router.goPage 不會換頁
-      <span class="codeLink">範例</span>
-    </div>
+    <div class="tip2">blockGoPage(): 呼叫後, 執行 router.goPage 不會換頁<span class="codeLink">範例</span></div>
     <div class="codeTarget">
-      cf.blockGoPage();<br/>
-
+      <div>cf.blockGoPage();</div>
       <div class="tip2">// 不會換頁</div>
-      cf.goPage('index');
+      <div>cf.goPage('index');</div>
     </div>
-    <div class="tip2">
-      approveGoPage(): 呼叫後, 執行 router.goPage 可以換頁  
-      <span class="codeLink">範例</span>
-    </div>
+    <div class="tip2">approveGoPage(): 呼叫後, 執行 router.goPage 可以換頁        span.codeLink 範例</div>
     <div class="codeTarget">
-      cf.blockGoPage();<br/>
-
+      <div>cf.blockGoPage();</div>
       <div class="tip2">// 不會換頁</div>
-      cf.goPage('index');<br/><br/>
-      cf.approveGoPage();<br/>
-
+      <div>cf.goPage('index');</div>
+      <div class="separator2"></div>
+      <div>cf.approveGoPage();</div>
       <div class="tip2">// 會換頁</div>
-      cf.goPage('index');
+      <div>cf.goPage('index');</div>
     </div>
   </div>
 </div>
