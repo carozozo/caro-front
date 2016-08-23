@@ -1,5 +1,7 @@
-### depend on jquery.mCustomScrollbar ###
-### 自訂捲軸樣式, 客製化外掛 mCustomScrollbar 使用方式 ###
+###
+自訂捲軸樣式, 客製化外掛 mCustomScrollbar 使用方式
+Depend on jquery.mCustomScrollbar
+###
 cf.regModule 'cfScrollbar', (styleOpt = {}, scrollBarOpt = {}) ->
   ### styleOpt = 樣式參數 ###
   ### scrollBarOpt = 外掛 mCustomScrollbar 參數 ###

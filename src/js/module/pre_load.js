@@ -1,7 +1,7 @@
 
 /*
 預載檔案
-depend on preloadjs-0.4.1
+Depend on preloadjs-0.4.1
  */
 cf.regModule('cfPreLoad', function(filePathArr, opt) {
   var $self, _onComplete, _onError, _onLoadStart, _onProgress, cf, createjs;

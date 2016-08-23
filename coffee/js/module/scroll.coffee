@@ -1,6 +1,6 @@
 ###
 捲軸自動滑動到 DOM 定點的功能
-depend on plugin scrollTo of gsap
+Depend on plugin scrollTo of gsap
 ###
 cf.regModule 'cfScroll', (nameSpace, $contents, opt = {}) ->
   $self = @

@@ -5,8 +5,10 @@ cf.router.regPage('module/cfScroll', function(cf, $page) {
     $inner.css({
       width: '97%',
       height: 80,
+      color: '#e5e5e5',
       'background-color': color,
-      'text-align': 'center'
+      'text-align': 'center',
+      'padding-top': 20
     });
     return $inner.append('<h2>' + index + '</h2>');
   };
@@ -25,9 +27,7 @@ cf.router.regPage('module/cfScroll', function(cf, $page) {
     setInner($inner, index, color);
     $innerArr.push($inner);
   });
-  $outer.cfScroll('outer', $innerArr, {
-    offsetTop: 5
-  });
+  $outer.cfScroll('outer', $innerArr);
   $page.dom('#scrollToBtn1').onClick(function() {
     $outer.scrollTo(1);
   });

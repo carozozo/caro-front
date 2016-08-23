@@ -1,7 +1,7 @@
 
 /*
 捲軸自動滑動到 DOM 定點的功能
-depend on plugin scrollTo of gsap
+Depend on plugin scrollTo of gsap
  */
 cf.regModule('cfScroll', function(nameSpace, $contents, opt) {
   var $self, _aftScroll, _basicY, _befScroll, _duration, _ease, _isLiveTop, _nowIndex, _offsetTop, _offsetTopArr, _onScroll, _triggerName, caro, cf, getContentTop, getOffsetTopArr, scrollToNowIndex, tm;

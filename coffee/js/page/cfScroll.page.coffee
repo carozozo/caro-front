@@ -5,8 +5,10 @@ cf.router.regPage 'module/cfScroll', (cf, $page) ->
     $inner.css(
       width: '97%'
       height: 80
+      color: '#e5e5e5'
       'background-color': color
       'text-align': 'center'
+      'padding-top': 20
     )
     $inner.append('<h2>' + index + '</h2>')
 
@@ -24,9 +26,7 @@ cf.router.regPage 'module/cfScroll', (cf, $page) ->
     $innerArr.push($inner)
     return
   )
-  $outer.cfScroll('outer', $innerArr,
-    offsetTop: 5
-  )
+  $outer.cfScroll('outer', $innerArr)
 
   $page.dom('#scrollToBtn1').onClick(->
     $outer.scrollTo(1)

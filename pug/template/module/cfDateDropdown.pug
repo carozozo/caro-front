@@ -60,7 +60,7 @@
 .content
   .title 參數
   div
-    .tip4 $('xxx').cfDateDropdown(triggerName, opt = {})
+    .tip4 $('xxx').cfDateDropdown(triggerName, [opt = {}])
     div triggerName: 指定年和月在 on change 的 namespace, 避免多重觸發
     .subTitle opt 參數
     div
@@ -76,6 +76,6 @@
   .title 函式
   div
     .tip2 setDate(year, month, day): 設置下拉選單選取的日期
-    .tip2 getDate([separator='/']): 取得選擇的日期, 如沒選擇會回傳 null
+    .tip2 getDate([separator = '/']): 取得選擇的日期, 如沒選擇會回傳 null
     .tip2 disableAll(): disable 全部下拉選單
     .tip2 enableAll(): enable 全部下拉選單
