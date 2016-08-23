@@ -41,7 +41,8 @@ body,
   color: #e5e5e5;
 }
 .colorDark,
-.block {
+.block,
+.inlineBlock {
   color: #0e1206;
 }
 .bgGray1,
@@ -81,7 +82,8 @@ body,
 }
 .bgWhite,
 header,
-.block {
+.block,
+.inlineBlock {
   background-color: #e5e5e5;
 }
 .bgDark,
@@ -307,12 +309,16 @@ select {
 .tip5 {
   font-weight: bolder;
 }
-.block {
+.block,
+.inlineBlock {
   margin: 10px 0;
   padding: 10px;
   width: 90%;
   min-width: 200px;
   overflow: auto;
+}
+.inlineBlock {
+  display: inline-block;
 }
 @media screen and (max-width: 730px) {
   .linkWord {

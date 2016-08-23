@@ -1,6 +1,6 @@
 
 /* 隨目標縮放自己的大小 */
-cf.regModule('cfScale', function(opt) {
+cf.regModule('cfScale', function(nameSpace, opt) {
   var $self, $target, _aftScale, _basicHeight, _basicWidth, _befScale, _duration, _endScale, _endX, _endY, _infoObj, _isScaleX, _isScaleY, _mode, _selfInfo, _startScale, _startX, _startY, _targetInfo, _triggerName, caro, cf, getScaleX, getScaleY, setScaleInfo, setTargetInfo, tm;
   if (opt == null) {
     opt = {};
@@ -9,17 +9,19 @@ cf.regModule('cfScale', function(opt) {
   cf = $self.cf;
   caro = cf.require('caro');
   tm = cf.require('TweenMax');
-  $target = opt.$target || cf.$window;
 
   /* 綁定 resize 的 name space */
-  _triggerName = opt.triggerName ? 'resize.cfAutoScale.' + opt.triggerName : 'resize.cfAutoScale';
+  _triggerName = 'resize.cfAutoScale.' + nameSpace;
+
+  /* 要以哪個目標的大小為依據做縮放 */
+  $target = opt.$target || cf.$window;
 
   /* 指定觸發縮放的 $target 寬度範圍 */
-  _startX = caro.isNumber(opt.startX) ? opt.startX : 1100;
+  _startX = caro.isNumber(opt.startX) ? opt.startX : 1280;
   _endX = caro.isNumber(opt.endX) ? opt.endX : 1920;
 
   /* 指定觸發縮放的 $target 高度範圍 */
-  _startY = caro.isNumber(opt.startY) ? opt.startY : 600;
+  _startY = caro.isNumber(opt.startY) ? opt.startY : 720;
   _endY = caro.isNumber(opt.endY) ? opt.endY : 1080;
 
   /* 指定縮放範圍 */
@@ -41,7 +43,7 @@ cf.regModule('cfScale', function(opt) {
   /* scale 之前的 cb, 回傳 false 會停止 scale */
   _befScale = opt.befScale;
 
-  /* 用來取得 scale 之後的 css 資訊 */
+  /* scale 之後的 cb */
   _aftScale = opt.aftScale;
 
   /* 設置起始的 width */
@@ -141,7 +143,7 @@ cf.regModule('cfScale', function(opt) {
     return $self;
   };
 
-  /* 綁定執行 scale */
+  /* 執行 scale */
   $self.bindScale = function() {
     $target.off(_triggerName).on(_triggerName, function() {
       return $self.updateScale();
@@ -149,19 +151,19 @@ cf.regModule('cfScale', function(opt) {
     return $self;
   };
 
-  /* 不綁定執行 scale */
+  /* 不綁定 scale */
   $self.unbindScale = function() {
     $self.off(_triggerName);
     return $self;
   };
 
-  /* 設定 scale width 起始值 */
+  /* 設定 width 起始值 */
   $self.setBasicWidth = function(width) {
     _selfInfo.width = width;
     return $self;
   };
 
-  /* 設定 scale height 起始值 */
+  /* 設定 height 起始值 */
   $self.setBasicHeight = function(height) {
     _selfInfo.height = height;
     return $self;

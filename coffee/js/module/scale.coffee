@@ -1,18 +1,20 @@
 ### 隨目標縮放自己的大小 ###
-cf.regModule 'cfScale', (opt = {}) ->
+cf.regModule 'cfScale', (nameSpace, opt = {}) ->
   $self = @
   cf = $self.cf
   caro = cf.require('caro')
   tm = cf.require('TweenMax')
 
-  $target = opt.$target or cf.$window
   ### 綁定 resize 的 name space ###
-  _triggerName = if opt.triggerName then 'resize.cfAutoScale.' + opt.triggerName else 'resize.cfAutoScale'
+  _triggerName = 'resize.cfAutoScale.' + nameSpace
+
+  ### 要以哪個目標的大小為依據做縮放 ###
+  $target = opt.$target or cf.$window
   ### 指定觸發縮放的 $target 寬度範圍 ###
-  _startX = if caro.isNumber(opt.startX) then opt.startX else 1100
+  _startX = if caro.isNumber(opt.startX) then opt.startX else 1280
   _endX = if caro.isNumber(opt.endX) then opt.endX else 1920
   ### 指定觸發縮放的 $target 高度範圍 ###
-  _startY = if caro.isNumber(opt.startY) then opt.startY else 600
+  _startY = if caro.isNumber(opt.startY) then opt.startY else 720
   _endY = if caro.isNumber(opt.endY) then opt.endY else 1080
   ### 指定縮放範圍 ###
   _startScale = opt.startScale or 1
@@ -27,7 +29,7 @@ cf.regModule 'cfScale', (opt = {}) ->
   _duration = opt.duration or 0.3
   ### scale 之前的 cb, 回傳 false 會停止 scale ###
   _befScale = opt.befScale
-  ### 用來取得 scale 之後的 css 資訊 ###
+  ### scale 之後的 cb ###
   _aftScale = opt.aftScale
   ### 設置起始的 width ###
   _basicWidth = opt.basicWidth or $self.width()
@@ -103,24 +105,24 @@ cf.regModule 'cfScale', (opt = {}) ->
     tm.to($self, _duration, scaleObj)
     $self
 
-  ### 綁定執行 scale ###
+  ### 執行 scale ###
   $self.bindScale = ->
     $target.off(_triggerName).on(_triggerName, ->
       $self.updateScale()
     )
     $self
 
-  ### 不綁定執行 scale ###
+  ### 不綁定 scale ###
   $self.unbindScale = ->
     $self.off _triggerName
     $self
 
-  ### 設定 scale width 起始值 ###
+  ### 設定 width 起始值 ###
   $self.setBasicWidth = (width) ->
     _selfInfo.width = width
     $self
 
-  ### 設定 scale height 起始值 ###
+  ### 設定 height 起始值 ###
   $self.setBasicHeight = (height) ->
     _selfInfo.height = height
     $self

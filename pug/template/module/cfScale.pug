@@ -2,12 +2,38 @@
 .content
   .title 示範
   div
+    #block.inlineBlock 拖拉視窗觀看變化
+    #infoBox
 .content
   .title 簡介
-  div
+  div 隨目標縮放自己的大小
 .content
   .title 參數
   div
+    .tip4 $('xxx').cfScale(nameSpace, [opt={}])
+    div nameSpace: 綁定 $target resize 時的 name space
+    .subTitle1 opt 參數
+    div
+      div $target: 要以哪個目標的大小為依據做 scale, 預設 $(window)
+      div startX: 當 $target 寬介於 startX 和 endX 時, 觸發 scale, 預設 1280
+      div endX: 當 $target 寬介於 startX 和 endX 時, 預設 1920
+      div startY: 當 $target 高介於 startY 和 endY 時, 觸發 scale, 預設 720
+      div endY: 當 $target 高介於 startY 和 endY 時, 觸發 scale, 預設 1080
+      div startScale: 最小 scale 值, 預設 1
+      div endScale: 最大 scale 值, 預設 1.2
+      div mode: scale 基準, 'min'=> scaleX scaleY 取最小, 'max'=> scaleX scaleY 取最大, 'x'=> 取 scaleX, 'y'=> 取 scaleY, 預設 'x'
+      div isScaleX: 是否縮放寬度, 預設 true
+      div isScaleY: 是否縮放高度, 預設 false
+      div duration: 每次執行 scale 的秒數, 預設 0.3
+      div befScale: scale 之前的 cb(infoObj), 回傳 false 會停止 scale
+      div aftScale: scale 之後的 cb(infoObj)
+      div basicWidth: 設置本身起始的 width, 預設取 $self.width()
+      div basicHeight: 設置本身起始的 height, 預設取 $self.height()
 .content
   .title 函式
   div
+    .tip2 updateScale(): 計算並執行 scale
+    .tip2 bindScale(): 綁定 scale
+    .tip2 unbindScale(): 不綁定 scale
+    .tip2 setBasicWidth(width): 設定 scale width 起始值
+    .tip2 setBasicHeight(height): 設定 scale height 起始值
