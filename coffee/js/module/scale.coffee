@@ -27,7 +27,7 @@ cf.regModule 'cfScale', (nameSpace, opt = {}) ->
   _isScaleY = opt.isScaleY
   ### scale 時間, 單位為秒 ###
   _duration = opt.duration or 0.3
-  ### scale 之前的 cb, 回傳 false 會停止 scale ###
+  ### scale 之前的 cb, return false 會停止 scale ###
   _befScale = opt.befScale
   ### scale 之後的 cb ###
   _aftScale = opt.aftScale
