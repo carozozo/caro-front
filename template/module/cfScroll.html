@@ -2,17 +2,68 @@
 <div class="mainTitle">cfScroll</div>
 <div class="content">
   <div class="title">示範</div>
-  <div></div>
+  <div>
+    <div class="btn2" id="scrollToBtn1">捲動到第2個</div>
+    <div class="btn2" id="scrollToBtn2">捲動到第4個</div>
+    <div class="btn2" id="scrollNextBtn">捲動到下一個</div>
+    <div class="btn2" id="scrollPrevBtn">捲動到上一個</div>
+    <div class="block" id="outer">
+      <div class="block" id="inner1"></div>
+      <div class="block" id="inner2"></div>
+      <div class="block" id="inner3"></div>
+      <div class="block" id="inner4"></div>
+      <div class="block" id="inner5"></div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">簡介</div>
-  <div></div>
+  <div>
+    <div>捲軸自動滑動到 DOM 定點的功能</div>
+    <div>Depend on<a class="link" href="https://greensock.com/ScrollToPlugin" target="_blank">plugin scrollTo of gsap</a></div>
+  </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
-  <div></div>
+  <div>
+    <div class="tip4">$('xxx').cfScroll(nameSpace,[$content1,$content2...])</div>
+    <div>nameSpace: 綁定 scroll 的 name space</div>
+    <div class="subTitle1">opt 參數</div>
+    <div>
+      <div>basicY: 判定捲動到定點的 Y 軸基準線, 可以是回傳 num 的 fn, 預設為本身高度的一半</div>
+      <div>offsetTop: 每個 $content 的 top 基準位移</div>
+      <div>isLiveTop: 是否要及時更新 top 資訊</div>
+      <div>duration: 捲動秒數, 設為 0 代表直接跳到該位置, 預設 1</div>
+      <div>ease: gsap 捲動 ease 效果, 預設 Power2.easeOut</div>
+      <div>befScroll: 捲動前的 cb(nowIndex, event), return false 則不捲動</div>
+      <div>onScroll: 捲動時的 cb(nowIndex, event), return false 則不捲動</div>
+      <div>onScroll: 捲動時的 cb(nowIndex, event)</div>
+      <div>aftScroll: 捲動後的 cb(nowIndex, event)</div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
-  <div></div>
+  <div>
+    <div class="tip2">getNowIndex(): 取得現在所在的 $content index</div>
+    <div class="tip2">scrollNext([duration]): 捲動到下一個</div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>duration: 捲動秒數</div>
+    </div>
+    <div class="tip2">scrollPrev([duration]): 捲動到上一個</div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>duration: 捲動秒數</div>
+    </div>
+    <div class="tip2">scrollPrev(i, [duration]): 捲動到指定的 index</div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>i: 在 $content arr 裡的 index</div>
+      <div>duration: 捲動秒數</div>
+    </div>
+    <div class="tip2">updateTop(): 重新掃描內容的高度位置</div>
+    <div class="tip2">bindScroll(): 綁定 scroll</div>
+    <div class="tip2">unbindScroll(): 不綁定 scroll</div>
+  </div>
 </div>
