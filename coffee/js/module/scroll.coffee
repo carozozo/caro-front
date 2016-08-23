@@ -1,26 +1,29 @@
-### 捲軸自動滑動到 DOM 定點 的功能 ###
-cf.regModule 'cfScroll', ($contents, opt = {}) ->
+###
+捲軸自動滑動到 DOM 定點的功能
+depend on plugin scrollTo of gsap
+###
+cf.regModule 'cfScroll', (nameSpace, $contents, opt = {}) ->
   $self = @
   cf = $self.cf
-  $window = cf.$window
   caro = cf.require('caro')
   tm = cf.require('TweenMax')
   $self.$$offsetTopArr = _offsetTopArr = []
   _nowIndex = 0
 
-  ### Y 軸基準線 ###
-  _basicY = opt.basicY
-  ### 每個 dom 的 top 基準位移 ###
+  ### 綁定 scroll 的 name space ###
+  _triggerName = 'scroll.cfScroll.' + nameSpace
+
+  ### 判定捲動到定點的 Y 軸基準線, 可以是回傳 num 的 fn, 預設為本身高度的一半 ###
+  _basicY = opt.basicY or -> $self.height() / 2
+  ### 每個 $content 的 top 基準位移 ###
   _offsetTop = opt.offsetTop or 0
   ### 是否要及時更新 top 資訊 ###
   _isLiveTop = opt.isLiveTop
-  ### 捲動時間 ###
+  ### 捲動秒數, 設為 0 代表直接跳到該位置 ###
   _duration = unless caro.isUndefined(opt.duration) then opt.duration else 1
-  ### 捲動 ease 效果 ###
+  ### gsap 捲動 ease 效果 ###
   _ease = opt.ease or Power2.easeOut
-  ### 綁定 scroll 的 name space ###
-  _triggerName = if opt.triggerName then 'scroll.cfScroll.' + opt.triggerName else 'scroll.cfScroll'
-  ### 捲動前的 cb ###
+  ### 捲動前的 cb, return false 則不捲動 ###
   _befScroll = opt.befScroll
   ### 捲動時的 cb ###
   _onScroll = opt.onScroll
@@ -28,8 +31,9 @@ cf.regModule 'cfScroll', ($contents, opt = {}) ->
   _aftScroll = opt.aftScroll
 
   getContentTop = ($content, i) ->
-    eachTop = $content.position().top
-    eachTop -= _offsetTop
+    selfTop = $self.offset().top
+    eachTop = $content.offset().top
+    eachTop -= selfTop + _offsetTop
     _offsetTopArr[i] = eachTop
     return
 
@@ -50,11 +54,7 @@ cf.regModule 'cfScroll', ($contents, opt = {}) ->
   ### 取得現在所在的 index ###
   $self.getNowIndex = ->
     scrollTop = $self.scrollTop()
-    basicY = null
-    if _basicY
-      basicY = if caro.isFunction(_basicY) then _basicY() else _basicY
-    else
-      basicY = $window.height() / 2
+    basicY = if caro.isFunction(_basicY) then _basicY() else _basicY
     caro.forEach(_offsetTopArr, (offsetTop, i) ->
       ### Dom 的頂端超過基準值時, 視為閱覽當下的 Dom ###
       _nowIndex = i if scrollTop + basicY >= offsetTop
@@ -81,7 +81,7 @@ cf.regModule 'cfScroll', ($contents, opt = {}) ->
     $self
 
   ### 重新掃描內容的高度位置 ###
-  $self.updatePosition = ->
+  $self.updateTop = ->
     caro.forEach($contents, getOffsetTopArr)
     $self
 

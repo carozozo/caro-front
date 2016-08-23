@@ -1,0 +1,44 @@
+cf.router.regPage('module/cfScroll', function(cf, $page) {
+  var $, $innerArr, $outer, bgColorArr, setInner;
+  $ = cf.require('$');
+  setInner = function($inner, index, color) {
+    $inner.css({
+      width: '97%',
+      height: 80,
+      'background-color': color,
+      'text-align': 'center'
+    });
+    return $inner.append('<h2>' + index + '</h2>');
+  };
+  $outer = $page.dom('#outer').css({
+    height: 120
+  });
+  bgColorArr = cf.data('bgColorArr');
+  $innerArr = [];
+  caro.forEach(bgColorArr, function(color, i) {
+    var $inner, index;
+    index = i + 1;
+    $inner = $page.dom('#inner' + index);
+    if (!$inner.length) {
+      return;
+    }
+    setInner($inner, index, color);
+    $innerArr.push($inner);
+  });
+  $outer.cfScroll('outer', $innerArr, {
+    offsetTop: 5
+  });
+  $page.dom('#scrollToBtn1').onClick(function() {
+    $outer.scrollTo(1);
+  });
+  $page.dom('#scrollToBtn2').onClick(function() {
+    $outer.scrollTo(3);
+  });
+  $page.dom('#scrollNextBtn').onClick(function() {
+    $outer.scrollNext();
+  });
+  $page.dom('#scrollPrevBtn').onClick(function() {
+    $outer.scrollPrev();
+  });
+  return $page;
+});

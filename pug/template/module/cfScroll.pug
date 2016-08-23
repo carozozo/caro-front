@@ -2,12 +2,55 @@
 .content
   .title 示範
   div
+    #scrollToBtn1.btn2 捲動到第2個
+    #scrollToBtn2.btn2 捲動到第4個
+    #scrollNextBtn.btn2 捲動到下一個
+    #scrollPrevBtn.btn2 捲動到上一個
+    #outer.block
+      #inner1.block
+      #inner2.block
+      #inner3.block
+      #inner4.block
+      #inner5.block
 .content
   .title 簡介
   div
+    div 捲軸自動滑動到 DOM 定點的功能
+    div Depend on
+      a.link(href='https://greensock.com/ScrollToPlugin', target='_blank') plugin scrollTo of gsap
 .content
   .title 參數
   div
+    .tip4 $('xxx').cfScroll(nameSpace,[$content1,$content2...])
+    div nameSpace: 綁定 scroll 的 name space
+    .subTitle1 opt 參數
+    div
+      div basicY: 判定捲動到定點的 Y 軸基準線, 可以是回傳 num 的 fn, 預設為本身高度的一半
+      div offsetTop: 每個 $content 的 top 基準位移
+      div isLiveTop: 是否要及時更新 top 資訊
+      div duration: 捲動秒數, 設為 0 代表直接跳到該位置, 預設 1
+      div ease: gsap 捲動 ease 效果, 預設 Power2.easeOut
+      div befScroll: 捲動前的 cb(nowIndex, event), return false 則不捲動
+      div onScroll: 捲動時的 cb(nowIndex, event), return false 則不捲動
+      div onScroll: 捲動時的 cb(nowIndex, event)
+      div aftScroll: 捲動後的 cb(nowIndex, event)
 .content
   .title 函式
   div
+    .tip2 getNowIndex(): 取得現在所在的 $content index
+    .tip2 scrollNext([duration]): 捲動到下一個
+    .subTitle4 參數
+    div
+      div duration: 捲動秒數
+    .tip2 scrollPrev([duration]): 捲動到上一個
+    .subTitle4 參數
+    div
+      div duration: 捲動秒數
+    .tip2 scrollPrev(i, [duration]): 捲動到指定的 index
+    .subTitle4 參數
+    div
+      div i: 在 $content arr 裡的 index
+      div duration: 捲動秒數
+    .tip2 updateTop(): 重新掃描內容的高度位置
+    .tip2 bindScroll(): 綁定 scroll
+    .tip2 unbindScroll(): 不綁定 scroll
