@@ -97,7 +97,7 @@
   var compilePug = function (pugFiles, cb) {
     if (_isUsePug) {
       var pugPipe = pug({pretty: true}).on('error', function (e) {
-        console.error('Got pug error', e);
+        console.error(e.toString());
         pugPipe.end();
       });
       gulp.src(pugFiles, {base: _pugDir})
@@ -114,7 +114,7 @@
   var compileCoffee = function (coffeeFiles, cb) {
     if (_isUseCoffee) {
       var coffeePipe = coffee({bare: true}).on('error', function (e) {
-        console.error('Got coffee error', e);
+        console.error(e.toString());
         coffeePipe.end();
       });
       gulp.src(coffeeFiles, {base: _coffeeDir})
@@ -131,7 +131,7 @@
   var compileStylus = function (stylusFiles, cb) {
     if (_isUseStylus) {
       var stylusPipe = stylus({bare: true}).on('error', function (e) {
-        console.error('Got stylus error', e);
+        console.error(e.toString());
         stylusPipe.end();
       });
       gulp.src(stylusFiles, {base: _stylusDir})
