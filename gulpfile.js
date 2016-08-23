@@ -158,7 +158,7 @@
     var file = outputDir + '/' + fileName;
     if (isDev) {
       if (!type) {
-        gulp.src(file)
+        gulp.src(file, {base: srcDir})
           .pipe(doInject(injectHeadArr, 'headJs'))
           .pipe(doInject(injectHeadArr, 'headCss'))
           .pipe(doInject(injectOtherArr, 'otherJs'))
@@ -166,13 +166,13 @@
           .pipe(doInject([], 'app'))
           .pipe(gulp.dest(outputDir));
       } else if (type === 'js') {
-        gulp.src(file)
+        gulp.src(file, {base: srcDir})
           .pipe(doInject(injectHeadArr, 'headJs'))
           .pipe(doInject(injectOtherArr, 'otherJs'))
           .pipe(doInject([], 'app'))
           .pipe(gulp.dest(outputDir));
       } else if (type === 'css') {
-        gulp.src(file)
+        gulp.src(file, {base: srcDir})
           .pipe(doInject(injectHeadArr, 'headCss'))
           .pipe(doInject(injectOtherArr, 'otherCss'))
           .pipe(doInject([], 'app'))
@@ -354,7 +354,9 @@
             del.sync(srcDir + '/' + relativeInSrc);
           }
           compilePug(_pugDir + '/' + relative, function () {
-            injectFile(relativeInSrc);
+            if (_injectFileArr.indexOf(relativeInSrc) > -1) {
+              injectFile(relativeInSrc);
+            }
           });
         });
       }
