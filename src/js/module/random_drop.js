@@ -1,7 +1,7 @@
 
 /* 隨機產生滑落物件, 例如氣泡, 水滴效果, 需搭配圖檔 */
 cf.regModule('cfRandomDrop', function($imgArr, opt) {
-  var $, $container, $self, $window, Power2, _containerLeft, _containerTop, _isKeepDrop, _selfHeight, amount, caro, cf, createDrop, getLengthIfFn, getRandomInRange, imgLength, inEndDuration, inStartDuration, maxDistance, maxDuration, maxRandomMs, maxStartX, maxStartY, minDistance, minDuration, minRandomMs, minScale, minStartX, minStartY, pickupImg, randomBezierArray, randomDuration, randomInEndDuration, randomInStartDuration, randomLeft, randomMs, randomNewTop, randomTop, reverse, rotationRange, tl, tm, xRange;
+  var $, $self, $window, Power2, _isKeepDrop, amount, caro, cf, createDrop, getLengthIfFn, getRandomInRange, imgLength, inEndDuration, inStartDuration, maxDistance, maxDuration, maxRandomMs, maxStartX, maxStartY, minDistance, minDuration, minRandomMs, minScale, minStartX, minStartY, pickupImg, randomBezierArray, randomDuration, randomInEndDuration, randomInStartDuration, randomLeft, randomMs, randomNewTop, randomTop, reverse, rotationRange, tl, tm, xRange;
   if (opt == null) {
     opt = {};
   }
@@ -11,50 +11,38 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
   caro = cf.require('caro');
   tm = cf.require('TweenMax');
   tl = cf.require('TimelineMax');
-  tl = cf.require('TimelineMax');
   Power2 = cf.require('Power2');
   $window = cf.$window;
   _isKeepDrop = true;
-  $container = $('<div/>').addClass('cfRandomDropContainer');
-  _selfHeight = $self.height();
 
   /* 產生物件的 x 軸範圍 */
   minStartX = opt.minStartX || 0;
   maxStartX = opt.maxStartX || function() {
-    return $container.width();
+    return $self.width();
   };
 
   /* 產生物件的 y 軸範圍 */
   minStartY = opt.minStartY || 0;
   maxStartY = opt.maxStartY || function() {
-    return $container.height();
+    return $self.height();
   };
-  $container.css({
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    top: 0,
-    left: 0
-  }).appendTo($self);
-  _containerLeft = $container.offset().left;
-  _containerTop = $container.offset().top;
 
-  /* 間隔最短多少毫秒產生新物件 */
+  /* 間隔最短多少毫秒產生新滑落物件 */
   minRandomMs = opt.minRandomMs || 0;
 
   /* 間隔最長多少毫秒產生新物件 */
   maxRandomMs = opt.maxRandomMs || minRandomMs + 1000;
 
-  /* 物件產生時，要停留在原地的時間 */
+  /* 滑落物件產生時, 要停留在原地的秒數 */
   inStartDuration = opt.inStartDuration || 0;
 
-  /* 物件移動完成時，要停留在原地的時間 */
+  /* 滑落物件移動完成時, 要停留在原地的秒數 */
   inEndDuration = opt.inEndDuration || 0;
 
-  /* 最小移動時間 */
+  /* 最小移動秒數 */
   minDuration = opt.minDuration || 3;
 
-  /* 最大移動時間 */
+  /* 最大移動秒數 */
   maxDuration = opt.maxDuration || 5;
 
   /* 最小移動距離 */
@@ -62,10 +50,10 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
 
   /* 最大移動距離 */
   maxDistance = opt.maxDistance || function() {
-    return $container.height();
+    return $self.height();
   };
 
-  /* 每次隨機產生的物件，最小縮放值 */
+  /* 每次隨機產生的滑落物件最小縮放值 */
   minScale = opt.minScale || 1;
 
   /* 移動時的旋轉角度範圍 */
@@ -77,11 +65,11 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
   /* 反轉方向 */
   reverse = opt.reverse;
 
-  /* 每次產生的物件數量 */
+  /* 每次產生的滑落物件數量 */
   amount = opt.amount || 1;
   imgLength = $imgArr.length;
   caro.forEach($imgArr, function($img) {
-    return $img.css({
+    $img.css({
       position: 'absolute'
     });
   });
@@ -136,7 +124,7 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     maxDis = getLengthIfFn(maxDistance);
     distance = getRandomInRange(minDistance, maxDis);
     if (!reverse) {
-      imgMaxY = _selfHeight - imgHeight;
+      imgMaxY = $self.height() - imgHeight;
       newTop = top + distance;
       if (newTop > imgMaxY) {
         newTop = imgMaxY;
@@ -187,12 +175,12 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     newTop = randomNewTop(imgHeight, top);
     duration = randomDuration();
     distance = Math.abs(top - newTop);
-    $img.css({
+    tm.set($img, {
       opacity: 0,
-      left: left,
-      top: top
+      top: top,
+      left: left
     });
-    $container.append($img);
+    $self.append($img);
     tl1 = new tl();
     objForMove = {
       top: newTop,
@@ -201,12 +189,12 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     if (xRange && distance > 50) {
       objForMove.bezier = randomBezierArray();
     }
-    tl1.to($img, 0.3, {
+    tl1.to($img, 0.2, {
       opacity: 1
-    }).to($img, duration, objForMove, '+=' + randomInStartDuration()).to($img, 0.3, {
+    }).to($img, duration, objForMove, '+=' + randomInStartDuration()).to($img, 0.2, {
       opacity: 0,
       onComplete: function() {
-        return $img.remove();
+        $img.remove();
       }
     }, '+=' + randomInEndDuration());
     if (rotationRange) {
@@ -224,8 +212,8 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     }, randomMs());
   };
 
-  /*  開始產生隨機物件 */
-  $self.startDrop = function(nameSpace) {
+  /* 開始產生滑落物件 */
+  $self.startDrop = function() {
     var trigger1, trigger2;
     _isKeepDrop = true;
     if (amount > 1) {
@@ -235,39 +223,37 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     } else {
       createDrop();
     }
-    trigger1 = 'focusout.cfRandomDrop.' + nameSpace;
-    trigger2 = 'focus.cfRandomDrop.' + nameSpace;
+    trigger1 = 'focusout.cfRandomDrop';
+    trigger2 = 'focus.cfRandomDrop';
     $window.off(trigger1).on(trigger1, function() {
       _isKeepDrop = false;
     });
     $window.off(trigger2).on(trigger2, function() {
-      $self.startDrop(nameSpace);
+      $self.startDrop();
     });
     return $self;
   };
 
-  /* 停止產生隨機物件 */
+  /* 停止產生滑落物件 */
   $self.stopDrop = function() {
     _isKeepDrop = false;
     return $self;
   };
 
-  /* 當 click 時, 產生隨機物件 */
-  $self.clickCreate = function($target, nameSpace) {
+  /* 當 click 時, 產生滑落物件 */
+  $self.clickCreate = function(nameSpace) {
     var triggerName;
-    if ($target == null) {
-      $target = $container;
-    }
     triggerName = 'click.cfRandomDrop';
     if (nameSpace) {
       triggerName += '.' + nameSpace;
     }
-    $target.off(triggerName).on(triggerName, function(e) {
-      var left, mouseX, mouseY, top;
+    $self.off(triggerName).on(triggerName, function(e) {
+      var left, mouseX, mouseY, selfOffset, top;
       mouseX = e.pageX;
       mouseY = e.pageY;
-      left = mouseX - _containerLeft;
-      top = mouseY - _containerTop;
+      selfOffset = $self.offset();
+      left = mouseX - selfOffset.left;
+      top = mouseY - selfOffset.top;
       return createDrop({
         left: left,
         top: top,
@@ -277,18 +263,16 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     return $self;
   };
 
-  /* 當 mousemove, 產生隨機物件 */
-  $self.moveCreate = function(interval, $target, nameSpace) {
+  /* 當 mousemove, 產生滑落物件 */
+  $self.moveCreate = function(interval, nameSpace) {
     var count, triggerMoveFn, triggerName1, triggerName2;
     if (interval == null) {
       interval = 10;
     }
-    if ($target == null) {
-      $target = $container;
-    }
     count = 0;
+    interval = parseInt(interval, 10) || 10;
     triggerMoveFn = function(e) {
-      var left, mouseX, mouseY, targetTouches, top;
+      var left, mouseX, mouseY, offset, targetTouches, top;
       if (++count % interval !== 0) {
         return;
       }
@@ -296,8 +280,9 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
       targetTouches = e.originalEvent && e.originalEvent.targetTouches || [{}];
       mouseX = e.pageX || targetTouches.pageX;
       mouseY = e.pageY || targetTouches.pageY;
-      left = mouseX - _containerLeft;
-      top = mouseY - _containerTop;
+      offset = $self.offset();
+      left = mouseX - offset.left;
+      top = mouseY - offset.top;
       return createDrop({
         left: left,
         top: top,
@@ -312,9 +297,11 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     if (nameSpace) {
       triggerName2 += '.' + nameSpace;
     }
-    $target.off(triggerName1).on(triggerName1, triggerMoveFn);
-    $target.off(triggerName2).on(triggerName2, triggerMoveFn);
+    $self.off(triggerName1).on(triggerName1, triggerMoveFn);
+    $self.off(triggerName2).on(triggerName2, triggerMoveFn);
     return $self;
   };
-  return $self;
+  return $self.css({
+    position: 'relative'
+  });
 });

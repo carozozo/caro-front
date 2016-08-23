@@ -2,12 +2,47 @@
 .content
   .title 示範
   div
+    #downBlock.block 預設
+    #upBlock.block 請在此範圍移動或點擊滑鼠
 .content
   .title 簡介
   div
+    div 隨機產生滑落物件, 例如氣泡, 水滴效果
 .content
   .title 參數
   div
+    .tip3 $('xxx').cfRandomDrop($imgArr, [opt={}])
+    div $imgArr: DOM 陣列
+    .tip1
+    div
+      div minStartX: 最小 x 起點, 可以是回傳 int 的 fn, 預設 0
+      div maxStartX: 最大 x 起點, 可以是回傳 int 的 fn, 預設取得本身寬度
+      div minStartY: 最小 y 起點, 可以是回傳 int 的 fn, 預設 0
+      div maxStartY: 最大 y 起點, 可以是回傳 int 的 fn, 預設取得本身高度
+      div minRandomMs: 間隔最短多少毫秒產生新滑落物件, 預設 0
+      div maxRandomMs: 間隔最長多少毫秒產生新滑落物件, 預設 minRandomMs + 1000
+      div inStartDuration: 滑落物件產生時, 要停留在原地的秒數, 預設 0
+      div inEndDuration: 滑落物件移動完成時, 要停留在原地的秒數, 預設 0
+      div minDuration: 最小移動秒數, 預設 3
+      div maxDuration: 最大移動秒數, 預設 5
+      div minDistance: 最小移動距離, 預設 0
+      div maxDistance: 最大移動距離, 預設取得本身高度
+      div minScale: 每次隨機產生的滑落物件, 最小縮放值, 預設 1(不縮放)
+      div rotationRange: 移動時的旋轉角度範圍, 預設 0
+      div xRange: 橫向移動範圍, 預設 0
+      div reverse: 是否反轉 drop 方向
+      div amount: 每次產生的物件數量, 預設 1
 .content
   .title 函式
   div
+    .tip2 startDrop(): 開始產生滑落物件
+    .tip2 stopDrop(): 停止產生滑落物件
+    .tip2 clickCreate([nameSpace]): 當 click 時, 產生滑落物件
+    .subtitle4 參數
+    div
+      div nameSpace: on click 的 nameSpace
+    .tip2 moveCreate([pinterval = 10], [nameSpace]): 當 mousemove, 產生滑落物件
+    .subtitle4 參數
+        div
+          div interval: mousemove 觸發幾次後產生滑落物件, 數字越小越快
+          div nameSpace: on mousemove 的 nameSpace
