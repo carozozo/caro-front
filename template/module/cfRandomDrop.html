@@ -2,17 +2,60 @@
 <div class="mainTitle">cfRandomDrop</div>
 <div class="content">
   <div class="title">示範</div>
-  <div></div>
+  <div>
+    <div class="block" id="downBlock">預設</div>
+    <div class="block" id="upBlock">請在此範圍移動或點擊滑鼠</div>
+  </div>
 </div>
 <div class="content">
   <div class="title">簡介</div>
-  <div></div>
+  <div>
+    <div>隨機產生滑落物件, 例如氣泡, 水滴效果</div>
+  </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
-  <div></div>
+  <div>
+    <div class="tip4">$('xxx').cfRandomDrop($imgArr, [opt={}])</div>
+    <div>$imgArr: DOM 陣列</div>
+    <div class="tip1"></div>
+    <div>
+      <div>minStartX: 最小 x 起點, 可以是回傳 int 的 fn, 預設 0</div>
+      <div>maxStartX: 最大 x 起點, 可以是回傳 int 的 fn, 預設取得本身寬度</div>
+      <div>minStartY: 最小 y 起點, 可以是回傳 int 的 fn, 預設 0</div>
+      <div>maxStartY: 最大 y 起點, 可以是回傳 int 的 fn, 預設取得本身高度</div>
+      <div>minRandomMs: 間隔最短多少毫秒產生新滑落物件, 預設 0</div>
+      <div>maxRandomMs: 間隔最長多少毫秒產生新滑落物件, 預設 minRandomMs + 1000</div>
+      <div>inStartDuration: 滑落物件產生時, 要停留在原地的秒數, 預設 0</div>
+      <div>inEndDuration: 滑落物件移動完成時, 要停留在原地的秒數, 預設 0</div>
+      <div>minDuration: 最小移動秒數, 預設 3</div>
+      <div>maxDuration: 最大移動秒數, 預設 5</div>
+      <div>minDistance: 最小移動距離, 預設 0</div>
+      <div>maxDistance: 最大移動距離, 預設取得本身高度</div>
+      <div>minScale: 每次隨機產生的滑落物件, 最小縮放值, 預設 1(不縮放)</div>
+      <div>rotationRange: 移動時的旋轉角度範圍, 預設 0</div>
+      <div>xRange: 橫向移動範圍, 預設 0</div>
+      <div>reverse: 是否反轉 drop 方向</div>
+      <div>amount: 每次產生的物件數量, 預設 1</div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
-  <div></div>
+  <div>
+    <div class="tip2">startDrop(): 開始產生滑落物件</div>
+    <div class="tip2">stopDrop(): 停止產生滑落物件</div>
+    <div class="tip2">clickCreate([nameSpace]): 當 click 時, 產生滑落物件</div>
+    <div class="subtitle4">參數</div>
+    <div>
+      <div>nameSpace: on click 的 nameSpace</div>
+    </div>
+    <div class="tip2">moveCreate([pinterval = 10], [nameSpace]): 當 mousemove, 產生滑落物件</div>
+    <div class="subtitle4">參數
+      <div>
+        <div>interval: mousemove 觸發幾次後產生滑落物件, 數字越小越快</div>
+        <div>nameSpace: on mousemove 的 nameSpace</div>
+      </div>
+    </div>
+  </div>
 </div>

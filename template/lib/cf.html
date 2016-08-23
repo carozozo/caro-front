@@ -23,7 +23,7 @@
 <div class="content">
   <div class="title">函式</div>
   <div>
-    <div class="tip2">require(str): 載入 global 變數, 避免直接呼叫 global 變數以增加效能 ;<span class="codeLink">範例</span></div>
+    <div class="tip2">require(str): 載入 global 變數, 避免直接呼叫 global 變數以增加效能 ;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="div">$(function(){</div>
       <div class="tab1 tip2">  // 將 global 變數 $ 轉為 local 變數使用</div>
@@ -32,7 +32,7 @@
       <div>});</div>
       <div class="separator2"></div>
     </div>
-    <div class="tip2">data(key, [val]): 讀取 or 設置資料, 用於跨檔案存取 ;<span class="codeLink">範例</span></div>
+    <div class="tip2">data(key, [val]): 讀取 or 設置資料, 用於跨檔案存取 ;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 設置 data</div>
       <div>cf.data('name', 'caro');</div>
@@ -41,7 +41,7 @@
       <div>var name = cf.data('name');  <span class="tip3">// 'caro'</span></div>
       <div>var file = cf.data('file');  <span class="tip3">// {a:1, b:2}</span></div>
     </div>
-    <div class="tip2">regDocReady(fn, [執行順序=50]): <span class="tip1">$( document ).ready()</span>進階版, 當頁面載入完畢時要執行的 fn ;<span class="codeLink">範例</span></div>
+    <div class="tip2">regDocReady(fn, [執行順序=50]): <span class="tip1">$( document ).ready()</span>進階版, 當頁面載入完畢時要執行的 fn ;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 當整個頁面讀取完成之後, 會先 alert 'b', 然後 alert 'a'</div>
       <div>cf.regDocReady(function(){</div>
@@ -51,7 +51,7 @@
       <div class="tab1">alert('b');</div>
       <div>}, 1);</div>
     </div>
-    <div class="tip2">genTraceFn(訊息標題): 產生 trace 用的 fn, 會在 console 顯示訊息,<span class="tip3"> IE8 之前不支援 console</span>;<span class="codeLink">範例</span></div>
+    <div class="tip2">genTraceFn(訊息標題): 產生 trace 用的 fn, 會在 console 顯示訊息,<span class="tip3"> IE8 之前不支援 console</span>;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 產生 trace 程式</div>
       <div>var trace = cf.genTraceFn('Caro's msg');</div>
@@ -63,7 +63,7 @@
       <div class="tip2">// 無論有無執行 trace.startTrace(), 都會 log 訊息</div>
       <div>trace.error('Got error');  <span class="tip3">// 'Caro's msg: Got error'</span></div>
     </div>
-    <div class="tip2">regLib(註冊名稱, fn): 註冊函式 庫;<span class="codeLink">範例</span></div>
+    <div class="tip2">regLib(註冊名稱, fn): 註冊函式 庫;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 在其他地方可使用 cf.money.get() 和 cf.money.set()</div>
       <div>cf.regLib('money', function(cf){</div>
@@ -78,7 +78,7 @@
       <div>cf.money.set(2000);</div>
       <div>var m2 = cf.money.get();  <span class="tip3">// 2000</span></div>
     </div>
-    <div class="tip2">regServ(註冊名稱, fn): 註冊 service 函式 庫;<span class="codeLink">範例</span></div>
+    <div class="tip2">regServ(註冊名稱, fn): 註冊 service 函式 庫;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 在其他地方可使用 cf.money.get() 和 cf.money.set()</div>
       <div>cf.regServ('money', function(cf){</div>
@@ -93,7 +93,7 @@
       <div>cf.money.set(2000);</div>
       <div>var m2 = cf.money.get();  <span class="tip3">// 2000</span></div>
     </div>
-    <div class="tip2">regCtrl(註冊名稱, fn, [要載入的 .html頁面]): 註冊 controller;<span class="codeLink">範例</span></div>
+    <div class="tip2">regCtrl(註冊名稱, fn, [要載入的 .html頁面]): 註冊 controller;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 宣告 menu controller 外掛</div>
       <div>cf.regCtrl('menu', function(arg1, arg2){</div>
@@ -106,7 +106,7 @@
       <div class="tip2">// 產生 menu 物件並放到 body</div>
       <div>$('&lt;div/&gt;').menu().appendTo(cf.$body);</div>
     </div>
-    <div class="tip2">regModule(註冊名稱, fn, [要載入的 .html頁面]): 註冊 module;<span class="codeLink">範例</span></div>
+    <div class="tip2">regModule(註冊名稱, fn, [要載入的 .html頁面]): 註冊 module;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 宣告 menu module 外掛, 被使用時會寫入 template/menu.html 裡面的 layout</div>
       <div>cf.regModule('menu', function(arg1, arg2){</div>
@@ -119,7 +119,7 @@
       <div class="tip2">// 產生 menu 物件並放到 body</div>
       <div>$('&lt;div/&gt;').menu().appendTo(cf.$body);</div>
     </div>
-    <div class="tip2">config(註冊名稱, [config-obj]): 註冊 / 讀取 config;<span class="codeLink">範例</span></div>
+    <div class="tip2">config(註冊名稱, [config-obj]): 註冊 / 讀取 config;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 設置 config</div>
       <div>cf.config('page', {</div>
@@ -130,7 +130,7 @@
       <div>var templateDir = cf.config('page').templateDir;  <span class="tip3">// 'template/'</span></div>
       <div> var container = cf.config('page').container;  <span class="tip3">// 'container'</span></div>
     </div>
-    <div class="tip2">regDifCfg(url, 設定): 依據不同的 url 載入 config;<span class="codeLink">範例</span></div>
+    <div class="tip2">regDifCfg(url, 設定): 依據不同的 url 載入 config;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 設置 config</div>
       <div>cf.config('page', {</div>

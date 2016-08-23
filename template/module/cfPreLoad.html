@@ -2,17 +2,68 @@
 <div class="mainTitle">cfPreLoad</div>
 <div class="content">
   <div class="title">示範</div>
-  <div></div>
+  <div>
+    <div class="tip5">
+      <div>fileArr = [</div>
+      <div class="tab1">'images/cf_title1.png',</div>
+      <div class="tab1">'images/cf_title2.png',</div>
+      <div class="tab1">'images/cf_title3.png',</div>
+      <div class="tab1 tip3">'images/no_such_file.png',</div>
+      <div class="tab1">'images/cf_title4.png',</div>
+      <div class="tab1">'images/cf_title5.png'</div>
+      <div>]</div>
+    </div>
+    <div class="separator1"></div><span id="percentage">0</span>%
+    <div class="btn2" id="startLoadBtn">startLoad</div><span class="codeLink">程式範例</span>
+    <div class="codeTarget">
+      <div>var $page = $('.cf-page');</div>
+      <div>var fileArr = ['blacktocat.png', 'caro-front.png', 'cf_title1.png', 'cf_title2.png', 'cf_title3.png', 'no_such_file.png', 'cf_title4.png', 'cf_title5.png', 'hand.png'];</div>
+      <div>fileArr = caro.map(fileArr, function(file) {</div>
+      <div class="tab1">return 'images/' + file;</div>
+      <div>});</div>
+      <div>$percentage = $page.find('#percentage');</div>
+      <div>$page.cfPreLoad(fileArr, {</div>
+      <div class="tab1">onLoadStart: function(e) {...},</div>
+      <div class="tab1">onComplete: function(e) {...},</div>
+      <div class="tab1">onError: function(e) {...},</div>
+      <div class="tab1">onProgress: function(e, progress) {</div>
+      <div class="tab2">var percentage = Math.round(progress * 100);</div>
+      <div class="tab2">$percentage.html(percentage);</div>
+      <div class="tab1">}</div>
+      <div>});</div>
+      <div>$page.find('#startLoadBtn').on('click', function() {</div>
+      <div class="tab1">$page.startLoad();</div>
+      <div class="tab1">return;</div>
+      <div>});</div>
+    </div>
+    <div class="separator1"></div>
+    <div id="process"></div>
+  </div>
 </div>
 <div class="content">
   <div class="title">簡介</div>
-  <div></div>
+  <div>
+    <div>預載檔案</div>
+    <div>depend on<a class="link" href="http://www.createjs.com/preloadjs" target="_blank">preloadjs-0.4.1</a></div>
+  </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
-  <div></div>
+  <div>
+    <div class="tip4">$('xxx').cfPreLoad(fileArr, [opt={}])</div>
+    <div>fileArr: 檔案路徑陣列</div>
+    <div class="subTitle1">opt 參數</div>
+    <div>
+      <div>onLoadStart: 開始讀取時觸發的 cb(event)</div>
+      <div>onComplete: 全部讀取完成時觸發的 cb(event)</div>
+      <div>onError: 發生錯誤時觸發的 cb(event)</div>
+      <div>onProgress: 進行讀取時觸發的 cb(event, progress); progress 為 0~1 讀取進度</div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
-  <div></div>
+  <div>
+    <div class="tip2">startLoad: 開始執行載入</div>
+  </div>
 </div>
