@@ -2,12 +2,60 @@
 .content
   .title 示範
   div
+    .tip5
+      div fileArr = [
+      .tab1 'images/cf_title1.png',
+      .tab1 'images/cf_title2.png',
+      .tab1 'images/cf_title3.png',
+      .tab1.tip3 'images/no_such_file.png',
+      .tab1 'images/cf_title4.png',
+      .tab1 'images/cf_title5.png'
+      div ]
+    .separator1
+    span#percentage 0
+    | %
+    #startLoadBtn.btn2 startLoad
+    span.codeLink 程式範例
+    .codeTarget
+      div var $page = $('.cf-page');
+      div var fileArr = ['blacktocat.png', 'caro-front.png', 'cf_title1.png', 'cf_title2.png', 'cf_title3.png', 'no_such_file.png', 'cf_title4.png', 'cf_title5.png', 'hand.png'];
+      div fileArr = caro.map(fileArr, function(file) {
+      .tab1 return 'images/' + file;
+      div });
+      div $percentage = $page.find('#percentage');
+      div $page.cfPreLoad(fileArr, {
+      .tab1 onLoadStart: function(e) {...},
+      .tab1 onComplete: function(e) {...},
+      .tab1 onError: function(e) {...},
+      .tab1 onProgress: function(e, progress) {
+      .tab2 var percentage = Math.round(progress * 100);
+      .tab2 $percentage.html(percentage);
+      .tab1 }
+      div });
+      div $page.find('#startLoadBtn').on('click', function() {
+      .tab1 $page.startLoad();
+      .tab1 return;
+      div });
+    .separator1
+    #process
 .content
   .title 簡介
   div
+    div 預載檔案
+    div depend on
+      a.link(href='http://www.createjs.com/preloadjs', target='_blank') preloadjs-0.4.1
 .content
   .title 參數
   div
+    .tip4 $('xxx').cfPreLoad(fileArr, [opt={}])
+    div fileArr: 檔案路徑陣列
+    .subTitle1 opt 參數
+    div
+      div onLoadStart: 開始讀取時觸發的 cb(event)
+      div onComplete: 全部讀取完成時觸發的 cb(event)
+      div onError: 發生錯誤時觸發的 cb(event)
+      div onProgress: 進行讀取時觸發的 cb(event, progress); progress 為 0~1 讀取進度
 .content
   .title 函式
   div
+    .tip2 startLoad: 開始執行載入
