@@ -10,21 +10,21 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
   caro = cf.require('caro')
   tm = cf.require('TweenMax')
 
-  ### X 軸基準坐標 ###
+  ### x 軸基準坐標, 設為 false 則不同步移動 x ###
   _baseX = if opt.baseX isnt undefined then opt.baseX else -> $window.width() / 2
-  ### Y 軸基準坐標 ###
-  _baseY = opt.baseY
-  ### X 移動比例 ###
+  ### y 軸基準坐標, 設為 false 則不同步移動 y ###
+  _baseY = if opt.baseY isnt undefined then opt.baseY else -> $window.height() / 2
+  ### x 移動比例 ###
   _proportionX = opt.proportionX or 1
-  ### Y 移動比例 ###
+  ### y 移動比例 ###
   _proportionY = opt.proportionY or 1
-  ### X 最大移動範圍 ###
-  _rangeX = opt.rangeX or 10
-  ### Y 最大移動範圍 ###
-  _rangeY = opt.rangeY or 10
-  ### X 是否和滑鼠方向一樣 ###
+  ### x 最大移動範圍 ###
+  _rangeX = opt.rangeX or 20
+  ### y 最大移動範圍 ###
+  _rangeY = opt.rangeY or 20
+  ### x 是否和滑鼠方向一樣 ###
   _reverseX = if opt.reverseX is false then false else true
-  ### Y 是否和滑鼠方向一樣 ###
+  ### y 是否和滑鼠方向一樣 ###
   _reverseY = if opt.reverseY is false then false else true
   ### 移動之前的 cb, 如果 return false 則不移動 ###
   _befMove = opt.befMove
@@ -41,7 +41,7 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
     mouseX = e.pageX or targetTouches.pageX
     mouseY = e.pageY or targetTouches.pageY
     infoObj = {
-      e: e
+      event: e
       moveX: 0
       moveY: 0
       mouseX: mouseX
@@ -90,13 +90,16 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
     , 250))
     return
 
-  $document.on(_triggerName1, triggerFn)
-  $document.on(_triggerName2, triggerFn)
+  ### 開始監聽滑鼠並同步移動 ###
+  $self.startSyncMove = ->
+    $document.off(_triggerName1).on(_triggerName1, triggerFn)
+    $document.off(_triggerName2).on(_triggerName2, triggerFn)
+    $self
 
-  ### 停止監聽 mousemove ###
+  ### 停止監聽滑鼠 ###
   $self.stopSyncMove = ->
     $document.off(_triggerName1)
     $document.off(_triggerName2)
-    return
+    $self
 
   $self

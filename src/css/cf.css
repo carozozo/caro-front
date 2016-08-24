@@ -227,6 +227,12 @@ select {
 .separator2 {
   height: 10px;
 }
+.separator3 {
+  height: 20px;
+}
+.separator4 {
+  height: 30px;
+}
 .tab1 {
   padding-left: 10px;
 }

@@ -16,30 +16,32 @@ cf.regModule('cfSyncMove', function(nameSpace, opt) {
   caro = cf.require('caro');
   tm = cf.require('TweenMax');
 
-  /* X 軸基準坐標 */
+  /* x 軸基準坐標, 設為 false 則不同步移動 x */
   _baseX = opt.baseX !== void 0 ? opt.baseX : function() {
     return $window.width() / 2;
   };
 
-  /* Y 軸基準坐標 */
-  _baseY = opt.baseY;
+  /* y 軸基準坐標, 設為 false 則不同步移動 y */
+  _baseY = opt.baseY !== void 0 ? opt.baseY : function() {
+    return $window.height() / 2;
+  };
 
-  /* X 移動比例 */
+  /* x 移動比例 */
   _proportionX = opt.proportionX || 1;
 
-  /* Y 移動比例 */
+  /* y 移動比例 */
   _proportionY = opt.proportionY || 1;
 
-  /* X 最大移動範圍 */
-  _rangeX = opt.rangeX || 10;
+  /* x 最大移動範圍 */
+  _rangeX = opt.rangeX || 20;
 
-  /* Y 最大移動範圍 */
-  _rangeY = opt.rangeY || 10;
+  /* y 最大移動範圍 */
+  _rangeY = opt.rangeY || 20;
 
-  /* X 是否和滑鼠方向一樣 */
+  /* x 是否和滑鼠方向一樣 */
   _reverseX = opt.reverseX === false ? false : true;
 
-  /* Y 是否和滑鼠方向一樣 */
+  /* y 是否和滑鼠方向一樣 */
   _reverseY = opt.reverseY === false ? false : true;
 
   /* 移動之前的 cb, 如果 return false 則不移動 */
@@ -58,7 +60,7 @@ cf.regModule('cfSyncMove', function(nameSpace, opt) {
     mouseX = e.pageX || targetTouches.pageX;
     mouseY = e.pageY || targetTouches.pageY;
     infoObj = {
-      e: e,
+      event: e,
       moveX: 0,
       moveY: 0,
       mouseX: mouseX,
@@ -113,13 +115,19 @@ cf.regModule('cfSyncMove', function(nameSpace, opt) {
       _stopMove && _stopMove();
     }, 250));
   };
-  $document.on(_triggerName1, triggerFn);
-  $document.on(_triggerName2, triggerFn);
 
-  /* 停止監聽 mousemove */
+  /* 開始監聽滑鼠並同步移動 */
+  $self.startSyncMove = function() {
+    $document.off(_triggerName1).on(_triggerName1, triggerFn);
+    $document.off(_triggerName2).on(_triggerName2, triggerFn);
+    return $self;
+  };
+
+  /* 停止監聽滑鼠 */
   $self.stopSyncMove = function() {
     $document.off(_triggerName1);
     $document.off(_triggerName2);
+    return $self;
   };
   return $self;
 });

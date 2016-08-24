@@ -2,6 +2,16 @@
 .content
   .title 示範
   div
+    .separator1
+    div 移動滑鼠觀看效果
+      div#startBtn.btn2 開始同步移動
+      div#stopBtn.btn2 停止同步移動
+    .separator4
+    #block1 同步移動 x
+    #block2 同步移動 x, y
+    #block3 同步移動 y
+    .separator4
+    #infoBox
 .content
   .title 簡介
   div 計算滑鼠和基準點的距離，同步移動 DOM
@@ -9,6 +19,42 @@
   .title 參數
   div
     .tip4 $('xxx').cfSyncMove(nameSpace, [opt = {}])
+    div nameSpace: 綁定 mousemove 和 touchmove 的 name space
+    .subTitle1 opt 參數
+    div
+      div baseX: x 基準坐標, 不是數字或 return 數字的 fn 則不同步移動 x, 預設為視窗寬度一半
+      div baseY: y 基準坐標, 不是數字或 return 數字的 fn 則不同步移動 y, 預設為視窗高度一半
+      div proportionX: x 隨者滑鼠的移動比例, 預設 1
+      div proportionY: y 隨者滑鼠的移動比例, 預設 1
+      div rangeX: x 最大移動範圍, 預設 20
+      div rangeY: y 最大移動範圍, 預設 20
+      div reverseX: x 移動方向是否和滑鼠方向相反, 預設 true
+      div reverseY: y 移動方向是否和滑鼠方向相反, 預設 true
+      div befMove: 移動之前的 cb(infoObj), 如果 return false 則不移動
+      .subTitle4 infoObj 項目
+      div
+        div event: event
+        div moveX: x 移動距離
+        div moveY: y 移動距離
+        div mouseX: 滑鼠 x 座標
+        div mouseY: 滑鼠 y 座標
+        div baseX: 取得的 x 基準坐標
+        div baseY: 取得的 y 基準坐標
+        div $self: Dom 本身, e.g. $('xxx').cfSyncMove() => $self = $('xxx')
+      div aftMove: 移動之後的 cb(infoObj)
+      .subTitle4 infoObj 項目
+      div
+        div event: event
+        div moveX: x 移動距離
+        div moveY: y 移動距離
+        div mouseX: 滑鼠 x 座標
+        div mouseY: 滑鼠 y 座標
+        div baseX: 取得的 x 基準坐標
+        div baseY: 取得的 y 基準坐標
+        div $self: Dom 本身, e.g. $('xxx').cfSyncMove() => $self = $('xxx')
+      div stopMove: 停止移動之後的 cb
 .content
   .title 函式
   div
+    .tip2 startSyncMove: 開始監聽滑鼠並同步移動
+    .tip2 stopSyncMove: 停止監聽滑鼠
