@@ -2,16 +2,19 @@ module.exports = (function () {
   var config = {};
   // 在 src 底下放圖片的資料夾
   config.imgDir = 'images';
+
   // 放 hug 的資料夾, 編譯後的 html 會放置在 /src 的相對路徑底下
-  config.pugDir = 'pug';
-  // 放 coffee 的資料夾, 編譯後的 js 會放置在 /src 的相對路徑底下
-  config.coffeeDir = 'coffee';
-  // 放 stylus 的資料夾, 編譯後的 css 會放置在 /src 的相對路徑底下
-  config.stylusDir = 'stylus';
+  config.pugDir = '_pug';
   // 是否使用 pug 編譯 html
   config.isUsePug = true;
+
+  // 放 coffee 的資料夾, 編譯後的 js 會放置在 /src 的相對路徑底下
+  config.coffeeDir = '_coffee';
   // 是否使用 coffee 編譯 js
   config.isUseCoffee = true;
+
+  // 放 stylus 的資料夾, 編譯後的 css 會放置在 /src 的相對路徑底下
+  config.stylusDir = '_stylus';
   // 是否使用 stylus 編譯 css
   config.isUseStylus = true;
 
@@ -48,8 +51,7 @@ module.exports = (function () {
     'js/page/*.*'
   ];
   // 要排除自動掃描並加到 tag 的 js/css 檔案
-  config.injectExcludeArr = [
-  ];
+  config.injectExcludeArr = [];
   // 是否要執行 inject
   config.isUseInject = true;
   return config;

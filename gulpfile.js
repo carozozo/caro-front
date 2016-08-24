@@ -33,10 +33,10 @@
   var config = require('./gulpfile_config.js');
   var _imgDir = caro.addHead(config.imgDir || '', '/');
   var _pugDir = caro.addHead(config.pugDir || '', './');
-  var _coffeeDir = caro.addHead(config.coffeeDir || '', './');
-  var _stylusDir = caro.addHead(config.stylusDir || '', './');
   var _isUsePug = config.isUsePug;
+  var _coffeeDir = caro.addHead(config.coffeeDir || '', './');
   var _isUseCoffee = config.isUseCoffee;
+  var _stylusDir = caro.addHead(config.stylusDir || '', './');
   var _isUseStylus = config.isUseStylus;
   var _jsName = config.jsName || 'caro-front';
   var _cssName = config.cssName || 'caro-front';
@@ -52,14 +52,14 @@
     _jsName += '.' + rand;
     _cssName += '.' + rand;
   }
-  _jsName += '.js';
-  _cssName += '.css';
+  _jsName = caro.addTail(_jsName + '.js');
+  _cssName = caro.addTail(_cssName, '.css');
 
-  // 資料夾相關
+  /* 資料夾相關 */
   var srcDir = './src';
   var distDir = './dist';
   var srcImgDir = srcDir + _imgDir;
-  // 檔案相關
+  /* 檔案相關 */
   var allSrcFiles = srcDir + '/**/*.*';
   var allPugFiles = _pugDir + '/**/*.pug';
   var allCoffeeFiles = _coffeeDir + '/**/*.coffee';
