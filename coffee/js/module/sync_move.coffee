@@ -10,23 +10,22 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
   caro = cf.require('caro')
   tm = cf.require('TweenMax')
 
-  ### X軸基準坐標 ###
-  _baseX = if opt.baseX isnt undefined then opt.baseX else ->
-    $window.width() / 2
-  ### Y軸基準坐標 ###
+  ### X 軸基準坐標 ###
+  _baseX = if opt.baseX isnt undefined then opt.baseX else -> $window.width() / 2
+  ### Y 軸基準坐標 ###
   _baseY = opt.baseY
-  ### X移動比例 ###
+  ### X 移動比例 ###
   _proportionX = opt.proportionX or 1
-  ### Y移動比例 ###
+  ### Y 移動比例 ###
   _proportionY = opt.proportionY or 1
-  ### X最大移動範圍 ###
+  ### X 最大移動範圍 ###
   _rangeX = opt.rangeX or 10
-  ### Y最大移動範圍 ###
+  ### Y 最大移動範圍 ###
   _rangeY = opt.rangeY or 10
-  ### x 是否和滑鼠方向一樣 ###
-  _reverseX = if opt.reverseX is false then opt.reverseX else true
-  ### y 是否和滑鼠方向一樣 ###
-  _reverseY = if opt.reverseY is false then opt.reverseY else true
+  ### X 是否和滑鼠方向一樣 ###
+  _reverseX = if opt.reverseX is false then false else true
+  ### Y 是否和滑鼠方向一樣 ###
+  _reverseY = if opt.reverseY is false then false else true
   ### 移動之前的 cb, 如果 return false 則不移動 ###
   _befMove = opt.befMove
   ### 移動之後的 cb ###
@@ -34,12 +33,8 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
   ### 停止移動之後的 cb ###
   _stopMove = opt.stopMove
 
-  _triggerName1 = 'mousemove.cfSyncMove'
-  _triggerName2 = 'touchmove.cfSyncMove'
-
-  if nameSpace
-    _triggerName1 += '.' + nameSpace
-    _triggerName2 += '.' + nameSpace
+  _triggerName1 = 'mousemove.cfSyncMove.'+ nameSpace
+  _triggerName2 = 'touchmove.cfSyncMove.'+ nameSpace
 
   triggerFn = (e) ->
     targetTouches = e.originalEvent and e.originalEvent.targetTouches or [{}]
@@ -60,7 +55,7 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
       y: null
       onComplete: ->
         _aftMove and _aftMove(infoObj)
-
+        return
     }
     baseX = if caro.isFunction(_baseX) then _baseX() else _baseX
     if caro.isNumber(baseX)
@@ -91,9 +86,9 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
     clearTimeout($self.data("syncMoveCheck." + nameSpace));
     $self.data("syncMoveCheck." + nameSpace, setTimeout(->
       _stopMove and _stopMove()
+      return
     , 250))
     return
-
 
   $document.on(_triggerName1, triggerFn)
   $document.on(_triggerName2, triggerFn)
@@ -102,5 +97,6 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
   $self.stopSyncMove = ->
     $document.off(_triggerName1)
     $document.off(_triggerName2)
+    return
 
   $self
