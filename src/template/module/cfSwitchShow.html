@@ -2,17 +2,100 @@
 <div class="mainTitle">cfSwitchShow</div>
 <div class="content">
   <div class="title">示範</div>
-  <div></div>
+  <div>
+    <div class="separator1"></div>
+    <div>顯示方式
+      <select id="selectType">
+        <option value="fade">fade</option>
+        <option value="up">up</option>
+        <option value="down">down</option>
+        <option value="left">left</option>
+        <option value="right">right</option>
+        <option value="normal">normal</option>
+      </select>
+      <div class="btn2" id="nextShowBtn">顯示下一個</div>
+      <div class="btn2" id="prevShowBtn">顯示上一個</div>
+    </div>
+    <div class="separator2"></div>
+    <div>position: absolute</div>
+    <div id="outer1">
+      <div class="inner1"></div>
+      <div class="inner1"></div>
+      <div class="inner1"></div>
+      <div class="inner1"></div>
+      <div class="inner1"></div>
+    </div>
+    <div class="separator1"></div>
+    <div>display: inline-block</div>
+    <div id="outer2">
+      <div class="inner2"></div>
+      <div class="inner2"></div>
+      <div class="inner2"></div>
+      <div class="inner2"></div>
+      <div class="inner2"></div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">簡介</div>
-  <div></div>
+  <div>
+    <div>輪流切換 DOM 內容, 預設顯示第一個, 其他透明度設為 0</div>
+  </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
-  <div></div>
+  <div>
+    <div class="tip4">$('xxx').cfSwitchShow($domList, [opt = {}])</div>
+    <div>$domList: DOM 內容組成的陣列</div>
+    <div class="subTitle1">opt 參數</div>
+    <div>
+      <div>defType: 預設顯示方式, 預設 'fade'</div>
+      <div>duration: 預設切換時間, 預設 0.5</div>
+      <div>distance: 預設移動距離,只對 left/right/up/down 有效, 預設 30</div>
+      <div>befSwitch: 切換之前呼叫的 cb(目前的 index, 要切換的 index), return false 則不切換</div>
+      <div>aftSwitch: 切換之後呼叫的 cb(目前的 index, 要切換的 index)</div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
-  <div></div>
+  <div>
+    <div class="tip2">switchDom(index, type, opt): 顯示指定的內容</div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>index: $domList 裡的 index</div>
+      <div>type: 顯示方式</div>
+      <div class="subTitle1">opt 參數</div>
+      <div>
+        <div>duration: 切換時間, 預設 0.5</div>
+        <div>distance: 移動距離,只對 left/right/up/down 有效, 預設 30</div>
+        <div>befSwitch: 切換之前呼叫的 cb(目前的 index, 要切換的 index), return false 則不切換</div>
+        <div>aftSwitch: 切換之後呼叫的 cb(目前的 index, 要切換的 index)</div>
+      </div>
+    </div>
+    <div class="tip2">showNext(type, opt): 顯示下一個內容</div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>type: 顯示方式</div>
+      <div class="subTitle1">opt 參數</div>
+      <div>
+        <div>duration: 切換時間, 預設 0.5</div>
+        <div>distance: 移動距離,只對 left/right/up/down 有效, 預設 30</div>
+        <div>befSwitch: 切換之前呼叫的 cb(目前的 index, 要切換的 index), return false 則不切換</div>
+        <div>aftSwitch: 切換之後呼叫的 cb(目前的 index, 要切換的 index)</div>
+      </div>
+    </div>
+    <div class="tip2">showPrev(type, opt): 顯示上一個內容</div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>type: 顯示方式</div>
+      <div class="subTitle1">opt 參數</div>
+      <div>
+        <div>duration: 切換時間, 預設 0.5</div>
+        <div>distance: 移動距離,只對 left/right/up/down 有效, 預設 30</div>
+        <div>befSwitch: 切換之前呼叫的 cb(目前的 index, 要切換的 index), return false 則不切換</div>
+        <div>aftSwitch: 切換之後呼叫的 cb(目前的 index, 要切換的 index)</div>
+      </div>
+    </div>
+  </div>
 </div>

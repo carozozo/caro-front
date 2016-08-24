@@ -2,12 +2,81 @@
 .content
   .title 示範
   div
+    .separator1
+    div
+      | 顯示方式
+      select#selectType
+        option(value='fade') fade
+        option(value='up') up
+        option(value='down') down
+        option(value='left') left
+        option(value='right') right
+        option(value='normal') normal
+      #nextShowBtn.btn2 顯示下一個
+      #prevShowBtn.btn2 顯示上一個
+    .separator2
+    div position: absolute
+    #outer1
+      .inner1
+      .inner1
+      .inner1
+      .inner1
+      .inner1
+    .separator1
+    div display: inline-block
+    #outer2
+      .inner2
+      .inner2
+      .inner2
+      .inner2
+      .inner2
 .content
   .title 簡介
   div
+    div 輪流切換 DOM 內容, 預設顯示第一個, 其他透明度設為 0
 .content
   .title 參數
   div
+    .tip4 $('xxx').cfSwitchShow($domList, [opt = {}])
+    div $domList: DOM 內容組成的陣列
+    .subTitle1 opt 參數
+    div
+      div defType: 預設顯示方式, 預設 'fade'
+      div duration: 預設切換時間, 預設 0.5
+      div distance: 預設移動距離,只對 left/right/up/down 有效, 預設 30
+      div befSwitch: 切換之前呼叫的 cb(目前的 index, 要切換的 index), return false 則不切換
+      div aftSwitch: 切換之後呼叫的 cb(目前的 index, 要切換的 index)
 .content
   .title 函式
   div
+    .tip2 switchDom(index, type, opt): 顯示指定的內容
+    .subTitle4 參數
+    div
+      div index: $domList 裡的 index
+      div type: 顯示方式
+      .subTitle1 opt 參數
+      div
+        div duration: 切換時間, 預設 0.5
+        div distance: 移動距離,只對 left/right/up/down 有效, 預設 30
+        div befSwitch: 切換之前呼叫的 cb(目前的 index, 要切換的 index), return false 則不切換
+        div aftSwitch: 切換之後呼叫的 cb(目前的 index, 要切換的 index)
+    .tip2 showNext(type, opt): 顯示下一個內容
+    .subTitle4 參數
+    div
+      div type: 顯示方式
+      .subTitle1 opt 參數
+      div
+        div duration: 切換時間, 預設 0.5
+        div distance: 移動距離,只對 left/right/up/down 有效, 預設 30
+        div befSwitch: 切換之前呼叫的 cb(目前的 index, 要切換的 index), return false 則不切換
+        div aftSwitch: 切換之後呼叫的 cb(目前的 index, 要切換的 index)
+    .tip2 showPrev(type, opt): 顯示上一個內容
+    .subTitle4 參數
+    div
+      div type: 顯示方式
+      .subTitle1 opt 參數
+      div
+        div duration: 切換時間, 預設 0.5
+        div distance: 移動距離,只對 left/right/up/down 有效, 預設 30
+        div befSwitch: 切換之前呼叫的 cb(目前的 index, 要切換的 index), return false 則不切換
+        div aftSwitch: 切換之後呼叫的 cb(目前的 index, 要切換的 index)
