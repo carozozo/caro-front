@@ -179,7 +179,8 @@
       .subTitle2 使用
         a.link(href='https://www.npmjs.com/package/gulp-inject', target='_blank') gulp-inject
       div
-        div 在 gulp 時會掃描 js / css 檔, 並寫入 script, link tag 到 gulpfile_config 設定的檔案
+        div 在 gulp 時會掃描 js / css 檔, 並寫入 &lt;script&gt;, &ltlink&gt; 到 gulpfile_config 設定的檔案
+        .tip3 如不使用 gulp-inject 請將 config.isUseInject 設為 false
     
     .subTitle1 關於 gulpfile_config.js
     div 
@@ -198,12 +199,13 @@
         div isRandomName: 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js, css 檔名是否要加隨機碼
         div isUseMaps: 執行 gulp prod / gulp buildProd 時, 是否加上
           a.link(href='https://www.npmjs.com/package/gulp-sourcemaps', target='_blank') sourcemaps
-        div injectFileArr: 要寫入 js/css tag 的檔案
-        div injectHeadArr: 要優先自動掃描並加到 tag 的 js/css 檔案,
+        div injectFileArr: 要寫入 js / css tag 的檔案
+        div injectHeadArr: 要優先自動掃描並加到 tag 的 js / css 檔案,
           a.link(href='https://github.com/es-shims/es5-shim', target='_blank') 相容性程式
           | 要優先載入
-        div injectExcludeArr: 要排除自動掃描並加到 tag 的 js/css 檔案
-      
+        div injectExcludeArr: 要排除自動掃描並加到 tag 的 js / css 檔案
+        div isUseInject: 是否使用 gulp-inject 寫入 &lt;script&gt;, &ltlink&gt;
+
     .subTitle1 工具
     div 
       div 

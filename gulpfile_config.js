@@ -23,6 +23,7 @@ module.exports = (function () {
   config.isRandomName = true;
   // 執行 gulp prod / gulp buildProd 時, 是否加上 sourcemaps
   config.isUseMaps = false;
+
   // 要寫入 js/css tag 的檔案
   config.injectFileArr = [
     'index.html'
@@ -49,5 +50,7 @@ module.exports = (function () {
   // 要排除自動掃描並加到 tag 的 js/css 檔案
   config.injectExcludeArr = [
   ];
+  // 是否要執行 inject
+  config.isUseInject = true;
   return config;
 })();

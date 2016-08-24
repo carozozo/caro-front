@@ -45,6 +45,7 @@
   var _injectFileArr = config.injectFileArr;
   var _injectHeadArr = config.injectHeadArr;
   var _injectExcludeArr = config.injectExcludeArr;
+  var _isUseInject = config.isUseInject;
 
   if (_isRandomName) {
     var rand = caro.random(3, {upper: false});
@@ -192,9 +193,11 @@
   };
 
   var injectFiles = function (type) {
-    caro.forEach(_injectFileArr, function (fileName) {
-      injectFile(fileName, type);
-    });
+    if (_isUseInject) {
+      caro.forEach(_injectFileArr, function (fileName) {
+        injectFile(fileName, type);
+      });
+    }
   };
 
   var startHttpServ = function () {
