@@ -2,17 +2,71 @@
 <div class="mainTitle">cfSyncMove</div>
 <div class="content">
   <div class="title">示範</div>
-  <div></div>
+  <div>
+    <div class="separator1"></div>
+    <div>移動滑鼠觀看效果
+      <div class="btn2" id="startBtn">開始同步移動</div>
+      <div class="btn2" id="stopBtn">停止同步移動</div>
+    </div>
+    <div class="separator4"></div>
+    <div id="block1">同步移動 x</div>
+    <div id="block2">同步移動 x, y</div>
+    <div id="block3">同步移動 y</div>
+    <div class="separator4"></div>
+    <div id="infoBox"></div>
+  </div>
 </div>
 <div class="content">
   <div class="title">簡介</div>
-  <div></div>
+  <div>計算滑鼠和基準點的距離，同步移動 DOM</div>
 </div>
 <div class="content">
   <div class="title">參數</div>
-  <div></div>
+  <div>
+    <div class="tip4">$('xxx').cfSyncMove(nameSpace, [opt = {}])</div>
+    <div>nameSpace: 綁定 mousemove 和 touchmove 的 name space</div>
+    <div class="subTitle1">opt 參數</div>
+    <div>
+      <div>baseX: x 基準坐標, 不是數字或 return 數字的 fn 則不同步移動 x, 預設為視窗寬度一半</div>
+      <div>baseY: y 基準坐標, 不是數字或 return 數字的 fn 則不同步移動 y, 預設為視窗高度一半</div>
+      <div>proportionX: x 隨者滑鼠的移動比例, 預設 1</div>
+      <div>proportionY: y 隨者滑鼠的移動比例, 預設 1</div>
+      <div>rangeX: x 最大移動範圍, 預設 20</div>
+      <div>rangeY: y 最大移動範圍, 預設 20</div>
+      <div>reverseX: x 移動方向是否和滑鼠方向相反, 預設 true</div>
+      <div>reverseY: y 移動方向是否和滑鼠方向相反, 預設 true</div>
+      <div>befMove: 移動之前的 cb(infoObj), 如果 return false 則不移動</div>
+      <div class="subTitle4">infoObj 項目</div>
+      <div>
+        <div>event: event</div>
+        <div>moveX: x 移動距離</div>
+        <div>moveY: y 移動距離</div>
+        <div>mouseX: 滑鼠 x 座標</div>
+        <div>mouseY: 滑鼠 y 座標</div>
+        <div>baseX: 取得的 x 基準坐標</div>
+        <div>baseY: 取得的 y 基準坐標</div>
+        <div>$self: Dom 本身, e.g. $('xxx').cfSyncMove() => $self = $('xxx')</div>
+      </div>
+      <div>aftMove: 移動之後的 cb(infoObj)</div>
+      <div class="subTitle4">infoObj 項目</div>
+      <div>
+        <div>event: event</div>
+        <div>moveX: x 移動距離</div>
+        <div>moveY: y 移動距離</div>
+        <div>mouseX: 滑鼠 x 座標</div>
+        <div>mouseY: 滑鼠 y 座標</div>
+        <div>baseX: 取得的 x 基準坐標</div>
+        <div>baseY: 取得的 y 基準坐標</div>
+        <div>$self: Dom 本身, e.g. $('xxx').cfSyncMove() => $self = $('xxx')</div>
+      </div>
+      <div>stopMove: 停止移動之後的 cb</div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
-  <div></div>
+  <div>
+    <div class="tip2">startSyncMove: 開始監聽滑鼠並同步移動</div>
+    <div class="tip2">stopSyncMove: 停止監聽滑鼠</div>
+  </div>
 </div>
