@@ -13,13 +13,13 @@ cf.router.regPage 'lib/router', (cf, $page) ->
     _alert(JSON.stringify(_router.parseUrlSearch()))
   )
   $page.dom('#goPageBtn1').onClick(->
-    _router.goPage('router')
+    _router.goPage('lib/router')
   )
   $page.dom('#goPageBtn2').onClick(->
     _router.goPage()
   )
   $page.dom('#goPageBtn3').onClick(->
-    _router.goPage('router?name=pikachu&age=200')
+    _router.goPage('lib/router?name=pikachu&age=200')
   )
   $page.dom('#blockGoPageBtn').onClick(->
     _router.blockGoPage()
