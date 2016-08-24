@@ -63,6 +63,10 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
     /* 切換後的 cb */
     aftSwitch = opt.aftSwitch || _aftSwitch;
     callAftShow = function() {
+      tl.set([$currentDom, $targetDom], {
+        x: 0,
+        y: 0
+      });
       aftSwitch && aftSwitch(_currentIndex, i);
       _currentIndex = i;
     };

@@ -42,6 +42,10 @@ cf.regModule 'cfSwitchShow', ($domList, opt = {}) ->
     aftSwitch = opt.aftSwitch or _aftSwitch
 
     callAftShow = ->
+      tl.set([$currentDom, $targetDom],
+        x: 0
+        y: 0
+      )
       aftSwitch and aftSwitch(_currentIndex, i)
       _currentIndex = i
       return
