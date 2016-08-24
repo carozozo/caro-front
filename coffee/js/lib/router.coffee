@@ -1,4 +1,6 @@
-### 分頁跳轉程式 ###
+###
+分頁跳轉程式
+###
 cf.regLib 'router', (cf) ->
   $ = cf.require('$')
   caro = cf.require('caro')

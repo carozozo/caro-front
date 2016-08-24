@@ -1,4 +1,6 @@
-### cookie 相關 ###
+###
+cookie 相關
+###
 cf.regLib 'cookie', (cf) ->
   self = {}
   caro = cf.require('caro')

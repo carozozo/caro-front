@@ -1,5 +1,6 @@
-### 客製化的 alert, 用來取代 js 原生 alert, 防止被 browser 阻擋 ###
-### 使用 cf_alert.css ###
+###
+客製化的 alert, 用來取代 js 原生 alert, 防止被 browser 阻擋
+###
 cf.regLib 'alert', (cf) ->
   (msg, opt = {}) ->
     $ = cf.require '$'

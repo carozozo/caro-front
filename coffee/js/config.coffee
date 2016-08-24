@@ -6,7 +6,7 @@ do (cf) ->
     isLocalTest: true
   })
   ###
-  templateDir: 放置分頁的資料夾路徑, 未設置代表根目錄
+  templateDir: 放置分頁的資料夾路徑, 未設置代表 src 根目錄
   templateExtname: 放置的分頁路徑副檔名, 例如 html, php, jsp
   container: 分頁容器的 DOM id, 未設置時預設容器為 $('body')
   ###

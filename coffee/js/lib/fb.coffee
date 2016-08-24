@@ -1,4 +1,6 @@
-### 客製化 facebook api 呼叫程式 ###
+###
+客製化 facebook api 呼叫程式
+###
 cf.regLib 'fb', (cf) ->
   self = {}
   caro = cf.require('caro')
