@@ -1,5 +1,7 @@
 
-/* DOM 選取器, 支援一些方便的程式 */
+/*
+DOM 選取器, 支援一些方便的程式
+ */
 cf.regModule('dom', function(selector, cb) {
   var $, $self, _trace, caro, window;
   $self = {};

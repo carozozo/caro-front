@@ -1,5 +1,7 @@
 
-/* DOM circle 輪播效果 */
+/*
+DOM circle 輪播效果
+ */
 cf.regModule('cfCircleShow', function($targetList, opt) {
   var $self, _angleDif, _brightnessDif, _brightnessMap, _cb, _currentIndex, _degreeTop, _duration, _ease, _interval, _leftMap, _minBrightness, _minScale, _radianMap, _radios, _scaleDif, _scaleMap, _targetLength, _topMap, _zIndex, _zIndexMap, caro, cf, getBrightness, getLeft, getRadians, getScale, getTop, getZindex, movePosition, tm;
   if (opt == null) {

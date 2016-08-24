@@ -1,5 +1,7 @@
 
-/* 亂數效果(數字會亂跳, 最後顯示結果) */
+/*
+亂數效果(數字會亂跳, 最後顯示結果)
+ */
 cf.regModule('cfJumpNum', function() {
   var $self;
   $self = this;

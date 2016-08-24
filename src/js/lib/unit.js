@@ -1,5 +1,7 @@
 
-/* 一些單元程式 */
+/*
+一些單元程式
+ */
 cf.regLib('unit', function(cf) {
   var $, _cfg, _imgPath, caro, location, self, window;
   $ = cf.require('$');

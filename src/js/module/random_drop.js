@@ -1,5 +1,7 @@
 
-/* 隨機產生滑落物件, 例如氣泡, 水滴效果, 需搭配圖檔 */
+/*
+隨機產生滑落物件, 例如水滴, 氣泡效果
+ */
 cf.regModule('cfRandomDrop', function($imgArr, opt) {
   var $, $self, $window, Power2, _isKeepDrop, amount, caro, cf, createDrop, getLengthIfFn, getRandomInRange, imgLength, inEndDuration, inStartDuration, maxDistance, maxDuration, maxRandomMs, maxStartX, maxStartY, minDistance, minDuration, minRandomMs, minScale, minStartX, minStartY, pickupImg, randomBezierArray, randomDuration, randomInEndDuration, randomInStartDuration, randomLeft, randomMs, randomNewTop, randomTop, reverse, rotationRange, tl, tm, xRange;
   if (opt == null) {

@@ -1,5 +1,7 @@
 
-/* 表單驗證 */
+/*
+表單驗證
+ */
 cf.regModule('cfValidator', function(opt) {
   var $, $doms, $self, _errInfo, _validateMap, addToDomMap, caro, cf, coverToDomList, regValidate, requireAll, setErrInfo, setValidateDef, trimDomVal, validateCaptcha, validateEmail, validateMinLength, validateMobile, validateNum, validateRequire, validateRocId;
   if (opt == null) {
@@ -12,9 +14,9 @@ cf.regModule('cfValidator', function(opt) {
   requireAll = opt.requireAll;
 
   /*
-   * 儲存驗證項目 {<DOM id>: {$dom:<DOM>, id:<驗證id>, <驗證名稱>:<驗證資訊>}}
-   * oValidateItem = {$dom:<目標DOM>, id:<驗證id>, <驗證名稱>:<驗證資訊>}
-   * oValidateInfo = <驗證資訊>
+  儲存驗證項目 {<DOM id>: {$dom:<DOM>, id:<驗證id>, <驗證名稱>:<驗證資訊>}}
+  oValidateItem = {$dom:<目標DOM>, id:<驗證id>, <驗證名稱>:<驗證資訊>}
+  oValidateInfo = <驗證資訊>
    */
   _validateMap = {};
 

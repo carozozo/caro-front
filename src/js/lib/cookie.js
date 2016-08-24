@@ -1,5 +1,7 @@
 
-/* cookie 相關 */
+/*
+cookie 相關
+ */
 cf.regLib('cookie', function(cf) {
   var _trace, caro, document, self, window;
   self = {};

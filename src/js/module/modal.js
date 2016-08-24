@@ -1,5 +1,7 @@
 
-/* modal 視窗 */
+/*
+modal 視窗
+ */
 cf.regModule('cfModal', function(opt) {
   var $, $background, $body, $inner, $outer, $self, _basicStyle, _index, _isClickClose, _zIndex, cf, moduleData;
   if (opt == null) {

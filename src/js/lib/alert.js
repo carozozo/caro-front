@@ -1,7 +1,7 @@
 
-/* 客製化的 alert, 用來取代 js 原生 alert, 防止被 browser 阻擋 */
-
-/* 使用 cf_alert.css */
+/*
+客製化的 alert, 用來取代 js 原生 alert, 防止被 browser 阻擋
+ */
 cf.regLib('alert', function(cf) {
   return function(msg, opt) {
     var $, $background, $box, $msg, _$target, tl, tl1;

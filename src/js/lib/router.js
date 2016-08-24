@@ -1,5 +1,7 @@
 
-/* 分頁跳轉程式 */
+/*
+分頁跳轉程式
+ */
 cf.regLib('router', function(cf) {
   var $, _cfg, _isGoPage, _trace, caro, self, window;
   $ = cf.require('$');

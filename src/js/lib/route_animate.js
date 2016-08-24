@@ -1,5 +1,7 @@
 
-/* 客製化頁面跳轉效果 */
+/*
+客製化頁面跳轉效果
+ */
 cf.regLib('routeAnimate', function(cf) {
   var self, tl, tm;
   self = {};

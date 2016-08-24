@@ -1,5 +1,7 @@
 
-/* 地址下拉選單 */
+/*
+地址下拉選單
+ */
 cf.regModule('cfAddrDropdown', function($cityDom, $areaDom, opt) {
   var $self, _addrMap, _islandMap, appendAreaDropdown, createDropdown, defAreaText, defAreaVal, defCityText, defCityVal, isIncludeIsland, isWithCode;
   if (opt == null) {

@@ -1,5 +1,7 @@
 
-/* 客製化 facebook api 呼叫程式 */
+/*
+客製化 facebook api 呼叫程式
+ */
 cf.regLib('fb', function(cf) {
   var _alert, _appId, _authResponse, _cfg, _initCbMap, _isPhone, _isReady, _isUserConnected, _nowUrl, _redirectAfterLogin, _sdkVersion, _shareUrl, _trace, _urlAftLogin, caro, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
   self = {};

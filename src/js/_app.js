@@ -1,5 +1,7 @@
 
-/* CaroFront 核心程式 */
+/*
+CaroFront 核心程式
+ */
 (function(window, $, caro, MobileDetect) {
   var _ctrl, _docReady, _module, _trace, genTraceFn, self;
   self = {};

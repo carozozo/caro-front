@@ -1,5 +1,7 @@
 
-/* 檔案上傳 */
+/*
+檔案上傳
+ */
 cf.regModule('cfUpload', function(url, opt) {
   var $, $form, $inputFile, $self, _befUpload, _err, _fileType, _files, _formName, _iframeName, _inputFileName, _isBefIe9, _moduleIndex, _multiple, _onSelected, _suc, accept, cf;
   if (opt == null) {

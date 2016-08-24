@@ -1,22 +1,35 @@
 
 /*
 輪流顯示 DOM, 預設顯示第一個
-$domList: 要顯示的 dom 列表
-e.g. [$('#dom1'), $('#dom2')]
-defType: 預設顯示方式 [fade/up/down/lef/right/'']
  */
 cf.regModule('cfSwitchShow', function($domList, opt) {
-  var $self, _aftShow, _befShow, _currentIndex, _defType, caro, cf, switchShow, tl;
+  var $self, _aftShow, _befShow, _currentIndex, _defType, _distance, _duration, caro, cf, switchShow, tl;
   if (opt == null) {
     opt = {};
   }
+
+  /* $domList: 要顯示的 dom 列表, e.g. [$('#dom1'), $('#dom2')] */
   $self = this;
   cf = $self.cf;
   caro = cf.require('caro');
   tl = new TimelineLite();
+
+  /* defType: 預設顯示方式 [fade/up/down/lef/right/''] */
   _defType = opt.defType || 'fade';
+
+  /* 預設移動時間 */
+  _duration = opt.duration || 0.5;
+
+  /* 預設移動距離 */
+  _distance = opt.distance || 30;
+
+  /* 切換之前呼叫的 cb(), return false 則不切換 */
   _befShow = opt.befShow;
+
+  /* 切換之後呼叫的 cb() */
   _aftShow = opt.aftShow;
+
+  /* 目前所在的 index */
   _currentIndex = 0;
   caro.forEach($domList, function($dom) {
     $dom.hide();
@@ -29,18 +42,20 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
     if (tl.isActive()) {
       return;
     }
+
+    /* 顯示方式 */
     type = type || _defType || 'fade';
 
     /* 移動時間 */
-    duration = opt.duration || 0.5;
+    duration = opt.duration || _duration;
 
     /* 移動距離 */
-    distance = opt.distance || 30;
+    distance = opt.distance || _distance;
 
-    /* 轉換前的 cb */
+    /* 切換前的 cb, return false 則不切換 */
     befShow = opt.befShow || _befShow;
 
-    /* 轉換後的 cb, 如果回傳 false 則不轉換 */
+    /* 切換後的 cb */
     aftShow = opt.aftShow || _aftShow;
     callAftShow = function() {
       aftShow && aftShow(_currentIndex, i);
@@ -144,7 +159,7 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
   };
 
   /* 顯示下一個內容 */
-  $self.next = function(type, opt) {
+  $self.nextShow = function(type, opt) {
     var targetIndex;
     if (opt == null) {
       opt = {};
@@ -157,7 +172,7 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
   };
 
   /* 顯示上一個內容 */
-  $self.prev = function(type, opt) {
+  $self.prevShow = function(type, opt) {
     var targetIndex;
     if (opt == null) {
       opt = {};

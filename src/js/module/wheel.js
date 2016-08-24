@@ -1,11 +1,12 @@
 
-/* depend on jquery.mousewheel */
-
-/* 增加 mousewheel 的易讀性 */
-cf.regModule('cfWheel', function(triggerName, fn) {
+/*
+增加 mousewheel 的易讀性
+Depend on jquery.mousewheel
+ */
+cf.regModule('cfWheel', function(nameSpace, fn) {
   var $self, ifWheelDownOrRight;
   $self = this;
-  triggerName = 'mousewheel.cfWheel.' + triggerName;
+  nameSpace = 'mousewheel.cfWheel.' + nameSpace;
   ifWheelDownOrRight = function(delta) {
 
     /* deltaY < 0 = 向下滾動 */
@@ -13,7 +14,7 @@ cf.regModule('cfWheel', function(triggerName, fn) {
     /* deltaX < 0 = 向右滾動 */
     return delta < 0;
   };
-  $self.off(triggerName).on(triggerName, function(e) {
+  $self.off(nameSpace).on(nameSpace, function(e) {
     e.isWheelDown = ifWheelDownOrRight(e.deltaY);
     e.isWheelRight = ifWheelDownOrRight(e.deltaX);
     e.wheelDistance = e.deltaFactor;
@@ -22,7 +23,7 @@ cf.regModule('cfWheel', function(triggerName, fn) {
 
   /* 停止綁定 mousewheel */
   $self.unbindWheel = function() {
-    $self.off(triggerName);
+    $self.off(nameSpace);
     return $self;
   };
   return $self;

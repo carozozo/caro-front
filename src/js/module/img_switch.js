@@ -1,5 +1,7 @@
 
-/* img 切換圖片 */
+/*
+img 切換圖片
+ */
 cf.regModule('cfImgSwitch', function(imgArr) {
   var $self, currentIndex, interval;
   $self = this;

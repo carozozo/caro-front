@@ -3,7 +3,7 @@
 自動化日期下拉選單, 日期下拉選單的值會依照所選的年和月改變
 e.g. 閏年的2月, 日期範圍會是 1~29 而不是 1~28
  */
-cf.regModule('cfDateDropdown', function(triggerName, opt) {
+cf.regModule('cfDateDropdown', function(nameSpace, opt) {
   var $day, $month, $self, $year, _triggerName, daysInMonth, endYear, onSetDay, onSetMonth, onSetYear, setMonthOpt, setYearOpt, startYear, updateNumberOfDays;
   if (opt == null) {
     opt = {};
@@ -37,7 +37,7 @@ cf.regModule('cfDateDropdown', function(triggerName, opt) {
 
   /* 設置每個 day 的 options 時觸發的 cb */
   onSetDay = opt.onSetDay;
-  _triggerName = 'change.cfDateDropdown.' + triggerName;
+  _triggerName = 'change.cfDateDropdown.' + nameSpace;
   daysInMonth = function(year, month) {
     return new Date(year, month, 0).getDate();
   };
