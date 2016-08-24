@@ -1,4 +1,6 @@
-### 地址下拉選單 ###
+###
+地址下拉選單
+###
 cf.regModule 'cfAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
   $self = @
   _addrMap = {

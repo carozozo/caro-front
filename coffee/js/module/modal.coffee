@@ -1,4 +1,6 @@
-### modal 視窗 ###
+###
+modal 視窗
+###
 cf.regModule 'cfModal', (opt = {}) ->
   $self = @
   cf = $self.cf

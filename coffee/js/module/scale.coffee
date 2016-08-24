@@ -1,4 +1,6 @@
-### 隨目標縮放自己的大小 ###
+###
+隨目標縮放自己的大小
+###
 cf.regModule 'cfScale', (nameSpace, opt = {}) ->
   $self = @
   cf = $self.cf

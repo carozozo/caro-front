@@ -1,8 +1,8 @@
 ###
 客製化滑鼠樣式
-$mouse = 會跟著滑鼠移動的物件, 請放在 $self 裡面 -> 可當作是滑鼠指標
 ###
 cf.regModule 'cfMouseStyle', ($mouse, opt = {}) ->
+  ### $mouse = 會跟著滑鼠移動的物件, 請放在 $self 裡面 -> 可當作是滑鼠指標 ###
   $self = @
   cf = $self.cf
   tm = cf.require('TweenMax')

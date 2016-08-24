@@ -1,4 +1,6 @@
-### DOM circle 輪播效果 ###
+###
+DOM circle 輪播效果
+###
 cf.regModule 'cfCircleShow', ($targetList, opt = {}) ->
   $self = @
   cf = $self.cf

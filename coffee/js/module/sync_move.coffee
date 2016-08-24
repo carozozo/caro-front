@@ -1,5 +1,8 @@
-### 計算滑鼠和基準點的距離，同步移動 DOM ###
-cf.regModule 'cfSyncMove', (opt = {}) ->
+###
+計算滑鼠和基準點的距離，同步移動 DOM
+###
+cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
+  ### nameSpace: 滑鼠移動的 name space 防止重複觸發 ###
   $self = @
   cf = $self.cf
   $window = cf.$window
@@ -30,14 +33,13 @@ cf.regModule 'cfSyncMove', (opt = {}) ->
   _aftMove = opt.aftMove
   ### 停止移動之後的 cb ###
   _stopMove = opt.stopMove
-  ### 滑鼠移動的 name space 防止重複觸發 ###
-  _triggerName = opt.triggerName
+
   _triggerName1 = 'mousemove.cfSyncMove'
   _triggerName2 = 'touchmove.cfSyncMove'
 
-  if _triggerName
-    _triggerName1 += '.' + _triggerName
-    _triggerName2 += '.' + _triggerName
+  if nameSpace
+    _triggerName1 += '.' + nameSpace
+    _triggerName2 += '.' + nameSpace
 
   triggerFn = (e) ->
     targetTouches = e.originalEvent and e.originalEvent.targetTouches or [{}]
@@ -86,8 +88,8 @@ cf.regModule 'cfSyncMove', (opt = {}) ->
 
     return if _befMove and _befMove(infoObj) is false
     tm.to($self, 1, moveObj)
-    clearTimeout($self.data("syncMoveCheck." + _triggerName));
-    $self.data("syncMoveCheck." + _triggerName, setTimeout(->
+    clearTimeout($self.data("syncMoveCheck." + nameSpace));
+    $self.data("syncMoveCheck." + nameSpace, setTimeout(->
       _stopMove and _stopMove()
     , 250))
     return

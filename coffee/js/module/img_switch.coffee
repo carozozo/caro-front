@@ -1,4 +1,6 @@
-### img 切換圖片 ###
+###
+img 切換圖片
+###
 cf.regModule 'cfImgSwitch', (imgArr) ->
   $self = @
   currentIndex = 0

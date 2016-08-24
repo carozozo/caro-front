@@ -1,4 +1,6 @@
-### 隨機產生滑落物件, 例如氣泡, 水滴效果, 需搭配圖檔 ###
+###
+隨機產生滑落物件, 例如水滴, 氣泡效果
+###
 cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
   $self = @
   cf = $self.cf
@@ -147,7 +149,6 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
     setTimeout(->
       createDrop()
     , randomMs())
-
 
   ### 開始產生滑落物件 ###
   $self.startDrop = ->

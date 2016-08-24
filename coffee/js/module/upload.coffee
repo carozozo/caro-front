@@ -1,4 +1,6 @@
-### 檔案上傳 ###
+###
+檔案上傳
+###
 cf.regModule 'cfUpload', (url, opt = {}) ->
   $self = @
   cf = $self.cf
