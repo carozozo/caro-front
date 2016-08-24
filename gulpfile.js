@@ -66,11 +66,12 @@
   var allStylusFiles = _stylusDir + '/**/*.styl';
   var allSrcJsFiles = srcDir + '/**/*.js';
   var allSrcCssFiles = srcDir + '/**/*.css';
-  var allOtherSrcFilesArr = [allSrcFiles, '!' + allSrcJsFiles, '!' + allSrcCssFiles, '!**/.*'];
+  var allHiddenFiles = '**/.*';
+  var allOtherSrcFilesArr = [allSrcFiles, '!' + allSrcJsFiles, '!' + allSrcCssFiles, '!' + allHiddenFiles];
   var injectHeadArr = caro.map(_injectHeadArr, function (path) {
     return srcDir + '/' + path;
   });
-  var injectExcludeArr = (function () {
+  var injectOtherArr = [allSrcJsFiles, allSrcCssFiles].concat((function () {
     var arr = caro.map(injectHeadArr, function (path) {
       return '!' + path;
     });
@@ -78,15 +79,16 @@
       return '!' + srcDir + '/' + path;
     });
     return arr.concat(excludeArr)
-  })();
-  var injectOtherArr = [allSrcJsFiles, allSrcCssFiles].concat(injectExcludeArr);
+  })());
+  // 是否為 dev 模式, false 代表 prod 模式
   var isDev = true;
 
+  // 清除 /dist 資料夾
   var cleanDist = function (cb) {
     del.sync([distDir]);
     cb && cb();
   };
-
+  // /src 底下, 除了 js,css,隱藏檔之外的檔案, 都複製到 /dist
   var copyOtherToDist = function (cb) {
     gulp.src(allOtherSrcFilesArr, {nodir: true})
       .pipe(gulp.dest(distDir))
@@ -94,7 +96,7 @@
         cb && cb();
       });
   };
-
+  // 編譯 pug 檔, 輸出到 html 到 /src 相對路徑底下
   var compilePug = function (pugFiles, cb) {
     if (_isUsePug) {
       var pugPipe = pug({pretty: true}).on('error', function (e) {
@@ -111,7 +113,7 @@
     }
     cb && cb();
   };
-
+  // 編譯 coffee 檔, 輸出到 js 到 /src 相對路徑底下
   var compileCoffee = function (coffeeFiles, cb) {
     if (_isUseCoffee) {
       var coffeePipe = coffee({bare: true}).on('error', function (e) {
@@ -128,7 +130,7 @@
     }
     cb && cb();
   };
-
+  // 編譯 styl 檔, 輸出到 css 到 /src 相對路徑底下
   var compileStylus = function (stylusFiles, cb) {
     if (_isUseStylus) {
       var stylusPipe = stylus({bare: true}).on('error', function (e) {
@@ -145,7 +147,7 @@
     }
     cb && cb();
   };
-
+  // 寫入 <script>, <link> 到指定的檔案
   var doInject = function (source, name) {
     return inject(gulp.src(source, {read: false}), {
       name: name,
@@ -153,45 +155,46 @@
       relative: true
     })
   };
-
+  // 依照 dev 或 prod 模式執行 inject
   var injectFile = function (fileName, type) {
-    var outputDir = isDev ? srcDir : distDir;
-    var file = outputDir + '/' + fileName;
-    if (isDev) {
-      if (!type) {
-        gulp.src(file, {base: srcDir})
-          .pipe(doInject(injectHeadArr, 'headJs'))
-          .pipe(doInject(injectHeadArr, 'headCss'))
-          .pipe(doInject(injectOtherArr, 'otherJs'))
-          .pipe(doInject(injectOtherArr, 'otherCss'))
-          .pipe(doInject([], 'app'))
-          .pipe(gulp.dest(outputDir));
-      } else if (type === 'js') {
-        gulp.src(file, {base: srcDir})
-          .pipe(doInject(injectHeadArr, 'headJs'))
-          .pipe(doInject(injectOtherArr, 'otherJs'))
-          .pipe(doInject([], 'app'))
-          .pipe(gulp.dest(outputDir));
-      } else if (type === 'css') {
-        gulp.src(file, {base: srcDir})
-          .pipe(doInject(injectHeadArr, 'headCss'))
-          .pipe(doInject(injectOtherArr, 'otherCss'))
-          .pipe(doInject([], 'app'))
-          .pipe(gulp.dest(outputDir));
-      }
-      return
+    // 無論是否是 dev 模式, 都執行 inject
+    var srcFile = srcDir + '/' + fileName;
+    if(!type){
+      gulp.src(srcFile, {base: srcDir})
+        .pipe(doInject(injectHeadArr, 'headJs'))
+        .pipe(doInject(injectOtherArr, 'otherJs'))
+        .pipe(doInject(injectHeadArr, 'headCss'))
+        .pipe(doInject(injectOtherArr, 'otherCss'))
+        .pipe(doInject([], 'app'))
+        .pipe(gulp.dest(srcDir));
+    }else if (type === 'js') {
+      gulp.src(srcFile, {base: srcDir})
+        .pipe(doInject(injectHeadArr, 'headJs'))
+        .pipe(doInject(injectOtherArr, 'otherJs'))
+        .pipe(doInject([], 'app'))
+        .pipe(gulp.dest(srcDir));
     }
-    var jsPath = distDir + '/' + _jsName;
-    var cssPath = distDir + '/' + _cssName;
-    gulp.src(file)
-      .pipe(doInject([], 'headJs'))
-      .pipe(doInject([], 'headCss'))
-      .pipe(doInject([], 'otherJs'))
-      .pipe(doInject([], 'otherCss'))
-      .pipe(doInject([jsPath, cssPath], 'app'))
-      .pipe(gulp.dest(outputDir));
+    if (type === 'css') {
+      gulp.src(srcFile, {base: srcDir})
+        .pipe(doInject(injectHeadArr, 'headCss'))
+        .pipe(doInject(injectOtherArr, 'otherCss'))
+        .pipe(doInject([], 'app'))
+        .pipe(gulp.dest(srcDir));
+    }
+    // prod 模式
+    if (!isDev) {
+      var jsPath = distDir + '/' + _jsName;
+      var cssPath = distDir + '/' + _cssName;
+      gulp.src(srcFile)
+        .pipe(doInject([], 'headJs'))
+        .pipe(doInject([], 'headCss'))
+        .pipe(doInject([], 'otherJs'))
+        .pipe(doInject([], 'otherCss'))
+        .pipe(doInject([jsPath, cssPath], 'app'))
+        .pipe(gulp.dest(distDir));
+    }
   };
-
+  // 對所有要寫入 tag 檔案執行 inject
   var injectFiles = function (type) {
     if (_isUseInject) {
       caro.forEach(_injectFileArr, function (fileName) {
@@ -199,7 +202,7 @@
       });
     }
   };
-
+  // 啟動 http server
   var startHttpServ = function () {
     setTimeout(function () {
       var outputDir = isDev ? srcDir : distDir;
@@ -210,41 +213,7 @@
       });
     }, 1000);
   };
-
-  var buildImg = function (useMin) {
-    var fs = require('fs');
-    var path = require('path');
-
-    if (useMin) {
-      gulp.src(srcImgDir + '*.*')
-        .pipe(imagemin({
-          optimizationLevel: 5
-        }))
-        .pipe(gulp.dest(srcImgDir));
-    }
-
-    fs.readdir(srcImgDir, function (err, files) {
-      if (err) {
-        return console.err(err);
-      }
-      var fileArr = [];
-      caro.forEach(files, function (file) {
-        var extname = path.extname(file);
-        if (extname !== '.jpg' && extname !== '.png' && extname !== '.svg') {
-          return true;
-        }
-        fileArr.push(_imgDir + '/' + file);
-      });
-      var fileJson = JSON.stringify(fileArr);
-      fileJson = 'cf.$$imgs = ' + fileJson;
-      fs.writeFile(srcDir + '/img.js', fileJson, function (err) {
-        if (err) {
-          return console.error(err);
-        }
-      });
-    });
-  };
-
+  // 合併 js 檔
   var concatJs = function (cb) {
     var allJsArr = injectHeadArr.concat(allSrcJsFiles).concat('!' + allSrcCssFiles);
     if (_isUseMaps) {
@@ -266,7 +235,7 @@
         cb && cb();
       });
   };
-
+  // 合併 css 檔
   var concatCss = function (cb) {
     var allCssArr = injectHeadArr.concat([allSrcCssFiles]).concat(['!' + allSrcJsFiles]);
     if (_isUseMaps) {
@@ -290,26 +259,59 @@
         cb && cb();
       });
   };
-
+  // 編譯所有的 pug 檔
   var buildPug = function (cb) {
     compilePug(allPugFiles, function () {
       cb && cb();
     });
   };
-
+  // 編譯所有的 coffee 檔
   var buildCoffee = function (cb) {
     compileCoffee(allCoffeeFiles, function () {
       cb && cb();
     });
   };
-
+  // 編譯所有的 stylus 檔
   var buildStylus = function (cb) {
     compileStylus(allStylusFiles, function () {
       cb && cb();
     });
   };
-
-  var buildDev = function (cb) {
+  // 掃描 images 並輸出陣列到 src/img.js
+  var processImg = function (useMin) {
+    var fs = require('fs');
+    var path = require('path');
+    if (useMin) {
+      // 圖檔壓縮
+      gulp.src(srcImgDir + '*.*')
+        .pipe(imagemin({
+          optimizationLevel: 5
+        }))
+        .pipe(gulp.dest(srcImgDir));
+    }
+    fs.readdir(srcImgDir, function (err, files) {
+      if (err) {
+        return console.err(err);
+      }
+      var fileArr = [];
+      caro.forEach(files, function (file) {
+        var extname = path.extname(file);
+        if (extname !== '.jpg' && extname !== '.png' && extname !== '.svg') {
+          return true;
+        }
+        fileArr.push(_imgDir + '/' + file);
+      });
+      var fileJson = JSON.stringify(fileArr);
+      fileJson = 'cf.$$imgs = ' + fileJson;
+      fs.writeFile(srcDir + '/img.js', fileJson, function (err) {
+        if (err) {
+          return console.error(err);
+        }
+      });
+    });
+  };
+  // 執行 dev 模式
+  var processDev = function (cb) {
     buildPug(function () {
       buildCoffee(function () {
         buildStylus(function () {
@@ -319,8 +321,8 @@
       });
     });
   };
-
-  var buildProd = function (cb) {
+  // 執行 prod 模式
+  var processProd = function (cb) {
     isDev = false;
     cleanDist();
     buildPug(function () {
@@ -339,17 +341,18 @@
     });
   };
 
-  gulp.task('buildImg', buildImg);
+  gulp.task('buildImg', processImg);
   gulp.task('buildImgWithMin', function () {
-    buildImg(true);
+    processImg(true);
   });
-  gulp.task('build', buildDev);
-  gulp.task('buildProd', buildProd);
+  gulp.task('build', processDev);
+  gulp.task('buildProd', processProd);
   gulp.task('default', function () {
-    buildDev(function () {
+    processDev(function () {
       startHttpServ();
       if (_isUsePug) {
         watch(allPugFiles, function (f) {
+          // 相對路徑
           var relative = f.relative;
           var relativeInSrc = relative.replace('.pug', '.html');
           // 如果該 pug 被移除 or 更名, 則移除對應的 html
@@ -365,10 +368,12 @@
       }
       if (_isUseCoffee) {
         watch(allCoffeeFiles, function (f) {
+          // 相對路徑
           var relative = f.relative;
+          var relativeInSrc = relative.replace('.coffee', '.js');
           // 如果該 coffee 被移除 or 更名, 則移除對應的 js
           if (f.isNull()) {
-            del.sync(srcDir + '/' + relative.replace('.coffee', '.js'));
+            del.sync(srcDir + '/' + relativeInSrc);
           }
           compileCoffee(_coffeeDir + '/' + relative);
         });
@@ -376,9 +381,10 @@
       if (_isUseStylus) {
         watch(allStylusFiles, function (f) {
           var relative = f.relative;
+          var relativeInSrc = relative.replace('.styl', '.css');
           // 如果該 stylus 被移除 or 更名, 則移除對應的 css
           if (f.isNull()) {
-            del.sync(srcDir + '/' + relative.replace('.styl', '.css'));
+            del.sync(srcDir + '/' + relativeInSrc);
           }
           compileStylus(_stylusDir + '/' + relative);
         });
@@ -392,7 +398,7 @@
     });
   });
   gulp.task('prod', function () {
-    buildProd(function () {
+    processProd(function () {
       startHttpServ();
     });
   });

@@ -13,13 +13,13 @@ cf.router.regPage('lib/router', function(cf, $page) {
     return _alert(JSON.stringify(_router.parseUrlSearch()));
   });
   $page.dom('#goPageBtn1').onClick(function() {
-    return _router.goPage('router');
+    return _router.goPage('lib/router');
   });
   $page.dom('#goPageBtn2').onClick(function() {
     return _router.goPage();
   });
   $page.dom('#goPageBtn3').onClick(function() {
-    return _router.goPage('router?name=pikachu&age=200');
+    return _router.goPage('lib/router?name=pikachu&age=200');
   });
   $page.dom('#blockGoPageBtn').onClick(function() {
     _router.blockGoPage();
