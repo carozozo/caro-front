@@ -1,13 +1,26 @@
 .mainTitle cfWheel
 .content
   .title 示範
-  div
+  div 取得的捲動資訊:
+    span#wheelInfo
 .content
   .title 簡介
   div
+    div 增加 mousewheel 的易讀性
+    div Depend on
+      a(href='https://github.com/jquery/jquery-mousewheel', target='_blank') jquery.mousewheel
 .content
   .title 參數
   div
+    .tip4 $('xxx').cfWheel(nameSpace, [fn])
+    div nameSpace: 綁定 mousewheel 的 name space
+    div fn: mousewheel 時觸發的 fn(event, $self)
+    .subTitle4 event 附加數
+      div isWheelDown: 是否是往下捲動
+      div isWheelRight: 是否是往右捲動
+      div wheelDistance: 滑鼠滾輪捲動距離
 .content
   .title 函式
   div
+    .tip2 bindWheel: 綁定 mousewheel
+    .tip2 unbindWheel: 停止綁定 mousewheel

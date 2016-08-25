@@ -4,7 +4,7 @@
 Depend on jquery.mousewheel
  */
 cf.regModule('cfWheel', function(nameSpace, fn) {
-  var $self, ifWheelDownOrRight;
+  var $self, ifWheelDownOrRight, triggerFn;
   $self = this;
   nameSpace = 'mousewheel.cfWheel.' + nameSpace;
   ifWheelDownOrRight = function(delta) {
@@ -14,17 +14,24 @@ cf.regModule('cfWheel', function(nameSpace, fn) {
     /* deltaX < 0 = 向右滾動 */
     return delta < 0;
   };
-  $self.off(nameSpace).on(nameSpace, function(e) {
+  triggerFn = function(e) {
     e.isWheelDown = ifWheelDownOrRight(e.deltaY);
     e.isWheelRight = ifWheelDownOrRight(e.deltaX);
     e.wheelDistance = e.deltaFactor;
-    return fn && fn(e, $self);
-  });
+    fn && fn(e, $self);
+  };
+
+  /* 綁定 mousewheel */
+  $self.bindWheel = function() {
+    $self.off(nameSpace).on(nameSpace, triggerFn);
+    return $self;
+  };
 
   /* 停止綁定 mousewheel */
   $self.unbindWheel = function() {
     $self.off(nameSpace);
     return $self;
   };
+  $self.bindWheel();
   return $self;
 });
