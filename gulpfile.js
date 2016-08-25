@@ -52,7 +52,7 @@
     _jsName += '.' + rand;
     _cssName += '.' + rand;
   }
-  _jsName = caro.addTail(_jsName + '.js');
+  _jsName = caro.addTail(_jsName, '.js');
   _cssName = caro.addTail(_cssName, '.css');
 
   /* 資料夾相關 */
@@ -157,42 +157,43 @@
   };
   // 依照 dev 或 prod 模式執行 inject
   var injectFile = function (fileName, type) {
-    // 無論是否是 dev 模式, 都執行 inject
-    var srcFile = srcDir + '/' + fileName;
-    if(!type){
-      gulp.src(srcFile, {base: srcDir})
-        .pipe(doInject(injectHeadArr, 'headJs'))
-        .pipe(doInject(injectOtherArr, 'otherJs'))
-        .pipe(doInject(injectHeadArr, 'headCss'))
-        .pipe(doInject(injectOtherArr, 'otherCss'))
-        .pipe(doInject([], 'app'))
-        .pipe(gulp.dest(srcDir));
-    }else if (type === 'js') {
-      gulp.src(srcFile, {base: srcDir})
-        .pipe(doInject(injectHeadArr, 'headJs'))
-        .pipe(doInject(injectOtherArr, 'otherJs'))
-        .pipe(doInject([], 'app'))
-        .pipe(gulp.dest(srcDir));
-    }
-    if (type === 'css') {
-      gulp.src(srcFile, {base: srcDir})
-        .pipe(doInject(injectHeadArr, 'headCss'))
-        .pipe(doInject(injectOtherArr, 'otherCss'))
-        .pipe(doInject([], 'app'))
-        .pipe(gulp.dest(srcDir));
+    if (isDev) {
+      var srcFile = srcDir + '/' + fileName;
+      if (!type) {
+        gulp.src(srcFile, {base: srcDir})
+          .pipe(doInject(injectHeadArr, 'headJs'))
+          .pipe(doInject(injectOtherArr, 'otherJs'))
+          .pipe(doInject(injectHeadArr, 'headCss'))
+          .pipe(doInject(injectOtherArr, 'otherCss'))
+          .pipe(doInject([], 'app'))
+          .pipe(gulp.dest(srcDir));
+      } else if (type === 'js') {
+        gulp.src(srcFile, {base: srcDir})
+          .pipe(doInject(injectHeadArr, 'headJs'))
+          .pipe(doInject(injectOtherArr, 'otherJs'))
+          .pipe(doInject([], 'app'))
+          .pipe(gulp.dest(srcDir));
+      }
+      if (type === 'css') {
+        gulp.src(srcFile, {base: srcDir})
+          .pipe(doInject(injectHeadArr, 'headCss'))
+          .pipe(doInject(injectOtherArr, 'otherCss'))
+          .pipe(doInject([], 'app'))
+          .pipe(gulp.dest(srcDir));
+      }
+      return
     }
     // prod 模式
-    if (!isDev) {
-      var jsPath = distDir + '/' + _jsName;
-      var cssPath = distDir + '/' + _cssName;
-      gulp.src(srcFile)
-        .pipe(doInject([], 'headJs'))
-        .pipe(doInject([], 'headCss'))
-        .pipe(doInject([], 'otherJs'))
-        .pipe(doInject([], 'otherCss'))
-        .pipe(doInject([jsPath, cssPath], 'app'))
-        .pipe(gulp.dest(distDir));
-    }
+    var distFile = distDir + '/' + fileName;
+    var jsPath = distDir + '/' + _jsName;
+    var cssPath = distDir + '/' + _cssName;
+    gulp.src(distFile, {base: distDir})
+      .pipe(doInject([], 'headJs'))
+      .pipe(doInject([], 'headCss'))
+      .pipe(doInject([], 'otherJs'))
+      .pipe(doInject([], 'otherCss'))
+      .pipe(doInject([jsPath, cssPath], 'app'))
+      .pipe(gulp.dest(distDir));
   };
   // 對所有要寫入 tag 檔案執行 inject
   var injectFiles = function (type) {
