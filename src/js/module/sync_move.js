@@ -27,16 +27,16 @@ cf.regModule('cfSyncMove', function(nameSpace, opt) {
   };
 
   /* x 移動比例 */
-  _proportionX = opt.proportionX || 1;
+  _proportionX = opt.proportionX || .05;
 
   /* y 移動比例 */
-  _proportionY = opt.proportionY || 1;
+  _proportionY = opt.proportionY || .05;
 
-  /* x 最大移動範圍 */
-  _rangeX = opt.rangeX || 20;
+  /* x 最大移動範圍, 未設置代表不限制 */
+  _rangeX = opt.rangeX;
 
-  /* y 最大移動範圍 */
-  _rangeY = opt.rangeY || 20;
+  /* y 最大移動範圍, 未設置代表不限制 */
+  _rangeY = opt.rangeY;
 
   /* x 是否和滑鼠方向一樣 */
   _reverseX = opt.reverseX === false ? false : true;
@@ -80,10 +80,12 @@ cf.regModule('cfSyncMove', function(nameSpace, opt) {
     if (caro.isNumber(baseX)) {
       moveX = mouseX - baseX;
       targetMoveX = moveX * _proportionX;
-      if (targetMoveX > _rangeX) {
-        targetMoveX = _rangeX;
-      } else if (targetMoveX < -_rangeX) {
-        targetMoveX = -_rangeX;
+      if (_rangeX) {
+        if (targetMoveX > _rangeX) {
+          targetMoveX = _rangeX;
+        } else if (targetMoveX < -_rangeX) {
+          targetMoveX = -_rangeX;
+        }
       }
       if (_reverseX) {
         targetMoveX = -targetMoveX;
@@ -95,10 +97,12 @@ cf.regModule('cfSyncMove', function(nameSpace, opt) {
     if (caro.isNumber(baseY)) {
       moveY = mouseY - baseY;
       targetMoveY = moveY * _proportionY;
-      if (targetMoveY > _rangeY) {
-        targetMoveY = _rangeY;
-      } else if (targetMoveY < -_rangeY) {
-        targetMoveY = -_rangeY;
+      if (_rangeY) {
+        if (targetMoveY > _rangeY) {
+          targetMoveY = _rangeY;
+        } else if (targetMoveY < -_rangeY) {
+          targetMoveY = -_rangeY;
+        }
       }
       if (_reverseY) {
         targetMoveY = -targetMoveY;

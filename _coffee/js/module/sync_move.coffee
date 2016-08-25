@@ -15,13 +15,13 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
   ### y 軸基準坐標, 設為 false 則不同步移動 y ###
   _baseY = if opt.baseY isnt undefined then opt.baseY else -> $window.height() / 2
   ### x 移動比例 ###
-  _proportionX = opt.proportionX or 1
+  _proportionX = opt.proportionX or .05
   ### y 移動比例 ###
-  _proportionY = opt.proportionY or 1
-  ### x 最大移動範圍 ###
-  _rangeX = opt.rangeX or 20
-  ### y 最大移動範圍 ###
-  _rangeY = opt.rangeY or 20
+  _proportionY = opt.proportionY or .05
+  ### x 最大移動範圍, 未設置代表不限制 ###
+  _rangeX = opt.rangeX
+  ### y 最大移動範圍, 未設置代表不限制 ###
+  _rangeY = opt.rangeY
   ### x 是否和滑鼠方向一樣 ###
   _reverseX = if opt.reverseX is false then false else true
   ### y 是否和滑鼠方向一樣 ###
@@ -61,10 +61,11 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
     if caro.isNumber(baseX)
       moveX = mouseX - baseX
       targetMoveX = moveX * _proportionX
-      if targetMoveX > _rangeX
-        targetMoveX = _rangeX
-      else if targetMoveX < -_rangeX
-        targetMoveX = -_rangeX
+      if _rangeX
+        if targetMoveX > _rangeX
+          targetMoveX = _rangeX
+        else if targetMoveX < -_rangeX
+          targetMoveX = -_rangeX
       targetMoveX = -targetMoveX if _reverseX
       infoObj.moveX = moveObj.x = targetMoveX or 0
       infoObj.baseX = baseX
@@ -73,10 +74,11 @@ cf.regModule 'cfSyncMove', (nameSpace, opt = {}) ->
     if caro.isNumber(baseY)
       moveY = mouseY - baseY
       targetMoveY = moveY * _proportionY
-      if targetMoveY > _rangeY
-        targetMoveY = _rangeY
-      else if targetMoveY < -_rangeY
-        targetMoveY = -_rangeY
+      if _rangeY
+        if targetMoveY > _rangeY
+          targetMoveY = _rangeY
+        else if targetMoveY < -_rangeY
+          targetMoveY = -_rangeY
       targetMoveY = -targetMoveY if _reverseY
       infoObj.moveY = moveObj.y = targetMoveY or 0
       infoObj.baseY = baseY

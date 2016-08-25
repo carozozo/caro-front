@@ -224,6 +224,12 @@ input[type='text'] {
 .separator4 {
   height: 30px;
 }
+.separator5 {
+  height: 40px;
+}
+.separator6 {
+  height: 50px;
+}
 .tab1 {
   padding-left: 10px;
 }

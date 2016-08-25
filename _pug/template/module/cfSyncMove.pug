@@ -6,11 +6,11 @@
     div 移動滑鼠觀看效果
       div#startBtn.btn2 開始同步移動
       div#stopBtn.btn2 停止同步移動
-    .separator4
+    .separator6
     #block1 同步移動 x
     #block2 同步移動 x, y
     #block3 同步移動 y
-    .separator4
+    .separator6
     #infoBox
 .content
   .title 簡介
@@ -24,10 +24,10 @@
     div
       div baseX: x 基準坐標, 不是數字或 return 數字的 fn 則不同步移動 x, 預設為視窗寬度一半
       div baseY: y 基準坐標, 不是數字或 return 數字的 fn 則不同步移動 y, 預設為視窗高度一半
-      div proportionX: x 隨者滑鼠的移動比例, 預設 1
-      div proportionY: y 隨者滑鼠的移動比例, 預設 1
-      div rangeX: x 最大移動範圍, 預設 20
-      div rangeY: y 最大移動範圍, 預設 20
+      div proportionX: x 隨者滑鼠的移動比例, 預設 0.05
+      div proportionY: y 隨者滑鼠的移動比例, 預設 0.05
+      div rangeX: x 最大移動範圍, 未設置代表不限制
+      div rangeY: y 最大移動範圍, 未設置代表不限制
       div reverseX: x 移動方向是否和滑鼠方向相反, 預設 true
       div reverseY: y 移動方向是否和滑鼠方向相反, 預設 true
       div befMove: 移動之前的 cb(infoObj), 如果 return false 則不移動

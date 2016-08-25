@@ -6,7 +6,7 @@ cf.router.regPage('module/cfSyncMove', function(cf, $page) {
       width: 120,
       height: 120,
       display: 'inline-block',
-      'margin-left': 30,
+      'margin-left': 50,
       'background-color': color
     });
   };
