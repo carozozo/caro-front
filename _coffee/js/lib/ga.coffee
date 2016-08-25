@@ -1,11 +1,13 @@
-### 客製化的 tracking for Google Analytics ###
+###
+客製化的 tracking for Google analytics
+https://www.google.com.tw/intl/zh-TW_ALL/analytics/index.html
+###
 cf.regLib 'ga', (cf) ->
-  ### https://www.google.com.tw/intl/zh-TW_ALL/analytics/index.html ###
   self = {}
   window = cf.require('window')
   _cfg = cf.config('tracking')
   _isDownloadGa = _cfg.isDownloadGa
-  _trace = cf.genTraceFn('tracking')
+  _trace = cf.genTraceFn('ga')
   _trace.startTrace()
 
   ga = cf.require('ga')
@@ -39,11 +41,11 @@ cf.regDocReady((cf) ->
   _gaId = _cfg.gaId
   window = cf.require('window')
   document = cf.require('document')
-  _trace = cf.genTraceFn('tracking')
+  _trace = cf.genTraceFn('ga')
   _trace.startTrace()
 
   downloadSdkFn = ->
-    _trace 'Start download google analytics, ga id:', _gaId
+    _trace 'Start download google analytics, id:', _gaId
       ((i, s, o, g, r, a, m) ->
         i['GoogleAnalyticsObject'] = r
         i[r] = i[r] or ->

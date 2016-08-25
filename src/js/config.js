@@ -61,16 +61,12 @@
   });
 
   /*
-  type: 追蹤模式, 0: 不追蹤, 1: GA tracking, 2: GTM tracking
-  tagId: 追蹤碼編號
-  defCategory: 預設發送 event 的 category
-  prefix: 發送 tracking 的前綴, e.g. tracking.page('index') => 發送 [prefix]_index
+  type: 是否下載 gtm 函式庫
+  gtmId: gtm 編號
    */
-  cf.config('tracking', {
-    type: 0,
-    tagId: 'UA-77059085-1',
-    defCategory: 'caroFront',
-    prefix: 'caroFront'
+  cf.config('gtm', {
+    isDownloadGtm: false,
+    gtmId: ''
   });
 
   /* 當首頁網址符合時, 載入不同的設定 */
