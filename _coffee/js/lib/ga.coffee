@@ -1,6 +1,6 @@
 ### 客製化的 tracking for Google Analytics ###
 cf.regLib 'ga', (cf) ->
-  ### https://analytics.google.com/analytics/web/ ###
+  ### https://www.google.com.tw/intl/zh-TW_ALL/analytics/index.html ###
   self = {}
   window = cf.require('window')
   _cfg = cf.config('tracking')

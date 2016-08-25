@@ -36,11 +36,11 @@ do (cf) ->
     isDownloadSdk: false
     sdkVersion: 'v2.7'
     redirectAfterLogin: 'go_back'
-    appId: '1111111111111111'
+    appId: ''
     shareUrl: 'https://carozozo.github.io/caro-front/'
   })
   ###
-  isDownloadGa: 是否使用 ga
+  isDownloadGa: 是否下載 ga 函式庫
   gaId: ga 編號
   ###
   cf.config('ga', {
