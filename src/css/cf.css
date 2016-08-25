@@ -21,6 +21,7 @@
 }
 .colorBlue1,
 a,
+.link,
 .tip4 {
   color: #34bfc7;
 }
@@ -97,7 +98,8 @@ body {
   font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
   min-width: 640px;
 }
-a {
+a,
+.link {
   cursor: pointer;
   text-shadow: 0 0 5px rgba(104,182,255,0.5);
   margin-left: 5px;
