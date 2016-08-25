@@ -43,7 +43,7 @@ body,
 .colorDark,
 .block,
 .inlineBlock {
-  color: #0e1206;
+  color: #1e1e1e;
 }
 .bgGray1,
 .subTitle1 {
@@ -81,14 +81,13 @@ body,
   background-color: #505016;
 }
 .bgWhite,
-header,
 .block,
 .inlineBlock {
   background-color: #e5e5e5;
 }
 .bgDark,
 body {
-  background-color: #0e1206;
+  background-color: #1e1e1e;
 }
 body {
   margin: 0;
@@ -96,15 +95,7 @@ body {
   font-size: 18px;
   line-height: 1.3em;
   font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
-}
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 20px 0 20px 10px;
-  overflow: hidden;
-  z-index: 9999;
+  min-width: 640px;
 }
 select {
   font-size: 1em;
@@ -119,42 +110,6 @@ input[type='text'] {
   border-radius: 10px;
   padding: 0 10px;
   font-size: 0.9em;
-}
-#headerTitle {
-  width: 250px;
-}
-.headerBtn {
-  display: inline-block;
-  text-align: center;
-  margin: 0;
-  cursor: pointer;
-  background: -webkit-linear-gradient(top, rgba(40,40,40,0.3), rgba(35,35,35,0.3), rgba(10,10,10,0.3), rgba(0,0,0,0.3));
-  padding: 8px 18px;
-  border-radius: 50px;
-  border: 2px solid rgba(0,0,0,0.7);
-  border-bottom: 2px solid rgba(0,0,0,0.7);
-  border-top: 2px solid #000;
-  color: rgba(255,255,255,0.8);
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  font-size: 13px;
-  text-decoration: none;
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.75);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-}
-.headerBtn:hover {
-  background: -webkit-linear-gradient(top, rgba(40,40,40,0.6), rgba(35,35,35,0.6) 50%, rgba(10,10,10,0.8) 50%, rgba(0,0,0,0.8));
-}
-.headerBtn .icon {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin: 4px 8px 0 0;
-  float: left;
-}
-.btn-github .icon {
-  opacity: 0.6;
-  background: url("../images/blacktocat.png") 0 0 no-repeat;
 }
 .btn {
   cursor: pointer;

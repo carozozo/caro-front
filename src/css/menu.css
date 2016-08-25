@@ -30,11 +30,11 @@
   padding: 5px 10px;
   margin: 5px 0 5px auto;
   color: #e5e5e5;
-  background: #0e1206;
+  background: #1e1e1e;
   border: 3px solid #e5e5e5;
   min-width: 70px;
 }
 .menuItem:hover {
-  color: #0e1206;
+  color: #1e1e1e;
   background: #e5e5e5;
 }
