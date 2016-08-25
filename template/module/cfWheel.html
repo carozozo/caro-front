@@ -2,17 +2,32 @@
 <div class="mainTitle">cfWheel</div>
 <div class="content">
   <div class="title">示範</div>
-  <div></div>
+  <div>取得的捲動資訊:<span id="wheelInfo"></span></div>
 </div>
 <div class="content">
   <div class="title">簡介</div>
-  <div></div>
+  <div>
+    <div>增加 mousewheel 的易讀性</div>
+    <div>Depend on<a href="https://github.com/jquery/jquery-mousewheel" target="_blank">jquery.mousewheel</a></div>
+  </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
-  <div></div>
+  <div>
+    <div class="tip4">$('xxx').cfWheel(nameSpace, [fn])</div>
+    <div>nameSpace: 綁定 mousewheel 的 name space</div>
+    <div>fn: mousewheel 時觸發的 fn(event, $self)</div>
+    <div class="subTitle4">event 附加數
+      <div>isWheelDown: 是否是往下捲動</div>
+      <div>isWheelRight: 是否是往右捲動</div>
+      <div>wheelDistance: 滑鼠滾輪捲動距離</div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
-  <div></div>
+  <div>
+    <div class="tip2">bindWheel: 綁定 mousewheel</div>
+    <div class="tip2">unbindWheel: 停止綁定 mousewheel</div>
+  </div>
 </div>
