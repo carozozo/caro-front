@@ -4,19 +4,12 @@
 Depend on jquery.mousewheel
  */
 cf.regModule('cfWheel', function(nameSpace, fn) {
-  var $self, ifWheelDownOrRight, triggerFn;
+  var $self, triggerFn;
   $self = this;
   nameSpace = 'mousewheel.cfWheel.' + nameSpace;
-  ifWheelDownOrRight = function(delta) {
-
-    /* deltaY < 0 = 向下滾動 */
-
-    /* deltaX < 0 = 向右滾動 */
-    return delta < 0;
-  };
   triggerFn = function(e) {
-    e.isWheelDown = ifWheelDownOrRight(e.deltaY);
-    e.isWheelRight = ifWheelDownOrRight(e.deltaX);
+    e.isWheelDown = e.deltaY < 0;
+    e.isWheelRight = e.deltaX > 0;
     e.wheelDistance = e.deltaFactor;
     fn && fn(e, $self);
   };
