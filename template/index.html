@@ -101,6 +101,7 @@
     <div>cf.alert : 用 popup 模擬 alert 的功能, 避免 browser 禁用 alert</div>
     <div>cf.cookie : 設置和讀取 cookie</div>
     <div>cf.fb : FB API 延伸函式庫, 解決部分 API 問題, 簡化呼叫方式和防呆</div>
+    <div>cf.ga : 客製化的 tracking for Google Analytics</div>
     <div>cf.routeAnimate : cf.router 擴充換頁效果</div>
     <div>cf.router : 換頁函式庫, 使用 $.ajax 切換頁面, 並利用 url hash 記錄</div>
     <div>cf.unit : 單元函式庫, 提供一些未分類函式</div>
@@ -124,8 +125,7 @@
     <div>cfScrollbar : 自訂捲軸樣式, 客製化外掛 jquery.mCustomScrollbar 使用方式</div>
     <div>cfSwitchShow : 輪流顯示 DOM, 預設顯示第一個</div>
     <div>cfSyncMove : 計算滑鼠和基準點的距離，同步移動 DOM</div>
-    <div>cfUpload : 檔案上傳</div>
-    <div>cfValidator : 表單驗證</div>
+    <div>cfValidator : 表單驗證, 要檢查的欄位需要設置 id 或 name</div>
     <div>cfWheel : 綁定滑鼠滾輪 event, 客製化外掛 jquery.mousewheel 使用方式</div>
     <div>dom : 提供基本 fns</div>
   </div>
@@ -144,19 +144,19 @@
       <div class="subTitle2">支援<a class="link" href="https://www.npmjs.com/package/pug" target="_blank">.pug </a></div>
       <div>
         <div>在 gulp 時會自動 watch 並編譯成 html</div>
-        <div>在自動部署時, /pug 裡的 .pug 會編譯成 .html 並放到 /src 的相對路徑底下</div>
+        <div>在自動部署時, /_pug 裡的 .pug 會編譯成 .html 並放到 /src 的相對路徑底下</div>
         <div class="tip3">如不使用 pug 請直接移除資料夾, 並將 config.isUsePug 設為 false</div>
       </div>
       <div class="subTitle2">支援<a class="link" href="https://www.npmjs.com/package/coffee-script" target="_blank">.coffee </a></div>
       <div>
         <div>在 gulp 時會自動 watch 並編譯成 js </div>
-        <div>在自動部署時, /coffee 裡的 .coffee 會編譯成 .js 並放到 /src 的相對路徑底下</div>
+        <div>在自動部署時, /_coffee 裡的 .coffee 會編譯成 .js 並放到 /src 的相對路徑底下</div>
         <div class="tip3">如不使用 coffee 請直接移除資料夾, 並將 config.isUseCoffee 設為 false</div>
       </div>
       <div class="subTitle2">支援<a class="link" href="https://www.npmjs.com/package/gulp-stylus" target="_blank">.stylus </a></div>
       <div>
         <div>在 gulp 時會自動 watch 並編譯成 css</div>
-        <div>在自動部署時, /stylus 裡的 .css 會編譯成 .css 並放到 /src 的相對路徑底下</div>
+        <div>在自動部署時, /_stylus 裡的 .css 會編譯成 .css 並放到 /src 的相對路徑底下</div>
         <div class="tip3">如不使用 stylus 請直接移除資料夾, 並將 config.isUseStylus 設為 false</div>
       </div>
       <div class="subTitle2">使用<a class="link" href="https://www.npmjs.com/package/gulp-inject" target="_blank">gulp-inject</a></div>

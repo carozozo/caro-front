@@ -2,17 +2,65 @@
 <div class="mainTitle">cfValidator</div>
 <div class="content">
   <div class="title">示範</div>
-  <div></div>
+  <div>
+    <div id="form1">
+      <div class="subTitle2">一般檢查</div>
+      <div>
+        <div>必填:
+          <input class="input60" id="requireInput" type="text"/><span class="tab1"></span>數字:
+          <input class="input60" id="numInput" type="text" value="不是數字"/><span class="tab1"></span>最小長度 3:
+          <input class="input60" id="minLengthInput" type="text" value="12"/><span class="tab1"></span>只能英數字:
+          <input class="input60" id="wordInput" type="text" value="!!"/>
+        </div>
+        <div class="separator2"></div>
+        <div>email:
+          <input class="input120" id="emailInput" type="text" value="不是 email"/><span class="tab1"></span>手機:
+          <input class="input120" id="mobileInput" type="text" value="不是手機號碼"/><span class="tab1"></span>身分證:
+          <input class="input100" id="rocIdInput" type="text" value="不是身分證"/>
+          <div class="btn2" id="submitBtn1">檢查</div>
+        </div>
+        <div class="separator2"></div>
+        <div>錯誤:<span id="errInfoBox1"></span></div>
+      </div>
+    </div>
+    <div id="form2">
+      <div class="subTitle2">複合式檢查</div>
+      <div>
+        <div>數字且必填:
+          <input class="input80" id="requireNumInput" type="text" value=""/><span class="tab1"></span>必勾選:
+          <input id="requireCheckbox" type="checkbox"/>
+          <div class="btn2" id="submitBtn2">檢查</div>
+        </div>
+        <div class="separator2"></div>
+        <div>錯誤:<span id="errInfoBox2"></span></div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">簡介</div>
-  <div></div>
+  <div>表單驗證, 要檢查的欄位需要設置 id 或 name</div>
 </div>
 <div class="content">
   <div class="title">參數</div>
-  <div></div>
+  <div>
+    <div class="tip4">$('xxx').cfValidator([opt = {}])</div>
+    <div class="subTitle1">opt 參數</div>
+    <div>
+      <div>requireAll: 是否全部必填, 預設 false</div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
-  <div></div>
+  <div>
+    <div class="tip2">setRequire($dom): 設置檢查必填</div>
+    <div class="tip2">setNum($dom): 設置檢查數字</div>
+    <div class="tip2">setMinLength($dom, length): 設置檢查最小長度</div>
+    <div class="tip2">setWord($dom): 設置檢查只能英數字</div>
+    <div class="tip2">setEmail($dom): 設置檢查 email 格式</div>
+    <div class="tip2">setMobile($dom): 設置檢查手機格式</div>
+    <div class="tip2">setRocId($dom): 設置檢查身分證格式</div>
+    <div class="tip2">validate(): 開始檢查格式</div>
+  </div>
 </div>
