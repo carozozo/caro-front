@@ -7,7 +7,7 @@ cf.regLib('ga', function(cf) {
   var _cfg, _isDownloadGa, _trace, ga, self, window;
   self = {};
   window = cf.require('window');
-  _cfg = cf.config('tracking');
+  _cfg = cf.config('ga');
   _isDownloadGa = _cfg.isDownloadGa;
   _trace = cf.genTraceFn('ga');
   _trace.startTrace();

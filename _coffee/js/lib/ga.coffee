@@ -5,7 +5,7 @@ https://www.google.com.tw/intl/zh-TW_ALL/analytics/index.html
 cf.regLib 'ga', (cf) ->
   self = {}
   window = cf.require('window')
-  _cfg = cf.config('tracking')
+  _cfg = cf.config('ga')
   _isDownloadGa = _cfg.isDownloadGa
   _trace = cf.genTraceFn('ga')
   _trace.startTrace()
