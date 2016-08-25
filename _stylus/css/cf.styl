@@ -107,6 +107,20 @@ header
   overflow hidden
   z-index 9999
 
+select
+  font-size 1em
+  padding 2px 10px
+  margin-left 5px
+  margin-right 5px
+  border-radius 10px
+  min-width 50px
+
+input[type='text']
+  height 26px
+  border-radius 10px
+  padding 0 10px
+  font-size 0.9em
+
 #headerTitle
   width 250px
 
@@ -174,12 +188,27 @@ header
   &:hover
     background -webkit-linear-gradient(top, rgba(201, 201, 201, 0.9), rgba(144, 144, 144, 0.8) 50%, rgba(77, 77, 77, 0.8) 50%, rgba(117, 117, 117, 0.9))
 
-.input60
-  width 60px
+inputText(width)
+  width width
   height 26px
   border-radius 10px
   padding 0 10px
   font-size 0.9em
+
+.input40
+  inputText(40px)
+
+.input60
+  inputText(60px)
+
+.input80
+  inputText(80px)
+
+.input100
+  inputText(100px)
+
+.input120
+  inputText(120px)
 
 .link
   @extend .colorBlue1
@@ -188,14 +217,6 @@ header
   margin-left 5px
   margin-right 5px
   text-decoration underline
-
-select
-  font-size 1em
-  padding 2px 10px
-  margin-left 5px
-  margin-right 5px
-  border-radius 10px
-  min-width 50px
 
 #container
   margin-top 100px
@@ -280,7 +301,6 @@ subTitle()
 .subTitle1
   @extend .bgGray1
   subTitle()
-
 
 .subTitle2
   @extend .bgGreen1

@@ -2,12 +2,66 @@
 .content
   .title 示範
   div
+    #form1
+      .subTitle2 一般檢查
+      div
+        div
+          | 必填:
+          input#requireInput.input60(type='text')
+          span.tab1
+          | 數字:
+          input#numInput.input60(type='text', value='不是數字')
+          span.tab1
+          | 最小長度 3:
+          input#minLengthInput.input60(type='text', value='12')
+          span.tab1
+          | 只能英數字:
+          input#wordInput.input60(type='text', value='!!')
+        .separator2
+        div
+          | email:
+          input#emailInput.input120(type='text', value='不是 email')
+          span.tab1
+          | 手機:
+          input#mobileInput.input120(type='text', value='不是手機號碼')
+          span.tab1
+          | 身分證:
+          input#rocIdInput.input100(type='text', value='不是身分證')
+          div#submitBtn1.btn2 檢查
+        .separator2
+        div 錯誤:
+          span#errInfoBox1
+    #form2
+      .subTitle2 複合式檢查
+      div
+        div
+          | 數字且必填:
+          input#requireNumInput.input80(type='text', value='')
+          span.tab1
+          | 必勾選:
+          input#requireCheckbox(type='checkbox')
+          div#submitBtn2.btn2 檢查
+        .separator2
+        div 錯誤:
+          span#errInfoBox2
 .content
   .title 簡介
-  div
+  div 表單驗證, 要檢查的欄位需要設置 id 或 name
 .content
   .title 參數
   div
+    .tip4 $('xxx').cfValidator([opt = {}])
+    .subTitle1 opt 參數
+    div
+      div requireAll: 是否全部必填, 預設 false
 .content
   .title 函式
   div
+    .tip2 setRequire($dom): 設置檢查必填
+    .tip2 setNum($dom): 設置檢查數字
+    .tip2 setMinLength($dom, length): 設置檢查最小長度
+    .tip2 setWord($dom): 設置檢查只能英數字
+    .tip2 setEmail($dom): 設置檢查 email 格式
+    .tip2 setMobile($dom): 設置檢查手機格式
+    .tip2 setRocId($dom): 設置檢查身分證格式
+    .tip2 validate(): 開始檢查格式

@@ -1,9 +1,9 @@
 
 /*
-表單驗證
+表單驗證, 要檢查的欄位需要設置 id 或 name
  */
 cf.regModule('cfValidator', function(opt) {
-  var $, $doms, $self, _errInfo, _validateMap, addToDomMap, caro, cf, coverToDomList, regValidate, requireAll, setErrInfo, setValidateDef, trimDomVal, validateCaptcha, validateEmail, validateMinLength, validateMobile, validateNum, validateRequire, validateRocId;
+  var $, $doms, $self, _errInfo, _validateMap, addToDomMap, caro, cf, coverToDomList, regValidate, requireAll, setErrInfo, setValidateDef, trimDomVal, validateEmail, validateMinLength, validateMobile, validateNum, validateRequire, validateRocId, validateWord;
   if (opt == null) {
     opt = {};
   }
@@ -14,13 +14,13 @@ cf.regModule('cfValidator', function(opt) {
   requireAll = opt.requireAll;
 
   /*
-  儲存驗證項目 {<DOM id>: {$dom:<DOM>, id:<驗證id>, <驗證名稱>:<驗證資訊>}}
-  oValidateItem = {$dom:<目標DOM>, id:<驗證id>, <驗證名稱>:<驗證資訊>}
+  儲存驗證項目 {<DOM id>: oValidateItem}
+  oValidateItem = {$dom:<目標DOM>, id:<驗證id>, <驗證名稱>: oValidateInfo}
   oValidateInfo = <驗證資訊>
    */
   _validateMap = {};
 
-  /* 儲存錯誤項目 {<DOM id>: {<錯誤項目>:<驗證資訊>}} */
+  /* 儲存錯誤項目 {<DOM id>: [<錯誤項目>]} */
   _errInfo = null;
   coverToDomList = function($domOrArr) {
     if (!caro.isArray($domOrArr)) {
@@ -43,14 +43,14 @@ cf.regModule('cfValidator', function(opt) {
   setValidateDef = function() {
     return _errInfo = null;
   };
-  regValidate = function($dom, infoKey, cb) {
+  regValidate = function($dom, validateType, cb) {
     var $domList;
     $domList = coverToDomList($dom);
     caro.forEach($domList, function($dom) {
       var oValidateItem;
       oValidateItem = addToDomMap($dom);
-      oValidateItem[infoKey] = {};
-      return cb && cb(oValidateItem[infoKey]);
+      oValidateItem[validateType] = {};
+      return cb && cb(oValidateItem[validateType]);
     });
     return $self;
   };
@@ -61,9 +61,9 @@ cf.regModule('cfValidator', function(opt) {
       _errInfo = {};
     }
     if (!_errInfo[id]) {
-      _errInfo[id] = {};
+      _errInfo[id] = [];
     }
-    return _errInfo[id][errType] = oValidateItem;
+    return _errInfo[id].push(errType);
   };
   trimDomVal = function($dom) {
     var val;
@@ -79,7 +79,7 @@ cf.regModule('cfValidator', function(opt) {
       return;
     }
     val = trimDomVal($dom);
-    if (!val) {
+    if (val === '') {
       return setErrInfo(oValidateItem, 'require');
     }
   };
@@ -87,7 +87,7 @@ cf.regModule('cfValidator', function(opt) {
     var $dom, val;
     $dom = oValidateItem.$dom;
     val = trimDomVal($dom);
-    if (!$.isNumeric(val)) {
+    if (val && !$.isNumeric(val)) {
       return setErrInfo(oValidateItem, 'number');
     }
   };
@@ -97,7 +97,7 @@ cf.regModule('cfValidator', function(opt) {
     length = oValidateItem.minLength.length;
     val = trimDomVal($dom);
     size = caro.size(val);
-    if (size < length) {
+    if (size && size < length) {
       return setErrInfo(oValidateItem, 'minLength');
     }
   };
@@ -106,7 +106,7 @@ cf.regModule('cfValidator', function(opt) {
     $dom = oValidateItem.$dom;
     val = trimDomVal($dom);
     regExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!regExp.test(val)) {
+    if (val && !regExp.test(val)) {
       return setErrInfo(oValidateItem, 'email');
     }
   };
@@ -115,7 +115,7 @@ cf.regModule('cfValidator', function(opt) {
     $dom = oValidateItem.$dom;
     val = trimDomVal($dom);
     regExp = /^(09)[0-9]{8}$/;
-    if (!regExp.test(val)) {
+    if (val && !regExp.test(val)) {
       return setErrInfo(oValidateItem, 'mobile');
     }
   };
@@ -124,18 +124,17 @@ cf.regModule('cfValidator', function(opt) {
     $dom = oValidateItem.$dom;
     val = trimDomVal($dom);
     regExp = /^[A-Z][0-9]{9}$/;
-    if (!regExp.test(val)) {
+    if (val && !regExp.test(val)) {
       return setErrInfo(oValidateItem, 'rocId');
     }
   };
-  validateCaptcha = function(oValidateItem) {
-    var $dom, length, regExp, val;
+  validateWord = function(oValidateItem) {
+    var $dom, regExp, val;
     $dom = oValidateItem.$dom;
-    length = oValidateItem.captcha.length;
     val = trimDomVal($dom);
-    regExp = new RegExp('^[0-9A-Z]{' + length + '}$');
+    regExp = new RegExp('^[0-9a-zA-Z]*$');
     if (!regExp.test(val)) {
-      return setErrInfo(oValidateItem, 'captcha', true);
+      return setErrInfo(oValidateItem, 'word', true);
     }
   };
 
@@ -156,32 +155,26 @@ cf.regModule('cfValidator', function(opt) {
     });
   };
 
-  /* 設置檢查 email */
+  /* 設置檢查只能英數字 */
+  $self.setWord = function($dom) {
+    return regValidate($dom, 'word');
+  };
+
+  /* 設置檢查 email 格式 */
   $self.setEmail = function($dom) {
     return regValidate($dom, 'email');
   };
 
-  /* 設置檢查手機 */
+  /* 設置檢查手機格式 */
   $self.setMobile = function($dom) {
     $dom.attr('maxLength', 10);
     return regValidate($dom, 'mobile');
   };
 
-  /* 設置檢查身分證 */
+  /* 設置檢查身分證格式 */
   $self.setRocId = function($dom) {
     $dom.attr('maxLength', 10);
     return regValidate($dom, 'rocId');
-  };
-
-  /* 設置檢查驗證碼 */
-  $self.setCaptcha = function($dom, length) {
-    if (length == null) {
-      length = 4;
-    }
-    $dom.attr('maxLength', length);
-    return regValidate($dom, 'captcha', function(oValidateInfo) {
-      return oValidateInfo.length = length;
-    });
   };
 
   /* 開始檢查格式 */
@@ -197,6 +190,9 @@ cf.regModule('cfValidator', function(opt) {
       if (oValidateItem.minLength) {
         validateMinLength(oValidateItem);
       }
+      if (oValidateItem.word) {
+        validateWord(oValidateItem);
+      }
       if (oValidateItem.email) {
         validateEmail(oValidateItem);
       }
@@ -204,10 +200,7 @@ cf.regModule('cfValidator', function(opt) {
         validateMobile(oValidateItem);
       }
       if (oValidateItem.rocId) {
-        validateRocId(oValidateItem);
-      }
-      if (oValidateItem.captcha) {
-        return validateCaptcha(oValidateItem);
+        return validateRocId(oValidateItem);
       }
     });
     return _errInfo;
