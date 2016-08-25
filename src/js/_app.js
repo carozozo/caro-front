@@ -3,7 +3,7 @@
 CaroFront 核心程式
  */
 (function(window, $, caro, MobileDetect) {
-  var _ctrl, _docReady, _module, _trace, genTraceFn, self;
+  var _ctrl, _docReady, _module, _trace, genTraceFn, ifUrlPathMustMatchAndGetUrl, self;
   self = {};
 
   /* 儲存從 config 讀取到的設定 */
@@ -27,6 +27,9 @@ CaroFront 核心程式
   /* 是否為 local test 模式(由 config 設定) */
   self.isLocalTest = false;
 
+  /* 用來判定目前所在的網址是否為 production */
+  self.isProd = false;
+
   /* 當前網址是否為 https */
   self.isHttps = false;
 
@@ -48,12 +51,15 @@ CaroFront 核心程式
   /* 瀏覽器是否為 IE9 之前的版本 */
   self.isBefIe9 = false;
 
+  /* 所在網址, 不包含 protocol, hash 和 search */
+  self.nowUrlPath = (function(location) {
+    return location.host + location.pathname;
+  })(location);
+
   /* 所在網址, 不包含 hash 和 search */
-  self.nowUrl = (function(window) {
-    var location;
-    location = window.location;
-    return location.protocol + '//' + location.host + location.pathname;
-  })(window);
+  self.nowUrl = (function(location) {
+    return location.protocol + '//' + self.nowUrlPath;
+  })(location);
 
   /* 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 */
   _docReady = {
@@ -65,6 +71,29 @@ CaroFront 核心程式
 
   /* 儲存註冊的 module fns */
   _module = {};
+
+  /*
+  判斷 urlPath 是否需要完全符合, 並轉換 urlPath 為一般格式
+  e.g. www.com.tw => isMustAllMatch = true, urlPath = 'www.com.tw/'
+  e.g. www.com.tw* => isMustAllMatch = undefined, urlPath = 'www.com.tw/'
+   */
+  ifUrlPathMustMatchAndGetUrl = function(urlPath) {
+    var indexOfStart, isMustAllMatch, lastIndex, urlLength;
+    indexOfStart = urlPath.lastIndexOf('*');
+    urlLength = urlPath.length;
+    lastIndex = urlLength - 1;
+    if (indexOfStart === lastIndex) {
+
+      /* 如果 url 最後是* => 網址不需要完全符合 */
+      isMustAllMatch = true;
+      urlPath = urlPath.substring(0, lastIndex);
+    }
+    urlPath = caro.addTail(urlPath, '/');
+    return {
+      isMustAllMatch: isMustAllMatch,
+      urlPath: urlPath
+    };
+  };
   genTraceFn = function(name) {
     var fn;
     fn = function() {
@@ -191,16 +220,28 @@ CaroFront 核心程式
 
   /* config 相關 */
   (function(self, window, caro) {
-    var _cfg, nowUrl;
+    var _cfg;
     _cfg = self.$$config;
-    nowUrl = self.nowUrl.replace('https://', '');
-    nowUrl = nowUrl.replace('http://', '');
 
-    /* 比對符合的首頁網址, 並 assign config */
+    /* 比對符合的網址, 並 assign config */
     self.regDifCfg = function(url, cfg) {
-      url = caro.addTail(url, '/');
-      if (nowUrl !== url) {
-        return;
+      var info, isUrlMustMatch, nowUrlPath;
+      nowUrlPath = self.nowUrlPath;
+      info = ifUrlPathMustMatchAndGetUrl(url);
+      isUrlMustMatch = info.isUrlMustMatch;
+      url = info.urlPath;
+      if (isUrlMustMatch) {
+
+        /* 需要完全符合才可 assign config */
+        if (nowUrlPath !== url) {
+          return;
+        }
+      } else {
+
+        /* 需要現在的路徑是在 url 以下, 才可 assign config */
+        if (nowUrlPath.indexOf(url) !== 0) {
+          return;
+        }
       }
       caro.forEach(cfg, function(subCfg, subCfgKey) {
         return _cfg[subCfgKey] = caro.assign(_cfg[subCfgKey], subCfg);
@@ -218,11 +259,9 @@ CaroFront 核心程式
 
   /* 設定相關 */
   (function(window) {
-    var ieVer, location, md;
+    var ieVer, md;
     md = new MobileDetect(window.navigator.userAgent);
     ieVer = md.version('IE');
-    location = window.location;
-    self.isLocal = location.hostname === 'localhost';
     self.isHttps = location.protocol.indexOf('https:') === 0;
     self.isPhone = md.phone();
     self.isTablet = md.tablet();
@@ -236,8 +275,48 @@ CaroFront 核心程式
     })();
   })(window);
   $(function() {
+    var config, isLocalTest, nowUrlPath;
+    config = self.config('cf');
+    isLocalTest = config.isLocalTest;
+    nowUrlPath = self.nowUrlPath;
     self.$body = $('body');
-    self.isLocalTest = self.isLocal && self.config('cf').isLocalTest;
+    self.isLocal = (function() {
+      var info, isUrlMustMatch, localUrlPath;
+      localUrlPath = config.localUrlPath;
+      info = ifUrlPathMustMatchAndGetUrl(localUrlPath);
+      isUrlMustMatch = info.isUrlMustMatch;
+      localUrlPath = info.urlPath;
+
+      /* 只要完全符合就可判定為 location */
+      if (nowUrlPath === localUrlPath) {
+        return true;
+      }
+
+      /* 只要現在的路徑是在 localUrlPath 以下, 就可判定為 production */
+      if (!isUrlMustMatch && nowUrlPath.indexOf(localUrlPath) === 0) {
+        return true;
+      }
+      return false;
+    })();
+    self.isLocalTest = self.isLocal && isLocalTest;
+    self.isProd = (function() {
+      var info, isUrlMustMatch, prodUrlPath;
+      prodUrlPath = config.prodUrlPath;
+      info = ifUrlPathMustMatchAndGetUrl(prodUrlPath);
+      isUrlMustMatch = info.isUrlMustMatch;
+      prodUrlPath = info.urlPath;
+
+      /* 只要完全符合就可判定為 production */
+      if (nowUrlPath === prodUrlPath) {
+        return true;
+      }
+
+      /* 只要現在的路徑是在 prodUrlPath 以下, 就可判定為 production */
+      if (!isUrlMustMatch && nowUrlPath.indexOf(prodUrlPath) === 0) {
+        return true;
+      }
+      return false;
+    })();
     return caro.forEach(_docReady, function(docReadyObj) {
       caro.forEach(docReadyObj, function(docReadyFn) {
         return docReadyFn && docReadyFn(self);

@@ -2,9 +2,13 @@
 
   /*
   isLocalTest: 是否為 local 測試模式, 只在 local 有效
+  localUrlPath: 用來判定目前所在的網址是否為 local, 最後面加上*代表只要前面符合就成立
+  prodUrlPath: 用來判定目前所在的網址是否為 production, 最後面加上*代表只要前面符合就成立
    */
   cf.config('cf', {
-    isLocalTest: true
+    isLocalTest: true,
+    localUrlPath: 'localhost*',
+    prodUrlPath: 'carozozo.github.io/caro-front/'
   });
 
   /*
@@ -69,20 +73,23 @@
     gtmId: ''
   });
 
-  /* 當首頁網址符合時, 載入不同的設定 */
-  cf.regDifCfg('www.demo.com/demo2', {
+  /* 當網址符合時, 載入不同的設定, 最後面加上星號代表只要前面符合就成立 */
+  cf.regDifCfg('www.demo.com/', {
     fb: {
-      appId: '2222222222222222',
-      shareUrl: 'http://www.demo.com/demo2/'
-    }
-  });
-  cf.regDifCfg('www.demo.com/demo3', {
-    fb: {
-      appId: '3333333333333333',
-      shareUrl: 'http://www.demo.com/demo3/'
+      appId: '',
+      shareUrl: 'http://www.demo.com/'
     },
     unit: {
-      imgPath: 'http://www.demo.com/demo3/images/'
+      imgPath: 'http://www.demo.com/images/'
+    }
+  });
+  cf.regDifCfg('www.demo.com/test/*', {
+    fb: {
+      appId: '',
+      shareUrl: 'http://www.demo.com/test/'
+    },
+    unit: {
+      imgPath: 'http://www.demo.com/test/images/'
     }
   });
 })(cf);

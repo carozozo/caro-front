@@ -17,6 +17,8 @@ do(window, $, caro, MobileDetect) ->
   self.isLocal = false
   ### 是否為 local test 模式(由 config 設定) ###
   self.isLocalTest = false
+  ### 用來判定目前所在的網址是否為 production ###
+  self.isProd = false
   ### 當前網址是否為 https  ###
   self.isHttps = false
   ### 當前載具是否為手機 ###
@@ -31,10 +33,12 @@ do(window, $, caro, MobileDetect) ->
   self.isBefIe8 = false
   ### 瀏覽器是否為 IE9 之前的版本   ###
   self.isBefIe9 = false
+  ### 所在網址, 不包含 protocol, hash 和 search ###
+  self.nowUrlPath = do(location) ->
+    location.host + location.pathname
   ### 所在網址, 不包含 hash 和 search ###
-  self.nowUrl = do(window) ->
-    location = window.location
-    location.protocol + '//' + location.host + location.pathname
+  self.nowUrl = do(location) ->
+    location.protocol + '//' + self.nowUrlPath
 
   ### 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 ###
   _docReady = {
@@ -44,6 +48,25 @@ do(window, $, caro, MobileDetect) ->
   _ctrl = {}
   ### 儲存註冊的 module fns ###
   _module = {}
+
+  ###
+  判斷 urlPath 是否需要完全符合, 並轉換 urlPath 為一般格式
+  e.g. www.com.tw => isMustAllMatch = true, urlPath = 'www.com.tw/'
+  e.g. www.com.tw* => isMustAllMatch = undefined, urlPath = 'www.com.tw/'
+  ###
+  ifUrlPathMustMatchAndGetUrl = (urlPath) ->
+    indexOfStart = urlPath.lastIndexOf('*')
+    urlLength = urlPath.length
+    lastIndex = urlLength - 1
+    if indexOfStart is lastIndex
+      ### 如果 url 最後是* => 網址不需要完全符合 ###
+      isMustAllMatch = true
+      urlPath = urlPath.substring(0, lastIndex)
+    urlPath = caro.addTail(urlPath, '/')
+    {
+      isMustAllMatch: isMustAllMatch
+      urlPath: urlPath
+    }
 
   genTraceFn = (name) ->
     fn = ->
@@ -146,12 +169,18 @@ do(window, $, caro, MobileDetect) ->
   ### config 相關 ###
   do(self, window, caro) ->
     _cfg = self.$$config
-    nowUrl = self.nowUrl.replace('https://', '')
-    nowUrl = nowUrl.replace('http://', '')
-    ### 比對符合的首頁網址, 並 assign config ###
+    ### 比對符合的網址, 並 assign config ###
     self.regDifCfg = (url, cfg) ->
-      url = caro.addTail(url, '/')
-      return if nowUrl isnt url
+      nowUrlPath = self.nowUrlPath
+      info = ifUrlPathMustMatchAndGetUrl(url)
+      isUrlMustMatch = info.isUrlMustMatch
+      url = info.urlPath
+      if isUrlMustMatch
+        ### 需要完全符合才可 assign config ###
+        return if nowUrlPath isnt url
+      else
+        ### 需要現在的路徑是在 url 以下, 才可 assign config ###
+        return if nowUrlPath.indexOf(url) isnt 0
       caro.forEach(cfg, (subCfg, subCfgKey) ->
         _cfg[subCfgKey] = caro.assign(_cfg[subCfgKey], subCfg)
       )
@@ -166,8 +195,6 @@ do(window, $, caro, MobileDetect) ->
   do(window) ->
     md = new MobileDetect(window.navigator.userAgent)
     ieVer = md.version('IE')
-    location = window.location
-    self.isLocal = location.hostname is 'localhost'
     self.isHttps = location.protocol.indexOf('https:') is 0
     self.isPhone = md.phone()
     self.isTablet = md.tablet()
@@ -180,8 +207,32 @@ do(window, $, caro, MobileDetect) ->
     return
 
   $(->
+    config = self.config('cf')
+    isLocalTest = config.isLocalTest
+    nowUrlPath = self.nowUrlPath
     self.$body = $('body')
-    self.isLocalTest = self.isLocal and self.config('cf').isLocalTest
+    self.isLocal = do ->
+      localUrlPath = config.localUrlPath
+      info = ifUrlPathMustMatchAndGetUrl(localUrlPath)
+      isUrlMustMatch = info.isUrlMustMatch
+      localUrlPath = info.urlPath
+      ### 只要完全符合就可判定為 location ###
+      return true if nowUrlPath is localUrlPath
+      ### 只要現在的路徑是在 localUrlPath 以下, 就可判定為 production ###
+      return true if !isUrlMustMatch and nowUrlPath.indexOf(localUrlPath) is 0
+      false
+    self.isLocalTest = self.isLocal and isLocalTest
+    self.isProd = do ->
+      prodUrlPath = config.prodUrlPath
+      info = ifUrlPathMustMatchAndGetUrl(prodUrlPath)
+      isUrlMustMatch = info.isUrlMustMatch
+      prodUrlPath = info.urlPath
+      ### 只要完全符合就可判定為 production ###
+      return true if nowUrlPath is prodUrlPath
+      ### 只要現在的路徑是在 prodUrlPath 以下, 就可判定為 production ###
+      return true if !isUrlMustMatch and nowUrlPath.indexOf(prodUrlPath) is 0
+      false
+
     caro.forEach _docReady, (docReadyObj) ->
       caro.forEach docReadyObj, (docReadyFn) ->
         docReadyFn and docReadyFn(self)
