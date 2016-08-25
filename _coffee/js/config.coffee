@@ -40,6 +40,14 @@ do (cf) ->
     shareUrl: 'https://carozozo.github.io/caro-front/'
   })
   ###
+  isDownloadGa: 是否使用 ga
+  gaId: ga 編號
+  ###
+  cf.config('ga', {
+    isDownloadGa: false
+    gaId: ''
+  })
+  ###
   imgPath: 放置圖片的路徑, 預設 'images/'
   ###
   cf.config('unit', {
@@ -56,9 +64,6 @@ do (cf) ->
     tagId: 'UA-77059085-1'
     defCategory: 'caroFront'
     prefix: 'caroFront'
-    gtmEventKey: {
-
-    }
   })
 
   ### 當首頁網址符合時, 載入不同的設定 ###
