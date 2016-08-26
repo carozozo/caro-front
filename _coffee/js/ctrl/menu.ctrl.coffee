@@ -62,9 +62,11 @@ cf.regCtrl 'menu', ->
 
   $libBtn.on('click', ->
     showMenu('lib')
+    return
   )
   $moduleBtn.on('click', ->
     showMenu()
+    return
   )
   $self
 , 'template/menu.ctrl.html'

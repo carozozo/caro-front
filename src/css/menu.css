@@ -8,14 +8,19 @@ menuBtn,
   cursor: pointer;
   text-align: center;
   z-index: 9999;
+  border-left: solid 5px;
+  border-top: solid 5px;
+  border-bottom: solid 5px;
 }
 #libBtn {
   top: 130px;
   background: #8b181c;
+  border-color: #e5e5e5;
 }
 #moduleBtn {
-  top: 270px;
+  top: 290px;
   background: #24798b;
+  border-color: #e5e5e5;
 }
 itemBox,
 #libMenuItemBox,

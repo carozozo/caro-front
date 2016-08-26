@@ -73,10 +73,10 @@ cf.regCtrl('menu', function() {
     }
   };
   $libBtn.on('click', function() {
-    return showMenu('lib');
+    showMenu('lib');
   });
   $moduleBtn.on('click', function() {
-    return showMenu();
+    showMenu();
   });
   return $self;
 }, 'template/menu.ctrl.html');
