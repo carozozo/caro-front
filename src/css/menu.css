@@ -4,7 +4,9 @@
   top: 130px;
   z-index: 9999;
 }
-.menuBtn {
+menuBtn,
+#libBtn,
+#moduleBtn {
   padding: 30px 15px;
   cursor: pointer;
   text-align: center;

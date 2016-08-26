@@ -2,7 +2,15 @@
 cf.regCtrl 'menu', ->
   $self = @
   cf = $self.cf
+  $window = cf.$window
   tm = cf.require('TweenMax')
+
+  bindWindow = ->
+    $window.on('click.menu', hideMenu)
+    return
+  unbindWindow = ->
+    $window.off('click.menu')
+    return
 
   $menuBtnBox = $self.dom('#menuBtnBox')
   $libBtn = $menuBtnBox.dom('#libBtn')
@@ -39,21 +47,23 @@ cf.regCtrl 'menu', ->
       x: $menuLibContent.$$originalWidth
     }, {
       x: 0
+      onComplete: bindWindow
     })
     return
 
   hideMenu = ->
     $menuBtnBox.fadeIn()
     $menuContent.hide()
+    unbindWindow()
     return
 
-  $libBtn.on('mouseenter', ->
+  $libBtn.on('click', ->
     showMenu('lib')
   )
-  $moduleBtn.on('mouseenter', ->
+  $moduleBtn.on('click', ->
     showMenu()
   )
-  $menuContent.on('mouseleave', ->
+  $menuContent.on('click', ->
     hideMenu()
   )
   $self

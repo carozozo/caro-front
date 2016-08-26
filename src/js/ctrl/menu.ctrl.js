@@ -1,10 +1,17 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 template/menu.ctrl.html 檔並寫入 template */
 cf.regCtrl('menu', function() {
-  var $libBtn, $menuBtnBox, $menuContent, $menuLibContent, $menuModuleContent, $moduleBtn, $self, cf, hideMenu, showMenu, tm;
+  var $libBtn, $menuBtnBox, $menuContent, $menuLibContent, $menuModuleContent, $moduleBtn, $self, $window, bindWindow, cf, hideMenu, showMenu, tm, unbindWindow;
   $self = this;
   cf = $self.cf;
+  $window = cf.$window;
   tm = cf.require('TweenMax');
+  bindWindow = function() {
+    $window.on('click.menu', hideMenu);
+  };
+  unbindWindow = function() {
+    $window.off('click.menu');
+  };
   $menuBtnBox = $self.dom('#menuBtnBox');
   $libBtn = $menuBtnBox.dom('#libBtn');
   $moduleBtn = $menuBtnBox.dom('#moduleBtn');
@@ -37,20 +44,22 @@ cf.regCtrl('menu', function() {
     tm.fromTo($content, .5, {
       x: $menuLibContent.$$originalWidth
     }, {
-      x: 0
+      x: 0,
+      onComplete: bindWindow
     });
   };
   hideMenu = function() {
     $menuBtnBox.fadeIn();
     $menuContent.hide();
+    unbindWindow();
   };
-  $libBtn.on('mouseenter', function() {
+  $libBtn.on('click', function() {
     return showMenu('lib');
   });
-  $moduleBtn.on('mouseenter', function() {
+  $moduleBtn.on('click', function() {
     return showMenu();
   });
-  $menuContent.on('mouseleave', function() {
+  $menuContent.on('click', function() {
     return hideMenu();
   });
   return $self;
