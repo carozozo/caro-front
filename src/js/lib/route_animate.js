@@ -63,12 +63,12 @@ cf.regLib('routeAnimate', function(cf) {
       position = $nextPage.css('position');
       tm.to($nowPage, duration, {
         position: 'fixed',
-        'margin-left': '-100%',
+        'margin-left': '100%',
         ease: Power0.easeNone
       });
       tm.fromTo($nextPage, duration, {
         position: 'fixed',
-        'margin-left': '100%'
+        'margin-left': '-100%'
       }, {
         'margin-left': 0,
         ease: Power0.easeNone,
