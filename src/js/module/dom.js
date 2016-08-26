@@ -134,14 +134,6 @@ cf.regModule('dom', function(selector, cb) {
       return parseInt(px.replace('px'));
     };
 
-    /* 取得 margin-top / margin-bottom / margin-left / margin-right 距離 */
-    $self.getMargin = function(direction) {
-      var margin, marginStr;
-      marginStr = 'margin-' + direction;
-      margin = this.css(marginStr);
-      return parseInt(margin.replace('px'));
-    };
-
     /* 取得 css 的 width string */
     $self.getCssWidth = function() {
       var $clone, width;

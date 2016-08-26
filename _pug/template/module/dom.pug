@@ -33,31 +33,80 @@
     .tip2 sethecked([checked = true]): 設為 checked / unchecked
     .tip2 ifChecked(): 是否為 checked
     .tip2 getCssDistance(cssType): 取得 css 設置的 top/left/right/bottom...等距離
+      span.codeLink 程式範例
+    .codeTarget
+      .subTitle2 假設 $('#xx') 的 css top: 10px
+      div
+        div $('#xx').getCssDistance('top');
+          span.tip3  // 10
+        div $('#xx').css('top');
+          span.tip3  // '10px'
     .subTitle4 參數
     div
       div cssType: 'top'/'left'/'right'/'bottom'/'margin-left'....
-    .tip2 getMargin(direction): 取得 margin-top / margin-bottom / margin-left / margin-right 距離
-    .subTitle4 參數
-    div
-      div direction: 'top'/'left'/'right'/'bottom'
     .tip2 getCssWidth(): 取得 css 的 width string
+      span.codeLink 程式範例
+    .codeTarget
+      .subTitle2 假設 $('#xx') 的 css width: 100%
+      div
+        div $('#xx').getCssWidth();
+          span.tip3  // '100%'
+        div $('#xx').css('width');
+          span.tip3  // '100px'
     .tip2 getCssHeight(): 取得 css 的 height string
+      span.codeLink 程式範例
+    .codeTarget
+      .subTitle2 假設 $('#xx') 的 css height: 100%
+      div
+        div $('#xx').getCssHeight();
+          span.tip3  // '100%'
+        div $('#xx').css('height');
+          span.tip3  // '100px'
     .tip2 setCursor([cursor = 'pointer']): 設置滑鼠指標
-    .tip2 blurUpperCase([nameSpace]): 觸發 blur 後, 將裡面的值轉大寫
+    .tip2 blurUpperCase([nameSpace]): 觸發 blur 後, 將裡面的值 String.trim() 之後轉大寫
     .tip2 action(eventName, fn): 同等 $('xxx').off('event').on('event',function(){}), 避免重複綁定
     .tip2 onClick(fn, [nameSpace]): $('xxx').off('click').on('click') 方便使用版, 滑鼠移到上面會自動轉成手指
     .tip2 onPressEnter(fn, [nameSpace]): 按下 Enter 鍵後觸發的 fn, 綁定 keyup
     .tip2 eachDom(cb):
       a(href='https://api.jquery.com/each/', target='_blank') .each()
       |  進階版, 直接賦予 dom 屬性
+      span.codeLink 程式範例
+    .codeTarget
+      div $('.xx').eachDom(function($dom, i){
+      .tab1.tip2 // $dom 相當於 $(this), 並且可以調用 dom 的屬性
+      .tab1 $dom.onClick(...);
+      div });
     .subTitle4 參數
     div
       div cb: 呼叫之後觸發的 fn($dom, index)
     .tip2 mapDom(cb):
       a(href='http://api.jquery.com/jQuery.map/', target='_blank') $.map()
       |  進階版, 直接賦予 dom 屬性, 並回傳 dom array
+      span.codeLink 程式範例
+        .codeTarget
+          .tip2 // $domList 相當於 $('.xx') 取得的每個 DOM 組成的 array
+          div var $domList = $('.xx').mapDom(function($dom, i){
+          .tab1.tip2 // $dom 相當於 $(this), 並且可以調用 dom 的屬性
+          .tab1 $dom.onClick(...);
+          div });
     .subTitle4 參數
     div
       div cb: 呼叫之後觸發的 fn($dom, index)
     .tip2 ifEmpty(): 判斷本身是否沒任何 html 內容
+      span.codeLink 程式範例
+    .codeTarget
+      .subTitle2 &lt;div id='#xx'&gt;caro-front&lt;/div&gt;
+      div $('.xx').dom().ifEmpty();
+        span.tip3  // false
+      .subTitle2 &lt;div id='#xx'&gt;&lt;/div&gt;
+      div $('.xx').dom().ifEmpty();
+        span.tip3  // true
     .tip2 getHtml(): 取得包含本身的 html code
+      span.codeLink 程式範例
+    .codeTarget
+      .subTitle2 &lt;div id='#xx'&gt;caro-front&lt;/div&gt;
+      div
+        div $('.xx').dom().getHtml();
+          span.tip3  // &lt;div id='#xx'&gt;caro-front&lt;/div&gt;
+        div $('.xx').html();
+          span.tip3  // caro-front

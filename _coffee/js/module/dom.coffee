@@ -91,11 +91,6 @@ cf.regModule 'dom', (selector, cb) ->
     $self.getCssDistance = (cssType) ->
       px = @css(cssType)
       parseInt px.replace('px')
-    ### 取得 margin-top / margin-bottom / margin-left / margin-right 距離 ###
-    $self.getMargin = (direction) ->
-      marginStr = 'margin-' + direction
-      margin = @css(marginStr)
-      parseInt margin.replace('px')
     ### 取得 css 的 width string ###
     $self.getCssWidth = ->
       $clone = @clone()
@@ -144,7 +139,6 @@ cf.regModule 'dom', (selector, cb) ->
         fn(e) if(e.which is 13)
         return
       )
-
     return
 
   ### Unit 相關 ###
