@@ -16,39 +16,42 @@ colorYellow3 = darken(#c7c738, 60%)
 colorWhite = #e5e5e5
 colorDark = #1e1e1e
 
-#menuMain
+menuBtn
   position fixed
   right 0
-  top 130px
-  z-index 9999
-
-menuBtn
   padding 30px 15px
+  width: 25px
   cursor pointer
   text-align center
+  z-index 9999
 
 #libBtn
   @extend menuBtn
+  top 130px
   background colorRed2
 
 #moduleBtn
   @extend menuBtn
-  margin-top 10px
+  top 270px
   background colorBlue2
 
-.menuContent
-  margin-top -50px
-  padding 50px 0 50px 50px
+itemBox
+  width: 100%
+  height: 100%
 
-.innerBox
-  display inline-block
-  vertical-align top
+#libMenuItemBox
+  @extend itemBox
+
+#moduleMenuItemBox
+  @extend itemBox
 
 .menuItem
+  display inline-block
   cursor pointer
+  font-size: 1.5em
   text-align center
-  padding 5px 10px
-  margin 5px 0 5px auto
+  padding 15px
+  margin 10px 10px
   color colorWhite
   background colorDark
   border 3px solid colorWhite

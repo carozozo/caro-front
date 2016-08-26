@@ -2,59 +2,62 @@
 cf.regCtrl 'menu', ->
   $self = @
   cf = $self.cf
-  $window = cf.$window
   tm = cf.require('TweenMax')
-
-  bindWindow = ->
-    $window.on('click.menu', hideMenu)
-    return
-  unbindWindow = ->
-    $window.off('click.menu')
+  bgColorArr = cf.data('bgColorArr')
+  showItems = ($items) ->
+    caro.forEach($items, ($item, i) ->
+      distance = 30
+      directionArr = [{x: -distance}, {x: distance}, {y: -distance}, {y: distance}]
+      direction = caro.randomPick(directionArr)
+      delay = i * .05
+      animateObj =
+        opacity: 0
+        ease: Back.easeOut.config(1)
+        delay: delay
+      animateObj = caro.assign(animateObj, direction)
+      color = caro.randomPick(bgColorArr)
+      $item.css(
+        background: color
+      )
+      tm.from($item, .3, animateObj)
+    )
     return
 
   $menuBtnBox = $self.dom('#menuBtnBox')
   $libBtn = $menuBtnBox.dom('#libBtn')
   $moduleBtn = $menuBtnBox.dom('#moduleBtn')
-  $menuContent = $self.dom('.menuContent')
-  $menuLibContent = $self.dom('#menuLibContent')
-  $menuModuleContent = $self.dom('#menuModuleContent')
+  $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal(
+    befShow: ->
+      showItems($libMenuItem)
+      return
+  )
+  $moduleMenuItemBox = $self.dom('#moduleMenuItemBox').cfModal(
+    befShow: ->
+      showItems($moduleMenuItem)
+      return
+  )
 
-  $menuLibContent.$$originalWidth = $menuLibContent.width()
-  $menuModuleContent.$$originalWidth = $menuModuleContent.width()
-  $menuLibContent.hide()
-  $menuModuleContent.hide()
-
-  $menuLibContent.dom('.menuItem').eachDom(($item) ->
+  $libMenuItem = $libMenuItemBox.dom('.menuItem').mapDom(($item) ->
     $item.onClick(->
       id = $item.id()
       cf.router.goPage('lib/' + id)
+      $libMenuItemBox.hideModal()
       return
     )
   )
-  $menuModuleContent.dom('.menuItem').eachDom(($item) ->
+  $moduleMenuItem = $moduleMenuItemBox.dom('.menuItem').mapDom(($item) ->
     $item.onClick(->
       id = $item.id()
       cf.router.goPage('module/' + id)
+      $moduleMenuItemBox.hideModal()
       return
     )
   )
-
   showMenu = (type) ->
-    $menuBtnBox.hide()
-    $content = if type is 'lib' then $menuLibContent else $menuModuleContent
-    $content.show()
-    tm.fromTo($content, .5, {
-      x: $menuLibContent.$$originalWidth
-    }, {
-      x: 0
-      onComplete: bindWindow
-    })
-    return
-
-  hideMenu = ->
-    $menuBtnBox.fadeIn()
-    $menuContent.hide()
-    unbindWindow()
+    if type is 'lib'
+      $libMenuItemBox.showModal()
+    else
+      $moduleMenuItemBox.showModal()
     return
 
   $libBtn.on('click', ->
@@ -62,9 +65,6 @@ cf.regCtrl 'menu', ->
   )
   $moduleBtn.on('click', ->
     showMenu()
-  )
-  $menuContent.on('click', ->
-    hideMenu()
   )
   $self
 , 'template/menu.ctrl.html'

@@ -1,66 +1,82 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 template/menu.ctrl.html 檔並寫入 template */
 cf.regCtrl('menu', function() {
-  var $libBtn, $menuBtnBox, $menuContent, $menuLibContent, $menuModuleContent, $moduleBtn, $self, $window, bindWindow, cf, hideMenu, showMenu, tm, unbindWindow;
+  var $libBtn, $libMenuItem, $libMenuItemBox, $menuBtnBox, $moduleBtn, $moduleMenuItem, $moduleMenuItemBox, $self, bgColorArr, cf, showItems, showMenu, tm;
   $self = this;
   cf = $self.cf;
-  $window = cf.$window;
   tm = cf.require('TweenMax');
-  bindWindow = function() {
-    $window.on('click.menu', hideMenu);
-  };
-  unbindWindow = function() {
-    $window.off('click.menu');
+  bgColorArr = cf.data('bgColorArr');
+  showItems = function($items) {
+    caro.forEach($items, function($item, i) {
+      var animateObj, color, delay, direction, directionArr, distance;
+      distance = 30;
+      directionArr = [
+        {
+          x: -distance
+        }, {
+          x: distance
+        }, {
+          y: -distance
+        }, {
+          y: distance
+        }
+      ];
+      direction = caro.randomPick(directionArr);
+      delay = i * .05;
+      animateObj = {
+        opacity: 0,
+        ease: Back.easeOut.config(1),
+        delay: delay
+      };
+      animateObj = caro.assign(animateObj, direction);
+      color = caro.randomPick(bgColorArr);
+      $item.css({
+        background: color
+      });
+      return tm.from($item, .3, animateObj);
+    });
   };
   $menuBtnBox = $self.dom('#menuBtnBox');
   $libBtn = $menuBtnBox.dom('#libBtn');
   $moduleBtn = $menuBtnBox.dom('#moduleBtn');
-  $menuContent = $self.dom('.menuContent');
-  $menuLibContent = $self.dom('#menuLibContent');
-  $menuModuleContent = $self.dom('#menuModuleContent');
-  $menuLibContent.$$originalWidth = $menuLibContent.width();
-  $menuModuleContent.$$originalWidth = $menuModuleContent.width();
-  $menuLibContent.hide();
-  $menuModuleContent.hide();
-  $menuLibContent.dom('.menuItem').eachDom(function($item) {
+  $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal({
+    befShow: function() {
+      showItems($libMenuItem);
+    }
+  });
+  $moduleMenuItemBox = $self.dom('#moduleMenuItemBox').cfModal({
+    befShow: function() {
+      showItems($moduleMenuItem);
+    }
+  });
+  $libMenuItem = $libMenuItemBox.dom('.menuItem').mapDom(function($item) {
     return $item.onClick(function() {
       var id;
       id = $item.id();
       cf.router.goPage('lib/' + id);
+      $libMenuItemBox.hideModal();
     });
   });
-  $menuModuleContent.dom('.menuItem').eachDom(function($item) {
+  $moduleMenuItem = $moduleMenuItemBox.dom('.menuItem').mapDom(function($item) {
     return $item.onClick(function() {
       var id;
       id = $item.id();
       cf.router.goPage('module/' + id);
+      $moduleMenuItemBox.hideModal();
     });
   });
   showMenu = function(type) {
-    var $content;
-    $menuBtnBox.hide();
-    $content = type === 'lib' ? $menuLibContent : $menuModuleContent;
-    $content.show();
-    tm.fromTo($content, .5, {
-      x: $menuLibContent.$$originalWidth
-    }, {
-      x: 0,
-      onComplete: bindWindow
-    });
-  };
-  hideMenu = function() {
-    $menuBtnBox.fadeIn();
-    $menuContent.hide();
-    unbindWindow();
+    if (type === 'lib') {
+      $libMenuItemBox.showModal();
+    } else {
+      $moduleMenuItemBox.showModal();
+    }
   };
   $libBtn.on('click', function() {
     return showMenu('lib');
   });
   $moduleBtn.on('click', function() {
     return showMenu();
-  });
-  $menuContent.on('click', function() {
-    return hideMenu();
   });
   return $self;
 }, 'template/menu.ctrl.html');
