@@ -403,4 +403,7 @@
       startHttpServ();
     });
   });
+  gulp.task('exitServer', function () {
+    browserSync.exit();
+  });
 })();
