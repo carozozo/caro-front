@@ -1,18 +1,116 @@
 
 <div class="mainTitle">dom</div>
 <div class="content">
-  <div class="title">示範</div>
-  <div></div>
-</div>
-<div class="content">
   <div class="title">簡介</div>
-  <div></div>
+  <div>
+    <div>DOM 選取器, 支援一些方便的程式</div>
+  </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
-  <div></div>
+  <div>
+    <div>
+      <div class="tip4">$('xxx').dom([cb]): 賦予本身 dom 屬性</div>
+      <div class="tip4">$('xxx').dom(selector, [cb]): 相當於<a href="https://api.jquery.com/find/" target="_blank">.find(selector)</a>, 並賦予 dom 屬性</div>
+      <div>selector: 目標選擇器</div>
+      <div>cb: 呼叫之後觸發的 fn($self), $self 就是 DOM 本身</div><span class="codeLink">程式範例</span>
+      <div class="codeTarget">
+        <div class="subTitle2">&lt;div id='#xx'&gt; &lt;div id='#yy'&gt;  &lt;/div&gt; &lt;/div&gt;</div>
+        <div>
+          <div>var $xx = $('#xx').dom();</div>
+          <div>var id = $xx.id();<span class="tip3"> // 'xx'</span></div>
+          <div>var $yy = $xx.dom('#yy');</div>
+          <div>var id = $yy.id();<span class="tip3"> // 'yy'</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
-  <div></div>
+  <div>
+    <div class="tip2">id([id]): 設置/取得 id</div>
+    <div class="tip2">name([name]): 設置/取得 name</div>
+    <div class="tip2">aClass([class]): 設置/取得 class</div>
+    <div class="tip2">title([title]): 設置/取得 title</div>
+    <div class="tip2">src([src]): 設置/取得 src</div>
+    <div class="tip2">href([href, target]): 設置/取得 href</div>
+    <div class="tip2">ifVisible(): 是否為可見</div>
+    <div class="tip2">ifHidden(): 是否為隱藏</div>
+    <div class="tip2">enable(): 設為 enable</div>
+    <div class="tip2">disable(): 設為 disable</div>
+    <div class="tip2">sethecked([checked = true]): 設為 checked / unchecked</div>
+    <div class="tip2">ifChecked(): 是否為 checked</div>
+    <div class="tip2">getCssDistance(cssType): 取得 css 設置的 top/left/right/bottom...等距離<span class="codeLink">程式範例</span></div>
+    <div class="codeTarget">
+      <div class="subTitle2">假設 $('#xx') 的 css top: 10px</div>
+      <div>
+        <div>$('#xx').dom().getCssDistance('top');<span class="tip3"> // 10</span></div>
+        <div>$('#xx').css('top');<span class="tip3"> // '10px'</span></div>
+      </div>
+    </div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>cssType: 'top'/'left'/'right'/'bottom'/'margin-left'....</div>
+    </div>
+    <div class="tip2">getCssWidth(): 取得 css 的 width string<span class="codeLink">程式範例</span></div>
+    <div class="codeTarget">
+      <div class="subTitle2">假設 $('#xx') 的 css width: 100%</div>
+      <div>
+        <div>$('#xx').dom().getCssWidth();<span class="tip3"> // '100%'</span></div>
+        <div>$('#xx').css('width');<span class="tip3"> // '100px'</span></div>
+      </div>
+    </div>
+    <div class="tip2">getCssHeight(): 取得 css 的 height string<span class="codeLink">程式範例</span></div>
+    <div class="codeTarget">
+      <div class="subTitle2">假設 $('#xx') 的 css height: 100%</div>
+      <div>
+        <div>$('#xx').dom().getCssHeight();<span class="tip3"> // '100%'</span></div>
+        <div>$('#xx').css('height');<span class="tip3"> // '100px'</span></div>
+      </div>
+    </div>
+    <div class="tip2">setCursor([cursor = 'pointer']): 設置滑鼠指標</div>
+    <div class="tip2">blurUpperCase([nameSpace]): 觸發 blur 後, 將裡面的值 String.trim() 之後轉大寫</div>
+    <div class="tip2">action(eventName, fn): 同等 $('xxx').off('event').on('event',function(){}), 避免重複綁定</div>
+    <div class="tip2">onClick(fn, [nameSpace]): $('xxx').off('click').on('click') 方便使用版, 滑鼠移到上面會自動轉成手指</div>
+    <div class="tip2">onPressEnter(fn, [nameSpace]): 按下 Enter 鍵後觸發的 fn, 綁定 keyup</div>
+    <div class="tip2">eachDom(cb):<a href="https://api.jquery.com/each/" target="_blank">.each()</a> 進階版, 直接賦予 dom 屬性<span class="codeLink">程式範例</span></div>
+    <div class="codeTarget">
+      <div>$('.xx').eachDom(function($dom, i){</div>
+      <div class="tab1 tip2">// $dom 相當於 $(this), 並且可以調用 dom 的屬性</div>
+      <div class="tab1">$dom.onClick(...);</div>
+      <div>});</div>
+    </div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>cb: 呼叫之後觸發的 fn($dom, index)</div>
+    </div>
+    <div class="tip2">mapDom(cb):<a href="http://api.jquery.com/jQuery.map/" target="_blank">$.map()</a> 進階版, 直接賦予 dom 屬性, 並回傳 dom array<span class="codeLink">程式範例
+        <div class="codeTarget">
+          <div class="tip2">// $domList 相當於 $('.xx') 取得的每個 DOM 組成的 array</div>
+          <div>var $domList = $('.xx').mapDom(function($dom, i){</div>
+          <div class="tab1 tip2">// $dom 相當於 $(this), 並且可以調用 dom 的屬性</div>
+          <div class="tab1">$dom.onClick(...);</div>
+          <div>});</div>
+        </div></span></div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>cb: 呼叫之後觸發的 fn($dom, index)</div>
+    </div>
+    <div class="tip2">ifEmpty(): 判斷本身是否沒任何 html 內容<span class="codeLink">程式範例</span></div>
+    <div class="codeTarget">
+      <div class="subTitle2">&lt;div id='#xx'&gt;caro-front&lt;/div&gt;</div>
+      <div>$('.xx').dom().ifEmpty();<span class="tip3"> // false</span></div>
+      <div class="subTitle2">&lt;div id='#xx'&gt;&lt;/div&gt;</div>
+      <div>$('.xx').dom().ifEmpty();<span class="tip3"> // true</span></div>
+    </div>
+    <div class="tip2">getHtml(): 取得包含本身的 html code<span class="codeLink">程式範例</span></div>
+    <div class="codeTarget">
+      <div class="subTitle2">&lt;div id='#xx'&gt;caro-front&lt;/div&gt;</div>
+      <div>
+        <div>$('.xx').dom().getHtml();<span class="tip3"> // &lt;div id='#xx'&gt;caro-front&lt;/div&gt;</span></div>
+        <div>$('.xx').html();<span class="tip3"> // caro-front</span></div>
+      </div>
+    </div>
+  </div>
 </div>
