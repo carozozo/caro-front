@@ -25,7 +25,17 @@
 <div class="content">
   <div class="title">函式</div>
   <div>
-    <div class="tip2">showModal(): 顯示視窗</div>
-    <div class="tip2">hideModal(): 關閉視窗</div>
+    <div class="tip2">showModal([opt = {}]): 顯示視窗</div>
+    <div class="subTitle1">opt 參數</div>
+    <div>
+      <div>befShow: 顯示視窗之前觸發的 cb(), return false 則不顯示</div>
+      <div>aftShow: 顯示之後要呼叫的 cb</div>
+    </div>
+    <div class="tip2">hideModal([cb]): 關閉視窗</div>
+    <div class="subTitle1">opt 參數</div>
+    <div>
+      <div>befHide: 關閉視窗之前觸發的 cb(), return false 則不關閉</div>
+      <div>aftHide: 關閉視窗之後觸發的 cb()</div>
+    </div>
   </div>
 </div>

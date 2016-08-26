@@ -65,25 +65,33 @@ cf.regModule 'cfModal', (opt = {}) ->
   moduleData.zIndex += 2
 
   ### 顯示視窗 ###
-  $self.showModal = ->
+  $self.showModal = (opt = {}) ->
+    befShow = opt.befShow
+    aftShow = opt.aftShow
+    return if befShow and befShow() is false
     return if _befShow and _befShow() is false
     $body.css(
       overflow: 'hidden'
     )
     $background.show()
     $outer.fadeIn(->
+      aftShow and aftShow() is false
       _aftShow and _aftShow()
     )
     return
 
   ### 關閉視窗 ###
-  $self.hideModal = ->
+  $self.hideModal = (opt = {}) ->
+    befHide = opt.befHide
+    aftHide = opt.aftHide
+    return if befHide and befHide() is false
     return if _befHide and _befHide() is false
     $body.css(
       overflow: 'auto'
     )
+    $background.fadeOut()
     $outer.fadeOut(->
-      $background.hide()
+      aftHide and aftHide()
       _aftHide and _aftHide()
       return
     )

@@ -79,7 +79,16 @@ cf.regModule('cfModal', function(opt) {
   moduleData.zIndex += 2;
 
   /* 顯示視窗 */
-  $self.showModal = function() {
+  $self.showModal = function(opt) {
+    var aftShow, befShow;
+    if (opt == null) {
+      opt = {};
+    }
+    befShow = opt.befShow;
+    aftShow = opt.aftShow;
+    if (befShow && befShow() === false) {
+      return;
+    }
     if (_befShow && _befShow() === false) {
       return;
     }
@@ -88,20 +97,31 @@ cf.regModule('cfModal', function(opt) {
     });
     $background.show();
     $outer.fadeIn(function() {
+      aftShow && aftShow() === false;
       return _aftShow && _aftShow();
     });
   };
 
   /* 關閉視窗 */
-  $self.hideModal = function() {
+  $self.hideModal = function(opt) {
+    var aftHide, befHide;
+    if (opt == null) {
+      opt = {};
+    }
+    befHide = opt.befHide;
+    aftHide = opt.aftHide;
+    if (befHide && befHide() === false) {
+      return;
+    }
     if (_befHide && _befHide() === false) {
       return;
     }
     $body.css({
       overflow: 'auto'
     });
+    $background.fadeOut();
     $outer.fadeOut(function() {
-      $background.hide();
+      aftHide && aftHide();
       _aftHide && _aftHide();
     });
   };
