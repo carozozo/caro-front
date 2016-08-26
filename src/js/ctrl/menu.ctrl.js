@@ -1,7 +1,7 @@
 
-/* 有搭配 .html 的 ctrl, 觸發時會讀取 template/menu.ctrl.html 檔並寫入 template */
+/* 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/menu.html 檔並寫入 template */
 cf.regCtrl('menu', function() {
-  var $libBtn, $libMenuItem, $libMenuItemBox, $menuBtnBox, $moduleBtn, $moduleMenuItem, $moduleMenuItemBox, $self, bgColorArr, cf, showItems, showMenu, tm;
+  var $libBtn, $libBtnOuter, $libMenuItem, $libMenuItemBox, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItem, $moduleMenuItemBox, $self, bgColorArr, cf, showItems, showMenu, tm;
   $self = this;
   cf = $self.cf;
   tm = cf.require('TweenMax');
@@ -37,6 +37,8 @@ cf.regCtrl('menu', function() {
     });
   };
   $menuBtnBox = $self.dom('#menuBtnBox');
+  $libBtnOuter = $menuBtnBox.dom('#libBtnOuter');
+  $moduleBtnOuter = $menuBtnBox.dom('#moduleBtnOuter');
   $libBtn = $menuBtnBox.dom('#libBtn');
   $moduleBtn = $menuBtnBox.dom('#moduleBtn');
   $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal({
@@ -78,8 +80,13 @@ cf.regCtrl('menu', function() {
   $moduleBtn.on('click', function() {
     showMenu();
   });
+  tm.staggerFrom([$libBtnOuter, $moduleBtnOuter], .5, {
+    right: -$libBtnOuter.width() - 20,
+    ease: Back.easeOut.config(1.5),
+    delay: 1
+  }, .3);
   return $self;
-}, 'template/menu.ctrl.html');
+}, 'template/ctrl/menu.html');
 
 cf.regDocReady(function(cf) {
   var $;

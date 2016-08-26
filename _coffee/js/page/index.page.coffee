@@ -6,11 +6,6 @@ cf.router.regPage 'index', (cf, $page) ->
   $page
 
 cf.regDocReady (cf)->
-  $ = cf.require('$')
-  tm = cf.require('TweenMax')
-
-  $header = $('header')
-  $headerTitle = $('#headerTitle').dom()
   bgColorArr = [
     '#464646'
     '#354712'
@@ -26,19 +21,6 @@ cf.regDocReady (cf)->
     'images/cf_title5.png'
   ]
 
-  $headerTitle.onClick ->
-    cf.router.goPage('index')
-    return
-
-  cf.router.regPrePage(->
-    color = caro.randomPick(bgColorArr)
-    tm.to($header, 1
-      backgroundColor: color
-    )
-    return
-  )
-
   cf.data('titleSrcArr', titleSrcArr)
   cf.data('bgColorArr', bgColorArr)
-
   return

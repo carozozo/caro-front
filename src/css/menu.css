@@ -1,28 +1,33 @@
-menuBtn,
-#libBtn,
-#moduleBtn {
+.menuBtnOuter,
+#libBtnOuter,
+#moduleBtnOuter {
   position: fixed;
-  right: 0;
-  padding: 30px 15px;
-  width: 25px;
-  cursor: pointer;
-  text-align: center;
-  z-index: 9999;
+  width: 100px;
+  right: -50px;
   border-left: solid 3px;
   border-top: solid 3px;
   border-bottom: solid 3px;
+  z-index: 9999;
 }
-#libBtn {
+#libBtnOuter {
   top: 130px;
   background: #8b181c;
   border-color: #e5e5e5;
 }
-#moduleBtn {
+#moduleBtnOuter {
   top: 290px;
   background: #24798b;
   border-color: #e5e5e5;
 }
-itemBox,
+.menuBtn,
+#libBtn,
+#moduleBtn {
+  padding: 30px 15px;
+  width: 25px;
+  cursor: pointer;
+  text-align: center;
+}
+.menuItemBox,
 #libMenuItemBox,
 #moduleMenuItemBox {
   width: 100%;
