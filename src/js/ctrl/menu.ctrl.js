@@ -1,7 +1,7 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/menu.html 檔並寫入 template */
 cf.regCtrl('menu', function() {
-  var $libBtn, $libBtnOuter, $libMenuItem, $libMenuItemBox, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItem, $moduleMenuItemBox, $self, bgColorArr, cf, showItems, showMenu, tm;
+  var $libBtn, $libBtnOuter, $libMenuItemBox, $libMenuItems, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItemBox, $moduleMenuItems, $self, bgColorArr, cf, dropAllItems, hideMenu, setMenuItem, showItems, showMenu, tm;
   $self = this;
   cf = $self.cf;
   tm = cf.require('TweenMax');
@@ -9,6 +9,9 @@ cf.regCtrl('menu', function() {
   showItems = function($items) {
     caro.forEach($items, function($item, i) {
       var animateObj, color, delay, direction, directionArr, distance;
+      tm.set($item, {
+        y: 0
+      });
       distance = 30;
       directionArr = [
         {
@@ -36,44 +39,80 @@ cf.regCtrl('menu', function() {
       return tm.from($item, .3, animateObj);
     });
   };
+  showMenu = function(type) {
+    if (type === 'lib') {
+      $libMenuItemBox.showModal({
+        befShow: function() {
+          showItems($libMenuItems);
+        }
+      });
+    } else {
+      $moduleMenuItemBox.showModal({
+        befShow: function() {
+          showItems($moduleMenuItems);
+        }
+      });
+    }
+  };
+  hideMenu = function() {
+    $libMenuItemBox.hideModal();
+    return $moduleMenuItemBox.hideModal();
+  };
+  dropAllItems = function(type, cb) {
+    var $items, count;
+    $items = type === 'lib' ? $libMenuItems : $moduleMenuItems;
+    count = 0;
+    caro.forEach($items, function($item) {
+      var delay;
+      delay = Math.random() / 2;
+      tm.to($item, .3, {
+        y: cf.$window.height(),
+        delay: delay,
+        onComplete: function() {
+          if (++count === $items.length) {
+            cb();
+          }
+        }
+      });
+    });
+  };
+  setMenuItem = function($item, type) {
+    $item.on('mouseover', function() {
+      var roataionArr, rotation, transformOrigin;
+      roataionArr = [10, -10, 5, -5];
+      rotation = caro.randomPick(roataionArr);
+      transformOrigin = rotation > 0 ? '10% 10%' : '90% 10%';
+      return tm.to($item, .3, {
+        rotation: rotation,
+        transformOrigin: transformOrigin
+      });
+    }).on('mouseleave', function() {
+      return tm.to($item, .3, {
+        rotation: 0
+      });
+    });
+    $item.onClick(function() {
+      dropAllItems(type, function() {
+        var id;
+        id = $item.id();
+        hideMenu();
+        return cf.router.goPage(type + '/' + id);
+      });
+    });
+  };
   $menuBtnBox = $self.dom('#menuBtnBox');
   $libBtnOuter = $menuBtnBox.dom('#libBtnOuter');
   $moduleBtnOuter = $menuBtnBox.dom('#moduleBtnOuter');
   $libBtn = $menuBtnBox.dom('#libBtn');
   $moduleBtn = $menuBtnBox.dom('#moduleBtn');
-  $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal({
-    befShow: function() {
-      showItems($libMenuItem);
-    }
+  $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal();
+  $moduleMenuItemBox = $self.dom('#moduleMenuItemBox').cfModal();
+  $libMenuItems = $libMenuItemBox.dom('.menuItem').mapDom(function($item) {
+    return setMenuItem($item, 'lib');
   });
-  $moduleMenuItemBox = $self.dom('#moduleMenuItemBox').cfModal({
-    befShow: function() {
-      showItems($moduleMenuItem);
-    }
+  $moduleMenuItems = $moduleMenuItemBox.dom('.menuItem').mapDom(function($item) {
+    return setMenuItem($item, 'module');
   });
-  $libMenuItem = $libMenuItemBox.dom('.menuItem').mapDom(function($item) {
-    return $item.onClick(function() {
-      var id;
-      id = $item.id();
-      cf.router.goPage('lib/' + id);
-      $libMenuItemBox.hideModal();
-    });
-  });
-  $moduleMenuItem = $moduleMenuItemBox.dom('.menuItem').mapDom(function($item) {
-    return $item.onClick(function() {
-      var id;
-      id = $item.id();
-      cf.router.goPage('module/' + id);
-      $moduleMenuItemBox.hideModal();
-    });
-  });
-  showMenu = function(type) {
-    if (type === 'lib') {
-      $libMenuItemBox.showModal();
-    } else {
-      $moduleMenuItemBox.showModal();
-    }
-  };
   $libBtn.on('click', function() {
     showMenu('lib');
   });
