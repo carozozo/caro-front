@@ -3,7 +3,7 @@
 modal 視窗
  */
 cf.regModule('cfModal', function(opt) {
-  var $, $background, $body, $inner, $outer, $self, _basicStyle, _index, _isClickClose, _zIndex, cf, moduleData;
+  var $, $background, $body, $inner, $outer, $self, _aftHide, _aftShow, _basicStyle, _befHide, _befShow, _index, _isClickClose, _zIndex, cf, moduleData;
   if (opt == null) {
     opt = {};
   }
@@ -14,6 +14,18 @@ cf.regModule('cfModal', function(opt) {
 
   /* 是否點選內容之外的部分就 close modal */
   _isClickClose = opt.isClickClose === false ? opt.isClickClose : true;
+
+  /* 顯示視窗之前觸發的 cb, return false 則不顯示 */
+  _befShow = opt.befShow;
+
+  /* 顯示視窗之後觸發的 cb */
+  _aftShow = opt.aftShow;
+
+  /* 關閉視窗之前觸發的 cb, return false 則不關閉 */
+  _befHide = opt.befHide;
+
+  /* 關閉視窗之後觸發的 cb */
+  _aftHide = opt.aftHide;
   moduleData = (function() {
     if (!cf.data('cfModal')) {
       cf.data('cfModal', {
@@ -59,7 +71,7 @@ cf.regModule('cfModal', function(opt) {
       if (!(_isClickClose && e.target === this)) {
         return;
       }
-      return $self.closeModal();
+      return $self.hideModal();
     }).append($inner).hide();
   })($);
   $body.append($background).append($outer);
@@ -68,20 +80,29 @@ cf.regModule('cfModal', function(opt) {
 
   /* 顯示視窗 */
   $self.showModal = function() {
+    if (_befShow && _befShow() === false) {
+      return;
+    }
     $body.css({
       overflow: 'hidden'
     });
     $background.show();
-    $outer.fadeIn();
+    $outer.fadeIn(function() {
+      return _aftShow && _aftShow();
+    });
   };
 
   /* 關閉視窗 */
-  $self.closeModal = function() {
+  $self.hideModal = function() {
+    if (_befHide && _befHide() === false) {
+      return;
+    }
     $body.css({
       overflow: 'auto'
     });
     $outer.fadeOut(function() {
       $background.hide();
+      _aftHide && _aftHide();
     });
   };
   return $self;

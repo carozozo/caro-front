@@ -8,6 +8,14 @@ cf.regModule 'cfModal', (opt = {}) ->
   $ = cf.require('$')
   ### 是否點選內容之外的部分就 close modal ###
   _isClickClose = if opt.isClickClose is false then opt.isClickClose else true
+  ### 顯示視窗之前觸發的 cb, return false 則不顯示 ###
+  _befShow = opt.befShow
+  ### 顯示視窗之後觸發的 cb ###
+  _aftShow = opt.aftShow
+  ### 關閉視窗之前觸發的 cb, return false 則不關閉 ###
+  _befHide = opt.befHide
+  ### 關閉視窗之後觸發的 cb ###
+  _aftHide = opt.aftHide
   moduleData = do ->
     unless cf.data('cfModal')
       cf.data 'cfModal',
@@ -49,7 +57,7 @@ cf.regModule 'cfModal', (opt = {}) ->
     $('<div></div>').attr('id', 'cf-modal-outer' + _index)
     .css(_basicStyle).on('click', (e) ->
       return unless _isClickClose and e.target is @
-      $self.closeModal()
+      $self.hideModal()
     ).append($inner).hide()
 
   $body.append($background).append($outer)
@@ -58,21 +66,27 @@ cf.regModule 'cfModal', (opt = {}) ->
 
   ### 顯示視窗 ###
   $self.showModal = ->
+    return if _befShow and _befShow() is false
     $body.css(
       overflow: 'hidden'
     )
     $background.show()
-    $outer.fadeIn()
+    $outer.fadeIn(->
+      _aftShow and _aftShow()
+    )
     return
 
   ### 關閉視窗 ###
-  $self.closeModal = ->
+  $self.hideModal = ->
+    return if _befHide and _befHide() is false
     $body.css(
       overflow: 'auto'
     )
-    $outer.fadeOut ->
+    $outer.fadeOut(->
       $background.hide()
+      _aftHide and _aftHide()
       return
+    )
     return
 
   $self
