@@ -37,7 +37,8 @@ cf.regLib('routeAnimate', function(cf) {
         ease: Power0.easeNone,
         onComplete: function() {
           $nextPage.css({
-            position: position
+            position: position,
+            transform: ''
           });
           done();
         }
@@ -73,7 +74,8 @@ cf.regLib('routeAnimate', function(cf) {
         ease: Power0.easeNone,
         onComplete: function() {
           $nextPage.css({
-            position: position
+            position: position,
+            transform: ''
           });
           done();
         }
@@ -111,6 +113,9 @@ cf.regLib('routeAnimate', function(cf) {
         ease: Power0.easeNone,
         onComplete: function() {
           done();
+          $nextPage.css({
+            transform: ''
+          });
         }
       });
     };

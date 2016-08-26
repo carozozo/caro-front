@@ -31,6 +31,7 @@ cf.regLib 'routeAnimate', (cf) ->
         onComplete: ->
           $nextPage.css(
             position: position
+            transform: ''
           )
           done()
           return
@@ -60,6 +61,7 @@ cf.regLib 'routeAnimate', (cf) ->
         onComplete: ->
           $nextPage.css(
             position: position
+            transform: ''
           )
           done()
           return
@@ -91,6 +93,9 @@ cf.regLib 'routeAnimate', (cf) ->
         ease: Power0.easeNone
         onComplete: ->
           done()
+          $nextPage.css(
+            transform: ''
+          )
           return
       )
       return
