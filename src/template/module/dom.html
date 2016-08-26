@@ -1,18 +1,68 @@
 
 <div class="mainTitle">dom</div>
-<div class="content">
-  <div class="title">示範</div>
-  <div></div>
-</div>
+<!--.content-->
+<!--  .title 示範-->
+<!--  div-->
 <div class="content">
   <div class="title">簡介</div>
-  <div></div>
+  <div>
+    <div>DOM 選取器, 支援一些方便的程式</div>
+  </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
-  <div></div>
+  <div>
+    <div>
+      <div class="tip4">$('xxx').dom([cb]): 賦予本身 dom 屬性</div>
+      <div class="tip4">$('xxx').dom(selector, [cb]): 相當於<a href="https://api.jquery.com/find/" target="_blank">.find(selector)</a>, 並賦予 dom 屬性</div>
+      <div>selector: 目標選擇器</div>
+      <div>cb: 呼叫之後觸發的 fn($self), $self 就是 DOM 本身</div>
+    </div>
+  </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
-  <div></div>
+  <div>
+    <div class="tip2">id([id]): 設置/取得 id</div>
+    <div class="tip2">name([name]): 設置/取得 name</div>
+    <div class="tip2">aClass([class]): 設置/取得 class</div>
+    <div class="tip2">title([title]): 設置/取得 title</div>
+    <div class="tip2">src([src]): 設置/取得 src</div>
+    <div class="tip2">href([href, target]): 設置/取得 href</div>
+    <div class="tip2">ifVisible(): 是否為可見</div>
+    <div class="tip2">ifHidden(): 是否為隱藏</div>
+    <div class="tip2">enable(): 設為 enable</div>
+    <div class="tip2">disable(): 設為 disable</div>
+    <div class="tip2">sethecked([checked = true]): 設為 checked / unchecked</div>
+    <div class="tip2">ifChecked(): 是否為 checked</div>
+    <div class="tip2">getCssDistance(cssType): 取得 css 設置的 top/left/right/bottom...等距離</div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>cssType: 'top'/'left'/'right'/'bottom'/'margin-left'....</div>
+    </div>
+    <div class="tip2">getMargin(direction): 取得 margin-top / margin-bottom / margin-left / margin-right 距離</div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>direction: 'top'/'left'/'right'/'bottom'</div>
+    </div>
+    <div class="tip2">getCssWidth(): 取得 css 的 width string</div>
+    <div class="tip2">getCssHeight(): 取得 css 的 height string</div>
+    <div class="tip2">setCursor([cursor = 'pointer']): 設置滑鼠指標</div>
+    <div class="tip2">blurUpperCase([nameSpace]): 觸發 blur 後, 將裡面的值轉大寫</div>
+    <div class="tip2">action(eventName, fn): 同等 $('xxx').off('event').on('event',function(){}), 避免重複綁定</div>
+    <div class="tip2">onClick(fn, [nameSpace]): $('xxx').off('click').on('click') 方便使用版, 滑鼠移到上面會自動轉成手指</div>
+    <div class="tip2">onPressEnter(fn, [nameSpace]): 按下 Enter 鍵後觸發的 fn, 綁定 keyup</div>
+    <div class="tip2">eachDom(cb):<a href="https://api.jquery.com/each/" target="_blank">.each()</a> 進階版, 直接賦予 dom 屬性</div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>cb: 呼叫之後觸發的 fn($dom, index)</div>
+    </div>
+    <div class="tip2">mapDom(cb):<a href="http://api.jquery.com/jQuery.map/" target="_blank">$.map()</a> 進階版, 直接賦予 dom 屬性, 並回傳 dom array</div>
+    <div class="subTitle4">參數</div>
+    <div>
+      <div>cb: 呼叫之後觸發的 fn($dom, index)</div>
+    </div>
+    <div class="tip2">ifEmpty(): 判斷本身是否沒任何 html 內容</div>
+    <div class="tip2">getHtml(): 取得包含本身的 html code</div>
+  </div>
 </div>

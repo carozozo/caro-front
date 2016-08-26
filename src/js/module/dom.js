@@ -3,13 +3,11 @@
 DOM 選取器, 支援一些方便的程式
  */
 cf.regModule('dom', function(selector, cb) {
-  var $, $self, _trace, caro, window;
+  var $, $self, caro, window;
   $self = {};
   caro = cf.require('caro');
   window = cf.require('window');
   $ = cf.require('$');
-  _trace = cf.genTraceFn('dom');
-  _trace.startTrace();
   if (caro.isFunction(selector)) {
     cb = selector;
     selector = null;
@@ -90,12 +88,12 @@ cf.regModule('dom', function(selector, cb) {
     };
 
     /* 是否為可見 */
-    $self.isVisible = function() {
+    $self.ifVisible = function() {
       return this.is(':visible');
     };
 
     /* 是否為隱藏 */
-    $self.isHidden = function() {
+    $self.ifHidden = function() {
       return !this.is(':visible');
     };
 
@@ -111,17 +109,17 @@ cf.regModule('dom', function(selector, cb) {
       return this;
     };
 
-    /* 設為 checked */
+    /* 設為 checked / unchecked */
     $self.setChecked = function(bool) {
       if (bool == null) {
-        bool = false;
+        bool = true;
       }
       this.prop('checked', bool);
       return this;
     };
 
     /* 是否為 checked */
-    $self.isChecked = function() {
+    $self.ifChecked = function() {
       return this.is(':checked');
     };
   })();
@@ -139,10 +137,7 @@ cf.regModule('dom', function(selector, cb) {
     /* 取得 margin-top / margin-bottom / margin-left / margin-right 距離 */
     $self.getMargin = function(direction) {
       var margin, marginStr;
-      marginStr = 'margin-';
-      if (direction) {
-        marginStr += direction;
-      }
+      marginStr = 'margin-' + direction;
       margin = this.css(marginStr);
       return parseInt(margin.replace('px'));
     };
@@ -157,34 +152,12 @@ cf.regModule('dom', function(selector, cb) {
     };
 
     /* 取得 css 的 height string */
-    $self.getCssWidth = function() {
+    $self.getCssHeight = function() {
       var $clone, height;
       $clone = this.clone();
       height = $clone.appendTo('body').wrap('<div style="display: none"></div>').css('height');
       $clone.remove();
       return height;
-    };
-
-    /* 改變 dom 的基準點到自己本身的中心點 */
-    $self.marginSelfToCenter = function(direction) {
-      var height, width;
-      width = this.width();
-      height = this.height();
-      if (direction === 'x') {
-        this.css({
-          'margin-left': -(width / 2)
-        });
-      } else if (direction === 'y') {
-        this.css({
-          'margin-top': -(height / 2)
-        });
-      } else {
-        this.css({
-          'margin-left': -(width / 2),
-          'margin-top': -(height / 2)
-        });
-      }
-      return this;
     };
 
     /* 設置滑鼠指標 */
@@ -217,9 +190,7 @@ cf.regModule('dom', function(selector, cb) {
     /* 先 off 然後 on */
     $self.action = function(eve, fn) {
       return this.off(eve).on(eve, function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        return fn(e);
+        fn(e);
       });
     };
 
@@ -233,19 +204,7 @@ cf.regModule('dom', function(selector, cb) {
       return this.setCursor().off(triggerName).on(triggerName, fn);
     };
 
-    /* 整合 mouseenter, mouseleave 方便使用版 */
-    $self.onEnterAndLeave = function(fn1, fn2, nameSpace) {
-      var triggerName1, triggerName2;
-      triggerName1 = 'mouseenter';
-      triggerName2 = 'mouseleave';
-      if (nameSpace) {
-        triggerName1 += '.' + nameSpace;
-        triggerName2 += '.' + nameSpace;
-      }
-      return this.on(triggerName1, fn1).on(triggerName2, fn2);
-    };
-
-    /* 按下 Enter 鍵後觸發的 trigger */
+    /* 按下 Enter 鍵後觸發的 fn */
     $self.onPressEnter = function(fn, nameSpace) {
       var triggerName;
       triggerName = 'keyup';
@@ -254,7 +213,7 @@ cf.regModule('dom', function(selector, cb) {
       }
       return this.on(triggerName, function(e) {
         if (e.which === 13) {
-          return fn(e);
+          fn(e);
         }
       });
     };
@@ -263,7 +222,7 @@ cf.regModule('dom', function(selector, cb) {
   /* Unit 相關 */
   (function($) {
 
-    /* each 進階版, 直接賦予 dom 外掛的屬性 */
+    /* .each() 進階版, 直接賦予 dom 屬性 */
     $self.eachDom = function(cb) {
       return $self.each(function(i, element) {
         var $dom;
@@ -272,47 +231,22 @@ cf.regModule('dom', function(selector, cb) {
       });
     };
 
-    /* map 進階版, 直接賦予 dom 外掛的屬性, 並回傳 array */
+    /* $.map() 進階版, 直接賦予 dom 屬性, 並回傳 dom array */
     $self.mapDom = function(cb) {
       var arr;
       arr = [];
       $self.each(function(i, element) {
         var $dom;
         $dom = $(element).dom();
-        if (cb && cb($dom, i) === false) {
-          return true;
-        }
+        cb && cb($dom, i);
         return arr.push($dom);
       });
       return arr;
     };
 
-    /* trace 用, 計算本身數量 */
-    $self.countSelf = function(msg) {
-      msg = msg || '';
-      return console.log('Count Dom:', this.length, msg);
-    };
-
     /* 判斷本身是否沒任何 html 內容 */
-    $self.isEmpty = function() {
-      return this.html().trim();
-    };
-
-    /* 同 .val(), 並自動 trim() */
-    $self.getVal = function() {
-      var val;
-      val = this.val() || '';
-      return val.trim();
-    };
-
-    /* 同 .getVal(), 並 uppercase */
-    $self.getUpperVal = function() {
-      return this.getVal().toUpperCase();
-    };
-
-    /* 同 .getVal(), 並 lowercase */
-    $self.getLowerVal = function() {
-      return this.getVal().toLowerCase();
+    $self.ifEmpty = function() {
+      return this.html() === '';
     };
 
     /* 取得包含本身的 html code */
@@ -323,14 +257,6 @@ cf.regModule('dom', function(selector, cb) {
       html = div.html();
       div.remove();
       return html;
-    };
-
-    /* 取得當前的寬高(在 scale 之後還能正確) */
-    $self.getRealSize = function() {
-      return {
-        width: this.getBoundingClientRect().width,
-        height: this.getBoundingClientRect().height
-      };
     };
   })($);
   cb && cb($self);

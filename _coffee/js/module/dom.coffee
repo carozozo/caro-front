@@ -6,8 +6,6 @@ cf.regModule 'dom', (selector, cb) ->
   caro = cf.require('caro')
   window = cf.require('window')
   $ = cf.require('$')
-  _trace = cf.genTraceFn('dom')
-  _trace.startTrace()
 
   if caro.isFunction(selector)
     cb = selector
@@ -64,10 +62,10 @@ cf.regModule 'dom', (selector, cb) ->
         return @
       @attr 'href'
     ### 是否為可見 ###
-    $self.isVisible = ->
+    $self.ifVisible = ->
       @is ':visible'
     ### 是否為隱藏 ###
-    $self.isHidden = ->
+    $self.ifHidden = ->
       !@is(':visible')
     ### 設為 enable ###
     $self.enable = ->
@@ -77,12 +75,12 @@ cf.regModule 'dom', (selector, cb) ->
     $self.disable = ->
       @prop 'disabled', true
       @
-    ### 設為 checked ###
-    $self.setChecked = (bool = false) ->
+    ### 設為 checked / unchecked ###
+    $self.setChecked = (bool = true) ->
       @prop 'checked', bool
       @
     ### 是否為 checked ###
-    $self.isChecked = ->
+    $self.ifChecked = ->
       @is ':checked'
 
     return
@@ -95,8 +93,7 @@ cf.regModule 'dom', (selector, cb) ->
       parseInt px.replace('px')
     ### 取得 margin-top / margin-bottom / margin-left / margin-right 距離 ###
     $self.getMargin = (direction) ->
-      marginStr = 'margin-'
-      marginStr += direction if direction
+      marginStr = 'margin-' + direction
       margin = @css(marginStr)
       parseInt margin.replace('px')
     ### 取得 css 的 width string ###
@@ -106,24 +103,11 @@ cf.regModule 'dom', (selector, cb) ->
       $clone.remove()
       width
     ### 取得 css 的 height string ###
-    $self.getCssWidth = ->
+    $self.getCssHeight = ->
       $clone = @clone()
       height = $clone.appendTo('body').wrap('<div style="display: none"></div>').css('height')
       $clone.remove()
       height
-    ### 改變 dom 的基準點到自己本身的中心點 ###
-    $self.marginSelfToCenter = (direction) ->
-      width = @width()
-      height = @height()
-      if direction is 'x'
-        @css 'margin-left': -(width / 2)
-      else if direction is 'y'
-        @css 'margin-top': -(height / 2)
-      else
-        @css
-          'margin-left': -(width / 2)
-          'margin-top': -(height / 2)
-      @
     ### 設置滑鼠指標 ###
     $self.setCursor = (cursor) ->
       cursor = cursor or 'pointer'
@@ -144,65 +128,43 @@ cf.regModule 'dom', (selector, cb) ->
     ### 先 off 然後 on ###
     $self.action = (eve, fn) ->
       @off(eve).on(eve, (e) ->
-        e.preventDefault()
-        e.stopPropagation()
-        fn e
+        fn(e)
+        return
       )
     ### on('click') 方便使用版 ###
     $self.onClick = (fn, nameSpace) ->
       triggerName = 'click'
       triggerName += '.' + nameSpace if nameSpace
       @setCursor().off(triggerName).on(triggerName, fn)
-    ### 整合 mouseenter, mouseleave 方便使用版 ###
-    $self.onEnterAndLeave = (fn1, fn2, nameSpace) ->
-      triggerName1 = 'mouseenter'
-      triggerName2 = 'mouseleave'
-      if nameSpace
-        triggerName1 += '.' + nameSpace
-        triggerName2 += '.' + nameSpace
-      @on(triggerName1, fn1).on(triggerName2, fn2)
-    ### 按下 Enter 鍵後觸發的 trigger ###
+    ### 按下 Enter 鍵後觸發的 fn ###
     $self.onPressEnter = (fn, nameSpace) ->
       triggerName = 'keyup'
       triggerName += '.' + nameSpace if nameSpace
       @on(triggerName, (e) ->
         fn(e) if(e.which is 13)
+        return
       )
 
     return
 
   ### Unit 相關 ###
   do($) ->
-    ### each 進階版, 直接賦予 dom 外掛的屬性 ###
+    ### .each() 進階版, 直接賦予 dom 屬性 ###
     $self.eachDom = (cb) ->
       $self.each (i, element) ->
         $dom = $(element).dom()
         cb and cb($dom, i)
-    ### map 進階版, 直接賦予 dom 外掛的屬性, 並回傳 array ###
+    ### $.map() 進階版, 直接賦予 dom 屬性, 並回傳 dom array ###
     $self.mapDom = (cb) ->
       arr = []
       $self.each (i, element) ->
         $dom = $(element).dom()
-        return true if cb and cb($dom, i) is false
+        cb and cb($dom, i)
         arr.push $dom
       arr
-    ### trace 用, 計算本身數量 ###
-    $self.countSelf = (msg) ->
-      msg = msg or ''
-      console.log 'Count Dom:', @length, msg
     ### 判斷本身是否沒任何 html 內容 ###
-    $self.isEmpty = ->
-      @html().trim()
-    ### 同 .val(), 並自動 trim() ###
-    $self.getVal = ->
-      val = @val() or ''
-      val.trim()
-    ### 同 .getVal(), 並 uppercase ###
-    $self.getUpperVal = ->
-      @getVal().toUpperCase()
-    ### 同 .getVal(), 並 lowercase ###
-    $self.getLowerVal = ->
-      @getVal().toLowerCase()
+    $self.ifEmpty = ->
+      @html() is ''
     ### 取得包含本身的 html code ###
     $self.getHtml = ->
       div = $('<div/>')
@@ -210,12 +172,6 @@ cf.regModule 'dom', (selector, cb) ->
       html = div.html()
       div.remove()
       html
-    ### 取得當前的寬高(在 scale 之後還能正確) ###
-    $self.getRealSize = ->
-      {
-      width: @getBoundingClientRect().width
-      height: @getBoundingClientRect().height
-      }
     return
 
   cb and cb($self)

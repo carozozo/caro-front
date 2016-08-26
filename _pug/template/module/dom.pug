@@ -1,13 +1,63 @@
 .mainTitle dom
-.content
-  .title 示範
-  div
+//.content
+//  .title 示範
+//  div
 .content
   .title 簡介
   div
+    div DOM 選取器, 支援一些方便的程式
 .content
   .title 參數
   div
+    div
+      .tip4 $('xxx').dom([cb]): 賦予本身 dom 屬性
+      .tip4 $('xxx').dom(selector, [cb]): 相當於
+        a(href='https://api.jquery.com/find/', target='_blank') .find(selector)
+        | , 並賦予 dom 屬性
+      div selector: 目標選擇器
+      div cb: 呼叫之後觸發的 fn($self), $self 就是 DOM 本身
+
 .content
   .title 函式
   div
+    .tip2 id([id]): 設置/取得 id
+    .tip2 name([name]): 設置/取得 name
+    .tip2 aClass([class]): 設置/取得 class
+    .tip2 title([title]): 設置/取得 title
+    .tip2 src([src]): 設置/取得 src
+    .tip2 href([href, target]): 設置/取得 href
+    .tip2 ifVisible(): 是否為可見
+    .tip2 ifHidden(): 是否為隱藏
+    .tip2 enable(): 設為 enable
+    .tip2 disable(): 設為 disable
+    .tip2 sethecked([checked = true]): 設為 checked / unchecked
+    .tip2 ifChecked(): 是否為 checked
+    .tip2 getCssDistance(cssType): 取得 css 設置的 top/left/right/bottom...等距離
+    .subTitle4 參數
+    div
+      div cssType: 'top'/'left'/'right'/'bottom'/'margin-left'....
+    .tip2 getMargin(direction): 取得 margin-top / margin-bottom / margin-left / margin-right 距離
+    .subTitle4 參數
+    div
+      div direction: 'top'/'left'/'right'/'bottom'
+    .tip2 getCssWidth(): 取得 css 的 width string
+    .tip2 getCssHeight(): 取得 css 的 height string
+    .tip2 setCursor([cursor = 'pointer']): 設置滑鼠指標
+    .tip2 blurUpperCase([nameSpace]): 觸發 blur 後, 將裡面的值轉大寫
+    .tip2 action(eventName, fn): 同等 $('xxx').off('event').on('event',function(){}), 避免重複綁定
+    .tip2 onClick(fn, [nameSpace]): $('xxx').off('click').on('click') 方便使用版, 滑鼠移到上面會自動轉成手指
+    .tip2 onPressEnter(fn, [nameSpace]): 按下 Enter 鍵後觸發的 fn, 綁定 keyup
+    .tip2 eachDom(cb):
+      a(href='https://api.jquery.com/each/', target='_blank') .each()
+      |  進階版, 直接賦予 dom 屬性
+    .subTitle4 參數
+    div
+      div cb: 呼叫之後觸發的 fn($dom, index)
+    .tip2 mapDom(cb):
+      a(href='http://api.jquery.com/jQuery.map/', target='_blank') $.map()
+      |  進階版, 直接賦予 dom 屬性, 並回傳 dom array
+    .subTitle4 參數
+    div
+      div cb: 呼叫之後觸發的 fn($dom, index)
+    .tip2 ifEmpty(): 判斷本身是否沒任何 html 內容
+    .tip2 getHtml(): 取得包含本身的 html code
