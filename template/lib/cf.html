@@ -10,6 +10,7 @@
     <div>$body: 同 $('body')</div>
     <div>isLocal: 是否為 localhost</div>
     <div>isLocalTest: 是否為 local test 模式(由 config 設定)</div>
+    <div>isProd: 用來判定目前所在的網址是否為 production</div>
     <div>isHttps: 當前網址是否為 https </div>
     <div>isPhone: 當前載具是否為手機 </div>
     <div>isTablet: 當前載具是否為平板 </div>
@@ -17,7 +18,16 @@
     <div>ieVersion: IE 版本, 瀏覽器不是 IE 時會是 null</div>
     <div>isBefIe8: 瀏覽器是否為 IE8 之前的版本 </div>
     <div>isBefIe9: 瀏覽器是否為 IE9 之前的版本  </div>
-    <div>nowUrl: 當前網頁的 url, 不包含 search, hash</div>
+    <div>nowUrlPath: 所在網址, 不包含 protocol, hash 和 search, e.g. 'carozozo.github.io/caro-front/'</div>
+    <div>nowUrl: 所在網址, 不包含 hash 和 search, e.g. 'https://carozozo.github.io/caro-front/'</div>
+  </div>
+</div>
+<div class="content">
+  <div class="title">設定檔</div>
+  <div>
+    <div>isLocalTest: 是否為 local 測試模式, 只在 local 有效</div>
+    <div>localUrlPath: 用來判定目前所在的網址是否為 local, 最後面加上*代表只要前面符合就成立</div>
+    <div>prodUrlPath: 用來判定目前所在的網址是否為 production, 最後面加上*代表只要前面符合就成立</div>
   </div>
 </div>
 <div class="content">

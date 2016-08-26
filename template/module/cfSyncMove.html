@@ -8,11 +8,11 @@
       <div class="btn2" id="startBtn">開始同步移動</div>
       <div class="btn2" id="stopBtn">停止同步移動</div>
     </div>
-    <div class="separator4"></div>
+    <div class="separator6"></div>
     <div id="block1">同步移動 x</div>
     <div id="block2">同步移動 x, y</div>
     <div id="block3">同步移動 y</div>
-    <div class="separator4"></div>
+    <div class="separator6"></div>
     <div id="infoBox"></div>
   </div>
 </div>
@@ -29,10 +29,10 @@
     <div>
       <div>baseX: x 基準坐標, 不是數字或 return 數字的 fn 則不同步移動 x, 預設為視窗寬度一半</div>
       <div>baseY: y 基準坐標, 不是數字或 return 數字的 fn 則不同步移動 y, 預設為視窗高度一半</div>
-      <div>proportionX: x 隨者滑鼠的移動比例, 預設 1</div>
-      <div>proportionY: y 隨者滑鼠的移動比例, 預設 1</div>
-      <div>rangeX: x 最大移動範圍, 預設 20</div>
-      <div>rangeY: y 最大移動範圍, 預設 20</div>
+      <div>proportionX: x 隨者滑鼠的移動比例, 預設 0.05</div>
+      <div>proportionY: y 隨者滑鼠的移動比例, 預設 0.05</div>
+      <div>rangeX: x 最大移動範圍, 未設置代表不限制</div>
+      <div>rangeY: y 最大移動範圍, 未設置代表不限制</div>
       <div>reverseX: x 移動方向是否和滑鼠方向相反, 預設 true</div>
       <div>reverseY: y 移動方向是否和滑鼠方向相反, 預設 true</div>
       <div>befMove: 移動之前的 cb(infoObj), 如果 return false 則不移動</div>
