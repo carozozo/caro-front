@@ -1,7 +1,4 @@
 .mainTitle dom
-//.content
-//  .title 示範
-//  div
 .content
   .title 簡介
   div
@@ -16,7 +13,16 @@
         | , 並賦予 dom 屬性
       div selector: 目標選擇器
       div cb: 呼叫之後觸發的 fn($self), $self 就是 DOM 本身
-
+      span.codeLink 程式範例
+      .codeTarget
+        .subTitle2 &lt;div id='#xx'&gt; &lt;div id='#yy'&gt;  &lt;/div&gt; &lt;/div&gt;
+        div
+          div var $xx = $('#xx').dom();
+          div var id = $xx.id();
+            span.tip3  // 'xx'
+          div var $yy = $xx.dom('#yy');
+          div var id = $yy.id();
+            span.tip3  // 'yy'
 .content
   .title 函式
   div
@@ -37,7 +43,7 @@
     .codeTarget
       .subTitle2 假設 $('#xx') 的 css top: 10px
       div
-        div $('#xx').getCssDistance('top');
+        div $('#xx').dom().getCssDistance('top');
           span.tip3  // 10
         div $('#xx').css('top');
           span.tip3  // '10px'
@@ -49,7 +55,7 @@
     .codeTarget
       .subTitle2 假設 $('#xx') 的 css width: 100%
       div
-        div $('#xx').getCssWidth();
+        div $('#xx').dom().getCssWidth();
           span.tip3  // '100%'
         div $('#xx').css('width');
           span.tip3  // '100px'
@@ -58,7 +64,7 @@
     .codeTarget
       .subTitle2 假設 $('#xx') 的 css height: 100%
       div
-        div $('#xx').getCssHeight();
+        div $('#xx').dom().getCssHeight();
           span.tip3  // '100%'
         div $('#xx').css('height');
           span.tip3  // '100px'
