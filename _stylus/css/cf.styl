@@ -1,20 +1,20 @@
-colorGray1 = #bdbdbd
-colorGray2 = darken(#bdbdbd, 30%)
-colorGray3 = darken(#bdbdbd, 60%)
-colorGreen1 = #8cbb2e
-colorGreen2 = darken(#8cbb2e, 30%)
-colorGreen3 = darken(#8cbb2e, 60%)
+colorGray1 = #b3b3b3
+colorGray2 = darken(#b3b3b3, 30%)
+colorGray3 = darken(#b3b3b3, 60%)
+colorGreen1 = #719725
+colorGreen2 = darken(#719725, 30%)
+colorGreen3 = darken(#719725, 60%)
 colorRed1 = #c72228
 colorRed2 = darken(#c72228, 30%)
 colorRed3 = darken(#c72228, 60%)
-colorBlue1 = #34bfc7
-colorBlue2 = darken(#33adc7, 30%)
-colorBlue3 = darken(#33adc7, 60%)
-colorYellow1 = #c7c738
-colorYellow2 = darken(#c7c738, 30%)
-colorYellow3 = darken(#c7c738, 60%)
-colorWhite = #e5e5e5
-colorDark = #1e1e1e
+colorBlue1 = #31b3bb
+colorBlue2 = darken(#31b3bb, 30%)
+colorBlue3 = darken(#31b3bb, 60%)
+colorYellow1 = #b8b834
+colorYellow2 = darken(#b8b834, 30%)
+colorYellow3 = darken(#b8b834, 60%)
+colorWhite = #e1e1e1
+colorDark = #252525
 
 .colorGray1
   color colorGray1
@@ -89,11 +89,11 @@ colorDark = #1e1e1e
   background-color colorDark
 
 body
-  @extend .bgDark
-  @extend .colorWhite
+  @extend .bgWhite
+  @extend .colorDark
   margin 0
   padding 0
-  font-size 18px
+  font-size 20px
   line-height 1.3em
   font-family "微軟正黑體", Arial, Helvetica, sans-serif
   min-width 640px
@@ -101,7 +101,6 @@ body
 a
   @extend .colorBlue1
   cursor pointer
-  text-shadow 0 0 5px rgba(104, 182, 255, 0.5)
   margin-left 5px
   margin-right 5px
   text-decoration underline
@@ -124,7 +123,7 @@ input[type='text']
   @extend .colorWhite
   cursor pointer
   display inline-block
-  background -webkit-linear-gradient(top, rgba(40, 40, 40, 0.5), rgba(35, 35, 35, 0.4) 50%, rgba(10, 10, 10, 0.4) 50%, rgba(0, 0, 0, 0.5))
+  background -webkit-linear-gradient(top, rgba(40, 40, 40, 0.8), rgba(35, 35, 35, 0.7) 50%, rgba(10, 10, 10, 0.7) 50%, rgba(0, 0, 0, 0.8))
   padding 2px 18px
   border-radius 10px
   font-weight bold
@@ -236,6 +235,7 @@ inputText(width)
   padding-left 50px
 
 .title
+  color: colorWhite
   margin-top 5px
   font-size 1.5em
   padding 5px 10px
@@ -243,19 +243,19 @@ inputText(width)
   border-radius 5px
 
 .title1
-  background -webkit-linear-gradient(45deg, colorGray3, colorGray1, rgba(255, 255, 255, 0) 95%)
+  background -webkit-linear-gradient(45deg, colorGray3, colorGray1)
 
 .title2
-  background -webkit-linear-gradient(45deg, colorGreen3, colorGreen1, rgba(255, 255, 255, 0) 95%)
+  background -webkit-linear-gradient(45deg, colorGreen3, colorGreen1)
 
 .title3
-  background -webkit-linear-gradient(45deg, colorRed3, colorRed1, rgba(255, 255, 255, 0) 95%)
+  background -webkit-linear-gradient(45deg, colorRed3, colorRed1)
 
 .title4
-  background -webkit-linear-gradient(45deg, colorBlue3, colorBlue1, rgba(255, 255, 255, 0) 95%)
+  background -webkit-linear-gradient(45deg, colorBlue3, colorBlue1)
 
 .title5
-  background -webkit-linear-gradient(45deg, colorYellow3, colorYellow1, rgba(255, 255, 255, 0) 95%)
+  background -webkit-linear-gradient(45deg, colorYellow3, colorYellow1)
 
 subTitle()
   color colorWhite
@@ -284,28 +284,28 @@ subTitle()
   subTitle()
 
 .tip1
-  @extend .colorGray1
+  @extend .colorGray2
   font-weight bolder
 
 .tip2
-  @extend .colorGreen1
+  @extend .colorGreen2
   font-weight bolder
 
 .tip3
-  @extend .colorRed1
+  @extend .colorRed2
   font-weight bolder
 
 .tip4
-  @extend .colorBlue1
+  @extend .colorBlue2
   font-weight bolder
 
 .tip5
-  @extend .colorYellow1
+  @extend .colorYellow2
   font-weight bolder
 
 .block
-  @extend .bgWhite
-  @extend .colorDark
+  @extend .bgDark
+  @extend .colorWhite
   margin 10px 0
   padding 10px
   width 90%

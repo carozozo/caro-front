@@ -1,64 +1,64 @@
-.colorGray1,
+.colorGray1 {
+  color: #b3b3b3;
+}
+.colorGray2,
 .tip1 {
-  color: #bdbdbd;
+  color: #7d7d7d;
 }
-.colorGray2 {
-  color: #848484;
+.colorGreen1 {
+  color: #719725;
 }
-.colorGreen1,
+.colorGreen2,
 .tip2 {
-  color: #8cbb2e;
+  color: #4f6a1a;
 }
-.colorGreen2 {
-  color: #628320;
-}
-.colorRed1,
-.tip3 {
+.colorRed1 {
   color: #c72228;
 }
-.colorRed2 {
+.colorRed2,
+.tip3 {
   color: #8b181c;
 }
 .colorBlue1,
 a,
-.link,
+.link {
+  color: #31b3bb;
+}
+.colorBlue2,
 .tip4 {
-  color: #34bfc7;
+  color: #227d83;
 }
-.colorBlue2 {
-  color: #24798b;
+.colorYellow1 {
+  color: #b8b834;
 }
-.colorYellow1,
+.colorYellow2,
 .tip5 {
-  color: #c7c738;
-}
-.colorYellow2 {
-  color: #8b8b27;
+  color: #818124;
 }
 .colorWhite,
-body,
 .btn,
-.btn2 {
-  color: #e5e5e5;
-}
-.colorDark,
+.btn2,
 .block,
 .inlineBlock {
-  color: #1e1e1e;
+  color: #e1e1e1;
+}
+.colorDark,
+body {
+  color: #252525;
 }
 .bgGray1,
 .subTitle1 {
-  background-color: #848484;
+  background-color: #7d7d7d;
 }
 .bgGray2 {
-  background-color: #4c4c4c;
+  background-color: #484848;
 }
 .bgGreen1,
 .subTitle2 {
-  background-color: #628320;
+  background-color: #4f6a1a;
 }
 .bgGreen2 {
-  background-color: #384b12;
+  background-color: #2d3c0f;
 }
 .bgRed1,
 .subTitle3 {
@@ -69,31 +69,31 @@ body,
 }
 .bgBlue1,
 .subTitle4 {
-  background-color: #24798b;
+  background-color: #227d83;
 }
 .bgBlue2 {
-  background-color: #144550;
+  background-color: #14484b;
 }
 .bgYellow1,
 .subTitle5 {
-  background-color: #8b8b27;
+  background-color: #818124;
 }
 .bgYellow2 {
-  background-color: #505016;
+  background-color: #4a4a15;
 }
 .bgWhite,
-.block,
-.inlineBlock {
-  background-color: #e5e5e5;
+body {
+  background-color: #e1e1e1;
 }
 .bgDark,
-body {
-  background-color: #1e1e1e;
+.block,
+.inlineBlock {
+  background-color: #252525;
 }
 body {
   margin: 0;
   padding: 0;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.3em;
   font-family: "微軟正黑體", Arial, Helvetica, sans-serif;
   min-width: 640px;
@@ -101,7 +101,6 @@ body {
 a,
 .link {
   cursor: pointer;
-  text-shadow: 0 0 5px rgba(104,182,255,0.5);
   margin-left: 5px;
   margin-right: 5px;
   text-decoration: underline;
@@ -123,7 +122,7 @@ input[type='text'] {
 .btn {
   cursor: pointer;
   display: inline-block;
-  background: -webkit-linear-gradient(top, rgba(40,40,40,0.5), rgba(35,35,35,0.4) 50%, rgba(10,10,10,0.4) 50%, rgba(0,0,0,0.5));
+  background: -webkit-linear-gradient(top, rgba(40,40,40,0.8), rgba(35,35,35,0.7) 50%, rgba(10,10,10,0.7) 50%, rgba(0,0,0,0.8));
   padding: 2px 18px;
   border-radius: 10px;
   font-weight: bold;
@@ -199,7 +198,7 @@ input[type='text'] {
   overflow: hidden;
   font-size: 2em;
   line-height: 1.5em;
-  border-bottom: solid #e5e5e5;
+  border-bottom: solid #e1e1e1;
   z-index: 100;
   padding-left: 10px;
   height: 57px;
@@ -246,6 +245,7 @@ input[type='text'] {
   padding-left: 50px;
 }
 .title {
+  color: #e1e1e1;
   margin-top: 5px;
   font-size: 1.5em;
   padding: 5px 10px;
@@ -253,46 +253,46 @@ input[type='text'] {
   border-radius: 5px;
 }
 .title1 {
-  background: -webkit-linear-gradient(45deg, #4c4c4c, #bdbdbd, rgba(255,255,255,0) 95%);
+  background: -webkit-linear-gradient(45deg, #484848, #b3b3b3);
 }
 .title2 {
-  background: -webkit-linear-gradient(45deg, #384b12, #8cbb2e, rgba(255,255,255,0) 95%);
+  background: -webkit-linear-gradient(45deg, #2d3c0f, #719725);
 }
 .title3 {
-  background: -webkit-linear-gradient(45deg, #500e10, #c72228, rgba(255,255,255,0) 95%);
+  background: -webkit-linear-gradient(45deg, #500e10, #c72228);
 }
 .title4 {
-  background: -webkit-linear-gradient(45deg, #144550, #34bfc7, rgba(255,255,255,0) 95%);
+  background: -webkit-linear-gradient(45deg, #14484b, #31b3bb);
 }
 .title5 {
-  background: -webkit-linear-gradient(45deg, #505016, #c7c738, rgba(255,255,255,0) 95%);
+  background: -webkit-linear-gradient(45deg, #4a4a15, #b8b834);
 }
 .subTitle1 {
-  color: #e5e5e5;
+  color: #e1e1e1;
   margin: 20px 0 10px;
   padding: 5px 10px;
   line-height: 2em;
 }
 .subTitle2 {
-  color: #e5e5e5;
+  color: #e1e1e1;
   margin: 20px 0 10px;
   padding: 5px 10px;
   line-height: 2em;
 }
 .subTitle3 {
-  color: #e5e5e5;
+  color: #e1e1e1;
   margin: 20px 0 10px;
   padding: 5px 10px;
   line-height: 2em;
 }
 .subTitle4 {
-  color: #e5e5e5;
+  color: #e1e1e1;
   margin: 20px 0 10px;
   padding: 5px 10px;
   line-height: 2em;
 }
 .subTitle5 {
-  color: #e5e5e5;
+  color: #e1e1e1;
   margin: 20px 0 10px;
   padding: 5px 10px;
   line-height: 2em;
