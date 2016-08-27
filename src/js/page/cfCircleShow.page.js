@@ -2,6 +2,7 @@ cf.router.regPage('module/cfCircleShow', function(cf, $page) {
   var $circleDom, $currentIndex, $demo1, bgColorArr;
   bgColorArr = cf.data('bgColorArr');
   $demo1 = $page.dom('#demo1').css({
+    position: 'relative',
     'margin-top': 20,
     'margin-left': 20,
     height: 180

@@ -1,7 +1,7 @@
 
 /* 一般的 ctrl */
 cf.regCtrl('commonPage', function() {
-  var $, $codeTargetArr, $mainTitle, $self, $title, cf, subTitleClassArr, tl, tl1;
+  var $, $codeTargetArr, $mainTitle, $self, $titles, cf, directionOpt, directionOptArr, distance, subTitleClassArr, titleOpt, tl, tl1;
   $self = this;
   cf = $self.cf;
   $ = cf.require('$');
@@ -31,31 +31,47 @@ cf.regCtrl('commonPage', function() {
       $codeTargetArr[i].showModal();
     });
   });
-  $title = $self.dom('.title').eachDom((function($title, i) {
-    var $subContents, colorIndex;
-    $title.next('div').addClass('subContent');
-    $subContents = $title.parents('.content').find('.subContent').hide();
+  $titles = $self.dom('.title').eachDom(function($title, i) {
+    var $subContent, colorIndex;
+    $subContent = $title.next('div').addClass('subContent').css({
+      position: 'relative'
+    }).hide();
     colorIndex = i % 5 + 1;
     $title.aClass('title' + colorIndex).onClick(function() {
-      $subContents.slideToggle();
+      $subContent.slideToggle();
     });
-  }));
+  });
+  distance = 30;
+  directionOptArr = [
+    {
+      x: -distance
+    }, {
+      x: distance
+    }, {
+      y: -distance
+    }, {
+      y: distance
+    }
+  ];
+  directionOpt = caro.randomPick(directionOptArr);
+  titleOpt = {
+    opacity: 0,
+    rotationX: 90,
+    transformPerspective: 600
+  };
+  titleOpt = caro.assign(titleOpt, directionOpt);
   tl1 = new tl();
   tl1.from($mainTitle, .7, {
-    opacity: 0,
-    x: -50,
-    width: 0,
-    onComplete: function() {
-      $mainTitle.css({
-        width: '100%'
-      });
-    }
-  }).staggerFrom($title, .3, {
-    y: -20,
-    opacity: 0
-  }, .2, '-=0.3', function() {
+    width: 300,
+    delay: .5
+  }).staggerFromTo($titles, .3, titleOpt, {
+    x: 0,
+    y: 0,
+    opacity: 1,
+    rotationX: 0
+  }, .2, '-=0.5', function() {
     if (cf.router.pageName !== 'index') {
-      return $('.subContent').slideDown();
+      $('.subContent').slideDown();
     }
   });
   return $self;

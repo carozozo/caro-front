@@ -188,7 +188,7 @@ inputText(width)
   overflow hidden
   font-size 2em
   line-height 1.5em
-  border-bottom solid colorWhite
+  border-bottom solid colorDark
   z-index 100
   padding-left 10px
   height 57px
@@ -243,19 +243,19 @@ inputText(width)
   border-radius 5px
 
 .title1
-  background -webkit-linear-gradient(45deg, colorGray3, colorGray1)
+  @extend .bgGray2
 
 .title2
-  background -webkit-linear-gradient(45deg, colorGreen3, colorGreen1)
+  @extend .bgGreen2
 
 .title3
-  background -webkit-linear-gradient(45deg, colorRed3, colorRed1)
+  @extend .bgRed2
 
 .title4
-  background -webkit-linear-gradient(45deg, colorBlue3, colorBlue1)
+  @extend .bgBlue2
 
 .title5
-  background -webkit-linear-gradient(45deg, colorYellow3, colorYellow1)
+  @extend .bgYellow2
 
 subTitle()
   color colorWhite

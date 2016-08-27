@@ -11,15 +11,20 @@
   font-weight: bolder;
   z-index: 9999;
 }
+.menuBtnOuter:hover,
+#libBtnOuter:hover,
+#moduleBtnOuter:hover {
+  color: #7f7f7f;
+}
 #libBtnOuter {
   top: 130px;
   background: #8b181c;
-  border-color: #b5b5b5;
+  border-color: #7f7f7f;
 }
 #moduleBtnOuter {
   top: 290px;
   background: #227d83;
-  border-color: #b5b5b5;
+  border-color: #7f7f7f;
 }
 .menuBtn,
 #libBtn,

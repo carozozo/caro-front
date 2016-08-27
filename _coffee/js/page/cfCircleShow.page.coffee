@@ -1,7 +1,7 @@
 cf.router.regPage 'module/cfCircleShow', (cf, $page) ->
   bgColorArr = cf.data('bgColorArr')
   $demo1 = $page.dom('#demo1').css(
-#    position: 'absolute'
+    position: 'relative'
     'margin-top': 20
     'margin-left': 20
     height: 180

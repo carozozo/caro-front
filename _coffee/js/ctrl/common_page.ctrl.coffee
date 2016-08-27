@@ -37,29 +37,38 @@ cf.regCtrl 'commonPage', ->
     return
   )
 
-  $title = $self.dom('.title').eachDom (($title, i) ->
-    $title.next('div').addClass('subContent')
-    $subContents = $title.parents('.content').find('.subContent').hide()
+  $titles = $self.dom('.title').eachDom(($title, i) ->
+    $subContent = $title.next('div').addClass('subContent').css(
+      position: 'relative'
+    ).hide()
     colorIndex = i % 5 + 1
     $title.aClass('title' + colorIndex).onClick(->
-      $subContents.slideToggle()
+      $subContent.slideToggle()
       return
     )
     return
   )
 
+  distance = 30
+  directionOptArr = [{x: -distance}, {x: distance}, {y: -distance}, {y: distance}]
+  directionOpt = caro.randomPick(directionOptArr)
+  titleOpt =
+    opacity: 0
+    rotationX: 90
+    transformPerspective: 600
+  titleOpt = caro.assign(titleOpt, directionOpt)
   tl1 = new tl()
   tl1.from($mainTitle, .7,
-    opacity: 0
-    x: -50
-    width: 0
-    onComplete: ->
-      $mainTitle.css(width: '100%')
-      return
-  ).staggerFrom($title, .3,
-    y: -20
-    opacity: 0
-  , .2, '-=0.3', -> $('.subContent').slideDown() unless cf.router.pageName is 'index'
+    width: 300
+    delay: .5
+  ).staggerFromTo($titles, .3, titleOpt, {
+    x: 0
+    y: 0
+    opacity: 1
+    rotationX: 0
+  }, .2, '-=0.5', ->
+    $('.subContent').slideDown() unless cf.router.pageName is 'index'
+    return
   )
 
   $self

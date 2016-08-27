@@ -50,35 +50,40 @@ body {
 .subTitle1 {
   background-color: #7d7d7d;
 }
-.bgGray2 {
+.bgGray2,
+.title1 {
   background-color: #484848;
 }
 .bgGreen1,
 .subTitle2 {
   background-color: #4f6a1a;
 }
-.bgGreen2 {
+.bgGreen2,
+.title2 {
   background-color: #2d3c0f;
 }
 .bgRed1,
 .subTitle3 {
   background-color: #8b181c;
 }
-.bgRed2 {
+.bgRed2,
+.title3 {
   background-color: #500e10;
 }
 .bgBlue1,
 .subTitle4 {
   background-color: #227d83;
 }
-.bgBlue2 {
+.bgBlue2,
+.title4 {
   background-color: #14484b;
 }
 .bgYellow1,
 .subTitle5 {
   background-color: #818124;
 }
-.bgYellow2 {
+.bgYellow2,
+.title5 {
   background-color: #4a4a15;
 }
 .bgWhite,
@@ -198,7 +203,7 @@ input[type='text'] {
   overflow: hidden;
   font-size: 2em;
   line-height: 1.5em;
-  border-bottom: solid #e1e1e1;
+  border-bottom: solid #252525;
   z-index: 100;
   padding-left: 10px;
   height: 57px;
@@ -251,21 +256,6 @@ input[type='text'] {
   padding: 5px 10px;
   line-height: 1.2em;
   border-radius: 5px;
-}
-.title1 {
-  background: -webkit-linear-gradient(45deg, #484848, #b3b3b3);
-}
-.title2 {
-  background: -webkit-linear-gradient(45deg, #2d3c0f, #719725);
-}
-.title3 {
-  background: -webkit-linear-gradient(45deg, #500e10, #c72228);
-}
-.title4 {
-  background: -webkit-linear-gradient(45deg, #14484b, #31b3bb);
-}
-.title5 {
-  background: -webkit-linear-gradient(45deg, #4a4a15, #b8b834);
 }
 .subTitle1 {
   color: #e1e1e1;
