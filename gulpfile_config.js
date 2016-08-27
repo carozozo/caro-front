@@ -36,6 +36,7 @@ module.exports = (function () {
     'compatibility/json3.min.js',
     'compatibility/es6-shim.min.js',
     'compatibility/es6-sham.min.js',
+    'compatibility/**/*.*',
     'compatibility/html5.js',
     'plugin/jquery.js',
     'plugin/lodash.js',
@@ -43,10 +44,7 @@ module.exports = (function () {
     'js/cf.js',
     'js/cf_config.js',
     'js/lib/*.*',
-    'js/serv/*.*',
-    'js/module/*.*',
-    'js/ctrl/*.*',
-    'js/page/*.*'
+    'js/module/*.*'
   ];
   // 要排除自動掃描並加到 tag 的 js/css 檔案
   config.injectExcludeArr = [];

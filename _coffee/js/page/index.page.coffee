@@ -5,7 +5,7 @@ cf.router.regPage 'index', (cf, $page) ->
 
   $page
 
-cf.regDocReady (cf)->
+cf.regDocReady((cf)->
   bgColorArr = [
     '#464646'
     '#354712'
@@ -24,3 +24,4 @@ cf.regDocReady (cf)->
   cf.data('titleSrcArr', titleSrcArr)
   cf.data('bgColorArr', bgColorArr)
   return
+)

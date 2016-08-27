@@ -143,12 +143,15 @@
   };
   // 寫入 <script>, <link> 到指定的檔案
   var doInject = function (source, name) {
-    return inject(gulp.src(source, {read: false}), {
+    var opt = {
       name: name,
       empty: true,
-      relative: true,
-      addSuffix: '?_=' + caro.random(5, {upper: false})
-    })
+      relative: true
+    };
+    if (!isDev) {
+      opt.addSuffix = '?_=' + caro.random(5, {upper: false});
+    }
+    return inject(gulp.src(source, {read: false}), opt)
   };
   // 依照 dev 或 prod 模式執行 inject
   var injectFile = function (fileName, type) {
@@ -348,12 +351,13 @@
       startHttpServ();
       if (_isUsePug) {
         watch(allPugFiles, function (f) {
-          // 相對路徑
-          var relative = f.relative;
+          var event = f.event;
+          var relative = f.relative; // 相對路徑
           var relativeInSrc = relative.replace('.pug', '.html');
-          // 如果該 pug 被移除 or 更名, 則移除對應的 html
-          if (f.isNull()) {
+          if (event === 'unlink') {
+            // 如果該 pug 被移除 or 更名, 則移除對應的 html
             del.sync(srcDir + '/' + relativeInSrc);
+            return;
           }
           compilePug(_pugDir + '/' + relative, function () {
             if (_injectFileArr.indexOf(relativeInSrc) > -1) {
@@ -364,32 +368,41 @@
       }
       if (_isUseCoffee) {
         watch(allCoffeeFiles, function (f) {
-          // 相對路徑
-          var relative = f.relative;
-          var relativeInSrc = relative.replace('.coffee', '.js');
-          // 如果該 coffee 被移除 or 更名, 則移除對應的 js
-          if (f.isNull()) {
+          var event = f.event;
+          var relative = f.relative; // 相對路徑
+          if (event === 'unlink') {
+            // 如果該 coffee 被移除 or 更名, 則移除對應的 js
+            var relativeInSrc = relative.replace('.coffee', '.js');
             del.sync(srcDir + '/' + relativeInSrc);
+            return;
           }
           compileCoffee(_coffeeDir + '/' + relative);
         });
       }
       if (_isUseStylus) {
         watch(allStylusFiles, function (f) {
-          var relative = f.relative;
-          var relativeInSrc = relative.replace('.styl', '.css');
-          // 如果該 stylus 被移除 or 更名, 則移除對應的 css
-          if (f.isNull()) {
+          var event = f.event;
+          var relative = f.relative; // 相對路徑
+          if (event === 'unlink') {
+            // 如果該 stylus 被移除 or 更名, 則移除對應的 css
+            var relativeInSrc = relative.replace('.styl', '.css');
             del.sync(srcDir + '/' + relativeInSrc);
+            return
           }
           compileStylus(_stylusDir + '/' + relative);
         });
       }
-      watch(allSrcJsFiles, function () {
-        injectFiles('js');
+      watch(allSrcJsFiles, function (f) {
+        var event = f.event;
+        if (event === 'add' || event === 'unlink') {
+          injectFiles('js');
+        }
       });
-      watch(allSrcCssFiles, function () {
-        injectFiles('css');
+      watch(allSrcCssFiles, function (f) {
+        var event = f.event;
+        if (event === 'add' || event === 'unlink') {
+          injectFiles('css');
+        }
       });
     });
   });
