@@ -48,7 +48,7 @@ cf.regCtrl 'menu', ->
     $items = if type is 'lib' then $libMenuItems else $moduleMenuItems
     count = 0
     caro.forEach($items, ($item)->
-      delay = Math.random() / 2
+      delay = Math.random() * .3
       tm.to($item, .3,
         y: cf.$window.height()
         delay: delay
@@ -62,9 +62,9 @@ cf.regCtrl 'menu', ->
 
   setMenuItem = ($item, type) ->
     $item.on('mouseover', ->
-      roataionArr = [10, -10, 5, -5]
+      roataionArr = [5, -5, 3, -3]
       rotation = caro.randomPick(roataionArr)
-      transformOrigin = if rotation > 0 then '10% 10%' else '90% 10%'
+      transformOrigin = if rotation > 0 then '20% 20%' else '80% 20%'
       tm.to($item, .3,
         rotation: rotation
         transformOrigin: transformOrigin

@@ -64,7 +64,7 @@ cf.regCtrl('menu', function() {
     count = 0;
     caro.forEach($items, function($item) {
       var delay;
-      delay = Math.random() / 2;
+      delay = Math.random() * .3;
       tm.to($item, .3, {
         y: cf.$window.height(),
         delay: delay,
@@ -79,9 +79,9 @@ cf.regCtrl('menu', function() {
   setMenuItem = function($item, type) {
     $item.on('mouseover', function() {
       var roataionArr, rotation, transformOrigin;
-      roataionArr = [10, -10, 5, -5];
+      roataionArr = [5, -5, 3, -3];
       rotation = caro.randomPick(roataionArr);
-      transformOrigin = rotation > 0 ? '10% 10%' : '90% 10%';
+      transformOrigin = rotation > 0 ? '20% 20%' : '80% 20%';
       return tm.to($item, .3, {
         rotation: rotation,
         transformOrigin: transformOrigin
