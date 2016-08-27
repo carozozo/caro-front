@@ -40,18 +40,12 @@
   var _isUseStylus = config.isUseStylus;
   var _jsName = config.jsName || 'caro-front';
   var _cssName = config.cssName || 'caro-front';
-  var _isRandomName = config.isRandomName;
   var _isUseMaps = config.isUseMaps;
   var _injectFileArr = config.injectFileArr;
   var _injectHeadArr = config.injectHeadArr;
   var _injectExcludeArr = config.injectExcludeArr;
   var _isUseInject = config.isUseInject;
 
-  if (_isRandomName) {
-    var rand = caro.random(3, {upper: false});
-    _jsName += '.' + rand;
-    _cssName += '.' + rand;
-  }
   _jsName = caro.addTail(_jsName, '.js');
   _cssName = caro.addTail(_cssName, '.css');
 
@@ -152,7 +146,8 @@
     return inject(gulp.src(source, {read: false}), {
       name: name,
       empty: true,
-      relative: true
+      relative: true,
+      addSuffix: '?_=' + caro.random(5, {upper: false})
     })
   };
   // 依照 dev 或 prod 模式執行 inject

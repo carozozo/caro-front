@@ -22,8 +22,6 @@ module.exports = (function () {
   config.jsName = 'caro-front';
   // 執行 gulp prod / gulp buildProd 後, 壓縮之後的 css 檔名
   config.cssName = 'caro-front';
-  // 執行 gulp prod / gulp buildProd 後, 壓縮之後的 js, css 檔名是否要加隨機碼
-  config.isRandomName = true;
   // 執行 gulp prod / gulp buildProd 時, 是否加上 sourcemaps
   config.isUseMaps = false;
 
