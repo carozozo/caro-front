@@ -142,13 +142,13 @@
     cb && cb();
   };
   // 寫入 <script>, <link> 到指定的檔案
-  var doInject = function (source, name) {
+  var doInject = function (source, name, isRandom) {
     var opt = {
       name: name,
       empty: true,
       relative: true
     };
-    if (!isDev) {
+    if (isRandom) {
       opt.addSuffix = '?_=' + caro.random(5, {upper: false});
     }
     return inject(gulp.src(source, {read: false}), opt)
@@ -185,11 +185,11 @@
       var jsPath = distDir + '/' + _jsName;
       var cssPath = distDir + '/' + _cssName;
       gulp.src(distFile, {base: distDir})
-        .pipe(doInject([], 'headJs'))
-        .pipe(doInject([], 'headCss'))
-        .pipe(doInject([], 'otherJs'))
-        .pipe(doInject([], 'otherCss'))
-        .pipe(doInject([jsPath, cssPath], 'app'))
+        .pipe(doInject([], 'headJs', true))
+        .pipe(doInject([], 'headCss', true))
+        .pipe(doInject([], 'otherJs', true))
+        .pipe(doInject([], 'otherCss', true))
+        .pipe(doInject([jsPath, cssPath], 'app', true))
         .pipe(gulp.dest(distDir));
     }
   };
