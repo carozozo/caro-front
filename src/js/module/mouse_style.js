@@ -3,7 +3,7 @@
 客製化滑鼠樣式
  */
 cf.regModule('cfMouseStyle', function($mouse, opt) {
-  var $self, _delay, _triggerName, cf, tm;
+  var $self, _delay, _triggerName, cf, checkIfRelative, tm;
   if (opt == null) {
     opt = {};
   }
@@ -20,13 +20,32 @@ cf.regModule('cfMouseStyle', function($mouse, opt) {
     position: 'absolute',
     'pointer-events': 'none'
   });
+  checkIfRelative = function() {
+    var gotRelative;
+    gotRelative = false;
+    $self.parents().each(function(i, ele) {
+      var $dom, position;
+      $dom = $(ele);
+      position = $dom.css('position');
+      if (position === 'relative') {
+        return gotRelative = $dom;
+      }
+    });
+    return gotRelative;
+  };
   $self.off(_triggerName).on(_triggerName, function(e) {
-    var pageX, pageY;
-    pageX = e.pageX;
-    pageY = e.pageY;
+    var $domWithRelative, left, offset, top;
+    $domWithRelative = checkIfRelative();
+    left = e.pageX;
+    top = e.pageY;
+    if ($domWithRelative) {
+      offset = $domWithRelative.offset();
+      left = left - offset.left;
+      top = top - offset.top;
+    }
     return tm.to($mouse, _delay, {
-      left: pageX,
-      top: pageY
+      left: left,
+      top: top
     });
   }).css({
     cursor: 'none'
