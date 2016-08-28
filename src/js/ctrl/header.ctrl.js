@@ -41,5 +41,5 @@ cf.regDocReady(function(cf) {
   var $;
   cf.router.blockGoPage();
   $ = cf.require('$');
-  $('header').header();
+  $('#header').header();
 });

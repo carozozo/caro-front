@@ -41,5 +41,5 @@ cf.regCtrl 'header', ->
 cf.regDocReady (cf) ->
   cf.router.blockGoPage()
   $ = cf.require('$')
-  $('header').header()
+  $('#header').header()
   return
