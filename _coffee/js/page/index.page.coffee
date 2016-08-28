@@ -7,11 +7,11 @@ cf.router.regPage 'index', (cf, $page) ->
 
 cf.regDocReady((cf)->
   bgColorArr = [
-    '#464646'
-    '#354712'
-    '#460c0f'
-    '#123f49'
-    '#3b3b00'
+    '#7d7d7d'
+    '#4f6a1a'
+    '#8b181c'
+    '#227d83'
+    '#818124'
   ]
   titleSrcArr = [
     'images/cf_title1.png'

@@ -19,6 +19,10 @@ cf.router.regPage 'module/cfCircleShow', (cf, $page) ->
     radios: 120
     degreeTop: 20
     minScale: .8
+    cb: ($target, i)->
+      console.log i
+      $currentIndex.html(i)
+      return
   )
 
   $page.dom('#nextBtn').onClick(->
@@ -43,10 +47,6 @@ cf.router.regPage 'module/cfCircleShow', (cf, $page) ->
   )
   $page.dom('#stopPlayBtn').onClick(->
     $demo1.stopPlay()
-    return
-  )
-  $page.dom('#getCurrentIndexBtn').onClick(->
-    $currentIndex.html($demo1.getCurrentIndex())
     return
   )
 

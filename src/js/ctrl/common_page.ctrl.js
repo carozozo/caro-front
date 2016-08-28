@@ -20,7 +20,7 @@ cf.regCtrl('commonPage', function() {
     });
   });
   $codeTargetArr = $self.dom('.codeTarget').mapDom(function($codeTarget) {
-    $codeTarget.addClass('block').cfModal();
+    $codeTarget.addClass('block1').cfModal();
   });
   $self.dom('.codeLink').eachDom(function($link, i) {
     var $span, html;

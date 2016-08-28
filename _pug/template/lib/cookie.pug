@@ -7,21 +7,21 @@
   .title 函式
   div
     div
-      .tip2 setCookie(cookieName, val, opt = {}): 設置 cookie
+      .tip2 setCookie(cookieName, val, [opt = {}]): 設置 cookie
       .subTitle1 opt 參數
       div
         div exdays: 有效天數
         div path: 路徑
         div domain: 網域
-      .block
+      .block2
         | 請輸入 cookie name:
         input#setCookieName.input60(type='text', value='user')
         |  請輸入 cookie val:
         input#setCookieVal.input60(type='text', value='caro')
-        #setCookieBtn.btn2 設置
+        #setCookieBtn.btn1 設置
     div
       .tip2 getCookie(cookieName): 取得 cookie
-      .block
+      .block2
         | 請輸入 cookie name:
         input#getCookieName.input60(type='text', width='60')
-        #getCookieBtn.btn2 取得
+        #getCookieBtn.btn1 取得

@@ -14,14 +14,18 @@ cf.regCtrl 'menu', ->
       delay = i * .05
       animateObj =
         opacity: 0
-        ease: Back.easeOut.config(1)
-        delay: delay
       animateObj = caro.assign(animateObj, direction)
       color = caro.randomPick(bgColorArr)
       $item.css(
         background: color
       )
-      tm.from($item, .3, animateObj)
+      tm.fromTo($item, .3, animateObj,
+        opacity: 1
+        x: 0
+        y: 0
+        ease: Back.easeOut.config(1)
+        delay: delay
+      )
     )
     return
 
@@ -46,18 +50,16 @@ cf.regCtrl 'menu', ->
 
   dropAllItems = (type, cb) ->
     $items = if type is 'lib' then $libMenuItems else $moduleMenuItems
-    count = 0
     caro.forEach($items, ($item)->
       delay = Math.random() * .3
       tm.to($item, .3,
+        opacity: 0
         y: cf.$window.height()
         delay: delay
-        onComplete: ->
-          cb() if(++count is $items.length)
-          return
       )
       return
     )
+    setTimeout(cb, 500)
     return
 
   setMenuItem = ($item, type) ->
@@ -89,8 +91,8 @@ cf.regCtrl 'menu', ->
   $moduleBtnOuter = $menuBtnBox.dom('#moduleBtnOuter')
   $libBtn = $menuBtnBox.dom('#libBtn')
   $moduleBtn = $menuBtnBox.dom('#moduleBtn')
-  $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal(  )
-  $moduleMenuItemBox = $self.dom('#moduleMenuItemBox').cfModal(  )
+  $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal()
+  $moduleMenuItemBox = $self.dom('#moduleMenuItemBox').cfModal()
 
   $libMenuItems = $libMenuItemBox.dom('.menuItem').mapDom(($item) ->
     setMenuItem($item, 'lib')

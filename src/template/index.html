@@ -33,38 +33,38 @@
 </div>
 <div class="content">
   <div class="title">內容介紹</div>
-  <div> 
+  <div>
     <div class="subTitle1">特色</div>
-    <div> 
+    <div>
       <div class="subTitle2">以 jQuery 作為基礎</div>
-      <div> 
+      <div>
         <div>客製並優化功能, 作為開發基礎</div>
       </div>
       <div class="subTitle2">動態 config</div>
-      <div> 
+      <div>
         <div>可根據不同的 url (例如 localhost, develop, production)載入相對應的設定, 減少開發複雜度</div>
       </div>
     </div>
     <div class="subTitle1">需要的基本函式庫</div>
-    <div> 
-      <div> <a class="link" href="https://github.com/carozozo/caro" target="_blank">caro.js </a>: 依附於 lodash 的擴充函式庫</div>
-      <div> <a class="link" href="https://jquery.com/" target="_blank">jQuery</a>: 提供 Browser 基本及應用函式庫</div>
-      <div> <a class="link" href="https://lodash.com/" target="_blank">lodash</a>: 提供基本及應用函式庫</div>
-      <div> <a class="link" href="http://hgoebl.github.io/mobile-detect.js/" target="_blank">mobile-detect</a>: 判斷載具函式庫, 應用於 RWC 及相容性處理</div>
+    <div>
+      <div><a class="link" href="https://github.com/carozozo/caro" target="_blank">caro.js </a>: 依附於 lodash 的擴充函式庫</div>
+      <div><a class="link" href="https://jquery.com/" target="_blank">jQuery</a>: 提供 Browser 基本及應用函式庫</div>
+      <div><a class="link" href="https://lodash.com/" target="_blank">lodash</a>: 提供基本及應用函式庫</div>
+      <div><a class="link" href="http://hgoebl.github.io/mobile-detect.js/" target="_blank">mobile-detect</a>: 判斷載具函式庫, 應用於 RWC 及相容性處理</div>
     </div>
     <div class="subTitle1">主要檔案介紹</div>
-    <div> 
+    <div>
       <div>src/cf.js: cf 主函式</div>
       <div>src/cf_config.js: 設定檔, 視使用情形修改  </div>
     </div>
     <div class="subTitle1">工作分配</div>
-    <div> 
+    <div>
       <div>Lib / Serv 負責提供函式庫, 處理程式及資料邏輯</div>
       <div>Module / Ctrl 負責 UI 單位元件</div>
       <div>Page 負責頁面功能及動態整合</div>
     </div>
     <div class="subTitle1">資料夾基本介紹</div>
-    <div> 
+    <div>
       <div>compatibility: 瀏覽器相容性 程式,<span class="tip3">如不考慮相容性可直接移除</span></div>
       <div>plugin: 外部函式庫及外掛程式</div>
     </div>
@@ -77,20 +77,20 @@
       <div>serv: 頁面函式庫</div>
     </div>
     <div class="subTitle1">lib / serv 函式庫介紹</div>
-    <div> 
+    <div>
       <div>差別只在於作用域不同 , 可依照使用者需求自行定義</div>
       <div>lib 適用所有專案, serv 為專案邏輯處理</div>
     </div>
     <div class="subTitle1">module / ctrl 模組介紹</div>
-    <div> 
-      <div> 用法類似 jQuery plugin , 可依照使用者需求自行定義</div>
-      <div> module 適用所有專案, ctrl 為專案客製化功能 </div>
+    <div>
+      <div> 用法類似 jQuery plugin , 可依照使用者需求自行定義</div>
+      <div> module 適用所有專案, ctrl 為專案客製化功能 </div>
     </div>
   </div>
 </div>
 <div class="content">
   <div class="title">lib 列表</div>
-  <div> 
+  <div>
     <div>cf.ajax : $.ajax 延伸並簡化 success function; 可設定測試模式, 用來模擬 api response</div>
     <div>cf.alert : 用 popup 模擬 alert 的功能, 避免 browser 禁用 alert</div>
     <div>cf.cookie : 設置和讀取 cookie</div>
@@ -103,7 +103,7 @@
 </div>
 <div class="content">
   <div class="title">module 列表</div>
-  <div> 
+  <div>
     <div>cfAddrDropdown : 台灣地址下拉選單, 可設置是否包含離島</div>
     <div>cfCircleShow : DOM 圓盤輪播效果</div>
     <div>cfDateDropdown : 自動化日期下拉選單, 日期下拉選單的值會依照所選的年和月改變</div>
@@ -126,9 +126,9 @@
 </div>
 <div class="content">
   <div class="title">自動化開發管理</div>
-  <div> 
+  <div>
     <div class="subTitle1">說明</div>
-    <div> 
+    <div>
       <div>運用 gulp 自動掃描檔案並部署網站</div>
       <div>運用 bower 控管外掛</div>
       <div class="tip3">如無此需求可將相關檔案移除, 只使用 src 底下的檔案也可進行網站製作</div>
@@ -159,11 +159,19 @@
         <div class="tip3">如不使用 gulp-inject 請將 config.isUseInject 設為 false</div>
       </div>
     </div>
+    <div class="subTitle1">資料夾介紹</div>
+    <div>
+      <div>/src: 網站 source code, 同時也是 gulp 啟動 server 的根目錄</div>
+      <div>/dist: 壓縮過後的 source code, 同時也是 gulp prod 啟動 server 的根目錄</div>
+      <div>/_pug: pug 檔案</div>
+      <div>/_coffee: coffee 檔案</div>
+      <div>/_stylys: styl 檔案</div>
+    </div>
     <div class="subTitle1">關於 gulpfile_config.js</div>
-    <div> 
+    <div>
       <div>gulpfile.js 專用設定檔</div>
       <div class="subTitle2">項目</div>
-      <div> 
+      <div>
         <div>imgDir: 在 src 底下放圖片的資料夾</div>
         <div>pugDir: 放 hug 的資料夾, 編譯後的 html 會放置在 /src 的相對路徑底下</div>
         <div>coffeeDir: 放 coffee 的資料夾, 編譯後的 js 會放置在 /src 的相對路徑底下</div>
@@ -181,26 +189,26 @@
       </div>
     </div>
     <div class="subTitle1">工具</div>
-    <div> 
-      <div> <a class="link" href="https://www.npmjs.com/" target="_blank">npm</a>: Node.js Package 管理</div>
-      <div> <a class="link" href="http://gulpjs.com/" target="_blank">gulp</a>: 專案開發管理</div>
-      <div> <a class="link" href="https://bower.io/" target="_blank">bower</a>: 前端外掛管理</div>
+    <div>
+      <div><a class="link" href="https://www.npmjs.com/" target="_blank">npm</a>: Node.js Package 管理</div>
+      <div><a class="link" href="http://gulpjs.com/" target="_blank">gulp</a>: 專案開發管理</div>
+      <div><a class="link" href="https://bower.io/" target="_blank">bower</a>: 前端外掛管理</div>
     </div>
     <div class="subTitle1">安裝</div>
-    <div> 
+    <div>
       <div>安裝 npm </div>
       <div>npm install -g bower 安裝 bower</div>
       <div>npm i 安裝開發檔案 </div>
       <div>bower i 安裝 Framework 需要的基本函式庫</div>
     </div>
     <div class="subTitle1">gulp 執行指令</div>
-    <div> 
+    <div>
       <div><span class="tip2">gulp buildImg</span>: 掃描 src/images/ 裡面的圖檔, 並輸出到 /src/img.js</div>
       <div><span class="tip2">gulp buildImgWithMin</span>: 掃描壓縮 src/images/ 裡面的圖檔, 並輸出到 /src/img.js</div>
       <div><span class="tip2">gulp build</span>: 自動部署</div>
       <div><span class="tip2">gulp buildProd</span>: 自動部署並壓縮到 /dist 底下</div>
-      <div><span class="tip2">gulp</span>: 自動部署, 然後啟動 localhost server 並監聽(pug,coffee)檔案</div>
-      <div><span class="tip2">gulp prod</span>: 自動部署並壓縮到 /dist 底下, 然後啟動 localhost server</div>
+      <div><span class="tip2">gulp</span>: 自動部署, 然後<span class="tip3">啟動 localhost server</span>並監聽檔案</div>
+      <div><span class="tip2">gulp prod</span>: 自動部署並壓縮到 /dist 底下, 然後<span class="tip3">啟動 localhost server</span></div>
       <div><span class="tip2">gulp exitServer</span>: 停止全部的 localhost server</div>
     </div>
   </div>

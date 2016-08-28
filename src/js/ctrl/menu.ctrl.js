@@ -27,16 +27,20 @@ cf.regCtrl('menu', function() {
       direction = caro.randomPick(directionArr);
       delay = i * .05;
       animateObj = {
-        opacity: 0,
-        ease: Back.easeOut.config(1),
-        delay: delay
+        opacity: 0
       };
       animateObj = caro.assign(animateObj, direction);
       color = caro.randomPick(bgColorArr);
       $item.css({
         background: color
       });
-      return tm.from($item, .3, animateObj);
+      return tm.fromTo($item, .3, animateObj, {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        ease: Back.easeOut.config(1),
+        delay: delay
+      });
     });
   };
   showMenu = function(type) {
@@ -59,22 +63,18 @@ cf.regCtrl('menu', function() {
     return $moduleMenuItemBox.hideModal();
   };
   dropAllItems = function(type, cb) {
-    var $items, count;
+    var $items;
     $items = type === 'lib' ? $libMenuItems : $moduleMenuItems;
-    count = 0;
     caro.forEach($items, function($item) {
       var delay;
       delay = Math.random() * .3;
       tm.to($item, .3, {
+        opacity: 0,
         y: cf.$window.height(),
-        delay: delay,
-        onComplete: function() {
-          if (++count === $items.length) {
-            cb();
-          }
-        }
+        delay: delay
       });
     });
+    setTimeout(cb, 500);
   };
   setMenuItem = function($item, type) {
     $item.on('mouseover', function() {

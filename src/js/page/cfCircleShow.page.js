@@ -18,7 +18,11 @@ cf.router.regPage('module/cfCircleShow', function(cf, $page) {
   $demo1.cfCircleShow($circleDom, {
     radios: 120,
     degreeTop: 20,
-    minScale: .8
+    minScale: .8,
+    cb: function($target, i) {
+      console.log(i);
+      $currentIndex.html(i);
+    }
   });
   $page.dom('#nextBtn').onClick(function() {
     $demo1.stopPlay();
@@ -38,9 +42,6 @@ cf.router.regPage('module/cfCircleShow', function(cf, $page) {
   });
   $page.dom('#stopPlayBtn').onClick(function() {
     $demo1.stopPlay();
-  });
-  $page.dom('#getCurrentIndexBtn').onClick(function() {
-    $currentIndex.html($demo1.getCurrentIndex());
   });
   return $page;
 });

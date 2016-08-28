@@ -22,7 +22,7 @@ cf.regCtrl 'commonPage', ->
   )
 
   $codeTargetArr = $self.dom('.codeTarget').mapDom(($codeTarget) ->
-    $codeTarget.addClass('block').cfModal()
+    $codeTarget.addClass('block1').cfModal()
     return
   )
 
