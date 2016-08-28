@@ -90,7 +90,7 @@ cf.regModule 'cfCircleShow', ($targetList, opt = {}) ->
       tm.to($target, _duration / 4, {
         'z-index': getZindex(i)
       })
-      _cb and _cb($target, i)
+      _cb and _cb($target, i) if i is _currentIndex
       return
     )
 

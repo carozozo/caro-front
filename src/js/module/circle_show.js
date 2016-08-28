@@ -123,7 +123,9 @@ cf.regModule('cfCircleShow', function($targetList, opt) {
       tm.to($target, _duration / 4, {
         'z-index': getZindex(i)
       });
-      _cb && _cb($target, i);
+      if (i === _currentIndex) {
+        _cb && _cb($target, i);
+      }
     });
   };
   caro.forEach($targetList, function($target, i) {
