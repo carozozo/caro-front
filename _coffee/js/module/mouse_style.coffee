@@ -15,21 +15,12 @@ cf.regModule 'cfMouseStyle', ($mouse, opt = {}) ->
     'pointer-events': 'none'
   })
 
-  checkIfRelative = ->
-    gotRelative = false
-    $self.parents().each((i,ele)->
-      $dom = $(ele)
-      position = $dom.css('position')
-      gotRelative = $dom if position is 'relative'
-    )
-    gotRelative
-
   $self.off(_triggerName).on(_triggerName, (e) ->
-    $domWithRelative = checkIfRelative()
+    $offsetParent = $self.offsetParent()
     left = e.pageX
     top = e.pageY
-    if $domWithRelative
-      offset = $domWithRelative.offset()
+    if $offsetParent.length
+      offset = $offsetParent.offset()
       left = left- offset.left
       top = top- offset.top
     tm.to($mouse, _delay, {
