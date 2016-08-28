@@ -2,7 +2,7 @@
 /*
 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式
  */
-cf.regLib('ajax', function(cf) {
+cf.regServ('ajax', function(cf) {
   var $, $loading, _alert, _cfg, _errMsg, _isTest, _responseErrKey, caro, generateAjaxOpt, hideLoading, self, showLoading;
   self = {};
   $ = cf.require('$');

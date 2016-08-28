@@ -2,7 +2,7 @@
 客製化的 tracking for Google analytics
 https://www.google.com.tw/intl/zh-TW_ALL/analytics/index.html
 ###
-cf.regLib 'ga', (cf) ->
+cf.regServ 'ga', (cf) ->
   self = {}
   window = cf.require('window')
   _cfg = cf.config('ga')

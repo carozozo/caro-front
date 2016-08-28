@@ -3,17 +3,21 @@
 modal 視窗
  */
 cf.regModule('cfModal', function(opt) {
-  var $, $background, $body, $inner, $outer, $self, _aftHide, _aftShow, _basicStyle, _befHide, _befShow, _index, _isClickClose, _zIndex, cf, moduleData;
+  var $, $background, $body, $inner, $outer, $self, $window, _aftHide, _aftShow, _basicStyle, _befHide, _befShow, _index, _isClickClose, _isEscClose, _zIndex, cf, moduleData;
   if (opt == null) {
     opt = {};
   }
   $self = this;
   cf = $self.cf;
   $body = cf.$body;
+  $window = cf.$window;
   $ = cf.require('$');
 
   /* 是否點選內容之外的部分就 close modal */
-  _isClickClose = opt.isClickClose === false ? opt.isClickClose : true;
+  _isClickClose = opt.isClickClose === false ? false : true;
+
+  /* 是否按下 esc 鍵 close modal */
+  _isEscClose = opt.isEscClose === false ? false : true;
 
   /* 顯示視窗之前觸發的 cb, return false 則不顯示 */
   _befShow = opt.befShow;
@@ -125,5 +129,10 @@ cf.regModule('cfModal', function(opt) {
       _aftHide && _aftHide();
     });
   };
+  $window.on('keyup.cfModal' + _index, function() {
+    if (_isEscClose) {
+      $self.hideModal();
+    }
+  });
   return $self;
 });

@@ -3,7 +3,7 @@
 客製化的 tracking for Google analytics
 https://www.google.com.tw/intl/zh-TW_ALL/analytics/index.html
  */
-cf.regLib('ga', function(cf) {
+cf.regServ('ga', function(cf) {
   var _cfg, _isDownloadGa, _trace, ga, self, window;
   self = {};
   window = cf.require('window');

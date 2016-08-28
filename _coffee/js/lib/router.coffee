@@ -1,5 +1,5 @@
 ###
-分頁跳轉程式
+分頁函式庫, 利用 url hash 判斷, 並使用 $.ajax 切換頁面
 ###
 cf.regLib 'router', (cf) ->
   $ = cf.require('$')
