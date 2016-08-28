@@ -73,6 +73,7 @@
     .tip2 action(eventName, fn): 同等 $('xxx').off('event').on('event',function(){}), 避免重複綁定
     .tip2 onClick(fn, [nameSpace]): $('xxx').off('click').on('click') 方便使用版, 滑鼠移到上面會自動轉成手指
     .tip2 onPressEnter(fn, [nameSpace]): 按下 Enter 鍵後觸發的 fn, 綁定 keyup
+    .tip2 onPressEsc(fn, [nameSpace]): 按下 Esc 鍵後觸發的 fn, 綁定 keyup
     .tip2 eachDom(cb):
       a(href='https://api.jquery.com/each/', target='_blank') .each()
       |  進階版, 直接賦予 dom 屬性

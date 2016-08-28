@@ -139,6 +139,14 @@ cf.regModule 'dom', (selector, cb) ->
         fn(e) if(e.which is 13)
         return
       )
+    ### 按下 Esc 鍵後觸發的 fn ###
+    $self.onPressEsc = (fn, nameSpace) ->
+      triggerName = 'keyup'
+      triggerName += '.' + nameSpace if nameSpace
+      @on(triggerName, (e) ->
+        fn(e) if(e.which is 27)
+        return
+      )
     return
 
   ### Unit 相關 ###

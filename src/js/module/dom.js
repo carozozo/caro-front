@@ -209,6 +209,20 @@ cf.regModule('dom', function(selector, cb) {
         }
       });
     };
+
+    /* 按下 Esc 鍵後觸發的 fn */
+    $self.onPressEsc = function(fn, nameSpace) {
+      var triggerName;
+      triggerName = 'keyup';
+      if (nameSpace) {
+        triggerName += '.' + nameSpace;
+      }
+      return this.on(triggerName, function(e) {
+        if (e.which === 27) {
+          fn(e);
+        }
+      });
+    };
   })($);
 
   /* Unit 相關 */
