@@ -5,12 +5,9 @@ cf.regModule 'cfModal', (opt = {}) ->
   $self = @
   cf = $self.cf
   $body = cf.$body
-  $window = cf.$window
   $ = cf.require('$')
   ### 是否點選內容之外的部分就 close modal ###
   _isClickClose = if opt.isClickClose is false then false else true
-  ### 是否按下 esc 鍵 close modal ###
-  _isEscClose = if opt.isEscClose is false then false else true
   ### 顯示視窗之前觸發的 cb, return false 則不顯示 ###
   _befShow = opt.befShow
   ### 顯示視窗之後觸發的 cb ###
@@ -99,11 +96,5 @@ cf.regModule 'cfModal', (opt = {}) ->
       return
     )
     return
-
-
-  $window.on('keyup.cfModal' + _index, ->
-    $self.hideModal() if _isEscClose
-    return
-  )
 
   $self

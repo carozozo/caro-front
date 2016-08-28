@@ -20,7 +20,6 @@ cf.router.regPage('module/cfCircleShow', function(cf, $page) {
     degreeTop: 20,
     minScale: .8,
     cb: function($target, i) {
-      console.log(i);
       $currentIndex.html(i);
     }
   });

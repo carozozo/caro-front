@@ -20,7 +20,6 @@ cf.router.regPage 'module/cfCircleShow', (cf, $page) ->
     degreeTop: 20
     minScale: .8
     cb: ($target, i)->
-      console.log i
       $currentIndex.html(i)
       return
   )
