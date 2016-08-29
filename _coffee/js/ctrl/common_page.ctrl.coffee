@@ -4,6 +4,7 @@ cf.regCtrl 'commonPage', ->
   cf = $self.cf
   $ = cf.require('$')
   tl = cf.require('TimelineMax')
+  tm = cf.require('TweenMax')
 
   $mainTitle = $self.dom('.mainTitle')
 
@@ -45,6 +46,19 @@ cf.regCtrl 'commonPage', ->
     $title.aClass('title' + colorIndex).onClick(->
       $subContent.slideToggle()
       return
+    )
+    $title.isOpen = true
+    color = $title.css('color')
+    $title.on('mouseover', ->
+      tm.to($title, .4,
+        x: 10
+        color: '#fff'
+      )
+    ).on('mouseleave', ->
+      tm.to($title, .4,
+        x: 0
+        color: color
+      )
     )
     return
   )

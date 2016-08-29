@@ -86,9 +86,30 @@ cf.regCtrl 'menu', ->
     )
     return
 
+  setMenuBtn = ($btn) ->
+    tm.set($btn,
+      transformPerspective: 600
+      transformOriginal: '100% 50%'
+    )
+    $btn.on('mouseover', ->
+      tm.to($btn, .2,
+        rotationY: -30
+        x: -10
+      )
+    ).on('mouseleave', ->
+      tm.to($btn, .1,
+        rotationY: 0
+        x: 0
+      )
+    )
+
   $menuBtnBox = $self.dom('#menuBtnBox')
-  $libBtnOuter = $menuBtnBox.dom('#libBtnOuter')
-  $moduleBtnOuter = $menuBtnBox.dom('#moduleBtnOuter')
+  $libBtnOuter = $menuBtnBox.dom('#libBtnOuter', ($libBtnOuter) ->
+    setMenuBtn($libBtnOuter)
+  )
+  $moduleBtnOuter = $menuBtnBox.dom('#moduleBtnOuter', ($moduleBtnOuter) ->
+    setMenuBtn($moduleBtnOuter)
+  )
   $libBtn = $menuBtnBox.dom('#libBtn')
   $moduleBtn = $menuBtnBox.dom('#moduleBtn')
   $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal()
@@ -103,6 +124,7 @@ cf.regCtrl 'menu', ->
 
   $libBtn.on('click', ->
     showMenu('lib')
+
     return
   )
   $moduleBtn.on('click', ->

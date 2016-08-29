@@ -1,5 +1,5 @@
 cf.router.regPage('module/cfRandomDrop', function(cf, $page) {
-  var $, $downBlock, $downBlockArr, $img1, $img2, $img3, $img4, $imgArr, $upBlock, createImg, setBlock;
+  var $, $downBlock, $img1, $img2, $img3, $img4, $imgArr, $upBlock, createImg, setBlock;
   $ = cf.require('$');
   createImg = function(color) {
     return $('<div/>').css({
@@ -24,8 +24,6 @@ cf.router.regPage('module/cfRandomDrop', function(cf, $page) {
   $img4 = createImg('#c7c738');
   $imgArr = [$img1, $img2, $img3, $img4];
   $downBlock = $page.dom('#downBlock');
-  $downBlockArr = $page.dom('#downBlock').coverToArr();
-  console.log($downBlockArr);
   $upBlock = $page.dom('#upBlock');
   setBlock($downBlock);
   setBlock($upBlock);

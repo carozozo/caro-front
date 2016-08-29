@@ -1,11 +1,12 @@
 
 /* 一般的 ctrl */
 cf.regCtrl('commonPage', function() {
-  var $, $codeTargetArr, $mainTitle, $self, $titles, cf, directionOpt, directionOptArr, distance, subTitleClassArr, titleOpt, tl, tl1;
+  var $, $codeTargetArr, $mainTitle, $self, $titles, cf, directionOpt, directionOptArr, distance, subTitleClassArr, titleOpt, tl, tl1, tm;
   $self = this;
   cf = $self.cf;
   $ = cf.require('$');
   tl = cf.require('TimelineMax');
+  tm = cf.require('TweenMax');
   $mainTitle = $self.dom('.mainTitle');
   subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3', 'subTitle4', 'subTitle5'];
   caro.forEach(subTitleClassArr, function(className) {
@@ -32,13 +33,26 @@ cf.regCtrl('commonPage', function() {
     });
   });
   $titles = $self.dom('.title').eachDom(function($title, i) {
-    var $subContent, colorIndex;
+    var $subContent, color, colorIndex;
     $subContent = $title.next('div').addClass('subContent').css({
       position: 'relative'
     }).hide();
     colorIndex = i % 5 + 1;
     $title.aClass('title' + colorIndex).onClick(function() {
       $subContent.slideToggle();
+    });
+    $title.isOpen = true;
+    color = $title.css('color');
+    $title.on('mouseover', function() {
+      return tm.to($title, .4, {
+        x: 10,
+        color: '#fff'
+      });
+    }).on('mouseleave', function() {
+      return tm.to($title, .4, {
+        x: 0,
+        color: color
+      });
     });
   });
   distance = 30;

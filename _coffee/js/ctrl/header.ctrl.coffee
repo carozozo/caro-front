@@ -5,18 +5,20 @@ cf.regCtrl 'header', ->
   tl = cf.require('TimelineMax')
   tm = cf.require('TweenMax')
   bgColorArr = cf.data('bgColorArr')
-  $self.dom(($header) ->
-    cf.router.regPrePage(->
-      color = caro.randomPick(bgColorArr)
-      tm.to($header, 1
-        backgroundColor: color
-      )
+
+  setBgColor = ->
+    color = caro.randomPick(bgColorArr)
+    tm.to($header, 1
+      backgroundColor: color
+    )
+    return
+
+  $header = $self.dom()
+  $headerTitle = $self.dom('#headerTitle', ($headerTitle)->
+    $headerTitle.onClick(->
+      cf.router.goPage('index')
       return
     )
-  )
-  $headerTitle = $self.dom('#headerTitle').onClick(->
-    cf.router.goPage('index')
-    return
   )
   $headerBtn = $self.dom('.headerBtn')
 
@@ -32,9 +34,11 @@ cf.regCtrl 'header', ->
   ).staggerFrom($headerBtn, .5
     opacity: 0
     x: -50
-    ease: Back.easeOut.config(1)
+    ease: Back.easeOut.config(2)
   , .2)
 
+  cf.router.regPrePage(setBgColor)
+  setBgColor()
   $self
 , 'template/ctrl/header.html'
 

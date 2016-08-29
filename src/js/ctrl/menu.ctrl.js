@@ -1,7 +1,7 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/menu.html 檔並寫入 template */
 cf.regCtrl('menu', function() {
-  var $libBtn, $libBtnOuter, $libMenuItemBox, $libMenuItems, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItemBox, $moduleMenuItems, $self, bgColorArr, cf, dropAllItems, hideMenu, setMenuItem, showItems, showMenu, tm;
+  var $libBtn, $libBtnOuter, $libMenuItemBox, $libMenuItems, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItemBox, $moduleMenuItems, $self, bgColorArr, cf, dropAllItems, hideMenu, setMenuBtn, setMenuItem, showItems, showMenu, tm;
   $self = this;
   cf = $self.cf;
   tm = cf.require('TweenMax');
@@ -100,9 +100,30 @@ cf.regCtrl('menu', function() {
       });
     });
   };
+  setMenuBtn = function($btn) {
+    tm.set($btn, {
+      transformPerspective: 600,
+      transformOriginal: '100% 50%'
+    });
+    return $btn.on('mouseover', function() {
+      return tm.to($btn, .2, {
+        rotationY: -30,
+        x: -10
+      });
+    }).on('mouseleave', function() {
+      return tm.to($btn, .1, {
+        rotationY: 0,
+        x: 0
+      });
+    });
+  };
   $menuBtnBox = $self.dom('#menuBtnBox');
-  $libBtnOuter = $menuBtnBox.dom('#libBtnOuter');
-  $moduleBtnOuter = $menuBtnBox.dom('#moduleBtnOuter');
+  $libBtnOuter = $menuBtnBox.dom('#libBtnOuter', function($libBtnOuter) {
+    return setMenuBtn($libBtnOuter);
+  });
+  $moduleBtnOuter = $menuBtnBox.dom('#moduleBtnOuter', function($moduleBtnOuter) {
+    return setMenuBtn($moduleBtnOuter);
+  });
   $libBtn = $menuBtnBox.dom('#libBtn');
   $moduleBtn = $menuBtnBox.dom('#moduleBtn');
   $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal();
