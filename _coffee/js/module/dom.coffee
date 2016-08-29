@@ -156,8 +156,8 @@ cf.regModule 'dom', (selector, cb) ->
       $self.each (i, element) ->
         $dom = $(element).dom()
         cb and cb($dom, i)
-    ### $.map() 進階版, 直接賦予 dom 屬性, 並回傳 dom array ###
-    $self.mapDom = (cb) ->
+    ### .each() 進階版, 直接賦予 dom 屬性, 並回傳 dom array ###
+    $self.coverToArr = (cb) ->
       arr = []
       $self.each (i, element) ->
         $dom = $(element).dom()

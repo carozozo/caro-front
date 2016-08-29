@@ -57,6 +57,7 @@
 .content
   .title 函式
   div
+    .tip3 以下的參數 $dom 都需要有 id 或是 name, 用來記錄驗證項目
     .tip2 setRequire($dom): 設置檢查必填
     .tip2 setNum($dom): 設置檢查數字
     .tip2 setMinLength($dom, length): 設置檢查最小長度
@@ -65,3 +66,17 @@
     .tip2 setMobile($dom): 設置檢查手機格式
     .tip2 setRocId($dom): 設置檢查身分證格式
     .tip2 validate(): 開始檢查格式
+      span.codeLink 程式範例
+      .codeTarget
+        .subTitle2 html
+        div
+          div &lt;form id='form1'&gt;
+          .tab1 &lt;input type='text' id='address' /&gt;
+          .tab1 &lt;input type='text' id='phone' /&gt;
+          div &lt;/form&gt;
+        .subTitle2 js
+        div
+          div var validator = $('#form1').cfValidator({requireAll: true});
+          .tip2 // 全部都有填寫 => errInfo = null;
+          .tip2 // 全部都沒填寫 => errInfo = {address: ['require'], phone: ['require']}
+          div var errInfo = validator.validate();

@@ -107,10 +107,10 @@ cf.regCtrl('menu', function() {
   $moduleBtn = $menuBtnBox.dom('#moduleBtn');
   $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal();
   $moduleMenuItemBox = $self.dom('#moduleMenuItemBox').cfModal();
-  $libMenuItems = $libMenuItemBox.dom('.menuItem').mapDom(function($item) {
+  $libMenuItems = $libMenuItemBox.dom('.menuItem').coverToArr(function($item) {
     return setMenuItem($item, 'lib');
   });
-  $moduleMenuItems = $moduleMenuItemBox.dom('.menuItem').mapDom(function($item) {
+  $moduleMenuItems = $moduleMenuItemBox.dom('.menuItem').coverToArr(function($item) {
     return setMenuItem($item, 'module');
   });
   $libBtn.on('click', function() {

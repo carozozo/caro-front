@@ -94,10 +94,10 @@ cf.regCtrl 'menu', ->
   $libMenuItemBox = $self.dom('#libMenuItemBox').cfModal()
   $moduleMenuItemBox = $self.dom('#moduleMenuItemBox').cfModal()
 
-  $libMenuItems = $libMenuItemBox.dom('.menuItem').mapDom(($item) ->
+  $libMenuItems = $libMenuItemBox.dom('.menuItem').coverToArr(($item) ->
     setMenuItem($item, 'lib')
   )
-  $moduleMenuItems = $moduleMenuItemBox.dom('.menuItem').mapDom(($item) ->
+  $moduleMenuItems = $moduleMenuItemBox.dom('.menuItem').coverToArr(($item) ->
     setMenuItem($item, 'module')
   )
 

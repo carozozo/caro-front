@@ -237,8 +237,8 @@ cf.regModule('dom', function(selector, cb) {
       });
     };
 
-    /* $.map() 進階版, 直接賦予 dom 屬性, 並回傳 dom array */
-    $self.mapDom = function(cb) {
+    /* .each() 進階版, 直接賦予 dom 屬性, 並回傳 dom array */
+    $self.coverToArr = function(cb) {
       var arr;
       arr = [];
       $self.each(function(i, element) {

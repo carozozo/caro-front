@@ -7,7 +7,7 @@ cf.router.regPage('module/cfCircleShow', function(cf, $page) {
     'margin-left': 20,
     height: 180
   });
-  $circleDom = $page.dom('.circleDom').mapDom(function($dom, i) {
+  $circleDom = $page.dom('.circleDom').coverToArr(function($dom, i) {
     $dom.css({
       width: 100,
       height: 120,

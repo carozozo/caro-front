@@ -6,7 +6,7 @@ cf.router.regPage 'module/cfCircleShow', (cf, $page) ->
     'margin-left': 20
     height: 180
   )
-  $circleDom = $page.dom('.circleDom').mapDom(($dom, i)->
+  $circleDom = $page.dom('.circleDom').coverToArr(($dom, i)->
     $dom.css(
       width: 100
       height: 120

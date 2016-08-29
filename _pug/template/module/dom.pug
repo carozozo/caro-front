@@ -15,14 +15,24 @@
       div cb: 呼叫之後觸發的 fn($self), $self 就是 DOM 本身
       span.codeLink 程式範例
       .codeTarget
-        .subTitle2 &lt;div id='#xx'&gt; &lt;div id='#yy'&gt;  &lt;/div&gt; &lt;/div&gt;
+        .subTitle2 html
+        div
+          div &lt;div id='#xx'&gt; &lt;div id='#yy'&gt;  &lt;/div&gt; &lt;/div&gt;
+        .subTitle2 js
         div
           div var $xx = $('#xx').dom();
           div var id = $xx.id();
             span.tip3  // 'xx'
+          .separator2
+          .tip2 // 相當於 $xx.find('#yy').dom()
           div var $yy = $xx.dom('#yy');
           div var id = $yy.id();
             span.tip3  // 'yy'
+        .subTitle2 js 另一種包裝式寫法
+        div
+          div var $xx = $('#xx').dom(function($dom){
+          .tab1.tip2 // $dom 就相當於 $xx
+          div });
 .content
   .title 函式
   div
@@ -86,13 +96,13 @@
     .subTitle4 參數
     div
       div cb: 呼叫之後觸發的 fn($dom, index)
-    .tip2 mapDom(cb):
+    .tip2 coverToArr(cb):
       a(href='http://api.jquery.com/jQuery.map/', target='_blank') $.map()
       |  進階版, 直接賦予 dom 屬性, 並回傳 dom array
       span.codeLink 程式範例
         .codeTarget
           .tip2 // $domList 相當於 $('.xx') 取得的每個 DOM 組成的 array
-          div var $domList = $('.xx').mapDom(function($dom, i){
+          div var $domList = $('.xx').coverToArr(function($dom, i){
           .tab1.tip2 // $dom 相當於 $(this), 並且可以調用 dom 的屬性
           .tab1 $dom.onClick(...);
           div });

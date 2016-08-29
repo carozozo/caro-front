@@ -15,12 +15,24 @@
       <div>selector: 目標選擇器</div>
       <div>cb: 呼叫之後觸發的 fn($self), $self 就是 DOM 本身</div><span class="codeLink">程式範例</span>
       <div class="codeTarget">
-        <div class="subTitle2">&lt;div id='#xx'&gt; &lt;div id='#yy'&gt;  &lt;/div&gt; &lt;/div&gt;</div>
+        <div class="subTitle2">html</div>
+        <div>
+          <div>&lt;div id='#xx'&gt; &lt;div id='#yy'&gt;  &lt;/div&gt; &lt;/div&gt;</div>
+        </div>
+        <div class="subTitle2">js</div>
         <div>
           <div>var $xx = $('#xx').dom();</div>
           <div>var id = $xx.id();<span class="tip3"> // 'xx'</span></div>
+          <div class="separator2"></div>
+          <div class="tip2">// 相當於 $xx.find('#yy').dom()</div>
           <div>var $yy = $xx.dom('#yy');</div>
           <div>var id = $yy.id();<span class="tip3"> // 'yy'</span></div>
+        </div>
+        <div class="subTitle2">js 另一種包裝式寫法</div>
+        <div>
+          <div>var $xx = $('#xx').dom(function($dom){</div>
+          <div class="tab1 tip2">// $dom 就相當於 $xx</div>
+          <div>});</div>
         </div>
       </div>
     </div>
@@ -86,10 +98,10 @@
     <div>
       <div>cb: 呼叫之後觸發的 fn($dom, index)</div>
     </div>
-    <div class="tip2">mapDom(cb):<a href="http://api.jquery.com/jQuery.map/" target="_blank">$.map()</a> 進階版, 直接賦予 dom 屬性, 並回傳 dom array<span class="codeLink">程式範例
+    <div class="tip2">coverToArr(cb):<a href="http://api.jquery.com/jQuery.map/" target="_blank">$.map()</a> 進階版, 直接賦予 dom 屬性, 並回傳 dom array<span class="codeLink">程式範例
         <div class="codeTarget">
           <div class="tip2">// $domList 相當於 $('.xx') 取得的每個 DOM 組成的 array</div>
-          <div>var $domList = $('.xx').mapDom(function($dom, i){</div>
+          <div>var $domList = $('.xx').coverToArr(function($dom, i){</div>
           <div class="tab1 tip2">// $dom 相當於 $(this), 並且可以調用 dom 的屬性</div>
           <div class="tab1">$dom.onClick(...);</div>
           <div>});</div>

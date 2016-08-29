@@ -9,7 +9,7 @@ cf.regCtrl('commonPage', function() {
   $mainTitle = $self.dom('.mainTitle');
   subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3', 'subTitle4', 'subTitle5'];
   caro.forEach(subTitleClassArr, function(className) {
-    $self.dom('.' + className).mapDom(function($subTitle) {
+    $self.dom('.' + className).eachDom(function($subTitle) {
       var $span, html;
       $span = $('<span>').addClass(className);
       html = $subTitle.html();
@@ -19,7 +19,7 @@ cf.regCtrl('commonPage', function() {
       $subTitle.next('div').addClass('subContent');
     });
   });
-  $codeTargetArr = $self.dom('.codeTarget').mapDom(function($codeTarget) {
+  $codeTargetArr = $self.dom('.codeTarget').coverToArr(function($codeTarget) {
     $codeTarget.addClass('block1').cfModal();
   });
   $self.dom('.codeLink').eachDom(function($link, i) {

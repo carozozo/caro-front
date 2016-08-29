@@ -9,7 +9,7 @@ cf.regCtrl 'commonPage', ->
 
   subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3', 'subTitle4', 'subTitle5']
   caro.forEach(subTitleClassArr, (className) ->
-    $self.dom('.' + className).mapDom(($subTitle) ->
+    $self.dom('.' + className).eachDom(($subTitle) ->
       $span = $('<span>').addClass(className)
       html = $subTitle.html()
       $subTitle.removeClass(className).css(
@@ -21,7 +21,7 @@ cf.regCtrl 'commonPage', ->
     return
   )
 
-  $codeTargetArr = $self.dom('.codeTarget').mapDom(($codeTarget) ->
+  $codeTargetArr = $self.dom('.codeTarget').coverToArr(($codeTarget) ->
     $codeTarget.addClass('block1').cfModal()
     return
   )

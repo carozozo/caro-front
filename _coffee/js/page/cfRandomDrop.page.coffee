@@ -14,6 +14,7 @@ cf.router.regPage 'module/cfRandomDrop', (cf, $page) ->
       height: 200
       display: 'inline-block'
       width: '45%'
+      overflow: 'hidden'
     )
   $img1 = createImg('#628320')
   $img2 = createImg('#c72228')
