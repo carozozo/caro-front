@@ -54,6 +54,7 @@
 <div class="content">
   <div class="title">函式</div>
   <div>
+    <div class="tip3">以下的參數 $dom 都需要有 id 或是 name, 用來記錄驗證項目</div>
     <div class="tip2">setRequire($dom): 設置檢查必填</div>
     <div class="tip2">setNum($dom): 設置檢查數字</div>
     <div class="tip2">setMinLength($dom, length): 設置檢查最小長度</div>
@@ -61,6 +62,23 @@
     <div class="tip2">setEmail($dom): 設置檢查 email 格式</div>
     <div class="tip2">setMobile($dom): 設置檢查手機格式</div>
     <div class="tip2">setRocId($dom): 設置檢查身分證格式</div>
-    <div class="tip2">validate(): 開始檢查格式</div>
+    <div class="tip2">validate(): 開始檢查格式<span class="codeLink">程式範例</span>
+      <div class="codeTarget">
+        <div class="subTitle2">html</div>
+        <div>
+          <div>&lt;form id='form1'&gt;</div>
+          <div class="tab1">&lt;input type='text' id='address' /&gt;</div>
+          <div class="tab1">&lt;input type='text' id='phone' /&gt;</div>
+          <div>&lt;/form&gt;</div>
+        </div>
+        <div class="subTitle2">js</div>
+        <div>
+          <div>var validator = $('#form1').cfValidator({requireAll: true});</div>
+          <div class="tip2">// 全部都有填寫 => errInfo = null;</div>
+          <div class="tip2">// 全部都沒填寫 => errInfo = {address: ['require'], phone: ['require']}</div>
+          <div>var errInfo = validator.validate();</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
