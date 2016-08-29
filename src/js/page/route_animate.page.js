@@ -6,7 +6,10 @@ cf.router.regPage('lib/routeAnimate', function(cf, $page) {
 
 cf.router.regBefPage(function() {
   var fn, fnArr;
-  fnArr = ['left', 'right', 'scale', 'fade', 'clear'];
+  fnArr = [];
+  caro.forEach(cf.routeAnimate, function(fn, fnName) {
+    return fnArr.push(fnName);
+  });
   fn = caro.randomPick(fnArr);
   cf.routeAnimate[fn]();
 });

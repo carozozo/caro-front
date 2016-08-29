@@ -3,7 +3,10 @@ cf.router.regPage 'lib/routeAnimate', (cf, $page) ->
   $page
 
 cf.router.regBefPage ->
-  fnArr = ['left','right','scale','fade','clear']
+  fnArr = []
+  caro.forEach(cf.routeAnimate,(fn,fnName) ->
+    fnArr.push(fnName)
+  )
   fn = caro.randomPick(fnArr)
   cf.routeAnimate[fn]()
   return
