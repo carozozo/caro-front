@@ -36,7 +36,7 @@ cf.regLib 'router', (cf) ->
   ### 記錄要放置分頁的資料夾路徑 ###
   self.templateDir = caro.addTail(_cfg.templateDir or '', '/')
   ### 記錄要載入的分頁副檔名 ###
-  self.templateExtname = if _cfg.templateExtname then caro.addHead( _cfg.templateExtname, '.') else ''
+  self.templateExtname = if _cfg.templateExtname then caro.addHead(_cfg.templateExtname, '.') else ''
 
   ### 註冊 page 載入前後的 callback ###
   do(self, caro) ->
@@ -153,12 +153,12 @@ cf.regLib 'router', (cf) ->
       unless pageMap[pageName] and pageMap[pageName].html
         fileType = opt.fileType or self.templateExtname
         pageFile = caro.addTail(pageName, fileType)
-        $.ajax(self.templateDir + pageFile).success((html) ->
+        sucCb = (html) ->
           pageMap[pageName] = {} unless pageMap[pageName]
           pageMap[pageName].html = html
           go()
           return
-        ).error(->
+        errCb = ->
           ### 嘗試換頁到 index ###
           indexInfo = caro.find(pageMap, (val, pageName) ->
             return pageName is 'index'
@@ -169,7 +169,12 @@ cf.regLib 'router', (cf) ->
           firstPage = pageNameArr[0]
           self.goPage(firstPage) if firstPage
           return
-        )
+        jqxhr = $.ajax(self.templateDir + pageFile)
+        ### jQuery 3.0 之後使用 done/fail 取代 success/error ###
+        if jqxhr.done
+          jqxhr.done(sucCb).fail(errCb)
+        else
+          jqxhr.success(sucCb).error(errCb)
         return
       go()
       return

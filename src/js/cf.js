@@ -185,18 +185,27 @@ CaroFront 核心程式
       _html = null;
       if (!typeObj[name] && !$.fn[name]) {
         typeObj[name] = $.fn[name] = function() {
-          var $dom, args;
+          var $dom, args, errCb, jqxhr, sucCb;
           $dom = this;
           args = arguments;
           $dom.cf = self;
           if (page && !_html) {
-            $.ajax(page).success(function(html) {
+            sucCb = function(html) {
               _html = html;
               $dom.html(_html);
               $dom = fn.apply($dom, args);
-            }).error(function() {
+            };
+            errCb = function() {
               _trace.err('Can not get' + type + 'page:', page);
-            });
+            };
+            jqxhr = $.ajax(page);
+
+            /* jQuery 3.0 之後使用 done/fail 取代 success/error */
+            if (jqxhr.done) {
+              jqxhr.done(sucCb).fail(errCb);
+            } else {
+              jqxhr.success(sucCb).error(errCb);
+            }
           } else {
             if (_html) {
               $dom.html(_html);

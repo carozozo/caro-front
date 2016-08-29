@@ -29,15 +29,7 @@ module.exports = (function () {
   config.injectFileArr = [
     'index.html'
   ];
-  // 要優先自動掃描並加到 tag 的 js/css 檔案, 相容性程式要優先載入, https://github.com/es-shims/es5-shim
   config.injectHeadArr = [
-    'compatibility/es5-shim.min.js',
-    'compatibility/es5-sham.min.js',
-    'compatibility/json3.min.js',
-    'compatibility/es6-shim.min.js',
-    'compatibility/es6-sham.min.js',
-    'compatibility/**/*.*',
-    'compatibility/html5.js',
     'plugin/jquery.js',
     'plugin/lodash.js',
     'plugin/**/*.*',

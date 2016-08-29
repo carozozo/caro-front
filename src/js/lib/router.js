@@ -164,7 +164,7 @@ cf.regLib('router', function(cf) {
       });
     };
     setPageContent = function(pageName, opt) {
-      var fileType, go, pageFile, pageMap;
+      var errCb, fileType, go, jqxhr, pageFile, pageMap, sucCb;
       if (opt == null) {
         opt = {};
       }
@@ -202,13 +202,14 @@ cf.regLib('router', function(cf) {
       if (!(pageMap[pageName] && pageMap[pageName].html)) {
         fileType = opt.fileType || self.templateExtname;
         pageFile = caro.addTail(pageName, fileType);
-        $.ajax(self.templateDir + pageFile).success(function(html) {
+        sucCb = function(html) {
           if (!pageMap[pageName]) {
             pageMap[pageName] = {};
           }
           pageMap[pageName].html = html;
           go();
-        }).error(function() {
+        };
+        errCb = function() {
 
           /* 嘗試換頁到 index */
           var firstPage, indexInfo, pageNameArr;
@@ -225,7 +226,15 @@ cf.regLib('router', function(cf) {
           if (firstPage) {
             self.goPage(firstPage);
           }
-        });
+        };
+        jqxhr = $.ajax(self.templateDir + pageFile);
+
+        /* jQuery 3.0 之後使用 done/fail 取代 success/error */
+        if (jqxhr.done) {
+          jqxhr.done(sucCb).fail(errCb);
+        } else {
+          jqxhr.success(sucCb).error(errCb);
+        }
         return;
       }
       go();

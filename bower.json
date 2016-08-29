@@ -10,8 +10,8 @@
   "moduleType": [],
   "dependencies": {
     "moment": "latest",
-    "jQuery": "=1.12.3",
-    "lodash": "=4.9.0",
+    "jQuery": "latest",
+    "lodash": "latest",
     "caro": "latest",
     "mobile-detect.js": "latest",
     "gsap": "latest"

@@ -142,15 +142,20 @@ do(window, $, caro, MobileDetect) ->
           args = arguments
           $dom.cf = self
           if page and !_html
-            $.ajax(page).success((html) ->
+            sucCb = (html) ->
               _html = html
               $dom.html(_html)
               $dom = fn.apply $dom, args
               return
-            ).error(->
+            errCb = ->
               _trace.err 'Can not get' + type + 'page:', page
               return
-            )
+            jqxhr = $.ajax(page)
+            ### jQuery 3.0 之後使用 done/fail 取代 success/error ###
+            if jqxhr.done
+              jqxhr.done(sucCb).fail(errCb)
+            else
+              jqxhr.success(sucCb).error(errCb)
           else
             $dom.html(_html) if _html
             $dom = fn.apply $dom, args

@@ -3,12 +3,11 @@
 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式
  */
 cf.regServ('ajax', function(cf) {
-  var $, $loading, _alert, _cfg, _errMsg, _isTest, _responseErrKey, caro, generateAjaxOpt, hideLoading, self, showLoading;
+  var $, $loading, _alert, _cfg, _errMsg, _isTest, caro, generateAjaxOpt, hideLoading, self, showLoading;
   self = {};
   $ = cf.require('$');
   caro = cf.require('caro');
   _cfg = cf.config('ajax');
-  _responseErrKey = _cfg.responseErrKey;
   _isTest = cf.isLocal || _cfg.isTestMode;
   _errMsg = _cfg.errMsg;
   _alert = cf.alert || cf.require('alert');
@@ -68,73 +67,52 @@ cf.regServ('ajax', function(cf) {
 
   /* 呼叫 ajax, 測試模式時會調用 opt.fakeResponse */
   self.callAjax = function(url, data, opt) {
-    var _errCb, _sucCb, ajaxObj, ajaxOpt;
+    var ajaxOpt, completeCb, errCb, jqxhr;
     if (opt == null) {
       opt = {};
+    }
+    if (_isTest) {
+      jqxhr = {};
+      jqxhr.done = jqxhr.success = function(cb) {
+        var fakeRes;
+        fakeRes = opt.fakeResponse;
+        cb && cb(fakeRes);
+        return jqxhr;
+      };
+
+      /* 在測試模式時, error 和 err 不會執行 cb */
+      jqxhr.fail = jqxhr.error = function() {
+        return jqxhr;
+      };
+      return jqxhr;
     }
 
     /* 是否隱藏 loading 畫面 */
     if (!opt.isHideLoading) {
       showLoading();
     }
-    if (_isTest) {
-      ajaxObj = {};
-      ajaxObj.suc = ajaxObj.success = function(cb) {
-        var fakeRes;
-        fakeRes = opt.fakeResponse;
-        cb && cb(fakeRes);
-        return ajaxObj;
-      };
-
-      /* 在測試模式時, error 和 err 不會執行 cb */
-      ajaxObj.err = ajaxObj.error = function() {
-        return ajaxObj;
-      };
-      return ajaxObj;
-    }
     ajaxOpt = generateAjaxOpt(url, data, opt.ajaxOpt);
-    ajaxObj = $.ajax(ajaxOpt);
-    _sucCb = null;
-    _errCb = null;
-    ajaxObj.suc = function(cb) {
-      _sucCb = cb;
-      return ajaxObj;
-    };
-    ajaxObj.err = function(cb) {
-      _errCb = cb;
-      return ajaxObj;
-    };
-    ajaxObj.success(function(res) {
-      var resErr;
-      if (caro.isString(res)) {
-        res = JSON.parse(res);
-      }
+    errCb = function() {
 
-      /* 如果有設置 errorKey, 而且回傳的是物件 */
-      if (_responseErrKey && caro.isObject(res)) {
-        resErr = res[_responseErrKey];
-        if (!resErr) {
-          _sucCb && _sucCb(res);
-        } else {
-          _errCb && _errCb(resErr);
-        }
-        return;
-      }
-      _sucCb && _sucCb(res);
-    });
-
-    /* 如果呼叫 ajax 發生錯誤, 顯示要 alert 的訊息 */
-    ajaxObj.error(function() {
+      /* 如果呼叫 ajax 發生錯誤, 顯示要 alert 的訊息 */
       if (_errMsg) {
         _alert(_errMsg);
       }
-    });
-    ajaxObj.complete(function() {
+    };
+    completeCb = function() {
       if (!opt.isHideLoading) {
         hideLoading();
       }
-    });
-    return ajaxObj;
+    };
+    jqxhr = $.ajax(ajaxOpt);
+
+    /* jQuery 3.0 之後使用 done/fail 取代 success/error */
+    if (jqxhr.done) {
+      jqxhr.fail(errCb).always(completeCb);
+    } else {
+      jqxhr.error(errCb).complete(completeCb);
+    }
+    return jqxhr;
   };
   return self;
 });
