@@ -1,0 +1,79 @@
+.mainTitle cfPiece
+.content
+  .title 示範
+  div
+    div
+      | y 切成
+      input#particleY.input40(type='text', value='3')
+      | 等份,
+      span.tab1 x 切成
+      input#particleX.input40(type='text', value='3')
+      | 等份
+      #seperateBtn.tab1.btn2 分割
+    .separator1
+    div 滑鼠移到圖片上可看到切片的順序
+    .separator1
+    img#blockMain(src='images/caro-front.png')
+.content
+  .title 簡介
+  div
+    div 將 $self 切片,切片後 $self 會隱藏
+    div.tip3 注意切片後為固定寬高, 只繼承 $self 的 css position
+    div.tip3 切片後請自行調整 css 以避免跑版
+.content
+  .title 參數
+  div
+    .tip5 $('xxx').cfPiece([particleY = 3], [particleX = 3]);
+      span.codeLink 程式範例
+      .codeTarget
+        div.subTitle2 html
+        div
+          div &lt;div id='img' style='position:static;'&gt;...&lt;/div&gt;
+        .separator2
+        div.subTitle2 js
+        div
+          div var $img = $('#img').cfPiece(2, 3);
+          .separator1
+          .tip2 // $piece1~$piece6 即產生的 jQuery 切片物件
+          div var $pieceArr = $img.$pieceArr
+            span.tip3  // [$piece1, $piece2, $piece3, $piece4, $piece5, $piece6]
+          .separator1
+          .tip2 // $piece1~$piece6 即產生的 jQuery 切片物件
+          div var $pieceTable = $img.$pieceTable
+            span.tip3  // [ [$piece1, $piece2, $piece3], [$piece4, $piece5, $piece6] ]
+          .separator1
+        .separator2
+        .subTitle2 每個切片被賦予的 _yIndex 和 _xIndex
+        div
+          div var index1 = $piece1._yIndex + '-' + $piece1._xIndex
+            span.tip3  // '0-0
+          div var index2 = $piece1._yIndex + '-' + $piece1._xIndex
+            span.tip3  // '0-1'
+          div ...
+          div var index4 = $piece1._yIndex + '-' + $piece1._xIndex
+            span.tip3  // '1-0'
+        .separator2
+        .subTitle2 產生的切片 html 結構
+        div
+          div.colorGray2 &lt;!-- $self 被設為隱藏 --&gt;
+          div &lt;div id='img' style='position:static; display:none;'&gt;...&lt;/div&gt;
+          div.colorGray2 &lt;!-- $img.$pieceContainer --&gt;
+          div &lt;div style='position: static;'&gt;
+          .tab1.colorGray2 &lt;!-- $img.$pieceInnerContainer --&gt;
+          .tab1 &lt;div style='position: relative;'&gt;
+          .tab2.colorGray2 &lt;!-- 每個產生的切片 --&gt;
+          .tab2 &lt;div&gt;...&lt;/div&gt;
+          .tab1 &lt;/div&gt;
+          div &lt;/div&gt;
+    div particleY: y 切成幾等份
+    div particleX: x 切成幾等份
+    .subTitle4 $self 附加屬性
+    div
+      div $pieceArr: 儲存每個切片
+      div $pieceTable: 儲存切片陣列, 例如切成 2 x 3, 陣列就是 [[$piece1, $piece2, $piece3],[$piece4, $piece5, $piece6]]
+      div $pieceContainer: 外部切片的容器, 繼承 $self 的 css position 屬性
+      div $pieceInnerContainer: 內部切片容器, 協助切片定位
+    .subTitle4 $piece 附加屬性
+    div
+      div _yIndex: 儲存切片在 y 軸的 index
+      div _xIndex: 儲存切片在 x 軸的 index
