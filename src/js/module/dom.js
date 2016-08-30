@@ -134,22 +134,15 @@ cf.regModule('dom', function(selector, cb) {
       return parseInt(px.replace('px'));
     };
 
-    /* 取得 css 的 width string */
-    $self.getCssWidth = function() {
-      var $clone, width;
+    /* 取得 css 的屬性 */
+    $self.getCss = function(type) {
+      var $clone, $div, css;
+      $div = $('<div/>').hide();
       $clone = this.clone();
-      width = $clone.appendTo('body').wrap('<div style="display: none"></div>').css('width');
-      $clone.remove();
-      return width;
-    };
-
-    /* 取得 css 的 height string */
-    $self.getCssHeight = function() {
-      var $clone, height;
-      $clone = this.clone();
-      height = $clone.appendTo('body').wrap('<div style="display: none"></div>').css('height');
-      $clone.remove();
-      return height;
+      $('body').append($div.append($clone));
+      css = $clone.css(type);
+      $div.remove();
+      return css;
     };
 
     /* 設置滑鼠指標 */

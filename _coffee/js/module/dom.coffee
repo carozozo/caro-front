@@ -91,18 +91,14 @@ cf.regModule 'dom', (selector, cb) ->
     $self.getCssDistance = (cssType) ->
       px = @css(cssType)
       parseInt px.replace('px')
-    ### 取得 css 的 width string ###
-    $self.getCssWidth = ->
+    ### 取得 css 的屬性 ###
+    $self.getCss = (type) ->
+      $div = $('<div/>').hide()
       $clone = @clone()
-      width = $clone.appendTo('body').wrap('<div style="display: none"></div>').css('width')
-      $clone.remove()
-      width
-    ### 取得 css 的 height string ###
-    $self.getCssHeight = ->
-      $clone = @clone()
-      height = $clone.appendTo('body').wrap('<div style="display: none"></div>').css('height')
-      $clone.remove()
-      height
+      $('body').append($div.append($clone))
+      css = $clone.css(type)
+      $div.remove()
+      css
     ### 設置滑鼠指標 ###
     $self.setCursor = (cursor) ->
       cursor = cursor or 'pointer'
