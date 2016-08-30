@@ -168,7 +168,6 @@ cf.regLib 'routeAnimate', (cf) ->
     return
 
   self.piece = (opt = {}) ->
-    $body = cf.$body
     _router = cf.router
     _router._transitionFn = (cf, $nowPage, $nextPage, done) ->
       _router.blockGoPage()
@@ -183,6 +182,7 @@ cf.regLib 'routeAnimate', (cf) ->
       halfParticleY = particleY / 2
       ### 全部切成幾等份 ###
       particleAll = particleX * particleY
+      nowPagePosition = $nowPage.css('position')
       nowPageWidth = $nowPage.width()
       nowPageHeight = $nowPage.height()
       nowPageOffset = $nowPage.offset()
@@ -193,6 +193,7 @@ cf.regLib 'routeAnimate', (cf) ->
       eachWidth = nowPageWidth / particleX
       ### 每個等份的高 ###
       eachHeight = nowPageHeight / particleY
+      piecePosition = if nowPagePosition is 'fixed' then 'fixed' else 'absolute'
       count = 0
       $nextPage.hide()
       caro.loop((j)->
@@ -201,13 +202,14 @@ cf.regLib 'routeAnimate', (cf) ->
           left = nowPageLeft + (eachWidth * (i - 1))
           top = nowPageTop + (eachHeight * (j - 1))
           $dom = $('<div/>').css(
-            position: 'absolute'
+            position: piecePosition
             width: eachWidth
             height: eachHeight
             overflow: 'hidden'
             left: left
             top: top
-          ).appendTo($body)
+          )
+          $nowPage.after($dom)
 
           $nowPage.clone().css(
             position: 'absolute'

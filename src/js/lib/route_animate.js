@@ -197,14 +197,13 @@ cf.regLib('routeAnimate', function(cf) {
     };
   };
   self.piece = function(opt) {
-    var $body, _router;
+    var _router;
     if (opt == null) {
       opt = {};
     }
-    $body = cf.$body;
     _router = cf.router;
     _router._transitionFn = function(cf, $nowPage, $nextPage, done) {
-      var count, duration, eachHeight, eachWidth, halfDuration, halfParticleX, halfParticleY, nowPageHeight, nowPageLeft, nowPageOffset, nowPageTop, nowPageWidth, particleAll, particleX, particleY;
+      var count, duration, eachHeight, eachWidth, halfDuration, halfParticleX, halfParticleY, nowPageHeight, nowPageLeft, nowPageOffset, nowPagePosition, nowPageTop, nowPageWidth, particleAll, particleX, particleY, piecePosition;
       _router.blockGoPage();
 
       /* 換頁時間 */
@@ -220,6 +219,7 @@ cf.regLib('routeAnimate', function(cf) {
 
       /* 全部切成幾等份 */
       particleAll = particleX * particleY;
+      nowPagePosition = $nowPage.css('position');
       nowPageWidth = $nowPage.width();
       nowPageHeight = $nowPage.height();
       nowPageOffset = $nowPage.offset();
@@ -232,6 +232,7 @@ cf.regLib('routeAnimate', function(cf) {
 
       /* 每個等份的高 */
       eachHeight = nowPageHeight / particleY;
+      piecePosition = nowPagePosition === 'fixed' ? 'fixed' : 'absolute';
       count = 0;
       $nextPage.hide();
       caro.loop(function(j) {
@@ -241,13 +242,14 @@ cf.regLib('routeAnimate', function(cf) {
           left = nowPageLeft + (eachWidth * (i - 1));
           top = nowPageTop + (eachHeight * (j - 1));
           $dom = $('<div/>').css({
-            position: 'absolute',
+            position: piecePosition,
             width: eachWidth,
             height: eachHeight,
             overflow: 'hidden',
             left: left,
             top: top
-          }).appendTo($body);
+          });
+          $nowPage.after($dom);
           $nowPage.clone().css({
             position: 'absolute',
             visibility: 'visible',
