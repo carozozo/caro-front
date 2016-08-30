@@ -65,20 +65,15 @@
     <div>
       <div>cssType: 'top'/'left'/'right'/'bottom'/'margin-left'....</div>
     </div>
-    <div class="tip2">getCssWidth(): 取得 css 的 width string<span class="codeLink">程式範例</span></div>
+    <div class="tip2">getCss(type): 取得 css 的屬性<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
-      <div class="subTitle2">假設 $('#xx') 的 css width: 100%</div>
+      <div class="subTitle2">假設 $('#xx') 的 css width: 100%, margin-top: 10%</div>
       <div>
-        <div>$('#xx').dom().getCssWidth();<span class="tip3"> // '100%'</span></div>
-        <div>$('#xx').css('width');<span class="tip3"> // '100px'</span></div>
-      </div>
-    </div>
-    <div class="tip2">getCssHeight(): 取得 css 的 height string<span class="codeLink">程式範例</span></div>
-    <div class="codeTarget">
-      <div class="subTitle2">假設 $('#xx') 的 css height: 100%</div>
-      <div>
-        <div>$('#xx').dom().getCssHeight();<span class="tip3"> // '100%'</span></div>
-        <div>$('#xx').css('height');<span class="tip3"> // '100px'</span></div>
+        <div>var $dom = $('#xx').dom();</div>
+        <div>var width1 = $dom.getCss('width');<span class="tip3"> // '100%'</span></div>
+        <div>var width2 = $dom.css('width');<span class="tip3"> // '??px'</span></div>
+        <div>var top1 = $dom.getCss('margin-top');<span class="tip3"> // '10%'</span></div>
+        <div>var top2 = $dom.css('margin-top');<span class="tip3"> // '??px'</span></div>
       </div>
     </div>
     <div class="tip2">setCursor([cursor = 'pointer']): 設置滑鼠指標</div>

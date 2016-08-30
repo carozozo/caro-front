@@ -1,0 +1,84 @@
+
+<div class="mainTitle">cfPiece</div>
+<div class="content">
+  <div class="title">示範</div>
+  <div>
+    <div>y 切成
+      <input class="input40" id="particleY" type="text" value="3"/>等份,<span class="tab1">x 切成</span>
+      <input class="input40" id="particleX" type="text" value="3"/>等份
+      <div class="tab1 btn2" id="seperateBtn">分割</div>
+    </div>
+    <div class="separator1"></div>
+    <div>滑鼠移到圖片上可看到切片的順序</div>
+    <div class="separator1"></div><img id="blockMain" src="images/caro-front.png"/>
+  </div>
+</div>
+<div class="content">
+  <div class="title">簡介</div>
+  <div>
+    <div>將 $self 切片,切片後 $self 會隱藏</div>
+    <div class="tip3">注意切片後為固定寬高, 只繼承 $self 的 css position</div>
+    <div class="tip3">切片後請自行調整 css 以避免跑版</div>
+  </div>
+</div>
+<div class="content">
+  <div class="title">參數</div>
+  <div>
+    <div class="tip5">$('xxx').cfPiece([particleY = 3], [particleX = 3]);<span class="codeLink">程式範例</span>
+      <div class="codeTarget">
+        <div class="subTitle2">html</div>
+        <div>
+          <div>&lt;div id='img' style='position:static;'&gt;...&lt;/div&gt;</div>
+        </div>
+        <div class="separator2"></div>
+        <div class="subTitle2">js</div>
+        <div>
+          <div>var $img = $('#img').cfPiece(2, 3);</div>
+          <div class="separator1"></div>
+          <div class="tip2">// $piece1~$piece6 即產生的 jQuery 切片物件</div>
+          <div>var $pieceArr = $img.$pieceArr<span class="tip3"> // [$piece1, $piece2, $piece3, $piece4, $piece5, $piece6]</span></div>
+          <div class="separator1"></div>
+          <div class="tip2">// $piece1~$piece6 即產生的 jQuery 切片物件</div>
+          <div>var $pieceTable = $img.$pieceTable<span class="tip3"> // [ [$piece1, $piece2, $piece3], [$piece4, $piece5, $piece6] ]</span></div>
+          <div class="separator1"></div>
+        </div>
+        <div class="separator2"></div>
+        <div class="subTitle2">每個切片被賦予的 _yIndex 和 _xIndex</div>
+        <div>
+          <div>var index1 = $piece1._yIndex + '-' + $piece1._xIndex<span class="tip3"> // '0-0</span></div>
+          <div>var index2 = $piece1._yIndex + '-' + $piece1._xIndex<span class="tip3"> // '0-1'</span></div>
+          <div>...</div>
+          <div>var index4 = $piece1._yIndex + '-' + $piece1._xIndex<span class="tip3"> // '1-0'</span></div>
+        </div>
+        <div class="separator2"></div>
+        <div class="subTitle2">產生的切片 html 結構</div>
+        <div>
+          <div class="colorGray2">&lt;!-- $self 被設為隱藏 --&gt;</div>
+          <div>&lt;div id='img' style='position:static; display:none;'&gt;...&lt;/div&gt;</div>
+          <div class="colorGray2">&lt;!-- $img.$pieceContainer --&gt;</div>
+          <div>&lt;div style='position: static;'&gt;</div>
+          <div class="tab1 colorGray2">&lt;!-- $img.$pieceInnerContainer --&gt;</div>
+          <div class="tab1">&lt;div style='position: relative;'&gt;</div>
+          <div class="tab2 colorGray2">&lt;!-- 每個產生的切片 --&gt;</div>
+          <div class="tab2">&lt;div&gt;...&lt;/div&gt;</div>
+          <div class="tab1">&lt;/div&gt;</div>
+          <div>&lt;/div&gt;</div>
+        </div>
+      </div>
+    </div>
+    <div>particleY: y 切成幾等份</div>
+    <div>particleX: x 切成幾等份</div>
+    <div class="subTitle4">$self 附加屬性</div>
+    <div>
+      <div>$pieceArr: 儲存每個切片</div>
+      <div>$pieceTable: 儲存切片陣列, 例如切成 2 x 3, 陣列就是 [[$piece1, $piece2, $piece3],[$piece4, $piece5, $piece6]]</div>
+      <div>$pieceContainer: 外部切片的容器, 繼承 $self 的 css position 屬性</div>
+      <div>$pieceInnerContainer: 內部切片容器, 協助切片定位</div>
+    </div>
+    <div class="subTitle4">$piece 附加屬性</div>
+    <div>
+      <div>_yIndex: 儲存切片在 y 軸的 index</div>
+      <div>_xIndex: 儲存切片在 x 軸的 index</div>
+    </div>
+  </div>
+</div>
