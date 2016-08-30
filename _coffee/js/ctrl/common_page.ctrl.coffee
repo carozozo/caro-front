@@ -81,7 +81,10 @@ cf.regCtrl 'commonPage', ->
     opacity: 1
     rotationX: 0
   }, .2, '-=0.5', ->
-    $('.subContent').slideDown() unless cf.router.pageName is 'index'
+    if cf.router.pageName is 'index'
+      $($('.subContent')[0]).slideDown()
+    else
+      $('.subContent').slideDown()
     return
   )
 

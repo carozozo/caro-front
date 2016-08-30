@@ -84,7 +84,9 @@ cf.regCtrl('commonPage', function() {
     opacity: 1,
     rotationX: 0
   }, .2, '-=0.5', function() {
-    if (cf.router.pageName !== 'index') {
+    if (cf.router.pageName === 'index') {
+      $($('.subContent')[0]).slideDown();
+    } else {
       $('.subContent').slideDown();
     }
   });

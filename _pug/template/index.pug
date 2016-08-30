@@ -2,11 +2,7 @@
 .content
   .title 前言
   div
-    h3.tip5 這是一套 Web 前端框架, 也是專屬的開發工具集合
-    div 剛出社會時, 對未來矇懞懂懂
-    div 因緣際會下接觸了 PHP, 也開始自學 Web 相關的知識
-    div 而這也是我成為 Web Developer 的起點
-    br
+    h3.tip5 這是一套可以自由調整的前端 Web 框架
     div 這一路上走來, 從後端接觸到前端, 再由前端研究到後端, 來來回回
     div JavaScript, PHP, ActionScript, Java, Node.js
     div 在當中也開始接觸了一些程式架構
@@ -35,7 +31,7 @@
         |  CaroFront
       |  就這麼漸漸形成了
     br
-    div 2016/08/14 by Caro.Huang
+    div 2016/08/30 by Caro.Huang
 
 .content
   .title 內容介紹
@@ -44,11 +40,17 @@
     div
       .subTitle2 以 jQuery 作為基礎
       div
-        div 測試相容 v3.1.0 和 v1.12.4(foe IE8 之前)
+        div 測試相容 v3.1.0 和 v1.12.4(for IE8 之前)
+        div 只需要你會 jQuery, 和了解 cf 所提供的基本架構, 就能開始開發
 
       .subTitle2 動態 config
       div
         div 可根據不同的 url (例如 localhost, develop, production)載入相對應的設定, 減少開發複雜度
+
+      .subTitle2 可依專案性質自由調配功能
+      div
+        div 除基本函式庫和檔案之外, 可自行新增刪除所需功能
+        div.tip3 例如, 我不需要 cf.router 所提供的功能, 只需直接移除 /src/router.js
 
     .subTitle1 需要的基本函式庫
     div
@@ -133,7 +135,7 @@
   div
     .subTitle1 說明
     div
-      div 運用 gulp 自動掃描檔案並部署網站
+      div 運用 gulp 開發管理, 並利用 gulpfile_config.js 設置開發設定
       div 運用 bower 控管外掛
       .tip3 如無此需求可將相關檔案移除, 只使用 src 底下的檔案也可進行網站製作
 
