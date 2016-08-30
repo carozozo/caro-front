@@ -40,7 +40,15 @@ cf.regModule 'cfModal', (opt = {}) ->
     ).css(_basicStyle).hide()
 
   $inner = do ($) ->
-    selfWidth = $self.clone().appendTo('body').wrap('<div style="display: none"></div>').css('width') or $self.width()
+    getStyleWidth = ($dom) ->
+      $div = $('<div/>').hide()
+      $clone = $dom.clone()
+      $('body').append($div.append($clone))
+      width = $clone.css('width')
+      $div.remove()
+      width
+
+    selfWidth = getStyleWidth($self) or $self.width()
     $self.css(
       width: '100%'
     )
@@ -51,11 +59,15 @@ cf.regModule 'cfModal', (opt = {}) ->
       position: 'relative'
       top: '50%'
       transform: 'translateY(-50%)'
+      'max-width': '100%'
+      'max-height': '100%'
     ).append($self)
 
   $outer = do($) ->
     $('<div></div>').attr('id', 'cf-modal-outer' + _index)
-    .css(_basicStyle).on('click', (e) ->
+    .css(_basicStyle).css(
+      overflow: 'auto'
+    ).on('click', (e) ->
       return unless _isClickClose and e.target is @
       $self.hideModal()
     ).append($inner).hide()

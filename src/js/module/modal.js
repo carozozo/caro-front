@@ -52,8 +52,17 @@ cf.regModule('cfModal', function(opt) {
     }).css(_basicStyle).hide();
   })($);
   $inner = (function($) {
-    var selfWidth;
-    selfWidth = $self.clone().appendTo('body').wrap('<div style="display: none"></div>').css('width') || $self.width();
+    var getStyleWidth, selfWidth;
+    getStyleWidth = function($dom) {
+      var $clone, $div, width;
+      $div = $('<div/>').hide();
+      $clone = $dom.clone();
+      $('body').append($div.append($clone));
+      width = $clone.css('width');
+      $div.remove();
+      return width;
+    };
+    selfWidth = getStyleWidth($self) || $self.width();
     $self.css({
       width: '100%'
     });
@@ -63,11 +72,15 @@ cf.regModule('cfModal', function(opt) {
       'margin-right': 'auto',
       position: 'relative',
       top: '50%',
-      transform: 'translateY(-50%)'
+      transform: 'translateY(-50%)',
+      'max-width': '100%',
+      'max-height': '100%'
     }).append($self);
   })($);
   $outer = (function($) {
-    return $('<div></div>').attr('id', 'cf-modal-outer' + _index).css(_basicStyle).on('click', function(e) {
+    return $('<div></div>').attr('id', 'cf-modal-outer' + _index).css(_basicStyle).css({
+      overflow: 'auto'
+    }).on('click', function(e) {
       if (!(_isClickClose && e.target === this)) {
         return;
       }
