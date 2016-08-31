@@ -20,7 +20,7 @@ cf.regModule('cfMouseStyle', function($mouse, opt) {
     position: 'absolute',
     'pointer-events': 'none'
   });
-  $self.off(_triggerName).on(_triggerName, function(e) {
+  $self.on(_triggerName, function(e) {
     var $offsetParent, left, offset, top;
     $offsetParent = $self.offsetParent();
     left = e.pageX;

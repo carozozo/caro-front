@@ -15,7 +15,7 @@ cf.regModule 'cfMouseStyle', ($mouse, opt = {}) ->
     'pointer-events': 'none'
   })
 
-  $self.off(_triggerName).on(_triggerName, (e) ->
+  $self.on(_triggerName, (e) ->
     $offsetParent = $self.offsetParent()
     left = e.pageX
     top = e.pageY
