@@ -27,7 +27,7 @@ cf.router.regPage 'module/cfScroll', (cf) ->
     $innerArr.push($inner)
     return
   )
-  $outer.cfScroll('outer', $innerArr)
+  $outer.cfScroll($innerArr)
 
   $page.dom('#scrollToBtn1').onClick(->
     $outer.scrollTo(1)

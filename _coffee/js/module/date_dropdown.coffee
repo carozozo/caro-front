@@ -3,9 +3,6 @@
 e.g. 閏年的2月, 日期範圍會是 1~29 而不是 1~28
 ###
 cf.regModule 'cfDateDropdown', (opt = {}) ->
-  ###
-  triggerName: 指定 年和月在 on change 的 namespace, 避免多重觸發
-  ###
   $self = @
   ### 年份 <select> 容器 ###
   $year = if opt.$year then opt.$year else $('<select/>').appendTo($self)
