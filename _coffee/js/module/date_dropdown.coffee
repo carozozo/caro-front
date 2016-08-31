@@ -2,7 +2,7 @@
 自動化日期下拉選單, 日期下拉選單的值會依照所選的年和月改變
 e.g. 閏年的2月, 日期範圍會是 1~29 而不是 1~28
 ###
-cf.regModule 'cfDateDropdown', (nameSpace, opt = {}) ->
+cf.regModule 'cfDateDropdown', (opt = {}) ->
   ###
   triggerName: 指定 年和月在 on change 的 namespace, 避免多重觸發
   ###
@@ -23,7 +23,7 @@ cf.regModule 'cfDateDropdown', (nameSpace, opt = {}) ->
   onSetMonth = opt.onSetMonth
   ### 設置每個 day 的 options 時觸發的 cb ###
   onSetDay = opt.onSetDay
-  _triggerName = 'change.cfDateDropdown.' + nameSpace
+  _triggerName = 'change.cfDateDropdown'
 
   daysInMonth = (year, month) ->
     new Date(year, month, 0).getDate()
@@ -66,11 +66,11 @@ cf.regModule 'cfDateDropdown', (nameSpace, opt = {}) ->
   setMonthOpt()
   updateNumberOfDays()
 
-  $year.off(_triggerName).on(_triggerName, ->
+  $year.on(_triggerName, ->
     updateNumberOfDays()
     return
   )
-  $month.off(_triggerName).on(_triggerName, ->
+  $month.on(_triggerName, ->
     updateNumberOfDays()
     return
   )
