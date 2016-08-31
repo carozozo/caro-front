@@ -1,5 +1,5 @@
-cf.router.regPage('module/cfPiece', function(cf, $page) {
-  var $blockMain, $particleX, $particleY, setInput, tm;
+cf.router.regPage('module/cfPiece', function(cf) {
+  var $blockMain, $page, $particleX, $particleY, setInput, tm;
   $page = this;
   tm = cf.require('TweenMax');
   setInput = function($input) {

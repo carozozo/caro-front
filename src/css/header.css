@@ -7,8 +7,13 @@
   z-index: 9999;
   min-width: 640px;
 }
-#headerTitle {
+#headerTitle,
+.headerTitleImg {
   width: 250px;
+  height: 37px;
+}
+.headerTitleImg {
+  position: absolute;
 }
 .headerBtn {
   display: inline-block;
