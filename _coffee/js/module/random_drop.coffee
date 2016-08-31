@@ -161,11 +161,11 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
       createDrop()
     trigger1 = 'focusout.cfRandomDrop'
     trigger2 = 'focus.cfRandomDrop'
-    $window.off(trigger1).on(trigger1, ->
+    $window.on(trigger1, ->
       _isKeepDrop = false
       return
     )
-    $window.off(trigger2).on(trigger2, ->
+    $window.on(trigger2, ->
       $self.startDrop()
       return
     )
@@ -179,7 +179,7 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
   ### 當 click 時, 產生滑落物件 ###
   $self.clickCreate = ->
     triggerName = 'click.cfRandomDrop'
-    $self.off(triggerName).on(triggerName, (e) ->
+    $self.on(triggerName, (e) ->
       mouseX = e.pageX
       mouseY = e.pageY
       selfOffset = $self.offset()
@@ -213,8 +213,8 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
       )
     triggerName1 = 'mousemove.cfRandomDrop'
     triggerName2 = 'touchmove.cfRandomDrop'
-    $self.off(triggerName1).on(triggerName1, triggerMoveFn)
-    $self.off(triggerName2).on(triggerName2, triggerMoveFn)
+    $self.on(triggerName1, triggerMoveFn)
+    $self.on(triggerName2, triggerMoveFn)
     $self
 
   $self.css(

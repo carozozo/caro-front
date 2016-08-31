@@ -227,10 +227,10 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     }
     trigger1 = 'focusout.cfRandomDrop';
     trigger2 = 'focus.cfRandomDrop';
-    $window.off(trigger1).on(trigger1, function() {
+    $window.on(trigger1, function() {
       _isKeepDrop = false;
     });
-    $window.off(trigger2).on(trigger2, function() {
+    $window.on(trigger2, function() {
       $self.startDrop();
     });
     return $self;
@@ -246,7 +246,7 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
   $self.clickCreate = function() {
     var triggerName;
     triggerName = 'click.cfRandomDrop';
-    $self.off(triggerName).on(triggerName, function(e) {
+    $self.on(triggerName, function(e) {
       var left, mouseX, mouseY, selfOffset, top;
       mouseX = e.pageX;
       mouseY = e.pageY;
@@ -290,8 +290,8 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     };
     triggerName1 = 'mousemove.cfRandomDrop';
     triggerName2 = 'touchmove.cfRandomDrop';
-    $self.off(triggerName1).on(triggerName1, triggerMoveFn);
-    $self.off(triggerName2).on(triggerName2, triggerMoveFn);
+    $self.on(triggerName1, triggerMoveFn);
+    $self.on(triggerName2, triggerMoveFn);
     return $self;
   };
   return $self.css({
