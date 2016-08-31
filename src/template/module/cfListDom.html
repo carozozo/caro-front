@@ -50,20 +50,20 @@
 <div class="content">
   <div class="title">簡介</div>
   <div>
-    <div>將 object-array 資料放到 DOM, 以 list 方式呈現, 例如得獎名單</div>
-    <div>DOM 本身需要寫入 [listKey='xxx'] 標籤, 用來對應 object 裡面的 key</div>
+    <div>將 object-array 資料放到 $dom, 以 list 方式呈現, 例如得獎名單</div>
+    <div class="tip3">$dom 本身需要寫入 [listKey='xxx'] 標籤, 用來對應 object 裡面的 key</div>
   </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
   <div>
     <div class="tip5">$('xxx').cfDateDropdown(objArr, opt = {});</div>
-    <div>objArr: 以 object 組成的 array</div>
+    <div>objArr: 資料型態組成的 array</div>
     <div class="subTitle1">opt 參數</div>
     <div>
-      <div>befInsert: 每次置入 DOM 之前會呼叫的 cb(object,index,DOM); 回傳 true 會跳過, false 則停止繼續寫入下一筆</div>
-      <div>befInsert: 每次置入 DOM 之後會呼叫的 cb(object,index,DOM)</div>
-      <div>isAfter: list DOM 是否是放在 after</div>
+      <div>befInsert: 每次置入 $dom 之前會呼叫的 cb(dataObject, index, $dom); 回傳 true 會跳過, false 則停止繼續寫入下一筆</div>
+      <div>befInsert: 每次置入 $dom 之後會呼叫的 cb(dataObject, index, $dom)</div>
+      <div>isAfter: list $dom 是否是放在 after</div>
     </div>
   </div>
 </div>
