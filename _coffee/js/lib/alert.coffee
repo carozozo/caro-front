@@ -10,14 +10,17 @@ cf.regLib 'alert', (cf) ->
         $box.remove()
         return
     )
-    ### alert DOM 要放至的位置 ###
+    ### alert 視窗要放至的位置 ###
     _$target = opt.$target or cf.$body
+    ### 點選 ok 之後觸發的 cb ###
+    _cb = opt.cb
     $box = $('<div/>').addClass('cfAlert')
     $background = $('<div/>').addClass('cfAlertBg')
     $msg = $('<div/>').addClass('cfAlertMsg').appendTo($box)
     $('<div />').addClass('cfAlertOkBtn').on('click', ->
       tl1.timeScale(1.5).reverse()
       $background.remove()
+      cb and cb()
     ).html('OK').appendTo($box)
 
     $msg.html(msg)

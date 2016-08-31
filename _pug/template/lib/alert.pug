@@ -12,7 +12,9 @@
       span.codeLink 程式範例
     .subTitle1 opt 參數
     div
-      div
-        | $target: alert DOM 要放至的位置, 預設 cf.$body
+      div $target: alert 視窗要放至的位置, 預設 cf.$body
+      div cb: 點選 alert 視窗的 ok 按鈕之後觸發的 cb
     .codeTarget
-      | cf.alert('This is alert msg.');
+      div cf.alert('This is alert msg.', {
+      .tab1 cb: function() { ... }
+      div });

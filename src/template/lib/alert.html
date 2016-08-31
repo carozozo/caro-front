@@ -13,8 +13,13 @@
     <div class="tip2">cf.alert(msg, [opt = {}]);<span class="codeLink">程式範例</span></div>
     <div class="subTitle1">opt 參數</div>
     <div>
-      <div>$target: alert DOM 要放至的位置, 預設 cf.$body</div>
+      <div>$target: alert 視窗要放至的位置, 預設 cf.$body</div>
+      <div>cb: 點選 alert 視窗的 ok 按鈕之後觸發的 cb</div>
     </div>
-    <div class="codeTarget">cf.alert('This is alert msg.');</div>
+    <div class="codeTarget">
+      <div>cf.alert('This is alert msg.', {</div>
+      <div class="tab1">cb: function() { ... }</div>
+      <div>});</div>
+    </div>
   </div>
 </div>
