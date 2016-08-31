@@ -68,10 +68,14 @@ do(window, $, caro, MobileDetect) ->
       urlPath: urlPath
     }
 
-  genTraceFn = (name) ->
+  genTraceFn = (traceName) ->
     fn = ->
-      return if !fn.traceMode or self.isBefIe9
-      name = caro.upperFirst(name)
+      config = self.config('cf')
+      trace = config.trace
+      return if !trace or self.isBefIe9
+      return if caro.isString(trace) and traceName isnt trace
+      return if caro.isArray(trace) and trace.indexOf(traceName) < 0
+      name = caro.upperFirst(traceName)
       args = caro.values(arguments)
       args.unshift name + ':'
       console.log.apply console, args
@@ -90,8 +94,7 @@ do(window, $, caro, MobileDetect) ->
       return
     fn
 
-  _trace = genTraceFn('system')
-  #  _trace.startTrace()
+  _trace = genTraceFn('cf')
 
   ### 核心程式 ###
   do(self, window) ->
@@ -160,7 +163,6 @@ do(window, $, caro, MobileDetect) ->
             $dom.html(_html) if _html
             $dom = fn.apply $dom, args
           $dom
-
         _trace type, name, 'registered'
       else
         _trace.err type, name, 'is duplicate'

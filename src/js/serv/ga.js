@@ -10,7 +10,6 @@ cf.regServ('ga', function(cf) {
   _cfg = cf.config('ga');
   _isDownloadGa = _cfg.isDownloadGa;
   _trace = cf.genTraceFn('ga');
-  _trace.startTrace();
   ga = cf.require('ga');
 
   /* 發送 page view */
@@ -46,7 +45,6 @@ cf.regDocReady(function(cf) {
   window = cf.require('window');
   document = cf.require('document');
   _trace = cf.genTraceFn('ga');
-  _trace.startTrace();
   downloadSdkFn = function() {
     _trace('Start download google analytics, id:', _gaId);
     (function(i, s, o, g, r, a, m) {

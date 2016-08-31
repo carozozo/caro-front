@@ -22,9 +22,14 @@
 .content
   .title 設定檔
   div
-    div isLocalTest: 是否為 local 測試模式, 只在 local 有效
-    div localUrlPath: 用來判定目前所在的網址是否為 local, 最後面加上*代表只要前面符合就成立
-    div prodUrlPath: 用來判定目前所在的網址是否為 production, 最後面加上*代表只要前面符合就成立
+    div isLocalTest: 是否為 local 測試模式,
+      span.tip3  只在 local 有效
+    div localUrlPath: 用來判定目前所在的網址是否為 local,
+      span.tip3 最後面加上*代表只要前面符合就成立
+    div prodUrlPath: 用來判定目前所在的網址是否為 production,
+      span.tip3 最後面加上*代表只要前面符合就成立
+    div trace: 追蹤項目, false = 不追蹤, true = 全部, str = 指定追蹤項目, str-array = 追蹤複數項目;
+      span.tip3  搭配 cf.genTraceFn
 .content
   .title 函式
   div
@@ -63,23 +68,27 @@
       div cf.regDocReady(function(){
       .tab1 alert('b');
       div }, 1);
-    .tip2
-      | genTraceFn(訊息標題): 產生 trace 用的 fn, 會在 console 顯示訊息,
-      span.tip3  IE8 之前不支援 console
-      | ;
+    .tip2 genTraceFn(訊息標題): 產生 trace 用的 fn, 會在 console 顯示訊息
+
       span.codeLink 程式範例
     .codeTarget
-      .tip2 // 產生 trace 程式
-      div var trace = cf.genTraceFn('Caro's msg');
-      .tip2 // 宣告可以在 console.log 印出 trace 訊息
-      div trace.startTrace();
-      .tip2 // 如果沒有執行 trace.startTrace(), 則不會 log 訊息
-      div var name = 'Caro';
-      div trace.log('My name is', name);  
-        span.tip3 // 'Caro's msg: My name is Caro'
-      .tip2 // 無論有無執行 trace.startTrace(), 都會 log 訊息
-      div trace.error('Got error');  
-        span.tip3 // 'Caro's msg: Got error'
+      .subTitle2 假設 cf_config 裡的 cf 有設定 trace = 'caro1'
+      div
+        .tip2 // 產生 trace 程式, 註冊名稱為 caro1 和 caro2
+        div var trace1 = cf.genTraceFn('caro1');
+        div var trace2 = cf.genTraceFn('caro2');
+        .separator1
+        div var name = 'Caro';
+        div trace1('My name is', name);  
+          span.tip3 // 'Caro1: My name is Caro'
+        div trace2('My name is', name);  
+          span.tip3 // 不會列印
+        .separator1
+        .tip2 // 一定會 log error 訊息
+        div trace1.error('Got error');  
+          span.tip3 // 'Caro1: Got error'
+        div trace2.error('Got error');  
+          span.tip3 // 'Caro2: Got error'
     .tip2
       | regLib(註冊名稱, fn): 註冊函式 庫;
       span.codeLink 程式範例

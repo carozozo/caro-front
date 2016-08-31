@@ -8,7 +8,6 @@ cf.regLib 'router', (cf) ->
   _cfg = cf.config('router')
   _isGoPage = true
   _trace = cf.genTraceFn('router')
-  #  _trace.startTrace();
 
   self = {}
   ### 當下分頁的容器 ###
@@ -58,7 +57,7 @@ cf.regLib 'router', (cf) ->
       unless pageMap[pageName]
         pageMap[pageName] = {}
         pageMap[pageName].fn = fn
-        _trace 'Page', pageName, ' registered'
+        _trace 'Page', pageName, 'registered'
       return
     return
 

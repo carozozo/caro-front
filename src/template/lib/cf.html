@@ -25,9 +25,10 @@
 <div class="content">
   <div class="title">設定檔</div>
   <div>
-    <div>isLocalTest: 是否為 local 測試模式, 只在 local 有效</div>
-    <div>localUrlPath: 用來判定目前所在的網址是否為 local, 最後面加上*代表只要前面符合就成立</div>
-    <div>prodUrlPath: 用來判定目前所在的網址是否為 production, 最後面加上*代表只要前面符合就成立</div>
+    <div>isLocalTest: 是否為 local 測試模式,<span class="tip3"> 只在 local 有效</span></div>
+    <div>localUrlPath: 用來判定目前所在的網址是否為 local,<span class="tip3">最後面加上*代表只要前面符合就成立</span></div>
+    <div>prodUrlPath: 用來判定目前所在的網址是否為 production,<span class="tip3">最後面加上*代表只要前面符合就成立</span></div>
+    <div>trace: 追蹤項目, false = 不追蹤, true = 全部, str = 指定追蹤項目, str-array = 追蹤複數項目;<span class="tip3"> 搭配 cf.genTraceFn</span></div>
   </div>
 </div>
 <div class="content">
@@ -61,17 +62,22 @@
       <div class="tab1">alert('b');</div>
       <div>}, 1);</div>
     </div>
-    <div class="tip2">genTraceFn(訊息標題): 產生 trace 用的 fn, 會在 console 顯示訊息,<span class="tip3"> IE8 之前不支援 console</span>;<span class="codeLink">程式範例</span></div>
+    <div class="tip2">genTraceFn(訊息標題): 產生 trace 用的 fn, 會在 console 顯示訊息<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
-      <div class="tip2">// 產生 trace 程式</div>
-      <div>var trace = cf.genTraceFn('Caro's msg');</div>
-      <div class="tip2">// 宣告可以在 console.log 印出 trace 訊息</div>
-      <div>trace.startTrace();</div>
-      <div class="tip2">// 如果沒有執行 trace.startTrace(), 則不會 log 訊息</div>
-      <div>var name = 'Caro';</div>
-      <div>trace.log('My name is', name);  <span class="tip3">// 'Caro's msg: My name is Caro'</span></div>
-      <div class="tip2">// 無論有無執行 trace.startTrace(), 都會 log 訊息</div>
-      <div>trace.error('Got error');  <span class="tip3">// 'Caro's msg: Got error'</span></div>
+      <div class="subTitle2">假設 cf_config 裡的 cf 有設定 trace = 'caro1'</div>
+      <div>
+        <div class="tip2">// 產生 trace 程式, 註冊名稱為 caro1 和 caro2</div>
+        <div>var trace1 = cf.genTraceFn('caro1');</div>
+        <div>var trace2 = cf.genTraceFn('caro2');</div>
+        <div class="separator1"></div>
+        <div>var name = 'Caro';</div>
+        <div>trace1('My name is', name);  <span class="tip3">// 'Caro1: My name is Caro'</span></div>
+        <div>trace2('My name is', name);  <span class="tip3">// 不會列印</span></div>
+        <div class="separator1"></div>
+        <div class="tip2">// 一定會 log error 訊息</div>
+        <div>trace1.error('Got error');  <span class="tip3">// 'Caro1: Got error'</span></div>
+        <div>trace2.error('Got error');  <span class="tip3">// 'Caro2: Got error'</span></div>
+      </div>
     </div>
     <div class="tip2">regLib(註冊名稱, fn): 註冊函式 庫;<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">

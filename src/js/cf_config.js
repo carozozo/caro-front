@@ -4,8 +4,10 @@
   isLocalTest: 是否為 local 測試模式, 只在 local 有效
   localUrlPath: 用來判定目前所在的網址是否為 local, 最後面加上*代表只要前面符合就成立
   prodUrlPath: 用來判定目前所在的網址是否為 production, 最後面加上*代表只要前面符合就成立
+  trace: trace 項目, false = 不追蹤, true = 全部, str = 指定追蹤項目, str-array = 複數追蹤項目; 搭配 cf.genTraceFn
    */
   cf.config('cf', {
+    trace: true,
     isLocalTest: true,
     localUrlPath: 'localhost*',
     prodUrlPath: 'carozozo.github.io/caro-front/'

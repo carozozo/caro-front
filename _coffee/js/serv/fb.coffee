@@ -28,7 +28,6 @@ cf.regServ 'fb', (cf) ->
     urlArr.join('')
 
   _trace = cf.genTraceFn('fb')
-  #  _trace.startTrace()
 
   genApiObj = ->
     obj = {}
@@ -227,7 +226,6 @@ cf.regDocReady((cf) ->
   _cfg = cf.config('fb')
   _isDownloadSdk = _cfg.isDownloadSdk
   _trace = cf.genTraceFn('fb')
-  # _trace.startTrace()
 
   downloadSdk = ->
     _trace 'Start download facebook SDK'

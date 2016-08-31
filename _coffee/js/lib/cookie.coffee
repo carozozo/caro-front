@@ -7,7 +7,6 @@ cf.regLib 'cookie', (cf) ->
   window = cf.require('window')
   document = cf.require('document')
   _trace = cf.genTraceFn('cookie')
-  #  _trace.startTrace()
 
   ### 設置 cookie ###
   self.setCookie = (cookieName, val, opt = {}) ->

@@ -94,20 +94,28 @@ CaroFront 核心程式
       urlPath: urlPath
     };
   };
-  genTraceFn = function(name) {
+  genTraceFn = function(traceName) {
     var fn;
     fn = function() {
-      var args;
-      if (!fn.traceMode || self.isBefIe9) {
+      var args, config, name, trace;
+      config = self.config('cf');
+      trace = config.trace;
+      if (!trace || self.isBefIe9) {
         return;
       }
-      name = caro.upperFirst(name);
+      if (caro.isString(trace) && traceName !== trace) {
+        return;
+      }
+      if (caro.isArray(trace) && trace.indexOf(traceName) < 0) {
+        return;
+      }
+      name = caro.upperFirst(traceName);
       args = caro.values(arguments);
       args.unshift(name + ':');
       console.log.apply(console, args);
     };
     fn.err = function() {
-      var args;
+      var args, name;
       if (self.isBefIe9) {
         return;
       }
@@ -121,7 +129,7 @@ CaroFront 核心程式
     };
     return fn;
   };
-  _trace = genTraceFn('system');
+  _trace = genTraceFn('cf');
 
   /* 核心程式 */
   (function(self, window) {

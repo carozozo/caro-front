@@ -11,7 +11,6 @@ cf.regServ('gtm', function(cf) {
   _cfg = cf.config('gtm');
   _isDownloadGtm = _cfg.isDownloadGtm;
   _trace = cf.genTraceFn('gtm');
-  _trace.startTrace();
   self.page = function(pageName) {
     pageName = pageName.trim();
     if (_isDownloadGtm) {
@@ -51,7 +50,6 @@ cf.regDocReady(function(cf) {
   window = cf.require('window');
   document = cf.require('document');
   _trace = cf.genTraceFn('gtm');
-  _trace.startTrace();
   downloadSdkFn = function() {
     var dataLayer, f, i, j;
     _trace('Start download google tag manager, id:', gtmId);

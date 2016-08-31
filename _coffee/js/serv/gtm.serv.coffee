@@ -9,7 +9,6 @@ cf.regServ 'gtm', (cf) ->
   _cfg = cf.config('gtm')
   _isDownloadGtm = _cfg.isDownloadGtm
   _trace = cf.genTraceFn('gtm')
-  _trace.startTrace()
 
   self.page = (pageName) ->
     pageName = pageName.trim()
@@ -46,7 +45,6 @@ cf.regDocReady((cf) ->
   window = cf.require('window')
   document = cf.require('document')
   _trace = cf.genTraceFn('gtm')
-  _trace.startTrace()
 
   downloadSdkFn = ->
     _trace 'Start download google tag manager, id:', gtmId
