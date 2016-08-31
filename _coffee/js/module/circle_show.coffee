@@ -1,5 +1,6 @@
 ###
 DOM circle 輪播效果
+Depend on gsap
 ###
 cf.regModule 'cfCircleShow', ($targetList, opt = {}) ->
   $self = @

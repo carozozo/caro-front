@@ -1,6 +1,7 @@
 
 /*
 客製化滑鼠樣式
+Depend on gsap
  */
 cf.regModule('cfMouseStyle', function($mouse, opt) {
   var $self, _delay, _triggerName, cf, tm;

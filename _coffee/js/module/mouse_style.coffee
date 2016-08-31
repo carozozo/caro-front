@@ -1,5 +1,6 @@
 ###
 客製化滑鼠樣式
+Depend on gsap
 ###
 cf.regModule 'cfMouseStyle', ($mouse, opt = {}) ->
   ### $mouse = 會跟著滑鼠移動的物件, 請放在 $self 裡面 -> 可當作是滑鼠指標 ###

@@ -1,6 +1,7 @@
 
 /*
 隨目標縮放自己的大小
+Depend on gsap
  */
 cf.regModule('cfScale', function(opt) {
   var $self, $target, _aftScale, _basicHeight, _basicWidth, _befScale, _duration, _endScale, _endX, _endY, _infoObj, _isScaleX, _isScaleY, _mode, _selfInfo, _startScale, _startX, _startY, _targetInfo, _triggerName, caro, cf, getScaleX, getScaleY, setScaleInfo, setTargetInfo, tm;

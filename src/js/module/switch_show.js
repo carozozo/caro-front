@@ -1,6 +1,7 @@
 
 /*
 輪流切換 DOM 內容, 預設顯示第一個, 其他透明度設為 0
+Depend on gsap
  */
 cf.regModule('cfSwitchShow', function($domList, opt) {
   var $self, _aftSwitch, _befSwitch, _currentIndex, _defType, _distance, _duration, caro, cf, switchShow, tl;

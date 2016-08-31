@@ -1,5 +1,6 @@
 ###
 計算滑鼠和基準點的距離，同步移動 DOM
+Depend on gsap
 ###
 cf.regModule 'cfSyncMove', (opt = {}) ->
   $self = @

@@ -1,6 +1,7 @@
 
 /*
 計算滑鼠和基準點的距離，同步移動 DOM
+Depend on gsap
  */
 cf.regModule('cfSyncMove', function(opt) {
   var $document, $self, $window, _aftMove, _baseX, _baseY, _befMove, _proportionX, _proportionY, _rangeX, _rangeY, _reverseX, _reverseY, _stopMove, _triggerName1, _triggerName2, caro, cf, tm, triggerFn;

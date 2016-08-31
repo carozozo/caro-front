@@ -1,5 +1,6 @@
 ###
 隨目標縮放自己的大小
+Depend on gsap
 ###
 cf.regModule 'cfScale', (opt = {}) ->
   $self = @

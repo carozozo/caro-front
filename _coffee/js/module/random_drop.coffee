@@ -1,5 +1,6 @@
 ###
 隨機產生滑落物件, 例如水滴, 氣泡效果
+Depend on gsap
 ###
 cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
   $self = @

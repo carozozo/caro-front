@@ -1,5 +1,6 @@
 ###
 輪流切換 DOM 內容, 預設顯示第一個, 其他透明度設為 0
+Depend on gsap
 ###
 cf.regModule 'cfSwitchShow', ($domList, opt = {}) ->
   ### $domList: 要顯示的 dom 列表, e.g. [$('#dom1'), $('#dom2')] ###
