@@ -139,6 +139,9 @@ cf.regLib 'router', (cf) ->
           return
         doneFn = ->
           $nowPage and $nowPage.remove()
+          cf.$window.off()
+          cf.$body.off()
+          cf.$document.off()
           return
 
         if $nowPage and self._transitionFn

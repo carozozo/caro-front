@@ -190,6 +190,9 @@ cf.regLib('router', function(cf) {
         };
         doneFn = function() {
           $nowPage && $nowPage.remove();
+          cf.$window.off();
+          cf.$body.off();
+          cf.$document.off();
         };
         if ($nowPage && self._transitionFn) {
           setPage();
