@@ -16,7 +16,7 @@ cf.regModule('cfScroll', function(nameSpace, $contents, opt) {
   _nowIndex = 0;
 
   /* 綁定 scroll 的 name space */
-  _triggerName = 'scroll.cfScroll.' + nameSpace;
+  _triggerName = 'scroll.cfScroll';
 
   /* 判定捲動到定點的 Y 軸基準線, 可以是回傳 num 的 fn, 預設為本身高度的一半 */
   _basicY = opt.basicY || function() {
@@ -121,9 +121,7 @@ cf.regModule('cfScroll', function(nameSpace, $contents, opt) {
 
   /* 綁定 scroll */
   $self.bindScroll = function() {
-
-    /* 避免重複綁定 */
-    $self.off(_triggerName).on(_triggerName, function(e) {
+    $self.on(_triggerName, function(e) {
       if (_nowIndex !== null && _befScroll && _befScroll(_nowIndex, e) === false) {
         return false;
       }
