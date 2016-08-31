@@ -177,9 +177,8 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
     $self
 
   ### 當 click 時, 產生滑落物件 ###
-  $self.clickCreate = (nameSpace) ->
+  $self.clickCreate = ->
     triggerName = 'click.cfRandomDrop'
-    triggerName += '.' + nameSpace if nameSpace
     $self.off(triggerName).on(triggerName, (e) ->
       mouseX = e.pageX
       mouseY = e.pageY
@@ -195,7 +194,7 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
     $self
 
   ### 當 mousemove, 產生滑落物件 ###
-  $self.moveCreate = (interval = 10, nameSpace) ->
+  $self.moveCreate = (interval = 10) ->
     count = 0
     interval = parseInt(interval, 10) or 10
     triggerMoveFn = (e) ->
@@ -213,9 +212,7 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
         isKeepDrop: false
       )
     triggerName1 = 'mousemove.cfRandomDrop'
-    triggerName1 += '.' + nameSpace if nameSpace
     triggerName2 = 'touchmove.cfRandomDrop'
-    triggerName2 += '.' + nameSpace if nameSpace
     $self.off(triggerName1).on(triggerName1, triggerMoveFn)
     $self.off(triggerName2).on(triggerName2, triggerMoveFn)
     $self

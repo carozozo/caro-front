@@ -243,12 +243,9 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
   };
 
   /* 當 click 時, 產生滑落物件 */
-  $self.clickCreate = function(nameSpace) {
+  $self.clickCreate = function() {
     var triggerName;
     triggerName = 'click.cfRandomDrop';
-    if (nameSpace) {
-      triggerName += '.' + nameSpace;
-    }
     $self.off(triggerName).on(triggerName, function(e) {
       var left, mouseX, mouseY, selfOffset, top;
       mouseX = e.pageX;
@@ -266,7 +263,7 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
   };
 
   /* 當 mousemove, 產生滑落物件 */
-  $self.moveCreate = function(interval, nameSpace) {
+  $self.moveCreate = function(interval) {
     var count, triggerMoveFn, triggerName1, triggerName2;
     if (interval == null) {
       interval = 10;
@@ -292,13 +289,7 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
       });
     };
     triggerName1 = 'mousemove.cfRandomDrop';
-    if (nameSpace) {
-      triggerName1 += '.' + nameSpace;
-    }
     triggerName2 = 'touchmove.cfRandomDrop';
-    if (nameSpace) {
-      triggerName2 += '.' + nameSpace;
-    }
     $self.off(triggerName1).on(triggerName1, triggerMoveFn);
     $self.off(triggerName2).on(triggerName2, triggerMoveFn);
     return $self;
