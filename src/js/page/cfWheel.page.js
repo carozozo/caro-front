@@ -3,7 +3,7 @@ cf.router.regPage('module/cfWheel', function(cf) {
   $page = this;
   bgColorArr = cf.data('bgColorArr');
   $wheelInfo = $page.dom('#wheelInfo');
-  $page.cfWheel('cfWheel', function(e) {
+  $page.cfWheel(function(e) {
     var info;
     info = {
       isWheelDown: e.isWheelDown,

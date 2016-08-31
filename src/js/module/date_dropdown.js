@@ -8,10 +8,6 @@ cf.regModule('cfDateDropdown', function(opt) {
   if (opt == null) {
     opt = {};
   }
-
-  /*
-  triggerName: 指定 年和月在 on change 的 namespace, 避免多重觸發
-   */
   $self = this;
 
   /* 年份 <select> 容器 */

@@ -28,7 +28,7 @@ cf.router.regPage('module/cfScroll', function(cf) {
     setInner($inner, index, color);
     $innerArr.push($inner);
   });
-  $outer.cfScroll('outer', $innerArr);
+  $outer.cfScroll($innerArr);
   $page.dom('#scrollToBtn1').onClick(function() {
     $outer.scrollTo(1);
   });
