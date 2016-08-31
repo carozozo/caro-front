@@ -3,11 +3,10 @@
 客製化 facebook api 呼叫程式
  */
 cf.regServ('fb', function(cf) {
-  var _alert, _appId, _authResponse, _cfg, _initCbMap, _isPhone, _isReady, _isUserConnected, _nowUrl, _redirectAfterLogin, _sdkVersion, _shareUrl, _trace, _urlAftLogin, caro, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
+  var _appId, _authResponse, _cfg, _initCbMap, _isPhone, _isReady, _isUserConnected, _nowUrl, _redirectAfterLogin, _sdkVersion, _shareUrl, _trace, _urlAftLogin, caro, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
   self = {};
   caro = cf.require('caro');
   window = cf.require('window');
-  _alert = cf.alert || cf.require('alert');
   _cfg = cf.config('fb');
   _isPhone = cf.isPhone;
   _appId = _cfg.appId;
@@ -64,10 +63,10 @@ cf.regServ('fb', function(cf) {
   runFb = function(fn) {
     var apiObj;
     if (!_isReady) {
-      return _alert('Facebook 登入功能正在準備中, 請稍後再試');
+      return alert('Facebook 登入功能正在準備中, 請稍後再試');
     }
     if (!FB) {
-      return _alert('Facebook 功能異常, 請稍後再試');
+      return alert('Facebook 功能異常, 請稍後再試');
     }
     apiObj = genApiObj();
     fn(apiObj);
@@ -89,7 +88,7 @@ cf.regServ('fb', function(cf) {
     var resErrObj, status;
     _trace('Login response =', res);
     if (!res) {
-      _alert('Facebook 功能異常, 請稍後再試');
+      alert('Facebook 功能異常, 請稍後再試');
       _trace.err('Can not get Fb login response');
       return errCb && errCb();
     }

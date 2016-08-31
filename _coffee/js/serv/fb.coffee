@@ -5,7 +5,6 @@ cf.regServ 'fb', (cf) ->
   self = {}
   caro = cf.require('caro')
   window = cf.require('window')
-  _alert = cf.alert or cf.require('alert')
   _cfg = cf.config('fb')
   _isPhone = cf.isPhone
   _appId = _cfg.appId
@@ -56,9 +55,9 @@ cf.regServ 'fb', (cf) ->
 
   runFb = (fn) ->
     unless _isReady
-      return _alert('Facebook 登入功能正在準備中, 請稍後再試')
+      return alert('Facebook 登入功能正在準備中, 請稍後再試')
     unless FB
-      return _alert('Facebook 功能異常, 請稍後再試')
+      return alert('Facebook 功能異常, 請稍後再試')
     apiObj = genApiObj()
     fn(apiObj)
     apiObj
@@ -76,7 +75,7 @@ cf.regServ 'fb', (cf) ->
   initLoginResponseAncCallCb = (res, sucCb, errCb) ->
     _trace 'Login response =', res
     if !res
-      _alert 'Facebook 功能異常, 請稍後再試'
+      alert 'Facebook 功能異常, 請稍後再試'
       _trace.err 'Can not get Fb login response'
       return errCb and errCb()
     resErrObj = getFbResErrObj(res)

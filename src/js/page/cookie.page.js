@@ -1,5 +1,5 @@
-cf.router.regPage('lib/cookie', function(cf, $page) {
-  var $getCookieName, $setCookieName, $setCookieVal, window;
+cf.router.regPage('lib/cookie', function(cf) {
+  var $getCookieName, $page, $setCookieName, $setCookieVal, window;
   $page = this;
   window = cf.require('window');
   $setCookieName = $page.dom('#setCookieName');
@@ -10,7 +10,7 @@ cf.router.regPage('lib/cookie', function(cf, $page) {
     cookieVal = $setCookieVal.val();
     if (cookieName && cookieVal) {
       cf.cookie.setCookie(cookieName, cookieVal);
-      return cf.alert('設置成功');
+      return alert('設置成功');
     }
   });
   $getCookieName = $page.dom('#getCookieName');
@@ -19,7 +19,7 @@ cf.router.regPage('lib/cookie', function(cf, $page) {
     cookieName = $getCookieName.val();
     if (cookieName) {
       cookieVal = cf.cookie.getCookie(cookieName);
-      return cf.alert(cookieVal);
+      return alert(cookieVal);
     }
   });
   return $page;

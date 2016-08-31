@@ -5,7 +5,7 @@ cf.router.regPage 'module/cfDateDropdown', (cf) ->
       when 0
         $dateDropdown.cfDateDropdown()
         $page.dom('#getDateBtn').onClick(->
-          cf.alert $dateDropdown.getDate()
+          alert $dateDropdown.getDate()
           return
         )
         $page.dom('#setDateBtn').onClick(->

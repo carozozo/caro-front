@@ -8,7 +8,6 @@ cf.regServ 'ajax', (cf) ->
   _cfg = cf.config('ajax')
   _isTest = cf.isLocal or _cfg.isTestMode
   _errMsg = _cfg.errMsg
-  _alert = cf.alert or cf.require('alert')
 
   $loading = do ->
     $loading = $('<div/>').css(
@@ -76,7 +75,7 @@ cf.regServ 'ajax', (cf) ->
     ajaxOpt = generateAjaxOpt(url, data, opt.ajaxOpt)
     errCb = ->
       ### 如果呼叫 ajax 發生錯誤, 顯示要 alert 的訊息 ###
-      _alert(_errMsg) if _errMsg
+      alert(_errMsg) if _errMsg
       return
     completeCb = ->
       hideLoading() unless opt.isHideLoading

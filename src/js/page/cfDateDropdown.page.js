@@ -6,7 +6,7 @@ cf.router.regPage('module/cfDateDropdown', function(cf) {
       case 0:
         $dateDropdown.cfDateDropdown();
         $page.dom('#getDateBtn').onClick(function() {
-          cf.alert($dateDropdown.getDate());
+          alert($dateDropdown.getDate());
         });
         $page.dom('#setDateBtn').onClick(function() {
           $dateDropdown.setDate(2015, 12, 21);

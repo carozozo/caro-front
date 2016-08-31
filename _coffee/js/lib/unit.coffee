@@ -18,7 +18,6 @@ cf.regLib 'unit', (cf) ->
     setTimeout(->
       if !pop or pop.outerHeight is 0
         msg = '您的瀏覽器已封鎖彈出視窗'
-        return cf.alert(msg) if cf.alert
         alert(msg)
     , 25)
     return

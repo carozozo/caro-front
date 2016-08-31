@@ -9,14 +9,14 @@ cf.router.regPage 'lib/cookie', (cf) ->
     cookieVal = $setCookieVal.val()
     if cookieName and cookieVal
       cf.cookie.setCookie(cookieName, cookieVal)
-      cf.alert '設置成功'
+      alert '設置成功'
   )
   $getCookieName = $page.dom('#getCookieName')
   $page.dom('#getCookieBtn').onClick(->
     cookieName = $getCookieName.val()
     if cookieName
       cookieVal = cf.cookie.getCookie(cookieName)
-      cf.alert cookieVal
+      alert cookieVal
   )
 
   $page

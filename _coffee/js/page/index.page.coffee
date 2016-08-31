@@ -3,7 +3,6 @@ cf.router.regPage 'index', (cf) ->
   window = cf.require('window')
   caro = cf.require('caro')
   $ = cf.require('$')
-
   $page
 
 cf.regDocReady((cf)->

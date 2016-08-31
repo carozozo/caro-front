@@ -1,10 +1,11 @@
 ###
 客製化的 alert, 用來取代 js 原生 alert, 防止被 browser 阻擋
 ###
-cf.regLib 'alert', (cf) ->
-  (msg, opt = {}) ->
-    $ = cf.require '$'
-    tl = cf.require 'TimelineMax'
+cf.regDocReady((cf) ->
+  window = cf.require 'window'
+  tl = cf.require 'TimelineMax'
+  ### 置換 alert ###
+  window.alert = (msg, opt = {}) ->
     tl1 = new tl(
       onReverseComplete: ->
         $box.remove()
@@ -14,10 +15,10 @@ cf.regLib 'alert', (cf) ->
     _$target = opt.$target or cf.$body
     ### 點選 ok 之後觸發的 cb ###
     _cb = opt.cb
-    $box = $('<div/>').addClass('cfAlert')
-    $background = $('<div/>').addClass('cfAlertBg')
-    $msg = $('<div/>').addClass('cfAlertMsg').appendTo($box)
-    $('<div />').addClass('cfAlertOkBtn').on('click', ->
+    $box = $('<div/>').addClass('alert')
+    $background = $('<div/>').addClass('alertBg')
+    $msg = $('<div/>').addClass('alertMsg').appendTo($box)
+    $('<div />').addClass('alertOkBtn').on('click', ->
       tl1.timeScale(1.5).reverse()
       $background.remove()
       _cb and _cb()
@@ -31,3 +32,5 @@ cf.regLib 'alert', (cf) ->
       ease: Back.easeOut.config(2)
     )
     return
+  return
+)

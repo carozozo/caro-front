@@ -3,14 +3,13 @@
 客製化的 ajax 程式, 可使用假資料測試以及簡化呼叫方式
  */
 cf.regServ('ajax', function(cf) {
-  var $, $loading, _alert, _cfg, _errMsg, _isTest, caro, generateAjaxOpt, hideLoading, self, showLoading;
+  var $, $loading, _cfg, _errMsg, _isTest, caro, generateAjaxOpt, hideLoading, self, showLoading;
   self = {};
   $ = cf.require('$');
   caro = cf.require('caro');
   _cfg = cf.config('ajax');
   _isTest = cf.isLocal || _cfg.isTestMode;
   _errMsg = _cfg.errMsg;
-  _alert = cf.alert || cf.require('alert');
   $loading = (function() {
     $loading = $('<div/>').css({
       position: 'fixed',
@@ -96,7 +95,7 @@ cf.regServ('ajax', function(cf) {
 
       /* 如果呼叫 ajax 發生錯誤, 顯示要 alert 的訊息 */
       if (_errMsg) {
-        _alert(_errMsg);
+        alert(_errMsg);
       }
     };
     completeCb = function() {

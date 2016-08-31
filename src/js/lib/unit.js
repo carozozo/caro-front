@@ -21,9 +21,6 @@ cf.regLib('unit', function(cf) {
       var msg;
       if (!pop || pop.outerHeight === 0) {
         msg = '您的瀏覽器已封鎖彈出視窗';
-        if (cf.alert) {
-          return cf.alert(msg);
-        }
         return alert(msg);
       }
     }, 25);
