@@ -32,8 +32,8 @@ cf.regLib('unit', function(cf) {
   };
 
   /* 取得圖片真實寬高 */
-  self.getImgSize = function($img, cb) {
-    $('<img/>').attr('src', $img.attr('src')).load(function() {
+  self.getImgSize = function(imgPath, cb) {
+    $('<img/>').attr('src', imgPath).load(function() {
       cb(this.width, this.height);
     });
   };

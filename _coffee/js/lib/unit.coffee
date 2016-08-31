@@ -27,8 +27,8 @@ cf.regLib 'unit', (cf) ->
     arg instanceof jQuery
 
   ### 取得圖片真實寬高 ###
-  self.getImgSize = ($img, cb) ->
-    $('<img/>').attr('src', $img.attr('src')).load ->
+  self.getImgSize = (imgPath, cb) ->
+    $('<img/>').attr('src', imgPath).load ->
       cb(@width, @height)
       return
     return
