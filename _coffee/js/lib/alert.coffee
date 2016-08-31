@@ -20,7 +20,7 @@ cf.regLib 'alert', (cf) ->
     $('<div />').addClass('cfAlertOkBtn').on('click', ->
       tl1.timeScale(1.5).reverse()
       $background.remove()
-      cb and cb()
+      _cb and _cb()
     ).html('OK').appendTo($box)
 
     $msg.html(msg)
