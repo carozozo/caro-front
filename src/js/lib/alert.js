@@ -4,7 +4,7 @@
  */
 cf.regLib('alert', function(cf) {
   return function(msg, opt) {
-    var $, $background, $box, $msg, _$target, tl, tl1;
+    var $, $background, $box, $msg, _$target, _cb, tl, tl1;
     if (opt == null) {
       opt = {};
     }
@@ -16,14 +16,18 @@ cf.regLib('alert', function(cf) {
       }
     });
 
-    /* alert DOM 要放至的位置 */
+    /* alert 視窗要放至的位置 */
     _$target = opt.$target || cf.$body;
+
+    /* 點選 ok 之後觸發的 cb */
+    _cb = opt.cb;
     $box = $('<div/>').addClass('cfAlert');
     $background = $('<div/>').addClass('cfAlertBg');
     $msg = $('<div/>').addClass('cfAlertMsg').appendTo($box);
     $('<div />').addClass('cfAlertOkBtn').on('click', function() {
       tl1.timeScale(1.5).reverse();
-      return $background.remove();
+      $background.remove();
+      return cb && cb();
     }).html('OK').appendTo($box);
     $msg.html(msg);
     _$target.append($box).append($background);

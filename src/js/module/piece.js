@@ -32,12 +32,12 @@ cf.regModule('cfPiece', function(particleY, particleX) {
   $self.$pieceTable = [];
 
   /* 外部切片的容器, 繼承 $self 的 css position 屬性 */
-  $self.$pieceContainer = $('<div/>').css({
+  $self.$pieceContainer = $('<div/>').addClass('cfPieceContainer').css({
     position: $self.css('position')
   }).insertAfter($self);
 
   /* 內部切片容器, 協助切片定位 */
-  $self.$pieceInnerContainer = $('<div/>').css({
+  $self.$pieceInnerContainer = $('<div/>').addClass('cfPieceInnerContainer').css({
     position: 'relative'
   }).appendTo($self.$pieceContainer);
   caro.loop(function(i) {
@@ -48,7 +48,7 @@ cf.regModule('cfPiece', function(particleY, particleX) {
       var $piece, pieceLeft, pieceTop;
       pieceLeft = pieceWidth * j;
       pieceTop = pieceHeight * i;
-      $piece = $('<div/>').css({
+      $piece = $('<div/>').addClass('cfPiece').css({
         position: 'absolute',
         width: pieceWidth,
         height: pieceHeight,
