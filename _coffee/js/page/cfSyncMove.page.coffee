@@ -13,17 +13,17 @@ cf.router.regPage 'module/cfSyncMove', (cf) ->
 
   getBaseY = -> cf.$window.height() / 2
   $infoBox = $page.dom('#infoBox')
-  $block1 = $page.dom('#block1').cfSyncMove('block1',
+  $block1 = $page.dom('#block1').cfSyncMove(
     befMove: (infoObj)->
       delete infoObj.$self
       delete infoObj.event
       $infoBox.html(JSON.stringify(infoObj))
       return
   )
-  $block2 = $page.dom('#block2').cfSyncMove('block2',
+  $block2 = $page.dom('#block2').cfSyncMove(
     baseY: getBaseY
   )
-  $block3 = $page.dom('#block3').cfSyncMove('block3',
+  $block3 = $page.dom('#block3').cfSyncMove(
     baseX: false
     baseY: getBaseY
   )

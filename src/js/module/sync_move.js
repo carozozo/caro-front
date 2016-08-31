@@ -2,13 +2,11 @@
 /*
 計算滑鼠和基準點的距離，同步移動 DOM
  */
-cf.regModule('cfSyncMove', function(nameSpace, opt) {
+cf.regModule('cfSyncMove', function(opt) {
   var $document, $self, $window, _aftMove, _baseX, _baseY, _befMove, _proportionX, _proportionY, _rangeX, _rangeY, _reverseX, _reverseY, _stopMove, _triggerName1, _triggerName2, caro, cf, tm, triggerFn;
   if (opt == null) {
     opt = {};
   }
-
-  /* nameSpace: 滑鼠移動的 name space 防止重複觸發 */
   $self = this;
   cf = $self.cf;
   $window = cf.$window;
@@ -52,8 +50,8 @@ cf.regModule('cfSyncMove', function(nameSpace, opt) {
 
   /* 停止移動之後的 cb */
   _stopMove = opt.stopMove;
-  _triggerName1 = 'mousemove.cfSyncMove.' + nameSpace;
-  _triggerName2 = 'touchmove.cfSyncMove.' + nameSpace;
+  _triggerName1 = 'mousemove.cfSyncMove';
+  _triggerName2 = 'touchmove.cfSyncMove';
   triggerFn = function(e) {
     var baseX, baseY, infoObj, mouseX, mouseY, moveObj, moveX, moveY, targetMoveX, targetMoveY, targetTouches;
     targetTouches = e.originalEvent && e.originalEvent.targetTouches || [{}];
@@ -114,16 +112,16 @@ cf.regModule('cfSyncMove', function(nameSpace, opt) {
       return;
     }
     tm.to($self, 1, moveObj);
-    clearTimeout($self.data("syncMoveCheck." + nameSpace));
-    $self.data("syncMoveCheck." + nameSpace, setTimeout(function() {
+    clearTimeout($self.data("syncMoveCheck"));
+    $self.data("syncMoveCheck", setTimeout(function() {
       _stopMove && _stopMove();
     }, 250));
   };
 
   /* 開始監聽滑鼠並同步移動 */
   $self.startSyncMove = function() {
-    $document.off(_triggerName1).on(_triggerName1, triggerFn);
-    $document.off(_triggerName2).on(_triggerName2, triggerFn);
+    $document.on(_triggerName1, triggerFn);
+    $document.on(_triggerName2, triggerFn);
     return $self;
   };
 

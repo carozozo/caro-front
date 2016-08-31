@@ -15,17 +15,17 @@ cf.router.regPage('module/cfSyncMove', function(cf) {
     return cf.$window.height() / 2;
   };
   $infoBox = $page.dom('#infoBox');
-  $block1 = $page.dom('#block1').cfSyncMove('block1', {
+  $block1 = $page.dom('#block1').cfSyncMove({
     befMove: function(infoObj) {
       delete infoObj.$self;
       delete infoObj.event;
       $infoBox.html(JSON.stringify(infoObj));
     }
   });
-  $block2 = $page.dom('#block2').cfSyncMove('block2', {
+  $block2 = $page.dom('#block2').cfSyncMove({
     baseY: getBaseY
   });
-  $block3 = $page.dom('#block3').cfSyncMove('block3', {
+  $block3 = $page.dom('#block3').cfSyncMove({
     baseX: false,
     baseY: getBaseY
   });
