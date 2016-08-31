@@ -27,9 +27,23 @@
 <div class="content">
   <div class="title">參數</div>
   <div>
-    <div class="tip5">$('xxx').cfAddrDropdown($cityDom, $areaDom, [opt = {}]);</div>
-    <div>$cityDom: 放置城市的 &lt;select&gt; 容器</div>
-    <div>$areaDom: 放置地區的 &lt;select&gt; 容器</div>
+    <div class="tip5">$('xxx').cfAddrDropdown($cityDom, $areaDom, [opt = {}]);<span class="codeLink">程式範例</span>
+      <div class="codeTarget">
+        <div class="subTitle2">html</div>
+        <div>
+          <div>&lt;div id='form1'&gt;</div>
+          <div class="tab1">&lt;select id='city'&gt;&lt;/select&gt;</div>
+          <div class="tab1">&lt;select id='area'&gt;&lt;/select&gt;</div>
+          <div>&lt;/div&gt;</div>
+        </div>
+        <div class="subTitle2">js</div>
+        <div>
+          <div>$('#form1').cfAddrDropdown($('#city'), $('#area'), {...});</div>
+        </div>
+      </div>
+    </div>
+    <div>$cityDom: 放置城市的 $select 容器</div>
+    <div>$areaDom: 放置地區的 $select 容器</div>
     <div class="subTitle1">opt 參數</div>
     <div>
       <div>defCityText: 縣市選單初始文字, 預設 '請選擇縣市'</div>

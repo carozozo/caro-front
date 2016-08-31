@@ -2,11 +2,9 @@ cf.router.regPage('module/cfDateDropdown', function(cf) {
   var $page;
   $page = this;
   $page.dom('.dateDropdown').eachDom(function($dateDropdown, i) {
-    var nameSpace;
-    nameSpace = 'date' + i;
     switch (i) {
       case 0:
-        $dateDropdown.cfDateDropdown(nameSpace);
+        $dateDropdown.cfDateDropdown();
         $page.dom('#getDateBtn').onClick(function() {
           cf.alert($dateDropdown.getDate());
         });
@@ -21,20 +19,20 @@ cf.router.regPage('module/cfDateDropdown', function(cf) {
         });
         break;
       case 1:
-        $dateDropdown.cfDateDropdown(nameSpace, {
+        $dateDropdown.cfDateDropdown({
           $year: $dateDropdown.find('.year'),
           $month: $dateDropdown.dom('.month'),
           $day: $dateDropdown.dom('.day')
         });
         break;
       case 2:
-        $dateDropdown.cfDateDropdown(nameSpace, {
+        $dateDropdown.cfDateDropdown({
           startYear: 1999,
           endYear: 2001
         });
         break;
       case 3:
-        $dateDropdown.cfDateDropdown(nameSpace, {
+        $dateDropdown.cfDateDropdown({
           onSetYear: function(i) {
             if (i < 2000) {
               return false;

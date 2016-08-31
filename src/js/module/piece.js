@@ -1,6 +1,6 @@
 
 /*
-將目標切片, 注意切片後為固定寬高
+切片效果,切片後 $self 會隱藏, 注意切片後為固定寬高
  */
 cf.regModule('cfPiece', function(particleY, particleX) {
   var $self, pieceHeight, pieceWidth, selfHeight, selfWidth;

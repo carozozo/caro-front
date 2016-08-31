@@ -45,26 +45,29 @@
       span.codeLink 程式範例
     .codeTarget
       .subTitle2 假設現在的 url 是 https://carozozo.github.io/caro-front/#a/b?search=2
-      div cf.getPageByHash();  
-        span.tip3 // 'a/b'
-      div cf.getPageByHash('#router?search=1');  
-        span.tip3 // 'router'
+      div
+        div cf.getPageByHash();  
+          span.tip3 // 'a/b'
+        div cf.getPageByHash('#router?search=1');  
+          span.tip3 // 'router'
     .tip2 getSearchByHash([hash]): 依照 url 的 hash 判斷目前的 search
       span.codeLink 程式範例
     .codeTarget
       .subTitle2 假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20
-      div cf.getSearchByHash();  
-        span.tip3 // 'name=caro&age=20'
-      div cf.getSearchByHash('#router?name=huang');  
-        span.tip3 // 'name=huang'
+      div
+        div cf.getSearchByHash();  
+          span.tip3 // 'name=caro&age=20'
+        div cf.getSearchByHash('#router?name=huang');  
+          span.tip3 // 'name=huang'
     .tip2 parseUrlSearch(): 依照 url 的 hash 裡面的 search 轉為 obj
       span.codeLink 程式範例
     .codeTarget
       .subTitle2 假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20
-      div cf.getSearchByHash();  
-        span.tip3 // {name: 'caro', age: '20'}
-      div cf.getSearchByHash('#router?name=huang');  
-        span.tip3 // {name: 'huang'}
+      div
+        div cf.getSearchByHash();  
+          span.tip3 // {name: 'caro', age: '20'}
+        div cf.getSearchByHash('#router?name=huang');  
+          span.tip3 // {name: 'huang'}
     .tip2 regBefPage(fn, [執行順序=50]): 註冊每次執行 cf.goPage 前要執行的 fn
       span.codeLink 程式範例
     .codeTarget
@@ -126,16 +129,16 @@
     .codeTarget
       .subTitle2 設定檔 templateDir = 'temp', templateExtname = 'jsp'
       div
-      .tip2 // 讀取 /temp/page1.jsp 裡的內容並寫入容器
-      div cf.goPage('page1');
-      .tip2 // 讀取 /temp/subPage/page1.jsp 裡的內容並寫入容器
-      div cf.goPage('subPage/page1');
-      .tip2 // 讀取 /temp/subPage/page2.html 裡的內容並寫入容器
-      div cf.goPage('subPage/page2', {fileType: 'html'});
+        .tip2 // 讀取 /temp/page1.jsp 裡的內容並寫入容器
+        div cf.goPage('page1');
+        .tip2 // 讀取 /temp/subPage/page1.jsp 裡的內容並寫入容器
+        div cf.goPage('subPage/page1');
+        .tip2 // 讀取 /temp/subPage/page2.html 裡的內容並寫入容器
+        div cf.goPage('subPage/page2', {fileType: 'html'});
       .subTitle2 設定檔 templateDir = '', templateExtname = ''
       div
-      .tip2 // 讀取 /subPage/page2 裡的內容並寫入容器
-      div cf.goPage('subPage/page2');
+        .tip2 // 讀取 /subPage/page2 裡的內容並寫入容器
+        div cf.goPage('subPage/page2');
     .tip2 blockGoPage(): 呼叫後, 執行 router.goPage 不會換頁
       span.codeLink 程式範例
     .codeTarget

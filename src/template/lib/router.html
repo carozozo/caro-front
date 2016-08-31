@@ -54,20 +54,26 @@
     <div class="tip2">getPageByHash([hash]): 依照 url 的 hash 判斷目前的分頁路徑名稱<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="subTitle2">假設現在的 url 是 https://carozozo.github.io/caro-front/#a/b?search=2</div>
-      <div>cf.getPageByHash();  <span class="tip3">// 'a/b'</span></div>
-      <div>cf.getPageByHash('#router?search=1');  <span class="tip3">// 'router'</span></div>
+      <div>
+        <div>cf.getPageByHash();  <span class="tip3">// 'a/b'</span></div>
+        <div>cf.getPageByHash('#router?search=1');  <span class="tip3">// 'router'</span></div>
+      </div>
     </div>
     <div class="tip2">getSearchByHash([hash]): 依照 url 的 hash 判斷目前的 search<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="subTitle2">假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20</div>
-      <div>cf.getSearchByHash();  <span class="tip3">// 'name=caro&age=20'</span></div>
-      <div>cf.getSearchByHash('#router?name=huang');  <span class="tip3">// 'name=huang'</span></div>
+      <div>
+        <div>cf.getSearchByHash();  <span class="tip3">// 'name=caro&age=20'</span></div>
+        <div>cf.getSearchByHash('#router?name=huang');  <span class="tip3">// 'name=huang'</span></div>
+      </div>
     </div>
     <div class="tip2">parseUrlSearch(): 依照 url 的 hash 裡面的 search 轉為 obj<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="subTitle2">假設現在的 url 是 https://carozozo.github.io/caro-front/#index?name=caro&age=20</div>
-      <div>cf.getSearchByHash();  <span class="tip3">// {name: 'caro', age: '20'}</span></div>
-      <div>cf.getSearchByHash('#router?name=huang');  <span class="tip3">// {name: 'huang'}</span></div>
+      <div>
+        <div>cf.getSearchByHash();  <span class="tip3">// {name: 'caro', age: '20'}</span></div>
+        <div>cf.getSearchByHash('#router?name=huang');  <span class="tip3">// {name: 'huang'}</span></div>
+      </div>
     </div>
     <div class="tip2">regBefPage(fn, [執行順序=50]): 註冊每次執行 cf.goPage 前要執行的 fn<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
@@ -123,17 +129,19 @@
     </div>
     <div class="codeTarget">
       <div class="subTitle2">設定檔 templateDir = 'temp', templateExtname = 'jsp'</div>
-      <div></div>
-      <div class="tip2">// 讀取 /temp/page1.jsp 裡的內容並寫入容器</div>
-      <div>cf.goPage('page1');</div>
-      <div class="tip2">// 讀取 /temp/subPage/page1.jsp 裡的內容並寫入容器</div>
-      <div>cf.goPage('subPage/page1');</div>
-      <div class="tip2">// 讀取 /temp/subPage/page2.html 裡的內容並寫入容器</div>
-      <div>cf.goPage('subPage/page2', {fileType: 'html'});</div>
+      <div>
+        <div class="tip2">// 讀取 /temp/page1.jsp 裡的內容並寫入容器</div>
+        <div>cf.goPage('page1');</div>
+        <div class="tip2">// 讀取 /temp/subPage/page1.jsp 裡的內容並寫入容器</div>
+        <div>cf.goPage('subPage/page1');</div>
+        <div class="tip2">// 讀取 /temp/subPage/page2.html 裡的內容並寫入容器</div>
+        <div>cf.goPage('subPage/page2', {fileType: 'html'});</div>
+      </div>
       <div class="subTitle2">設定檔 templateDir = '', templateExtname = ''</div>
-      <div></div>
-      <div class="tip2">// 讀取 /subPage/page2 裡的內容並寫入容器</div>
-      <div>cf.goPage('subPage/page2');</div>
+      <div>
+        <div class="tip2">// 讀取 /subPage/page2 裡的內容並寫入容器</div>
+        <div>cf.goPage('subPage/page2');</div>
+      </div>
     </div>
     <div class="tip2">blockGoPage(): 呼叫後, 執行 router.goPage 不會換頁<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">

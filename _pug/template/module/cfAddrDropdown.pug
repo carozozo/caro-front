@@ -22,8 +22,19 @@
   .title 參數
   div
     .tip5 $('xxx').cfAddrDropdown($cityDom, $areaDom, [opt = {}]);
-    div $cityDom: 放置城市的 &lt;select&gt; 容器
-    div $areaDom: 放置地區的 &lt;select&gt; 容器
+      span.codeLink 程式範例
+      .codeTarget
+        .subTitle2 html
+        div
+          div &lt;div id='form1'&gt;
+          .tab1 &lt;select id='city'&gt;&lt;/select&gt;
+          .tab1 &lt;select id='area'&gt;&lt;/select&gt;
+          div &lt;/div&gt;
+        .subTitle2 js
+        div
+          div $('#form1').cfAddrDropdown($('#city'), $('#area'), {...});
+    div $cityDom: 放置城市的 $select 容器
+    div $areaDom: 放置地區的 $select 容器
     .subTitle1 opt 參數
     div
       div defCityText: 縣市選單初始文字, 預設 '請選擇縣市'

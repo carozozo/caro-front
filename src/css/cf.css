@@ -235,19 +235,19 @@ input[type='text'] {
   height: 50px;
 }
 .tab1 {
-  padding-left: 10px;
-}
-.tab2 {
   padding-left: 20px;
 }
-.tab3 {
-  padding-left: 30px;
-}
-.tab4 {
+.tab2 {
   padding-left: 40px;
 }
+.tab3 {
+  padding-left: 60px;
+}
+.tab4 {
+  padding-left: 80px;
+}
 .tab5 {
-  padding-left: 50px;
+  padding-left: 100px;
 }
 .title {
   color: #e1e1e1;

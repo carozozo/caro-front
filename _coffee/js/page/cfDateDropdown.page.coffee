@@ -1,10 +1,9 @@
 cf.router.regPage 'module/cfDateDropdown', (cf) ->
   $page = @
   $page.dom('.dateDropdown').eachDom(($dateDropdown, i) ->
-    nameSpace = 'date' + i
     switch i
       when 0
-        $dateDropdown.cfDateDropdown(nameSpace)
+        $dateDropdown.cfDateDropdown()
         $page.dom('#getDateBtn').onClick(->
           cf.alert $dateDropdown.getDate()
           return
@@ -22,18 +21,18 @@ cf.router.regPage 'module/cfDateDropdown', (cf) ->
           return
         )
       when 1
-        $dateDropdown.cfDateDropdown(nameSpace, {
+        $dateDropdown.cfDateDropdown({
           $year: $dateDropdown.find('.year')
           $month: $dateDropdown.dom('.month')
           $day: $dateDropdown.dom('.day')
         })
       when 2
-        $dateDropdown.cfDateDropdown(nameSpace, {
+        $dateDropdown.cfDateDropdown({
           startYear: 1999
           endYear: 2001
         })
       when 3
-        $dateDropdown.cfDateDropdown(nameSpace, {
+        $dateDropdown.cfDateDropdown({
           onSetYear: (i) ->
             return false if(i < 2000)
             return

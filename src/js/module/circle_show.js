@@ -33,7 +33,7 @@ cf.regModule('cfCircleShow', function($targetList, opt) {
   /* TweenMax ease 效果 */
   _ease = opt.ease;
 
-  /* 可取得每個 DOM 及該 DOM 目前的 index */
+  /* 每次移動的 cb, 可取得目前最前面的 $dom 和 index */
   _cb = opt.cb;
   _targetLength = $targetList.length;
 

@@ -22,60 +22,58 @@
 </div>
 <div class="content">
   <div class="title">簡介</div>
-  <div>DOM 圓盤輪播效果</div>
+  <div>
+    <div>DOM 圓盤輪播效果</div>
+    <div>Depend on<a href="http://greensock.com/gsap" target="_blank">gsap</a></div>
+  </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
   <div>
-    <div class="tip5">$('xxx').cfCircleShow($targetList, [opt = {}]);</div>
-    <div>$targetList: 要輪播的 DOM Array</div>
+    <div class="tip5">$('xxx').cfCircleShow($targetList, [opt = {}]);<span class="codeLink">程式範例</span>
+      <div class="codeTarget">
+        <div class="subTitle2">html</div>
+        <div>
+          <div>&lt;div id='content'&gt;</div>
+          <div class="tab1">&lt;div id='pic1'&gt;&lt;/div&gt;</div>
+          <div class="tab1">&lt;div id='pic2'&gt;&lt;/div&gt;</div>
+          <div>&lt;/div&gt;</div>
+        </div>
+        <div class="subTitle2">html</div>
+        <div>
+          <div>var cir = $('#ccontent').cfCircleShow([$('#pic1'), $('#pic2')]);</div>
+          <div>cir.autoPlay();</div>
+          <div>...</div>
+          <div>cir.stopPlay();</div>
+        </div>
+      </div>
+    </div>
+    <div>$targetList: 要輪播的 $dom Array</div>
     <div class="subTitle1">opt 參數</div>
     <div>
       <div>zIndex: 當前 $target 的 z-index, 預設 999</div>
       <div>radios: 旋轉半徑, 預設 100</div>
       <div>duration: 移動時間, 預設 1</div>
       <div>minBrightness: 最後面的 DOM 的亮度百分比, 預設 50</div>
-      <div>degreeTop: 每個 DOM 的 top 位移量, 預設 0</div>
+      <div>degreeTop: 每個 $dom 的 top 位移量, 預設 0</div>
       <div>minScale: 最後面的 $target 的 scale, 預設 1</div>
       <div>minScale: TweenMax ease 效果</div>
-      <div>cb: 每次移動的 cb($target, i), 可取得每個 DOM 及該 DOM 目前的 index</div>
+      <div>cb: 每次移動的 cb($dom, i), 可取得目前最前面的 $dom 和 index</div>
     </div>
   </div>
 </div>
 <div class="content">
   <div class="title">函式</div>
   <div>
-    <div class="tip2">next(): 顯示下一個內容<span class="codeLink">程式範例</span></div>
-    <div class="codeTarget">
-      <div>var cir = $('xxx').cfCircleShow([...]);</div>
-      <div>cir.next();</div>
-    </div>
-    <div class="tip2">prev(): 顯示上一個內容<span class="codeLink">程式範例</span></div>
-    <div class="codeTarget">
-      <div>var cir = $('xxx').cfCircleShow([...]);</div>
-      <div>cir.prev();</div>
-    </div>
-    <div class="tip2">getCurrentIndex(): 取得目前內容的 index<span class="codeLink">程式範例</span></div>
-    <div class="codeTarget">
-      <div>var cir = $('xxx').cfCircleShow([...]);</div>
-      <div>var index = cir.getCurrentIndex();</div>
-    </div>
-    <div class="tip2">autoPlay(ms, [isNext = true]): 自動輪播<span class="codeLink">程式範例</span></div>
+    <div class="tip2">next(): 顯示下一個內容</div>
+    <div class="tip2">prev(): 顯示上一個內容</div>
+    <div class="tip2">getCurrentIndex(): 取得目前內容的 index</div>
+    <div class="tip2">autoPlay(ms, [isNext = true]): 自動輪播</div>
     <div class="subTitle4">參數</div>
     <div>
       <div>ms: 每次移動的毫秒數, 預設 1000</div>
       <div>isNext: 輪播方向, true 為順時針</div>
     </div>
-    <div class="codeTarget">
-      <div>var cir = $('xxx').cfCircleShow([...]);</div>
-      <div>cir.autoPlay();</div>
-    </div>
-    <div class="tip2">stopPlay(): 停止輪播<span class="codeLink">程式範例</span></div>
-    <div class="codeTarget">
-      <div>var cir = $('xxx').cfCircleShow([...]);</div>
-      <div> cir.autoPlay();</div>
-      <div>...</div>
-      <div>cir.stopPlay();</div>
-    </div>
+    <div class="tip2">stopPlay(): 停止輪播</div>
   </div>
 </div>

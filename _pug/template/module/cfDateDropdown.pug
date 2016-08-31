@@ -17,17 +17,27 @@
         select.year
       span.codeLink 程式範例
     .codeTarget
-      div $('#xx').cfDateDropdown('xxx', {
-      .tab1 $year: $dateDropdown.find('.year'),
-      .tab1 $month: $dateDropdown.find('.month'),
-      .tab1 $day: $dateDropdown.find('.day')
-      div });
+      .subTitle2 html
+      div
+        div &lt;div id='form1'&gt;
+        .tab1 &lt;select id='year'&gt;&lt;/select&gt;
+        .tab1 &lt;select id='month'&gt;&lt;/select&gt;
+        .tab1 &lt;select id='day'&gt;&lt;/select&gt;
+        div &lt;/div&gt;
+      .subTitle2 js
+      div
+        div var $form1 = $('#form1');
+        div $form1.cfDateDropdown({
+        .tab1 $year: $form1.find('.year'),
+        .tab1 $month: $form1.find('.month'),
+        .tab1 $day: $form1.find('.day')
+        div });
     .subTitle2 指定年份範圍
     div
       span.dateDropdown
       span.codeLink 程式範例
     .codeTarget
-      div $('#xx').cfDateDropdown('xxx', {
+      div $('#xx').cfDateDropdown({
       .tab1 startYear: 1999,
       .tab1 endYear: 2001
       div });
@@ -36,7 +46,7 @@
       span.dateDropdown
       span.codeLink 程式範例
     .codeTarget
-      div $('#xx').cfDateDropdown('xxx', {
+      div $('#xx').cfDateDropdown({
       .tab1 onSetYear: function(i) {
       .tab2 if (i < 2000) {
       .tab3 return false;
@@ -63,9 +73,9 @@
     .tip5 $('xxx').cfDateDropdown([opt = {}])
     .subTitle1 opt 參數
     div
-      div $year: 指定年份 &lt;select&gt; 容器, 未設置則由外掛自動產生
-      div $month: 指定月份 &lt;select&gt; 容器, 未設置則由外掛自動產生
-      div $day: 指定日期 <select< 容器, 未設置則由外掛自動產生
+      div $year: 指定年份 $select 容器, 未設置則由外掛自動產生
+      div $month: 指定月份 $select 容器, 未設置則由外掛自動產生
+      div $day: 指定日期 $select 容器, 未設置則由外掛自動產生
       div startYear: 起始年份
       div endYear: 結束年份
       div onSetYear: 設置每個 year 的 options 時觸發的 cb, return true 會跳過, return false 則終止設置
