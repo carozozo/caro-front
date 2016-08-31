@@ -16,16 +16,28 @@
         <select class="month"></select>
         <select class="year"></select></span><span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
-      <div>$('#xx').cfDateDropdown('xxx', {</div>
-      <div class="tab1">$year: $dateDropdown.find('.year'),</div>
-      <div class="tab1">$month: $dateDropdown.find('.month'),</div>
-      <div class="tab1">$day: $dateDropdown.find('.day')</div>
-      <div>});</div>
+      <div class="subTitle2">html</div>
+      <div>
+        <div>&lt;div id='form1'&gt;</div>
+        <div class="tab1">&lt;select id='year'&gt;&lt;/select&gt;</div>
+        <div class="tab1">&lt;select id='month'&gt;&lt;/select&gt;</div>
+        <div class="tab1">&lt;select id='day'&gt;&lt;/select&gt;</div>
+        <div>&lt;/div&gt;</div>
+      </div>
+      <div class="subTitle2">js</div>
+      <div>
+        <div>var $form1 = $('#form1');</div>
+        <div>$form1.cfDateDropdown({</div>
+        <div class="tab1">$year: $form1.find('.year'),</div>
+        <div class="tab1">$month: $form1.find('.month'),</div>
+        <div class="tab1">$day: $form1.find('.day')</div>
+        <div>});</div>
+      </div>
     </div>
     <div class="subTitle2">指定年份範圍</div>
     <div><span class="dateDropdown"></span><span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
-      <div>$('#xx').cfDateDropdown('xxx', {</div>
+      <div>$('#xx').cfDateDropdown({</div>
       <div class="tab1">startYear: 1999,</div>
       <div class="tab1">endYear: 2001</div>
       <div>});</div>
@@ -33,7 +45,7 @@
     <div class="subTitle2">客製化下拉選單日期</div>
     <div><span class="dateDropdown"></span><span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
-      <div>$('#xx').cfDateDropdown('xxx', {</div>
+      <div>$('#xx').cfDateDropdown({</div>
       <div class="tab1">onSetYear: function(i) {</div>
       <div class="tab2">if (i < 2000) {</div>
       <div class="tab3">return false;</div>
@@ -62,13 +74,12 @@
 <div class="content">
   <div class="title">參數</div>
   <div>
-    <div class="tip5">$('xxx').cfDateDropdown(nameSpace, [opt = {}])</div>
-    <div>nameSpace: 指定年和月綁定 change 的 name space, 避免多重觸發</div>
+    <div class="tip5">$('xxx').cfDateDropdown([opt = {}])</div>
     <div class="subTitle1">opt 參數</div>
     <div>
-      <div>$year: 指定年份 &lt;select&gt; 容器, 未設置則由外掛自動產生</div>
-      <div>$month: 指定月份 &lt;select&gt; 容器, 未設置則由外掛自動產生</div>
-      <div>$day: 指定日期 <select< 容器, 未設置則由外掛自動產生</div>
+      <div>$year: 指定年份 $select 容器, 未設置則由外掛自動產生</div>
+      <div>$month: 指定月份 $select 容器, 未設置則由外掛自動產生</div>
+      <div>$day: 指定日期 $select 容器, 未設置則由外掛自動產生</div>
       <div>startYear: 起始年份</div>
       <div>endYear: 結束年份</div>
       <div>onSetYear: 設置每個 year 的 options 時觸發的 cb, return true 會跳過, return false 則終止設置</div>

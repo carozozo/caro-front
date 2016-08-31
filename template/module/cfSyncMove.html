@@ -18,13 +18,15 @@
 </div>
 <div class="content">
   <div class="title">簡介</div>
-  <div>計算滑鼠和基準點的距離，同步移動 DOM</div>
+  <div>
+    <div>計算滑鼠和基準點的距離，同步移動 DOM</div>
+    <div>Depend on<a href="http://greensock.com/gsap" target="_blank">gsap</a></div>
+  </div>
 </div>
 <div class="content">
   <div class="title">參數</div>
   <div>
-    <div class="tip5">$('xxx').cfSyncMove(nameSpace, [opt = {}]);</div>
-    <div>nameSpace: 綁定 mousemove 和 touchmove 的 name space</div>
+    <div class="tip5">$('xxx').cfSyncMove([opt = {}]);</div>
     <div class="subTitle1">opt 參數</div>
     <div>
       <div>baseX: x 基準坐標, 不是數字或 return 數字的 fn 則不同步移動 x, 預設為視窗寬度一半</div>
