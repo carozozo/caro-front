@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfValidator', (cf, $page) ->
+cf.router.regPage 'module/cfValidator', (cf) ->
+  $page = @
   bgColorArr = cf.data('bgColorArr')
   $form1 = $page.dom('#form1')
   $requireInput = $form1.dom('#requireInput')

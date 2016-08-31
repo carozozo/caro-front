@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfScroll', (cf, $page) ->
+cf.router.regPage 'module/cfScroll', (cf) ->
+  $page = @
   $ = cf.require('$')
 
   setInner = ($inner, index, color)->

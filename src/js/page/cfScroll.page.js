@@ -1,5 +1,6 @@
-cf.router.regPage('module/cfScroll', function(cf, $page) {
-  var $, $innerArr, $outer, bgColorArr, setInner;
+cf.router.regPage('module/cfScroll', function(cf) {
+  var $, $innerArr, $outer, $page, bgColorArr, setInner;
+  $page = this;
   $ = cf.require('$');
   setInner = function($inner, index, color) {
     $inner.css({

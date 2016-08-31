@@ -1,4 +1,5 @@
-cf.router.regPage 'lib/routeAnimate', (cf, $page) ->
+cf.router.regPage 'lib/routeAnimate', (cf) ->
+  $page = @
   window = cf.require('window')
   $page
 

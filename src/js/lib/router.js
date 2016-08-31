@@ -79,7 +79,7 @@ cf.regLib('router', function(cf) {
       if (!pageMap[pageName]) {
         pageMap[pageName] = {};
         pageMap[pageName].fn = fn;
-        _trace('Page', pageName, ' registered');
+        _trace('Page', pageName, 'registered');
       }
     };
   })(self, caro);
@@ -159,7 +159,7 @@ cf.regLib('router', function(cf) {
     doPageFns = function(pageObj, $page) {
       caro.forEach(pageObj, function(fns) {
         caro.forEach(fns, function(fn) {
-          fn && fn(cf, $page);
+          fn && fn.call($page, cf);
         });
       });
     };
@@ -185,7 +185,7 @@ cf.regLib('router', function(cf) {
           self.$page = $page;
           self.pageName = pageName;
           doPageFns(self._prePage, $page);
-          pageFn && pageFn(cf, $page);
+          pageFn && pageFn.call($page, cf);
           doPageFns(self._aftPage, $page);
         };
         doneFn = function() {

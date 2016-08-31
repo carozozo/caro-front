@@ -6,7 +6,7 @@ do (cf) ->
   trace: trace 項目, false = 不追蹤, true = 全部, str = 指定追蹤項目, str-array = 複數追蹤項目; 搭配 cf.genTraceFn
   ###
   cf.config('cf', {
-    trace: true
+    trace: false
     isLocalTest: true
     localUrlPath: 'localhost*'
     prodUrlPath: 'carozozo.github.io/caro-front/'

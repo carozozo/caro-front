@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfMouseStyle', (cf, $page) ->
+cf.router.regPage 'module/cfMouseStyle', ->
+  $page = @
   $mouseArea = $page.dom('#mouseArea').css(
     height: 300
   )

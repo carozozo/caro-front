@@ -113,7 +113,7 @@ cf.regLib 'router', (cf) ->
     doPageFns = (pageObj, $page) ->
       caro.forEach pageObj, (fns) ->
         caro.forEach fns, (fn) ->
-          fn and fn(cf, $page)
+          fn and fn.call($page, cf)
           return
         return
       return
@@ -134,7 +134,7 @@ cf.regLib 'router', (cf) ->
           self.$page = $page
           self.pageName = pageName
           doPageFns(self._prePage, $page)
-          pageFn and pageFn(cf, $page)
+          pageFn and pageFn.call($page, cf)
           doPageFns(self._aftPage, $page)
           return
         doneFn = ->

@@ -1,5 +1,6 @@
-cf.router.regPage('module/cfScrollbar', function(cf, $page) {
-  var $outer, bgColorArr;
+cf.router.regPage('module/cfScrollbar', function(cf) {
+  var $outer, $page, bgColorArr;
+  $page = this;
   bgColorArr = cf.data('bgColorArr');
   $outer = $page.dom('#outer').css({
     height: 200

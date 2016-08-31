@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfCircleShow', (cf, $page) ->
+cf.router.regPage 'module/cfCircleShow', (cf) ->
+  $page = @
   bgColorArr = cf.data('bgColorArr')
   $demo1 = $page.dom('#demo1').css(
     position: 'relative'

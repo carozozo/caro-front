@@ -73,10 +73,10 @@
       span.codeLink 程式範例
     .codeTarget
       .tip2 // 每次執行 cf.goPage 前, 會先 alert 'b', 然後 alert 'a'
-      div cf.regBefPage(function(cf){
+      div cf.regBefPage(function(cf) {
       .tab1 alert('a');
       div });
-      div cf.regBefPage(function(cf){
+      div cf.regBefPage(function(cf) {
       .tab1 alert('b');
       div }, 1);
     .tip2
@@ -84,12 +84,14 @@
       span.codeLink 程式範例
     .codeTarget
       .tip2 // 每次載入分頁前, 會先 alert 'b', 然後 alert 'a'
-      div cf.regPrePage(function(cf, $page){
-      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
+      div cf.regPrePage(function(cf) {
+      .tab1 var $page = this;
+        span.tip3  // $page 就是 $dom 分頁
       .tab1 alert('a');
       div });
-      div cf.regPrePage(function(cf, $page){
-      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
+      div cf.regPrePage(function(cf) {
+      .tab1 var $page = this;
+        span.tip3  // $page 就是 $dom 分頁
       .tab1 alert('b');
       div }, 1);
     .tip2
@@ -97,12 +99,14 @@
       span.codeLink 程式範例
     .codeTarget
       .tip2 // 每次載入分頁後, 會先 alert 'b', 然後 alert 'a'
-      div cf.regAftPage(function(cf, $page){
-      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
+      div cf.regAftPage(function(cf) {
+      .tab1 var $page = this;
+        span.tip3  // $page 就是 $dom 分頁
       .tab1 alert('a');
       div });
-      div cf.regAftPage(function(cf, $page){
-      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
+      div cf.regAftPage(function(cf) {
+      .tab1 var $page = this;
+        span.tip3  // $page 就是 $dom 分頁
       .tab1 alert('b');
       div }, 1);
     .tip2
@@ -110,14 +114,16 @@
       span.codeLink 程式範例
     .codeTarget
       .tip2 // 執行 cf.goPage('page1') 時, 會 alert 'a'
-      div cf.regPage('page1', function(cf, $page){
-      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
-      .tab1 alert('b');
+      div cf.regPage('page1', function(cf) {
+      .tab1 var $page = this;
+        span.tip3  // $page 就是 $dom 分頁
+      .tab1 alert('a');
       div });
       .tip2 // 執行 cf.goPage('page2') 時, 會 alert 'b'
-      div cf.regPage('page2', function(cf, $page){
-      .tab1.tip2 // $page 就是分頁的 jQuery DOM 物件
-      div.tab1 alert('b');
+      div cf.regPage('page2', function(cf) {
+      .tab1 var $page = this;
+        span.tip3  // $page 就是 $dom 分頁
+      .tab1 alert('b');
       div });
     .tip2
       | goPage([分頁路徑], [opt = {}]): 換頁, 沒參數時會依據 url 的 hash 自動判斷

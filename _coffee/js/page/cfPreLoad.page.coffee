@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfPreLoad', (cf, $page) ->
+cf.router.regPage 'module/cfPreLoad', ->
+  $page = @
   fileArr = [
     'cf_title1.png'
     'cf_title2.png'

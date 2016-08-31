@@ -1,4 +1,6 @@
-cf.router.regPage('module/cfDateDropdown', function(cf, $page) {
+cf.router.regPage('module/cfDateDropdown', function(cf) {
+  var $page;
+  $page = this;
   $page.dom('.dateDropdown').eachDom(function($dateDropdown, i) {
     var nameSpace;
     nameSpace = 'date' + i;

@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfScale', (cf, $page) ->
+cf.router.regPage 'module/cfScale', (cf) ->
+  $page = @
   $ = cf.require('$')
 
   setInfo = (title, msg) ->

@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfJumpNum', (cf, $page) ->
+cf.router.regPage 'module/cfJumpNum', ->
+  $page = @
   $jumNum = $page.dom('#jumpNum').cfJumpNum()
   $page.dom('#jumpNumBtn').onClick(->
     $jumNum.intervalNum(1920)

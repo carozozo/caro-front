@@ -1,5 +1,6 @@
-cf.router.regPage('module/cfImgSwitch', function(cf, $page) {
-  var $img, titleSrcArr;
+cf.router.regPage('module/cfImgSwitch', function(cf) {
+  var $img, $page, titleSrcArr;
+  $page = this;
   titleSrcArr = cf.data('titleSrcArr');
   $page.dom('#imgBox').css({
     width: 340,

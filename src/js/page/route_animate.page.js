@@ -1,5 +1,6 @@
-cf.router.regPage('lib/routeAnimate', function(cf, $page) {
-  var window;
+cf.router.regPage('lib/routeAnimate', function(cf) {
+  var $page, window;
+  $page = this;
   window = cf.require('window');
   return $page;
 });

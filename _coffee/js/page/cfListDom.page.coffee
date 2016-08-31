@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfListDom', (cf, $page) ->
+cf.router.regPage 'module/cfListDom', ->
+  $page = @
   $tr = $page.dom('.listTr')
   list = [{name: 'caro1', age: 1}, {name: 'caro2', age: 2}, {name: 'caro3', age: 3}]
 

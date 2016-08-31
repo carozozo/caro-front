@@ -1,5 +1,6 @@
 cf.router.regPage('module/cfScale', function(cf, $page) {
   var $, $block, $infoBox, setInfo;
+  $page = this;
   $ = cf.require('$');
   setInfo = function(title, msg) {
     msg = title + ': ' + msg;

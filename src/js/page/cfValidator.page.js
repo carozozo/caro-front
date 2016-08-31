@@ -1,5 +1,6 @@
-cf.router.regPage('module/cfValidator', function(cf, $page) {
-  var $emailInput, $errInfoBox1, $errInfoBox2, $form1, $form2, $minLengthInput, $mobileInput, $numInput, $requireCheckbox, $requireInput, $requireNumInput, $rocIdInput, $submitBtn1, $submitBtn2, $wordInput, bgColorArr;
+cf.router.regPage('module/cfValidator', function(cf) {
+  var $emailInput, $errInfoBox1, $errInfoBox2, $form1, $form2, $minLengthInput, $mobileInput, $numInput, $page, $requireCheckbox, $requireInput, $requireNumInput, $rocIdInput, $submitBtn1, $submitBtn2, $wordInput, bgColorArr;
+  $page = this;
   bgColorArr = cf.data('bgColorArr');
   $form1 = $page.dom('#form1');
   $requireInput = $form1.dom('#requireInput');

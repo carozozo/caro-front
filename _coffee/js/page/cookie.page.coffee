@@ -1,4 +1,5 @@
-cf.router.regPage 'lib/cookie', (cf, $page) ->
+cf.router.regPage 'lib/cookie', (cf) ->
+  $page = @
   window = cf.require('window')
 
   $setCookieName = $page.dom('#setCookieName')

@@ -1,5 +1,6 @@
-cf.router.regPage('module/cfListDom', function(cf, $page) {
-  var $tr, cleanList, list;
+cf.router.regPage('module/cfListDom', function() {
+  var $page, $tr, cleanList, list;
+  $page = this;
   $tr = $page.dom('.listTr');
   list = [
     {

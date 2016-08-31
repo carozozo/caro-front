@@ -1,5 +1,6 @@
-cf.router.regPage('module/cfJumpNum', function(cf, $page) {
-  var $jumNum;
+cf.router.regPage('module/cfJumpNum', function() {
+  var $jumNum, $page;
+  $page = this;
   $jumNum = $page.dom('#jumpNum').cfJumpNum();
   $page.dom('#jumpNumBtn').onClick(function() {
     $jumNum.intervalNum(1920);

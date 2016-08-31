@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfRandomDrop', (cf, $page) ->
+cf.router.regPage 'module/cfRandomDrop', (cf) ->
+  $page = @
   $ = cf.require('$')
 
   createImg = (color)->

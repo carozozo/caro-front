@@ -1,4 +1,5 @@
-cf.router.regPage 'index', (cf, $page) ->
+cf.router.regPage 'index', (cf) ->
+  $page = @
   window = cf.require('window')
   caro = cf.require('caro')
   $ = cf.require('$')

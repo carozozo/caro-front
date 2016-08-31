@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfScrollbar', (cf, $page) ->
+cf.router.regPage 'module/cfScrollbar', (cf) ->
+  $page = @
   bgColorArr = cf.data('bgColorArr')
   $outer = $page.dom('#outer').css(
     height: 200

@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfSwitchShow', (cf, $page) ->
+cf.router.regPage 'module/cfSwitchShow', (cf) ->
+  $page = @
   setInner = ($inner, index, color)->
     $inner.css(
       width: '18%'

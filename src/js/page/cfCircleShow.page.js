@@ -1,5 +1,6 @@
 cf.router.regPage('module/cfCircleShow', function(cf, $page) {
   var $circleDom, $currentIndex, $demo1, bgColorArr;
+  $page = this;
   bgColorArr = cf.data('bgColorArr');
   $demo1 = $page.dom('#demo1').css({
     position: 'relative',

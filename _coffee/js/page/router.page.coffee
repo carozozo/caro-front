@@ -1,4 +1,5 @@
-cf.router.regPage 'lib/router', (cf, $page) ->
+cf.router.regPage 'lib/router', (cf) ->
+  $page = @
   window = cf.require('window')
   _alert = cf.alert
   _router = cf.router

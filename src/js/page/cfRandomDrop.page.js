@@ -1,5 +1,6 @@
 cf.router.regPage('module/cfRandomDrop', function(cf, $page) {
   var $, $downBlock, $img1, $img2, $img3, $img4, $imgArr, $upBlock, createImg, setBlock;
+  $page = this;
   $ = cf.require('$');
   createImg = function(color) {
     return $('<div/>').css({

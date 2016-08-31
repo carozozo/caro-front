@@ -1,5 +1,6 @@
-cf.router.regPage('module/cfSyncMove', function(cf, $page) {
-  var $block1, $block2, $block3, $infoBox, bgColorArr, getBaseY, setBlock;
+cf.router.regPage('module/cfSyncMove', function(cf) {
+  var $block1, $block2, $block3, $infoBox, $page, bgColorArr, getBaseY, setBlock;
+  $page = this;
   bgColorArr = cf.data('bgColorArr');
   setBlock = function($block, color) {
     $block.css({

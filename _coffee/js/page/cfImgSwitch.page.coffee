@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfImgSwitch', (cf, $page) ->
+cf.router.regPage 'module/cfImgSwitch', (cf) ->
+  $page = @
   titleSrcArr = cf.data('titleSrcArr')
 
   $page.dom('#imgBox').css(

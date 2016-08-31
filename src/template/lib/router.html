@@ -72,47 +72,47 @@
     <div class="tip2">regBefPage(fn, [執行順序=50]): 註冊每次執行 cf.goPage 前要執行的 fn<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 每次執行 cf.goPage 前, 會先 alert 'b', 然後 alert 'a'</div>
-      <div>cf.regBefPage(function(cf){</div>
+      <div>cf.regBefPage(function(cf) {</div>
       <div class="tab1">alert('a');</div>
       <div>});</div>
-      <div>cf.regBefPage(function(cf){</div>
+      <div>cf.regBefPage(function(cf) {</div>
       <div class="tab1">alert('b');</div>
       <div>}, 1);</div>
     </div>
     <div class="tip2">regPrePage(fn, [執行順序=50]): 註冊每次載入分頁前要執行的 fn<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 每次載入分頁前, 會先 alert 'b', 然後 alert 'a'</div>
-      <div>cf.regPrePage(function(cf, $page){</div>
-      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div>cf.regPrePage(function(cf) {</div>
+      <div class="tab1">var $page = this;<span class="tip3"> // $page 就是 $dom 分頁</span></div>
       <div class="tab1">alert('a');</div>
       <div>});</div>
-      <div>cf.regPrePage(function(cf, $page){</div>
-      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div>cf.regPrePage(function(cf) {</div>
+      <div class="tab1">var $page = this;<span class="tip3"> // $page 就是 $dom 分頁</span></div>
       <div class="tab1">alert('b');</div>
       <div>}, 1);</div>
     </div>
     <div class="tip2">regAftPage(fn, [執行順序=50]): 註冊每次載入分頁後要執行的 fn<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 每次載入分頁後, 會先 alert 'b', 然後 alert 'a'</div>
-      <div>cf.regAftPage(function(cf, $page){</div>
-      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div>cf.regAftPage(function(cf) {</div>
+      <div class="tab1">var $page = this;<span class="tip3"> // $page 就是 $dom 分頁</span></div>
       <div class="tab1">alert('a');</div>
       <div>});</div>
-      <div>cf.regAftPage(function(cf, $page){</div>
-      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div>cf.regAftPage(function(cf) {</div>
+      <div class="tab1">var $page = this;<span class="tip3"> // $page 就是 $dom 分頁</span></div>
       <div class="tab1">alert('b');</div>
       <div>}, 1);</div>
     </div>
     <div class="tip2">regPage(註冊分頁, fn): 註冊載入指定分頁後要執行的 fn<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div class="tip2">// 執行 cf.goPage('page1') 時, 會 alert 'a'</div>
-      <div>cf.regPage('page1', function(cf, $page){</div>
-      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
-      <div class="tab1">alert('b');</div>
+      <div>cf.regPage('page1', function(cf) {</div>
+      <div class="tab1">var $page = this;<span class="tip3"> // $page 就是 $dom 分頁</span></div>
+      <div class="tab1">alert('a');</div>
       <div>});</div>
       <div class="tip2">// 執行 cf.goPage('page2') 時, 會 alert 'b'</div>
-      <div>cf.regPage('page2', function(cf, $page){</div>
-      <div class="tab1 tip2">// $page 就是分頁的 jQuery DOM 物件</div>
+      <div>cf.regPage('page2', function(cf) {</div>
+      <div class="tab1">var $page = this;<span class="tip3"> // $page 就是 $dom 分頁</span></div>
       <div class="tab1">alert('b');</div>
       <div>});</div>
     </div>

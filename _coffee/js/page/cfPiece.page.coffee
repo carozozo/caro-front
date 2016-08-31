@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfPiece', (cf, $page) ->
+cf.router.regPage 'module/cfPiece', (cf) ->
+  $page = @
   tm = cf.require('TweenMax')
   setInput = ($input) ->
     value = parseInt($input.val()) or 1

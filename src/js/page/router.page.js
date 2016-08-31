@@ -1,5 +1,6 @@
-cf.router.regPage('lib/router', function(cf, $page) {
-  var _alert, _router, window;
+cf.router.regPage('lib/router', function(cf) {
+  var $page, _alert, _router, window;
+  $page = this;
   window = cf.require('window');
   _alert = cf.alert;
   _router = cf.router;

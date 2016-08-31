@@ -1,5 +1,6 @@
 cf.router.regPage('index', function(cf, $page) {
   var $, caro, window;
+  $page = this;
   window = cf.require('window');
   caro = cf.require('caro');
   $ = cf.require('$');

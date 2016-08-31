@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfSyncMove', (cf, $page) ->
+cf.router.regPage 'module/cfSyncMove', (cf) ->
+  $page = @
   bgColorArr = cf.data('bgColorArr')
   setBlock = ($block, color) ->
     $block.css(

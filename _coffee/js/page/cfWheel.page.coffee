@@ -1,4 +1,5 @@
-cf.router.regPage 'module/cfWheel', (cf, $page) ->
+cf.router.regPage 'module/cfWheel', (cf) ->
+  $page = @
   bgColorArr = cf.data('bgColorArr')
 
   $wheelInfo = $page.dom('#wheelInfo')
