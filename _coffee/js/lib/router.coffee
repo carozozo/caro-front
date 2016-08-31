@@ -139,9 +139,6 @@ cf.regLib 'router', (cf) ->
           return
         doneFn = ->
           $nowPage and $nowPage.remove()
-          cf.$window.off()
-          cf.$body.off()
-          cf.$document.off()
           return
 
         if $nowPage and self._transitionFn
@@ -183,6 +180,9 @@ cf.regLib 'router', (cf) ->
 
     ### 換頁, 不指定分頁時會依 url hash 判斷 ###
     self.goPage = (hashName, opt) ->
+      cf.$window.off()
+      cf.$body.off()
+      cf.$document.off()
       doPageFns(self._befPage)
       pageName = self.getPageByHash(hashName) or 'index'
       search = self.getSearchByHash(hashName)

@@ -190,9 +190,6 @@ cf.regLib('router', function(cf) {
         };
         doneFn = function() {
           $nowPage && $nowPage.remove();
-          cf.$window.off();
-          cf.$body.off();
-          cf.$document.off();
         };
         if ($nowPage && self._transitionFn) {
           setPage();
@@ -246,6 +243,9 @@ cf.regLib('router', function(cf) {
     /* 換頁, 不指定分頁時會依 url hash 判斷 */
     self.goPage = function(hashName, opt) {
       var pageName, search;
+      cf.$window.off();
+      cf.$body.off();
+      cf.$document.off();
       doPageFns(self._befPage);
       pageName = self.getPageByHash(hashName) || 'index';
       search = self.getSearchByHash(hashName);
