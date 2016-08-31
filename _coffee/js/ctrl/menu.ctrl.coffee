@@ -54,7 +54,7 @@ cf.regCtrl 'menu', ->
       delay = Math.random() * .3
       tm.to($item, .3,
         opacity: 0
-        y: cf.$window.height()
+        y: 500
         delay: delay
       )
       return
@@ -78,10 +78,10 @@ cf.regCtrl 'menu', ->
     )
     $item.onClick(->
       dropAllItems(type, ->
-        id = $item.id()
         hideMenu()
-        cf.router.goPage(type + '/' + id)
       )
+      id = $item.id()
+      cf.router.goPage(type + '/' + id)
       return
     )
     return

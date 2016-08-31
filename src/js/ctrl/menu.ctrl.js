@@ -70,7 +70,7 @@ cf.regCtrl('menu', function() {
       delay = Math.random() * .3;
       tm.to($item, .3, {
         opacity: 0,
-        y: cf.$window.height(),
+        y: 500,
         delay: delay
       });
     });
@@ -92,12 +92,12 @@ cf.regCtrl('menu', function() {
       });
     });
     $item.onClick(function() {
+      var id;
       dropAllItems(type, function() {
-        var id;
-        id = $item.id();
-        hideMenu();
-        return cf.router.goPage(type + '/' + id);
+        return hideMenu();
       });
+      id = $item.id();
+      cf.router.goPage(type + '/' + id);
     });
   };
   setMenuBtn = function($btn) {
