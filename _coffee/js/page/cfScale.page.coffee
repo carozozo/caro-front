@@ -14,7 +14,7 @@ cf.router.regPage 'module/cfScale', (cf) ->
   $infoBox = $page.dom('#infoBox').css(
     height: 200
   )
-  $block.cfScale('block',
+  $block.cfScale(
     startScale: .5
     startX: 0
     startY: 0

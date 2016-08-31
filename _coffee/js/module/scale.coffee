@@ -1,15 +1,13 @@
 ###
 隨目標縮放自己的大小
 ###
-cf.regModule 'cfScale', (nameSpace, opt = {}) ->
+cf.regModule 'cfScale', (opt = {}) ->
   $self = @
   cf = $self.cf
   caro = cf.require('caro')
   tm = cf.require('TweenMax')
-
   ### 綁定 resize 的 name space ###
-  _triggerName = 'resize.cfAutoScale.' + nameSpace
-
+  _triggerName = 'resize.cfAutoScale'
   ### 要以哪個目標的大小為依據做縮放 ###
   $target = opt.$target or cf.$window
   ### 指定觸發縮放的 $target 寬度範圍 ###
@@ -109,7 +107,7 @@ cf.regModule 'cfScale', (nameSpace, opt = {}) ->
 
   ### 執行 scale ###
   $self.bindScale = ->
-    $target.off(_triggerName).on(_triggerName, ->
+    $target.on(_triggerName, ->
       $self.updateScale()
     )
     $self

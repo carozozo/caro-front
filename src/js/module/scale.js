@@ -2,7 +2,7 @@
 /*
 隨目標縮放自己的大小
  */
-cf.regModule('cfScale', function(nameSpace, opt) {
+cf.regModule('cfScale', function(opt) {
   var $self, $target, _aftScale, _basicHeight, _basicWidth, _befScale, _duration, _endScale, _endX, _endY, _infoObj, _isScaleX, _isScaleY, _mode, _selfInfo, _startScale, _startX, _startY, _targetInfo, _triggerName, caro, cf, getScaleX, getScaleY, setScaleInfo, setTargetInfo, tm;
   if (opt == null) {
     opt = {};
@@ -13,7 +13,7 @@ cf.regModule('cfScale', function(nameSpace, opt) {
   tm = cf.require('TweenMax');
 
   /* 綁定 resize 的 name space */
-  _triggerName = 'resize.cfAutoScale.' + nameSpace;
+  _triggerName = 'resize.cfAutoScale';
 
   /* 要以哪個目標的大小為依據做縮放 */
   $target = opt.$target || cf.$window;
@@ -147,7 +147,7 @@ cf.regModule('cfScale', function(nameSpace, opt) {
 
   /* 執行 scale */
   $self.bindScale = function() {
-    $target.off(_triggerName).on(_triggerName, function() {
+    $target.on(_triggerName, function() {
       return $self.updateScale();
     });
     return $self;

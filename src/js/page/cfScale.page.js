@@ -1,5 +1,5 @@
-cf.router.regPage('module/cfScale', function(cf, $page) {
-  var $, $block, $infoBox, setInfo;
+cf.router.regPage('module/cfScale', function(cf) {
+  var $, $block, $infoBox, $page, setInfo;
   $page = this;
   $ = cf.require('$');
   setInfo = function(title, msg) {
@@ -14,7 +14,7 @@ cf.router.regPage('module/cfScale', function(cf, $page) {
   $infoBox = $page.dom('#infoBox').css({
     height: 200
   });
-  $block.cfScale('block', {
+  $block.cfScale({
     startScale: .5,
     startX: 0,
     startY: 0,
