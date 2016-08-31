@@ -2,9 +2,9 @@
 增加 mousewheel 的易讀性
 Depend on jquery.mousewheel
 ###
-cf.regModule 'cfWheel', (nameSpace, fn) ->
+cf.regModule 'cfWheel', (fn) ->
   $self = @
-  nameSpace = 'mousewheel.cfWheel.' + nameSpace
+  triggerName = 'mousewheel.cfWheel'
 
   triggerFn = (e) ->
     e.isWheelDown = e.deltaY < 0
@@ -15,13 +15,11 @@ cf.regModule 'cfWheel', (nameSpace, fn) ->
 
   ### 綁定 mousewheel ###
   $self.bindWheel = ->
-    $self.off(nameSpace).on(nameSpace, triggerFn)
-    $self
+    $self.on(triggerName, triggerFn)
 
   ### 停止綁定 mousewheel ###
   $self.unbindWheel = ->
-    $self.off(nameSpace)
-    $self
+    $self.off(triggerName)
 
   $self.bindWheel()
   $self

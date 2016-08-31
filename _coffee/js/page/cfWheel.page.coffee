@@ -3,7 +3,7 @@ cf.router.regPage 'module/cfWheel', (cf) ->
   bgColorArr = cf.data('bgColorArr')
 
   $wheelInfo = $page.dom('#wheelInfo')
-  $page.cfWheel('cfWheel', (e) ->
+  $page.cfWheel((e) ->
     info = {
       isWheelDown: e.isWheelDown
       isWheelRight: e.isWheelRight
