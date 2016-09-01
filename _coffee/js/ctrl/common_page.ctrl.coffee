@@ -6,7 +6,25 @@ cf.regCtrl 'commonPage', ->
   tl = cf.require('TimelineMax')
   tm = cf.require('TweenMax')
 
-  $mainTitle = $self.dom('.mainTitle')
+  $mainTitle = $self.dom('.mainTitle', ($mainTitle) ->
+    $mainTitle.cfSplitText(
+      charCb: ($char, i)->
+        tm.set($char, perspective: 400)
+        tm.from($char, 1,
+          opacity: 0
+          x: -100
+          y: -50
+          rotationX: 180
+          ease: Back.easeOut
+          delay: 1 + i * .05
+        )
+        return
+    )
+    $mainTitle.init = ->
+      $mainTitle.width('100%')
+      return
+    return
+  )
 
   subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3', 'subTitle4', 'subTitle5']
   caro.forEach(subTitleClassArr, (className) ->
@@ -73,9 +91,9 @@ cf.regCtrl 'commonPage', ->
   titleOpt = caro.assign(titleOpt, directionOpt)
   tl1 = new tl()
   tl1.from($mainTitle, .7,
-    width: 300
+    width: 0
     delay: .5
-  ).staggerFromTo($titles, .3, titleOpt, {
+  ).add($mainTitle.init).staggerFromTo($titles, .3, titleOpt, {
     x: 0
     y: 0
     opacity: 1
