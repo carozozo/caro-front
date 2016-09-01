@@ -21,158 +21,130 @@ cf.regCtrl 'header', ->
     )
     $headerTitleImg = $headerTitle.dom('.headerTitleImg')
     $headerTitle.start = ->
-      titleWidth = $headerTitleImg.width()
-      titleHeight = $headerTitleImg.height()
-      pieceContainerArr = []
-      setPieceContainer = ($container) ->
-        $container.width(titleWidth)
-        $container.height(titleHeight)
-        pieceContainerArr.push($container)
-        $container
-      showContainer = (index)->
-        caro.forEach(pieceContainerArr, ($container, i) ->
-          return $container.show() if i is index
-          $container.hide()
-          return
+      $pieceArr = []
+      $reversePieceArr = []
+
+      doPiece = (yPiece, xPiece) ->
+        $headerTitleImg.$pieceContainer && $headerTitleImg.$pieceContainer.remove()
+        $headerTitleImg.show().cfPiece(yPiece, xPiece,
+          aftPiece: setPiece
         )
         return
 
-      $img1 = $headerTitleImg.clone().appendTo($headerTitle).cfPiece(1, 100)
-      setPieceContainer($img1.$pieceContainer)
-      $pieceArr1 = $img1.$pieceArr
+      setPiece = ($piece, yIndex, xIndex) ->
+        $piece.yIndex = yIndex
+        $piece.xIndex = xIndex
+        $pieceArr.push($piece)
+        $reversePieceArr.unshift($piece)
+        return
 
-      $img2 = $headerTitleImg.clone().appendTo($headerTitle).cfPiece(20, 1)
-      setPieceContainer($img2.$pieceContainer)
-      $pieceArr2 = $img2.$pieceArr
-
-      yPiece = 6
-      xPiece = 16
-      $img3 = $headerTitleImg.clone().appendTo($headerTitle).cfPiece(yPiece, xPiece)
-      setPieceContainer($img3.$pieceContainer)
-      $pieceArr3 = $img3.$pieceArr
-
-      $headerTitleImg.hide()
-
-      action1 = ->
-        showContainer(0)
-        tm.staggerFromTo($pieceArr1, .5, {
+      effectArr = []
+      effectArr.push(rotationX = ->
+        tl1 = new tl()
+        tl1.staggerFromTo($pieceArr, .5, {
           rotationX: 0
         }, {
           rotationX: 360
         }, .005)
         return
-      action2 = ->
-        showContainer(0)
-        caro.forEach($pieceArr1, ($piece, i) ->
-          x = if i % 2 is 0 then -5 else 5
-          tl1 = new tl()
-          tl2 = new tl(
-            repeat: 1
-          )
-          tl1.to($piece, .2,
-            x: x
-          ).to($piece, .2,
-            x: 0
-          )
-          .add(
-            tl2.to($piece, .1,
-              x: x
-            ).to($piece, .1,
-              x: 0
-            )
-          , '+=1')
-          return
-        )
-        return
-      action3 = ->
-        showContainer(0)
+      )
+      effectArr.push(rotationY = ->
         tl1 = new tl()
-        tl1.staggerTo($pieceArr1.reverse(), .3, {
-          x: 10
-          bezier: [{y: -5}, {y: 0}]
-        }, .01)
-        .staggerTo($pieceArr1.reverse(), .3, {
-          x: 0
-          bezier: [{y: 5}, {y: 0}]
-        }, .01)
-        return
-      action4 = ->
-        showContainer(1)
-        tm.staggerFromTo($pieceArr2, .5, {
+        tl1.staggerFromTo($pieceArr, .5, {
           rotationY: 0
         }, {
           rotationY: 360
         }, .005)
         return
-      action5 = ->
-        showContainer(1)
-        caro.forEach($pieceArr2, ($piece, i) ->
-          y = if i % 2 is 0 then -5 else 5
+      )
+      effectArr.push(flashX = ->
+        caro.forEach($pieceArr, ($piece, i) ->
           tl1 = new tl()
-          tl2 = new tl(
-            repeat: 1
-          )
           tl1.to($piece, .2,
-            y: y
-          ).to($piece, .2,
-            y: 0
-          )
-          .add(
-            tl2.to($piece, .1,
-              y: y
-            ).to($piece, .1,
-              y: 0
-            )
-          , '+=1')
-          return
-        )
-        return
-      action6 = ->
-        showContainer(1)
-        tl1 = new tl(
-          onComplete: ->
-            $pieceArr2.reverse()
-            return
-        )
-        tl1.staggerTo($pieceArr2, .3, {
-          y: -5
-        }, .05)
-        .staggerTo($pieceArr2.reverse(), .3, {
-          y: 0
-        }, .05)
-        return
-      action7 = ->
-        showContainer(2)
-        tm.staggerFromTo($pieceArr3, .5, {
-          rotationY: 0
-        }, {
-          rotationY: 360
-        }, .005)
-        return
-      action8 = ->
-        showContainer(2)
-        caro.forEach($pieceArr3, ($piece) ->
-          yIndex = $piece._yIndex
-          xIndex = $piece._xIndex
-          y = (yIndex - yPiece / 2)
-          x = (xIndex - xPiece / 2)
-          tl1 = new tl()
-          tl1.to($piece, .5,
-            x: x
-            y: y
+            x: caro.randomInt(10,-10)
           ).to($piece, .2,
             x: 0
-            y: 0
-          , '+=0.1')
+          )
           return
         )
         return
-      actionArr = [action1, action2, action3, action4, action5, action6, action7, action8]
-#      actionArr = [action3]
-      caro.setInterval(->
+      )
+      effectArr.push(flashY = ->
+        caro.forEach($pieceArr, ($piece, i) ->
+          tl1 = new tl()
+          tl1.to($piece, .2,
+            y: caro.randomInt(10,-10)
+          ).to($piece, .2,
+            y: 0
+          )
+          return
+        )
+        return
+      )
+      effectArr.push(detachX = ->
+        caro.forEach($pieceArr, ($piece) ->
+          tm.to($piece, .2,
+            opacity: 0
+            x: caro.randomInt(30, -30)
+            delay: Math.random()
+            onComplete: ->
+              setTimeout(->
+                tm.set($piece,
+                  opacity: 1
+                  x: 0
+                )
+              , 1000)
+              return
+          )
+          return
+        )
+        return
+      )
+      effectArr.push(detachY = ->
+        caro.forEach($pieceArr, ($piece) ->
+          tm.to($piece, .1,
+            opacity: 0
+            y: caro.randomInt(30, -30)
+            delay: Math.random()
+            onComplete: ->
+              setTimeout(->
+                tm.set($piece,
+                  opacity: 1
+                  y: 0
+                )
+              , 1000)
+              return
+          )
+          return
+        )
+        return
+      )
+      actionArr = []
+      actionArr.push(->
+        doPiece(27, 1)
+        effectFn = caro.randomPick(effectArr)
+        effectFn()
+        return
+      )
+      actionArr.push(->
+        doPiece(1, 25)
+        effectFn = caro.randomPick(effectArr)
+        effectFn()
+        return
+      )
+      actionArr.push(->
+        doPiece(5, 5)
+        effectFn = caro.randomPick(effectArr)
+        effectFn()
+        return
+      )
+      startRandomAction = ->
         caro.randomPick(actionArr)()
+        return
+      caro.setInterval(->
+        startRandomAction()
+        return
       , 5000)
-      caro.randomPick(actionArr)()
       return
     return
   )

@@ -22,161 +22,121 @@ cf.regCtrl('header', function() {
     });
     $headerTitleImg = $headerTitle.dom('.headerTitleImg');
     $headerTitle.start = function() {
-      var $img1, $img2, $img3, $pieceArr1, $pieceArr2, $pieceArr3, action1, action2, action3, action4, action5, action6, action7, action8, actionArr, pieceContainerArr, setPieceContainer, showContainer, titleHeight, titleWidth, xPiece, yPiece;
-      titleWidth = $headerTitleImg.width();
-      titleHeight = $headerTitleImg.height();
-      pieceContainerArr = [];
-      setPieceContainer = function($container) {
-        $container.width(titleWidth);
-        $container.height(titleHeight);
-        pieceContainerArr.push($container);
-        return $container;
-      };
-      showContainer = function(index) {
-        caro.forEach(pieceContainerArr, function($container, i) {
-          if (i === index) {
-            return $container.show();
-          }
-          $container.hide();
+      var $pieceArr, $reversePieceArr, actionArr, detachX, detachY, doPiece, effectArr, flashX, flashY, rotationX, rotationY, setPiece, startRandomAction;
+      $pieceArr = [];
+      $reversePieceArr = [];
+      doPiece = function(yPiece, xPiece) {
+        $headerTitleImg.$pieceContainer && $headerTitleImg.$pieceContainer.remove();
+        $headerTitleImg.show().cfPiece(yPiece, xPiece, {
+          aftPiece: setPiece
         });
       };
-      $img1 = $headerTitleImg.clone().appendTo($headerTitle).cfPiece(1, 100);
-      setPieceContainer($img1.$pieceContainer);
-      $pieceArr1 = $img1.$pieceArr;
-      $img2 = $headerTitleImg.clone().appendTo($headerTitle).cfPiece(20, 1);
-      setPieceContainer($img2.$pieceContainer);
-      $pieceArr2 = $img2.$pieceArr;
-      yPiece = 6;
-      xPiece = 16;
-      $img3 = $headerTitleImg.clone().appendTo($headerTitle).cfPiece(yPiece, xPiece);
-      setPieceContainer($img3.$pieceContainer);
-      $pieceArr3 = $img3.$pieceArr;
-      $headerTitleImg.hide();
-      action1 = function() {
-        showContainer(0);
-        tm.staggerFromTo($pieceArr1, .5, {
+      setPiece = function($piece, yIndex, xIndex) {
+        $piece.yIndex = yIndex;
+        $piece.xIndex = xIndex;
+        $pieceArr.push($piece);
+        $reversePieceArr.unshift($piece);
+      };
+      effectArr = [];
+      effectArr.push(rotationX = function() {
+        var tl1;
+        tl1 = new tl();
+        tl1.staggerFromTo($pieceArr, .5, {
           rotationX: 0
         }, {
           rotationX: 360
         }, .005);
-      };
-      action2 = function() {
-        showContainer(0);
-        caro.forEach($pieceArr1, function($piece, i) {
-          var tl1, tl2, x;
-          x = i % 2 === 0 ? -5 : 5;
-          tl1 = new tl();
-          tl2 = new tl({
-            repeat: 1
-          });
-          tl1.to($piece, .2, {
-            x: x
-          }).to($piece, .2, {
-            x: 0
-          }).add(tl2.to($piece, .1, {
-            x: x
-          }).to($piece, .1, {
-            x: 0
-          }), '+=1');
-        });
-      };
-      action3 = function() {
+      });
+      effectArr.push(rotationY = function() {
         var tl1;
-        showContainer(0);
         tl1 = new tl();
-        tl1.staggerTo($pieceArr1.reverse(), .3, {
-          x: 10,
-          bezier: [
-            {
-              y: -5
-            }, {
-              y: 0
-            }
-          ]
-        }, .01).staggerTo($pieceArr1.reverse(), .3, {
-          x: 0,
-          bezier: [
-            {
-              y: 5
-            }, {
-              y: 0
-            }
-          ]
-        }, .01);
-      };
-      action4 = function() {
-        showContainer(1);
-        tm.staggerFromTo($pieceArr2, .5, {
+        tl1.staggerFromTo($pieceArr, .5, {
           rotationY: 0
         }, {
           rotationY: 360
         }, .005);
-      };
-      action5 = function() {
-        showContainer(1);
-        caro.forEach($pieceArr2, function($piece, i) {
-          var tl1, tl2, y;
-          y = i % 2 === 0 ? -5 : 5;
+      });
+      effectArr.push(flashX = function() {
+        caro.forEach($pieceArr, function($piece, i) {
+          var tl1;
           tl1 = new tl();
-          tl2 = new tl({
-            repeat: 1
-          });
           tl1.to($piece, .2, {
-            y: y
+            x: caro.randomInt(10, -10)
           }).to($piece, .2, {
-            y: 0
-          }).add(tl2.to($piece, .1, {
-            y: y
-          }).to($piece, .1, {
-            y: 0
-          }), '+=1');
+            x: 0
+          });
         });
-      };
-      action6 = function() {
-        var tl1;
-        showContainer(1);
-        tl1 = new tl({
-          onComplete: function() {
-            $pieceArr2.reverse();
-          }
-        });
-        tl1.staggerTo($pieceArr2, .3, {
-          y: -5
-        }, .05).staggerTo($pieceArr2.reverse(), .3, {
-          y: 0
-        }, .05);
-      };
-      action7 = function() {
-        showContainer(2);
-        tm.staggerFromTo($pieceArr3, .5, {
-          rotationY: 0
-        }, {
-          rotationY: 360
-        }, .005);
-      };
-      action8 = function() {
-        showContainer(2);
-        caro.forEach($pieceArr3, function($piece) {
-          var tl1, x, xIndex, y, yIndex;
-          yIndex = $piece._yIndex;
-          xIndex = $piece._xIndex;
-          y = yIndex - yPiece / 2;
-          x = xIndex - xPiece / 2;
+      });
+      effectArr.push(flashY = function() {
+        caro.forEach($pieceArr, function($piece, i) {
+          var tl1;
           tl1 = new tl();
-          tl1.to($piece, .5, {
-            x: x,
-            y: y
+          tl1.to($piece, .2, {
+            y: caro.randomInt(10, -10)
           }).to($piece, .2, {
-            x: 0,
             y: 0
-          }, '+=0.1');
+          });
         });
+      });
+      effectArr.push(detachX = function() {
+        caro.forEach($pieceArr, function($piece) {
+          tm.to($piece, .2, {
+            opacity: 0,
+            x: caro.randomInt(30, -30),
+            delay: Math.random(),
+            onComplete: function() {
+              setTimeout(function() {
+                return tm.set($piece, {
+                  opacity: 1,
+                  x: 0
+                });
+              }, 1000);
+            }
+          });
+        });
+      });
+      effectArr.push(detachY = function() {
+        caro.forEach($pieceArr, function($piece) {
+          tm.to($piece, .1, {
+            opacity: 0,
+            y: caro.randomInt(30, -30),
+            delay: Math.random(),
+            onComplete: function() {
+              setTimeout(function() {
+                return tm.set($piece, {
+                  opacity: 1,
+                  y: 0
+                });
+              }, 1000);
+            }
+          });
+        });
+      });
+      actionArr = [];
+      actionArr.push(function() {
+        var effectFn;
+        doPiece(27, 1);
+        effectFn = caro.randomPick(effectArr);
+        effectFn();
+      });
+      actionArr.push(function() {
+        var effectFn;
+        doPiece(1, 25);
+        effectFn = caro.randomPick(effectArr);
+        effectFn();
+      });
+      actionArr.push(function() {
+        var effectFn;
+        doPiece(5, 5);
+        effectFn = caro.randomPick(effectArr);
+        effectFn();
+      });
+      startRandomAction = function() {
+        caro.randomPick(actionArr)();
       };
-      actionArr = [action1, action2, action3, action4, action5, action6, action7, action8];
       caro.setInterval(function() {
-        return caro.randomPick(actionArr)();
+        startRandomAction();
       }, 5000);
-      caro.randomPick(actionArr)();
     };
   });
   $headerBtn = $self.dom('.headerBtn');
