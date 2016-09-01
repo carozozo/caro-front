@@ -18,6 +18,15 @@ cf.regCtrl 'header', ->
     $headerTitle.onClick(->
       cf.router.goPage('index')
       return
+    ).on('mouseenter', ->
+      ### 不明確原因, 在 $headerTitle 裡面移動 mouseenter 會被多次觸發 ###
+      return unless $headerTitle.isLeaved
+      $headerTitle.isLeaved = false
+      $headerTitle.randomAnimation()
+      return
+    ).on('mouseleave', ->
+      $headerTitle.isLeaved = true
+      return
     )
     $headerTitleImg = $headerTitle.dom('.headerTitleImg')
     $headerTitle.randomAnimation = ->

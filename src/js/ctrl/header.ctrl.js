@@ -19,6 +19,16 @@ cf.regCtrl('header', function() {
     var $headerTitleImg;
     $headerTitle.onClick(function() {
       cf.router.goPage('index');
+    }).on('mouseenter', function() {
+
+      /* 不明確原因, 在 $headerTitle 裡面移動 mouseenter 會被多次觸發 */
+      if (!$headerTitle.isLeaved) {
+        return;
+      }
+      $headerTitle.isLeaved = false;
+      $headerTitle.randomAnimation();
+    }).on('mouseleave', function() {
+      $headerTitle.isLeaved = true;
     });
     $headerTitleImg = $headerTitle.dom('.headerTitleImg');
     $headerTitle.randomAnimation = function() {
