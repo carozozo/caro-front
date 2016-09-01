@@ -29,10 +29,10 @@ cf.regModule('cfPiece', function(particleY, particleX, opt) {
   _aftPiece = opt.aftPiece;
 
   /* 每個等份的寬 */
-  pieceWidth = Math.round(selfWidth / particleX);
+  pieceWidth = selfWidth / particleX;
 
   /* 每個等份的高 */
-  pieceHeight = Math.round(selfHeight / particleY);
+  pieceHeight = selfHeight / particleY;
 
   /* 外部切片的容器, 繼承 $self 的 css position 屬性 */
   $self.$pieceContainer = $('<div/>').addClass('cfPieceContainer').css({
