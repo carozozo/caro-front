@@ -17,34 +17,33 @@ cf.router.regPage('module/cfPiece', function(cf) {
     $blockMain.$pieceContainer && $blockMain.$pieceContainer.remove();
     particleX = setInput($particleX);
     particleY = setInput($particleY);
-    $blockMain.show().cfPiece(particleY, particleX).css('margin-top', 50);
+    $blockMain.show().cfPiece(particleY, particleX, {
+      aftPiece: function($piece, yIndex, xIndex) {
+        var $content, msg;
+        msg = yIndex + '-' + xIndex;
+        $content = $('<div/>').css({
+          position: 'absolute',
+          color: '#fff'
+        }).html(msg).appendTo($piece).hide();
+        $piece.css({
+          cursor: 'pointer'
+        }).on('mouseover', function() {
+          return $content.show();
+        }).on('mouseout', function() {
+          return $content.hide();
+        }).on('click', function() {
+          return tm.to($piece, .5, {
+            rotationY: '+=180'
+          });
+        });
+        $piece.css({
+          'margin-left': xIndex,
+          'margin-top': yIndex
+        });
+      }
+    }).css('margin-top', 50);
     $blockMain.$pieceContainer.css({
       height: $blockMain.height()
-    });
-    caro.forEach($blockMain.$pieceArr, function($piece) {
-      var $content, msg, xIndex, yIndex;
-      xIndex = $piece._xIndex;
-      yIndex = $piece._yIndex;
-      msg = yIndex + '-' + xIndex;
-      $content = $('<div/>').css({
-        position: 'absolute',
-        color: '#fff'
-      }).html(msg).appendTo($piece).hide();
-      $piece.css({
-        cursor: 'pointer'
-      }).on('mouseover', function() {
-        return $content.show();
-      }).on('mouseout', function() {
-        return $content.hide();
-      }).on('click', function() {
-        return tm.to($piece, .5, {
-          rotationY: '+=180'
-        });
-      });
-      $piece.css({
-        'margin-left': xIndex,
-        'margin-top': yIndex
-      });
     });
   });
   return $page;

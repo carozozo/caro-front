@@ -2,13 +2,16 @@
 /*
 切片效果,切片後 $self 會隱藏, 注意切片後為固定寬高
  */
-cf.regModule('cfPiece', function(particleY, particleX) {
-  var $self, pieceHeight, pieceWidth, selfHeight, selfWidth;
+cf.regModule('cfPiece', function(particleY, particleX, opt) {
+  var $self, _aftPiece, _befPiece, pieceHeight, pieceWidth, selfHeight, selfWidth;
   if (particleY == null) {
     particleY = 3;
   }
   if (particleX == null) {
     particleX = 3;
+  }
+  if (opt == null) {
+    opt = {};
   }
 
   /*
@@ -19,17 +22,17 @@ cf.regModule('cfPiece', function(particleY, particleX) {
   selfWidth = $self.width();
   selfHeight = $self.height();
 
+  /* 每次置入 $piece 前呼叫的 cb, return false 則不值置入 */
+  _befPiece = opt.befPiece;
+
+  /* 每次置入 $piece 後呼叫的 cb */
+  _aftPiece = opt.aftPiece;
+
   /* 每個等份的寬 */
   pieceWidth = Math.round(selfWidth / particleX);
 
   /* 每個等份的高 */
   pieceHeight = Math.round(selfHeight / particleY);
-
-  /* 儲存每個切片 */
-  $self.$pieceArr = [];
-
-  /* 儲存切片陣列 */
-  $self.$pieceTable = [];
 
   /* 外部切片的容器, 繼承 $self 的 css position 屬性 */
   $self.$pieceContainer = $('<div/>').addClass('cfPieceContainer').css({
@@ -41,11 +44,11 @@ cf.regModule('cfPiece', function(particleY, particleX) {
     position: 'relative'
   }).appendTo($self.$pieceContainer);
   caro.loop(function(i) {
-    var xPieceArr;
-    xPieceArr = [];
-    $self.$pieceTable.push(xPieceArr);
     caro.loop(function(j) {
       var $piece, pieceLeft, pieceTop;
+      if (_befPiece && _befPiece(i, j) === false) {
+        return;
+      }
       pieceLeft = pieceWidth * j;
       pieceTop = pieceHeight * i;
       $piece = $('<div/>').addClass('cfPiece').css({
@@ -66,14 +69,7 @@ cf.regModule('cfPiece', function(particleY, particleX) {
         left: -(pieceWidth * j),
         top: -(pieceHeight * i)
       });
-
-      /* 儲存切片在 y 軸的 index */
-      $piece._yIndex = i;
-
-      /* 儲存切片在 x 軸的 index */
-      $piece._xIndex = j;
-      $self.$pieceArr.push($piece);
-      xPieceArr.push($piece);
+      _aftPiece && _aftPiece($piece, i, j);
     }, 0, particleX - 1);
   }, 0, particleY - 1);
   return $self.hide();

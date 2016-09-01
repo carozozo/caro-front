@@ -15,37 +15,32 @@ cf.router.regPage 'module/cfPiece', (cf) ->
     $blockMain.$pieceContainer and $blockMain.$pieceContainer.remove()
     particleX = setInput($particleX)
     particleY = setInput($particleY)
-    $blockMain.show().cfPiece(particleY, particleX).css('margin-top', 50)
+    $blockMain.show().cfPiece(particleY, particleX, {
+      aftPiece: ($piece, yIndex, xIndex) ->
+        msg = yIndex + '-' + xIndex
+        $content = $('<div/>').css(
+          position: 'absolute'
+          color: '#fff'
+        ).html(msg).appendTo($piece).hide()
+        $piece.css(
+          cursor: 'pointer'
+        ).on('mouseover', ->
+          $content.show()
+        ).on('mouseout', ->
+          $content.hide()
+        ).on('click', ->
+          tm.to($piece, .5,
+            rotationY: '+=180'
+          )
+        )
+        $piece.css(
+          'margin-left': xIndex
+          'margin-top': yIndex
+        )
+        return
+    }).css('margin-top', 50)
     $blockMain.$pieceContainer.css(
       height: $blockMain.height()
-    )
-
-    caro.forEach($blockMain.$pieceArr, ($piece)->
-      xIndex = $piece._xIndex
-      yIndex = $piece._yIndex
-      msg = yIndex + '-' + xIndex
-
-      $content = $('<div/>').css(
-        position: 'absolute'
-        color: '#fff'
-      ).html(msg).appendTo($piece).hide()
-
-      $piece.css(
-        cursor: 'pointer'
-      ).on('mouseover', ->
-        $content.show()
-      ).on('mouseout', ->
-        $content.hide()
-      ).on('click', ->
-        tm.to($piece, .5,
-          rotationY: '+=180'
-        )
-      )
-      $piece.css(
-        'margin-left': xIndex
-        'margin-top': yIndex
-      )
-      return
     )
     return
   )
