@@ -20,7 +20,7 @@ cf.regCtrl 'header', ->
       return
     )
     $headerTitleImg = $headerTitle.dom('.headerTitleImg')
-    $headerTitle.start = ->
+    $headerTitle.randomAnimation = ->
       $pieceArr = []
       $reversePieceArr = []
 
@@ -61,7 +61,7 @@ cf.regCtrl 'header', ->
         caro.forEach($pieceArr, ($piece, i) ->
           tl1 = new tl()
           tl1.to($piece, .2,
-            x: caro.randomInt(10,-10)
+            x: caro.randomInt(10, -10)
           ).to($piece, .2,
             x: 0
           )
@@ -73,7 +73,7 @@ cf.regCtrl 'header', ->
         caro.forEach($pieceArr, ($piece, i) ->
           tl1 = new tl()
           tl1.to($piece, .2,
-            y: caro.randomInt(10,-10)
+            y: caro.randomInt(10, -10)
           ).to($piece, .2,
             y: 0
           )
@@ -138,23 +138,13 @@ cf.regCtrl 'header', ->
         effectFn()
         return
       )
-      startRandomAction = ->
-        caro.randomPick(actionArr)()
-        return
-      caro.setInterval(->
-        startRandomAction()
-        return
-      , 5000)
+      caro.randomPick(actionArr)()
       return
     return
   )
   $headerBtn = $self.dom('.headerBtn')
 
-  tl1 = new tl(
-    onComplete: ->
-      $headerTitle.start()
-      return
-  )
+  tl1 = new tl()
   tl1.from($headerTitle, .5
     opacity: 0
     y: -10
@@ -169,8 +159,14 @@ cf.regCtrl 'header', ->
     ease: Back.easeOut.config(2)
   , .2)
 
-  cf.router.regPrePage(setBgColor)
-  setBgColor()
+  cf.router.regPrePage(->
+    setTimeout(->
+      $headerTitle.randomAnimation()
+      return
+    , 2000)
+    setBgColor()
+    return
+  )
   $self
 , 'template/ctrl/header.html'
 

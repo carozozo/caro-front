@@ -21,8 +21,8 @@ cf.regCtrl('header', function() {
       cf.router.goPage('index');
     });
     $headerTitleImg = $headerTitle.dom('.headerTitleImg');
-    $headerTitle.start = function() {
-      var $pieceArr, $reversePieceArr, actionArr, detachX, detachY, doPiece, effectArr, flashX, flashY, rotationX, rotationY, setPiece, startRandomAction;
+    $headerTitle.randomAnimation = function() {
+      var $pieceArr, $reversePieceArr, actionArr, detachX, detachY, doPiece, effectArr, flashX, flashY, rotationX, rotationY, setPiece;
       $pieceArr = [];
       $reversePieceArr = [];
       doPiece = function(yPiece, xPiece) {
@@ -131,20 +131,11 @@ cf.regCtrl('header', function() {
         effectFn = caro.randomPick(effectArr);
         effectFn();
       });
-      startRandomAction = function() {
-        caro.randomPick(actionArr)();
-      };
-      caro.setInterval(function() {
-        startRandomAction();
-      }, 5000);
+      caro.randomPick(actionArr)();
     };
   });
   $headerBtn = $self.dom('.headerBtn');
-  tl1 = new tl({
-    onComplete: function() {
-      $headerTitle.start();
-    }
-  });
+  tl1 = new tl();
   tl1.from($headerTitle, .5, {
     opacity: 0,
     y: -10,
@@ -158,8 +149,12 @@ cf.regCtrl('header', function() {
     x: -50,
     ease: Back.easeOut.config(2)
   }, .2);
-  cf.router.regPrePage(setBgColor);
-  setBgColor();
+  cf.router.regPrePage(function() {
+    setTimeout(function() {
+      $headerTitle.randomAnimation();
+    }, 2000);
+    setBgColor();
+  });
   return $self;
 }, 'template/ctrl/header.html');
 
