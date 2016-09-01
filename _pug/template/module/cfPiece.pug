@@ -23,7 +23,7 @@
 .content
   .title 參數
   div
-    .tip5 $('xxx').cfPiece([particleY = 3], [particleX = 3]);
+    .tip5 $('xxx').cfPiece([particleY = 3], [particleX = 3], [opt =[]]);
       span.codeLink 程式範例
       .codeTarget
         div.subTitle2 html
@@ -32,26 +32,14 @@
         .separator2
         div.subTitle2 js
         div
-          div var $img = $('#img').cfPiece(2, 3);
-          .separator1
-          .tip2 // $piece1~$piece6 即產生的 jQuery 切片物件
-          div var $pieceArr = $img.$pieceArr;
-            span.tip3  // [$piece1, $piece2, $piece3, $piece4, $piece5, $piece6]
-          .separator1
-          .tip2 // $piece1~$piece6 即產生的 jQuery 切片物件
-          div var $pieceTable = $img.$pieceTable;
-            span.tip3  // [ [$piece1, $piece2, $piece3], [$piece4, $piece5, $piece6] ]
-          .separator1
-        .separator2
-        .subTitle2 每個切片被賦予的 _yIndex 和 _xIndex
-        div
-          div var index1 = $piece1._yIndex + '-' + $piece1._xIndex;
-            span.tip3  // '0-0
-          div var index2 = $piece2._yIndex + '-' + $piece1._xIndex;
-            span.tip3  // '0-1'
-          div ...
-          div var index4 = $piece4._yIndex + '-' + $piece1._xIndex;
-            span.tip3  // '1-0'
+          div var $img = $('#img').cfPiece(2, 3, {
+          .tab1 befPiece: function(yIndex, xIndex) {
+          .tab2 ...
+          .tab1 },
+          .tab1 aftPiece: function($piece, yIndex, xIndex) {
+          .tab2 ...
+          .tab1 }
+          div });
         .separator2
         .subTitle2 產生的切片 html 結構
         div
@@ -61,19 +49,17 @@
           div &lt;div class='cfPieceContainer' style='position: static;'&gt;
           .tab1.colorGray2 &lt;!-- $img.$pieceInnerContainer --&gt;
           .tab1 &lt;div class='cfPieceInnerContainer' style='position: relative;'&gt;
-          .tab2.colorGray2 &lt;!-- 每個產生的切片 --&gt;
+          .tab2.colorGray2 &lt;!-- 每個產生的 $piece 切片 --&gt;
           .tab2 &lt;div class='cfPiece'&gt;...&lt;/div&gt;
           .tab1 &lt;/div&gt;
           div &lt;/div&gt;
     div particleY: y 切成幾等份
     div particleX: x 切成幾等份
+    .subTitle1 opt 參數
+    div
+      div pefPiece: 每次置入 $piece 前呼叫的 cb(yIndex, xIndex), return false 則不值置入
+      div aftPiece: 每次置入 $piece 後呼叫的 cb($piece, yIndex, xIndex)
     .subTitle4 $self 附加屬性
     div
-      div $pieceArr: 儲存每個切片
-      div $pieceTable: 儲存切片陣列, 例如切成 2 x 3, 陣列就是 [[$piece1, $piece2, $piece3],[$piece4, $piece5, $piece6]]
       div $pieceContainer: 外部切片的容器, 繼承 $self 的 css position 屬性
       div $pieceInnerContainer: 內部切片容器, 協助切片定位
-    .subTitle4 $piece 附加屬性
-    div
-      div _yIndex: 儲存切片在 y 軸的 index
-      div _xIndex: 儲存切片在 x 軸的 index

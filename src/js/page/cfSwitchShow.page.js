@@ -1,5 +1,5 @@
-cf.router.regPage('module/cfSwitchShow', function(cf, $page) {
-  var $innerArr1, $innerArr2, $outer1, $outer2, $selectType, bgColorArr, setInner;
+cf.router.regPage('module/cfSwitchShow', function(cf) {
+  var $innerArr1, $innerArr2, $outer1, $outer2, $page, $selectType, bgColorArr, setInner;
   $page = this;
   setInner = function($inner, index, color) {
     $inner.css({
