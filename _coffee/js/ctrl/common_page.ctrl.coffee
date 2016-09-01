@@ -7,19 +7,51 @@ cf.regCtrl 'commonPage', ->
   tm = cf.require('TweenMax')
 
   $mainTitle = $self.dom('.mainTitle', ($mainTitle) ->
-    $mainTitle.cfSplitText(
-      charCb: ($char, i)->
-        tm.set($char, perspective: 400)
-        tm.from($char, 1,
-          opacity: 0
-          x: -100
-          y: -50
-          rotationX: 180
-          ease: Back.easeOut
-          delay: 1 + i * .05
-        )
-        return
+    actArr = []
+    actArr.push(->
+      $mainTitle.cfSplitText(
+        charCb: ($char, i) ->
+          tm.set($char, perspective: 400)
+          tm.from($char, 1,
+            opacity: 0
+            x: -100
+            y: -50
+            rotationX: 180
+            ease: Back.easeOut
+            delay: 1 + i * .05
+          )
+          return
+      )
+      return
     )
+    actArr.push(->
+      $mainTitle.cfSplitText(
+        charCb: ($char, i) ->
+          tm.set($char, perspective: 400)
+          tm.from($char, 1,
+            opacity: 0
+            y: 50
+            rotationX: 180
+            ease: Back.easeOut
+            delay: 1 + i * .05
+          )
+          return
+      )
+      return
+    )
+    actArr.push(->
+      $mainTitle.cfSplitText(
+        charCb: ($char, i) ->
+          tm.set($char, perspective: 400)
+          tm.from($char, .5,
+            rotationX: 90
+            delay: 1 + i * .05
+          )
+          return
+      )
+      return
+    )
+    caro.randomPick(actArr)()
     $mainTitle.init = ->
       $mainTitle.width('100%')
       return

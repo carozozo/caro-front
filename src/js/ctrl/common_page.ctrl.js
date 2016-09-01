@@ -8,21 +8,55 @@ cf.regCtrl('commonPage', function() {
   tl = cf.require('TimelineMax');
   tm = cf.require('TweenMax');
   $mainTitle = $self.dom('.mainTitle', function($mainTitle) {
-    $mainTitle.cfSplitText({
-      charCb: function($char, i) {
-        tm.set($char, {
-          perspective: 400
-        });
-        tm.from($char, 1, {
-          opacity: 0,
-          x: -100,
-          y: -50,
-          rotationX: 180,
-          ease: Back.easeOut,
-          delay: 1 + i * .05
-        });
-      }
+    var actArr;
+    actArr = [];
+    actArr.push(function() {
+      $mainTitle.cfSplitText({
+        charCb: function($char, i) {
+          tm.set($char, {
+            perspective: 400
+          });
+          tm.from($char, 1, {
+            opacity: 0,
+            x: -100,
+            y: -50,
+            rotationX: 180,
+            ease: Back.easeOut,
+            delay: 1 + i * .05
+          });
+        }
+      });
     });
+    actArr.push(function() {
+      $mainTitle.cfSplitText({
+        charCb: function($char, i) {
+          tm.set($char, {
+            perspective: 400
+          });
+          tm.from($char, 1, {
+            opacity: 0,
+            y: 50,
+            rotationX: 180,
+            ease: Back.easeOut,
+            delay: 1 + i * .05
+          });
+        }
+      });
+    });
+    actArr.push(function() {
+      $mainTitle.cfSplitText({
+        charCb: function($char, i) {
+          tm.set($char, {
+            perspective: 400
+          });
+          tm.from($char, .5, {
+            rotationX: 90,
+            delay: 1 + i * .05
+          });
+        }
+      });
+    });
+    caro.randomPick(actArr)();
     $mainTitle.init = function() {
       $mainTitle.width('100%');
     };
