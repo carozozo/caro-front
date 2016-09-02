@@ -156,12 +156,12 @@ do(window, $) ->
       return
 
     ### 註冊 controller ###
-    self.regCtrl = (name, fn) ->
-      reg('ctrl', name, fn)
+    self.regCtrl = (name, fn, page) ->
+      reg('ctrl', name, fn, page)
       return
     ### 註冊 module ###
-    self.regModule = (name, fn) ->
-      reg('module', name, fn)
+    self.regModule = (name, fn, page) ->
+      reg('module', name, fn, page)
       return
 
   ### config 相關 ###

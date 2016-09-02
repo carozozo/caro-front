@@ -208,13 +208,13 @@ CaroFront 核心程式
     };
 
     /* 註冊 controller */
-    self.regCtrl = function(name, fn) {
-      reg('ctrl', name, fn);
+    self.regCtrl = function(name, fn, page) {
+      reg('ctrl', name, fn, page);
     };
 
     /* 註冊 module */
-    return self.regModule = function(name, fn) {
-      reg('module', name, fn);
+    return self.regModule = function(name, fn, page) {
+      reg('module', name, fn, page);
     };
   })(self, $);
 
