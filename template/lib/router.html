@@ -38,7 +38,7 @@
   <div>
     <div>$container: 當前分頁的容器 DOM </div>
     <div>$page: 當前分頁 DOM</div>
-    <div>_befPage: 儲存每次執行 cf.goPage 前要執行的 fns</div>
+    <div>_befPage: 儲存每次執行 cf.router.goPage 前要執行的 fns</div>
     <div>_prePage: 紀錄載入分頁前會執行的 fns </div>
     <div>_page: 當載入分頁後要執行的指定 fn  </div>
     <div>_aftPage: 紀錄載入分頁後會執行的 fn s</div>
@@ -75,9 +75,9 @@
         <div>cf.getSearchByHash('#router?name=huang');  <span class="tip3">// {name: 'huang'}</span></div>
       </div>
     </div>
-    <div class="tip2">regBefPage(fn, [執行順序=50]): 註冊每次執行 cf.goPage 前要執行的 fn<span class="codeLink">程式範例</span></div>
+    <div class="tip2">regBefPage(fn, [執行順序=50]): 註冊每次執行 cf.router.goPage 前要執行的 fn<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
-      <div class="tip2">// 每次執行 cf.goPage 前, 會先 alert 'b', 然後 alert 'a'</div>
+      <div class="tip2">// 每次執行 cf.router.goPage 前, 會先 alert 'b', 然後 alert 'a'</div>
       <div>cf.regBefPage(function(cf) {</div>
       <div class="tab1">alert('a');</div>
       <div>});</div>
@@ -111,12 +111,12 @@
     </div>
     <div class="tip2">regPage(註冊分頁, fn): 註冊載入指定分頁後要執行的 fn<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
-      <div class="tip2">// 執行 cf.goPage('page1') 時, 會 alert 'a'</div>
+      <div class="tip2">// 執行 cf.router.goPage('page1') 時, 會 alert 'a'</div>
       <div>cf.regPage('page1', function(cf) {</div>
       <div class="tab1">var $page = this;<span class="tip3"> // $page 就是 $dom 分頁</span></div>
       <div class="tab1">alert('a');</div>
       <div>});</div>
-      <div class="tip2">// 執行 cf.goPage('page2') 時, 會 alert 'b'</div>
+      <div class="tip2">// 執行 cf.router.goPage('page2') 時, 會 alert 'b'</div>
       <div>cf.regPage('page2', function(cf) {</div>
       <div class="tab1">var $page = this;<span class="tip3"> // $page 就是 $dom 分頁</span></div>
       <div class="tab1">alert('b');</div>
@@ -131,33 +131,33 @@
       <div class="subTitle2">設定檔 templateDir = 'temp', templateExtname = 'jsp'</div>
       <div>
         <div class="tip2">// 讀取 /temp/page1.jsp 裡的內容並寫入容器</div>
-        <div>cf.goPage('page1');</div>
+        <div>cf.router.goPage('page1');</div>
         <div class="tip2">// 讀取 /temp/subPage/page1.jsp 裡的內容並寫入容器</div>
-        <div>cf.goPage('subPage/page1');</div>
+        <div>cf.router.goPage('subPage/page1');</div>
         <div class="tip2">// 讀取 /temp/subPage/page2.html 裡的內容並寫入容器</div>
-        <div>cf.goPage('subPage/page2', {fileType: 'html'});</div>
+        <div>cf.router.goPage('subPage/page2', {fileType: 'html'});</div>
       </div>
       <div class="subTitle2">設定檔 templateDir = '', templateExtname = ''</div>
       <div>
         <div class="tip2">// 讀取 /subPage/page2 裡的內容並寫入容器</div>
-        <div>cf.goPage('subPage/page2');</div>
+        <div>cf.router.goPage('subPage/page2');</div>
       </div>
     </div>
     <div class="tip2">blockGoPage(): 呼叫後, 執行 router.goPage 不會換頁<span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div>cf.blockGoPage();</div>
       <div class="tip2">// 不會換頁</div>
-      <div>cf.goPage('index');</div>
+      <div>cf.router.goPage('index');</div>
     </div>
     <div class="tip2">approveGoPage(): 呼叫後, 執行 router.goPage 可以換頁  <span class="codeLink">程式範例</span></div>
     <div class="codeTarget">
       <div>cf.blockGoPage();</div>
       <div class="tip2">// 不會換頁</div>
-      <div>cf.goPage('index');</div>
+      <div>cf.router.goPage('index');</div>
       <div class="separator2"></div>
       <div>cf.approveGoPage();</div>
       <div class="tip2">// 會換頁</div>
-      <div>cf.goPage('index');</div>
+      <div>cf.router.goPage('index');</div>
     </div>
   </div>
 </div>
