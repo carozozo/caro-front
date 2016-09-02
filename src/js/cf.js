@@ -2,7 +2,7 @@
 /*
 CaroFront 核心程式
  */
-(function(window, $, caro) {
+(function(window, $) {
   var _ctrl, _docReady, _module, _trace, genTraceFn, ifUrlPathMustMatchAndGetUrl, self;
   self = {};
 
@@ -66,36 +66,36 @@ CaroFront 核心程式
       isMustAllMatch = true;
       urlPath = urlPath.substring(0, lastIndex);
     }
-    urlPath = caro.addTail(urlPath, '/');
+    if (urlPath.lastIndexOf('/') === urlPath.length - 1) {
+      urlPath = urlPath + '/';
+    }
     return {
       isMustAllMatch: isMustAllMatch,
       urlPath: urlPath
     };
   };
-  genTraceFn = function(traceName) {
+  genTraceFn = function(name) {
     var fn;
     fn = function() {
-      var args, config, name, trace;
+      var args, config, trace;
       config = self.config('cf');
       trace = config.trace;
       if (!trace) {
         return;
       }
-      if (caro.isString(trace) && traceName !== trace) {
+      if (typeof trace === 'string' && name !== trace) {
         return;
       }
-      if (caro.isArray(trace) && trace.indexOf(traceName) < 0) {
+      if (Array.isArray(trace) && trace.indexOf(name) < 0) {
         return;
       }
-      name = caro.upperFirst(traceName);
-      args = caro.values(arguments);
+      args = Object.values(arguments);
       args.unshift(name + ':');
       console.log.apply(console, args);
     };
     fn.err = function() {
-      var args, name;
-      name = caro.upperFirst(name);
-      args = caro.values(arguments);
+      var args;
+      args = Object.values(arguments);
       args.unshift(name + ':');
       console.error.apply(console, args);
     };
@@ -150,10 +150,14 @@ CaroFront 核心程式
     };
 
     /* 註冊 library */
-    self.regLib = caro.partial(regAppObj, 'lib');
+    self.regLib = function(name, fn) {
+      regAppObj('lib', name, fn);
+    };
 
     /* 註冊 service */
-    self.regServ = caro.partial(regAppObj, 'serv');
+    self.regServ = function(name, fn) {
+      regAppObj('serv', name, fn);
+    };
   })(self);
 
   /* ctrl and module */
@@ -204,20 +208,24 @@ CaroFront 核心程式
     };
 
     /* 註冊 controller */
-    self.regCtrl = caro.partial(reg, 'ctrl');
+    self.regCtrl = function(name, fn) {
+      reg('ctrl', name, fn);
+    };
 
     /* 註冊 module */
-    return self.regModule = caro.partial(reg, 'module');
+    return self.regModule = function(name, fn) {
+      reg('module', name, fn);
+    };
   })(self, $);
 
   /* config 相關 */
-  (function(self, window, caro) {
+  (function(self) {
     var _cfg;
     _cfg = self.$$config;
 
     /* 比對符合的網址, 並 assign config */
     self.regDifCfg = function(url, cfg) {
-      var info, isUrlMustMatch, nowUrlPath;
+      var info, isUrlMustMatch, nowUrlPath, subCfg, subCfgKey;
       nowUrlPath = self.nowUrlPath;
       info = ifUrlPathMustMatchAndGetUrl(url);
       isUrlMustMatch = info.isUrlMustMatch;
@@ -235,9 +243,10 @@ CaroFront 核心程式
           return;
         }
       }
-      caro.forEach(cfg, function(subCfg, subCfgKey) {
-        return _cfg[subCfgKey] = caro.assign(_cfg[subCfgKey], subCfg);
-      });
+      for (subCfgKey in cfg) {
+        subCfg = cfg[subCfgKey];
+        _cfg[subCfgKey] = Object.assign(_cfg[subCfgKey], subCfg);
+      }
     };
 
     /* 設置或讀取 config */
@@ -247,9 +256,9 @@ CaroFront 核心程式
       }
       return _cfg[key];
     };
-  })(self, window, caro);
+  })(self);
   $(function() {
-    var config, isLocalTest, nowUrlPath;
+    var config, docReadyFn, docReadyObj, index, isLocalTest, nowUrlPath;
     config = self.config('cf');
     isLocalTest = config.isLocalTest;
     nowUrlPath = self.nowUrlPath;
@@ -291,11 +300,13 @@ CaroFront 核心程式
       }
       return false;
     })();
-    return caro.forEach(_docReady, function(docReadyObj) {
-      caro.forEach(docReadyObj, function(docReadyFn) {
-        return docReadyFn && docReadyFn(self);
-      });
-    });
+    for (index in _docReady) {
+      docReadyObj = _docReady[index];
+      for (index in docReadyObj) {
+        docReadyFn = docReadyObj[index];
+        docReadyFn && docReadyFn(self);
+      }
+    }
   });
   window.cf = self;
-})(window, $, caro);
+})(window, $);

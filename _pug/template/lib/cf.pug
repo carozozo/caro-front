@@ -74,15 +74,15 @@
         .separator1
         div var name = 'Caro';
         div trace1('My name is', name);  
-          span.tip3 // 'Caro1: My name is Caro'
+          span.tip3 // 'caro1: My name is Caro'
         div trace2('My name is', name);  
           span.tip3 // 不會列印
         .separator1
         .tip2 // 一定會 log error 訊息
         div trace1.error('Got error');  
-          span.tip3 // 'Caro1: Got error'
+          span.tip3 // 'caro1: Got error'
         div trace2.error('Got error');  
-          span.tip3 // 'Caro2: Got error'
+          span.tip3 // 'caro2: Got error'
     .tip2
       | regLib(註冊名稱, fn): 註冊函式 庫;
       span.codeLink 程式範例

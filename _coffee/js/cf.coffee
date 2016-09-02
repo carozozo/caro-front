@@ -1,7 +1,7 @@
 ###
 CaroFront 核心程式
 ###
-do(window, $, caro) ->
+do(window, $) ->
   self = {}
   ### 儲存從 config 讀取到的設定  ###
   self.$$config = {}
@@ -48,28 +48,26 @@ do(window, $, caro) ->
       ### 如果 url 最後是* => 網址不需要完全符合 ###
       isMustAllMatch = true
       urlPath = urlPath.substring(0, lastIndex)
-    urlPath = caro.addTail(urlPath, '/')
+    urlPath = urlPath + '/' unless urlPath.lastIndexOf('/') isnt urlPath.length - 1
     {
       isMustAllMatch: isMustAllMatch
       urlPath: urlPath
     }
 
-  genTraceFn = (traceName) ->
+  genTraceFn = (name) ->
     fn = ->
       config = self.config('cf')
       trace = config.trace
       return unless trace
-      return if caro.isString(trace) and traceName isnt trace
-      return if caro.isArray(trace) and trace.indexOf(traceName) < 0
-      name = caro.upperFirst(traceName)
-      args = caro.values(arguments)
+      return if typeof trace is 'string' and name isnt trace
+      return if Array.isArray(trace) and trace.indexOf(name) < 0
+      args = Object.values(arguments)
       args.unshift name + ':'
       console.log.apply console, args
       return
 
     fn.err = ->
-      name = caro.upperFirst(name)
-      args = caro.values(arguments)
+      args = Object.values(arguments)
       args.unshift name + ':'
       console.error.apply console, args
       return
@@ -113,9 +111,13 @@ do(window, $, caro) ->
       return
 
     ### 註冊 library ###
-    self.regLib = caro.partial(regAppObj, 'lib')
+    self.regLib = (name, fn) ->
+      regAppObj('lib', name, fn)
+      return
     ### 註冊 service ###
-    self.regServ = caro.partial(regAppObj, 'serv')
+    self.regServ = (name, fn) ->
+      regAppObj('serv', name, fn)
+      return
     return
 
   ### ctrl and module ###
@@ -154,12 +156,16 @@ do(window, $, caro) ->
       return
 
     ### 註冊 controller ###
-    self.regCtrl = caro.partial(reg, 'ctrl')
+    self.regCtrl = (name, fn) ->
+      reg('ctrl', name, fn)
+      return
     ### 註冊 module ###
-    self.regModule = caro.partial(reg, 'module')
+    self.regModule = (name, fn) ->
+      reg('module', name, fn)
+      return
 
   ### config 相關 ###
-  do(self, window, caro) ->
+  do(self) ->
     _cfg = self.$$config
     ### 比對符合的網址, 並 assign config ###
     self.regDifCfg = (url, cfg) ->
@@ -173,9 +179,8 @@ do(window, $, caro) ->
       else
         ### 需要現在的路徑是在 url 以下, 才可 assign config ###
         return if nowUrlPath.indexOf(url) isnt 0
-      caro.forEach(cfg, (subCfg, subCfgKey) ->
-        _cfg[subCfgKey] = caro.assign(_cfg[subCfgKey], subCfg)
-      )
+      for subCfgKey, subCfg of cfg
+        _cfg[subCfgKey] = Object.assign(_cfg[subCfgKey], subCfg)
       return
     ### 設置或讀取 config ###
     self.config = (key, val) ->
@@ -210,10 +215,10 @@ do(window, $, caro) ->
       return true if !isUrlMustMatch and nowUrlPath.indexOf(prodUrlPath) is 0
       false
 
-    caro.forEach _docReady, (docReadyObj) ->
-      caro.forEach docReadyObj, (docReadyFn) ->
+    for index, docReadyObj of _docReady
+      for index, docReadyFn of docReadyObj
         docReadyFn and docReadyFn(self)
-      return
+    return
   )
 
   window.cf = self

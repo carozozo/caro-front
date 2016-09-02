@@ -24,4 +24,4 @@ cf.regDocReady((cf)->
   cf.data('titleSrcArr', titleSrcArr)
   cf.data('bgColorArr', bgColorArr)
   return
-)
+, 1)
