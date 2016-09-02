@@ -20,25 +20,11 @@ do(window, $, caro, MobileDetect) ->
   ### 用來判定目前所在的網址是否為 production ###
   self.isProd = false
   ### 當前網址是否為 https  ###
-  self.isHttps = false
-  ### 當前載具是否為手機 ###
-  self.isPhone = false
-  ### 當前載具是否為平板 ###
-  self.isTablet = false
-  ### 當前載具是否為手機 or 平板  ###
-  self.isMobile = false
-  ### IE 版本, 瀏覽器不是 IE 時會是 null ###
-  self.ieVersion = false
-  ### 瀏覽器是否為 IE8 之前的版本  ###
-  self.isBefIe8 = false
-  ### 瀏覽器是否為 IE9 之前的版本   ###
-  self.isBefIe9 = false
+  self.isHttps = location.protocol.indexOf('https:') is 0
   ### 所在網址, 不包含 protocol, hash 和 search ###
-  self.nowUrlPath = do(location) ->
-    location.host + location.pathname
+  self.nowUrlPath = location.host + location.pathname
   ### 所在網址, 不包含 hash 和 search ###
-  self.nowUrl = do(location) ->
-    location.protocol + '//' + self.nowUrlPath
+  self.nowUrl = location.protocol + '//' + self.nowUrlPath
 
   ### 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 ###
   _docReady = {
@@ -72,7 +58,7 @@ do(window, $, caro, MobileDetect) ->
     fn = ->
       config = self.config('cf')
       trace = config.trace
-      return if !trace or self.isBefIe9
+      return unless trace
       return if caro.isString(trace) and traceName isnt trace
       return if caro.isArray(trace) and trace.indexOf(traceName) < 0
       name = caro.upperFirst(traceName)
@@ -82,7 +68,6 @@ do(window, $, caro, MobileDetect) ->
       return
 
     fn.err = ->
-      return if self.isBefIe9
       name = caro.upperFirst(name)
       args = caro.values(arguments)
       args.unshift name + ':'
@@ -196,21 +181,6 @@ do(window, $, caro, MobileDetect) ->
     self.config = (key, val) ->
       return _cfg[key] = val if typeof val isnt 'undefined'
       _cfg[key]
-    return
-
-  ### 設定相關 ###
-  do(window) ->
-    md = new MobileDetect(window.navigator.userAgent)
-    ieVer = md.version('IE')
-    self.isHttps = location.protocol.indexOf('https:') is 0
-    self.isPhone = md.phone()
-    self.isTablet = md.tablet()
-    self.isMobile = md.mobile()
-    self.ieVersion = ieVer
-    self.isBefIe8 = do ->
-      ieVer and ieVer < 9
-    self.isBefIe9 = do ->
-      ieVer and ieVer < 10
     return
 
   $(->

@@ -31,35 +31,13 @@ CaroFront 核心程式
   self.isProd = false;
 
   /* 當前網址是否為 https */
-  self.isHttps = false;
-
-  /* 當前載具是否為手機 */
-  self.isPhone = false;
-
-  /* 當前載具是否為平板 */
-  self.isTablet = false;
-
-  /* 當前載具是否為手機 or 平板 */
-  self.isMobile = false;
-
-  /* IE 版本, 瀏覽器不是 IE 時會是 null */
-  self.ieVersion = false;
-
-  /* 瀏覽器是否為 IE8 之前的版本 */
-  self.isBefIe8 = false;
-
-  /* 瀏覽器是否為 IE9 之前的版本 */
-  self.isBefIe9 = false;
+  self.isHttps = location.protocol.indexOf('https:') === 0;
 
   /* 所在網址, 不包含 protocol, hash 和 search */
-  self.nowUrlPath = (function(location) {
-    return location.host + location.pathname;
-  })(location);
+  self.nowUrlPath = location.host + location.pathname;
 
   /* 所在網址, 不包含 hash 和 search */
-  self.nowUrl = (function(location) {
-    return location.protocol + '//' + self.nowUrlPath;
-  })(location);
+  self.nowUrl = location.protocol + '//' + self.nowUrlPath;
 
   /* 儲存 document ready 後要觸發的 fns, 裡面的 key 為執行順序 */
   _docReady = {
@@ -100,7 +78,7 @@ CaroFront 核心程式
       var args, config, name, trace;
       config = self.config('cf');
       trace = config.trace;
-      if (!trace || self.isBefIe9) {
+      if (!trace) {
         return;
       }
       if (caro.isString(trace) && traceName !== trace) {
@@ -116,9 +94,6 @@ CaroFront 核心程式
     };
     fn.err = function() {
       var args, name;
-      if (self.isBefIe9) {
-        return;
-      }
       name = caro.upperFirst(name);
       args = caro.values(arguments);
       args.unshift(name + ':');
@@ -273,24 +248,6 @@ CaroFront 核心程式
       return _cfg[key];
     };
   })(self, window, caro);
-
-  /* 設定相關 */
-  (function(window) {
-    var ieVer, md;
-    md = new MobileDetect(window.navigator.userAgent);
-    ieVer = md.version('IE');
-    self.isHttps = location.protocol.indexOf('https:') === 0;
-    self.isPhone = md.phone();
-    self.isTablet = md.tablet();
-    self.isMobile = md.mobile();
-    self.ieVersion = ieVer;
-    self.isBefIe8 = (function() {
-      return ieVer && ieVer < 9;
-    })();
-    self.isBefIe9 = (function() {
-      return ieVer && ieVer < 10;
-    })();
-  })(window);
   $(function() {
     var config, isLocalTest, nowUrlPath;
     config = self.config('cf');

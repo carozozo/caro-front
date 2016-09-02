@@ -6,10 +6,8 @@ cf.regServ 'fb', (cf) ->
   caro = cf.require('caro')
   window = cf.require('window')
   _cfg = cf.config('fb')
-  _isPhone = cf.isPhone
   _appId = _cfg.appId
   _sdkVersion = _cfg.sdkVersion
-  _redirectAfterLogin = _cfg.redirectAfterLogin
   _shareUrl = _cfg.shareUrl
   _initCbMap = {}
   _isReady = false
@@ -17,15 +15,6 @@ cf.regServ 'fb', (cf) ->
   _isUserConnected = false
   _authResponse = {}
   _nowUrl = cf.nowUrl
-  ### 取得登入 FB 後要跳轉的網址 ###
-  _urlAftLogin = do ->
-    urlArr = ['https://']
-    urlArr.push if _isPhone then 'm' else 'www'
-    urlArr.push '.facebook.com/dialog/oauth?client_id=' + _appId + '&scope=&auth_type=rerequest'
-    pageAfterLogin = if _redirectAfterLogin then caro.addTail(_redirectAfterLogin, '.html') else _nowUrl
-    urlArr.push '&redirect_uri=' + pageAfterLogin
-    urlArr.join('')
-
   _trace = cf.genTraceFn('fb')
 
   genApiObj = ->
@@ -143,7 +132,6 @@ cf.regServ 'fb', (cf) ->
           cb and cb()
           apiObj
         return
-      return window.open _urlAftLogin, '_top' if _isPhone
       opt = if opt then caro.assign(
         'scope': ''
         'return_scopes': true
