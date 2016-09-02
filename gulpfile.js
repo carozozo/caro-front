@@ -62,14 +62,14 @@
   var allSrcCssFiles = srcDir + '/**/*.css';
   var allHiddenFiles = '**/.*';
   var allOtherSrcFilesArr = [allSrcFiles, '!' + allSrcJsFiles, '!' + allSrcCssFiles, '!' + allHiddenFiles];
-  var injectHeadArr = caro.map(_injectHeadArr, function (path) {
+  var injectHeadArr = _injectHeadArr.map(function (path) {
     return srcDir + '/' + path;
   });
   var injectOtherArr = [allSrcJsFiles, allSrcCssFiles].concat((function () {
-    var arr = caro.map(injectHeadArr, function (path) {
+    var arr = injectHeadArr.map(function (path) {
       return '!' + path;
     });
-    var excludeArr = caro.map(_injectExcludeArr, function (path) {
+    var excludeArr = _injectExcludeArr.map(function (path) {
       return '!' + srcDir + '/' + path;
     });
     return arr.concat(excludeArr)
@@ -196,7 +196,7 @@
   // 對所有要寫入 tag 檔案執行 inject
   var injectFiles = function (type) {
     if (_isUseInject) {
-      caro.forEach(_injectFileArr, function (fileName) {
+      _injectFileArr.forEach(function (fileName) {
         injectFile(fileName, type);
       });
     }
@@ -293,7 +293,7 @@
         return console.err(err);
       }
       var fileArr = [];
-      caro.forEach(files, function (file) {
+      files.forEach(function (file) {
         var extname = path.extname(file);
         if (extname !== '.jpg' && extname !== '.png' && extname !== '.svg') {
           return true;
