@@ -1,7 +1,7 @@
 ###
 CaroFront 核心程式
 ###
-do(window, $, caro, MobileDetect) ->
+do(window, $, caro) ->
   self = {}
   ### 儲存從 config 讀取到的設定  ###
   self.$$config = {}

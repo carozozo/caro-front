@@ -2,7 +2,7 @@
 /*
 CaroFront 核心程式
  */
-(function(window, $, caro, MobileDetect) {
+(function(window, $, caro) {
   var _ctrl, _docReady, _module, _trace, genTraceFn, ifUrlPathMustMatchAndGetUrl, self;
   self = {};
 
@@ -298,4 +298,4 @@ CaroFront 核心程式
     });
   });
   window.cf = self;
-})(window, $, caro, MobileDetect);
+})(window, $, caro);
