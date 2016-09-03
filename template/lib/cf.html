@@ -65,12 +65,12 @@
         <div>var trace2 = cf.genTraceFn('caro2');</div>
         <div class="separator1"></div>
         <div>var name = 'Caro';</div>
-        <div>trace1('My name is', name);  <span class="tip3">// 'Caro1: My name is Caro'</span></div>
+        <div>trace1('My name is', name);  <span class="tip3">// 'caro1: My name is Caro'</span></div>
         <div>trace2('My name is', name);  <span class="tip3">// 不會列印</span></div>
         <div class="separator1"></div>
         <div class="tip2">// 一定會 log error 訊息</div>
-        <div>trace1.error('Got error');  <span class="tip3">// 'Caro1: Got error'</span></div>
-        <div>trace2.error('Got error');  <span class="tip3">// 'Caro2: Got error'</span></div>
+        <div>trace1.error('Got error');  <span class="tip3">// 'caro1: Got error'</span></div>
+        <div>trace2.error('Got error');  <span class="tip3">// 'caro2: Got error'</span></div>
       </div>
     </div>
     <div class="tip2">regLib(註冊名稱, fn): 註冊函式 庫;<span class="codeLink">程式範例</span></div>
