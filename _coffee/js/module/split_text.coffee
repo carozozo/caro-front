@@ -9,7 +9,7 @@ cf.regModule 'cfSplitText', (opt = {}) ->
   _isToWord = opt.isToWord
   ### 放置每個字元之後呼叫的 cb ###
   _charCb = opt.charCb
-  ### 放置每個字組 cb ###
+  ### 放置每個字組之後呼叫的 cb ###
   _wordCb = opt.wordCb
 
   originText = $self.text()
@@ -24,8 +24,8 @@ cf.regModule 'cfSplitText', (opt = {}) ->
     $dom.empty()
     cf.forEach(text, (char, i) ->
       css = display: 'inline-block'
-      css['margin-left'] = blankWidth if char is ' '
-      $char = $('<div/>').text(char).css(css).appendTo($dom)
+      char = '&nbsp;' if char is ' '
+      $char = $('<div/>').addClass('cfSplitTextChar').html(char).css(css).appendTo($dom)
       _charCb and _charCb($char, i)
       return
     )
@@ -37,12 +37,17 @@ cf.regModule 'cfSplitText', (opt = {}) ->
     cf.forEach(wordArr, (word, i) ->
       css = display: 'inline-block'
       css['margin-left'] = blankWidth if i > 0
-      $word = $('<div/>').text(word).css(css).appendTo($self)
+      $word = $('<div/>').addClass('cfSplitTextWord').text(word).css(css).appendTo($self)
       splitChar($word) if _isToChar
       _wordCb and _wordCb($word, i)
       return
     )
   else
     splitChar($self, true)
+
+  ### 回復成原本的 text 內容 ###
+  $self.reverse = ->
+    $self.text(originText)
+    $self
 
   $self

@@ -1,0 +1,65 @@
+.mainTitle cfSplitText
+.content
+  .title 示範
+  div
+    .separator1
+    div
+      #charBtn.tab1.btn2 分割 Char
+      #wordBtn.tab1.btn2 分割 Word
+      #charWordBtn.tab1.btn2 分割 Char & Word
+      #reverseBtn.tab1.btn2 回復
+    .subContent
+      h3#demoText This is demo text, 切吧!
+.content
+  .title 簡介
+  div
+    div 將目標內的文字拆解成 div
+.content
+  .title 參數
+  div
+    .tip5 $('xxx').cfSplitText([opt ={}]);
+      span.codeLink 程式範例
+      .codeTarget
+        div.subTitle2 html
+        div
+          div &lt;div id='demoText'&gt;Caro Front&lt;/div&gt;
+        .separator2
+        div.subTitle2 js
+        div
+          div var $img = $('#demoText').cfSplitText({
+          .tab1 isToChar: true,
+          .tab1 isToWord: true,
+          .tab1 charCb: function($char) {
+          .tab2 ...
+          .tab1 },
+          .tab1 wordCb: function($word) {
+          .tab2 ...
+          .tab1 }
+          div });
+        .separator2
+        .subTitle2 產生的切片 html 結構
+        div
+          div &lt;div id='demoText'&gt;
+          .tab1 &lt;div class='cfSplitTextWord'&gt;
+          .tab2 &lt;div class='cfSplitTextChar'&gt;C&lt;/div&gt;
+          .tab2 &lt;div class='cfSplitTextChar'&gt;a&lt;/div&gt;
+          .tab2 &lt;div class='cfSplitTextChar'&gt;r&lt;/div&gt;
+          .tab2 &lt;div class='cfSplitTextChar'&gt;o&lt;/div&gt;
+          .tab1 &lt;div class='cfSplitTextWord'&gt;
+          .tab2 &lt;div class='cfSplitTextChar'&gt;F&lt;/div&gt;
+          .tab2 &lt;div class='cfSplitTextChar'&gt;r&lt;/div&gt;
+          .tab2 &lt;div class='cfSplitTextChar'&gt;o&lt;/div&gt;
+          .tab2 &lt;div class='cfSplitTextChar'&gt;n&lt;/div&gt;
+          .tab2 &lt;div class='cfSplitTextChar'&gt;t&lt;/div&gt;
+          .tab1 &lt;/div&gt;
+          div &lt;/div&gt;
+    .subTitle1 opt 參數
+    div
+      div isToChar: 是否拆解每個字元, 預設 true
+      div isToWord: 是否以空白字元拆解, 拆解後稱為字組, 預設 false
+      div charCb: 放置每個字元之後呼叫的 cb($char, i)
+      div wordCb: 放置每個字組之後呼叫的 cb($word, i)
+.content
+  .title 函式
+  div
+    .tip2 reverse: 回復成原本的 text 內容

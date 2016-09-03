@@ -18,7 +18,7 @@ cf.regModule('cfSplitText', function(opt) {
   /* 放置每個字元之後呼叫的 cb */
   _charCb = opt.charCb;
 
-  /* 放置每個字組 cb */
+  /* 放置每個字組之後呼叫的 cb */
   _wordCb = opt.wordCb;
   originText = $self.text();
 
@@ -37,9 +37,9 @@ cf.regModule('cfSplitText', function(opt) {
         display: 'inline-block'
       };
       if (char === ' ') {
-        css['margin-left'] = blankWidth;
+        char = '&nbsp;';
       }
-      $char = $('<div/>').text(char).css(css).appendTo($dom);
+      $char = $('<div/>').addClass('cfSplitTextChar').html(char).css(css).appendTo($dom);
       _charCb && _charCb($char, i);
     });
   };
@@ -54,7 +54,7 @@ cf.regModule('cfSplitText', function(opt) {
       if (i > 0) {
         css['margin-left'] = blankWidth;
       }
-      $word = $('<div/>').text(word).css(css).appendTo($self);
+      $word = $('<div/>').addClass('cfSplitTextWord').text(word).css(css).appendTo($self);
       if (_isToChar) {
         splitChar($word);
       }
@@ -63,5 +63,11 @@ cf.regModule('cfSplitText', function(opt) {
   } else {
     splitChar($self, true);
   }
+
+  /* 回復成原本的 text 內容 */
+  $self.reverse = function() {
+    $self.text(originText);
+    return $self;
+  };
   return $self;
 });

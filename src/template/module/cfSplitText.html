@@ -1,0 +1,81 @@
+
+<div class="mainTitle">cfSplitText</div>
+<div class="content">
+  <div class="title">示範</div>
+  <div>
+    <div class="separator1"></div>
+    <div>
+      <div class="tab1 btn2" id="charBtn">分割 Char</div>
+      <div class="tab1 btn2" id="wordBtn">分割 Word</div>
+      <div class="tab1 btn2" id="charWordBtn">分割 Char & Word</div>
+      <div class="tab1 btn2" id="reverseBtn">回復</div>
+    </div>
+    <div class="subContent">
+      <h3 id="demoText">This is demo text, 切吧!</h3>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="title">簡介</div>
+  <div>
+    <div>將目標內的文字拆解成 div</div>
+  </div>
+</div>
+<div class="content">
+  <div class="title">參數</div>
+  <div>
+    <div class="tip5">$('xxx').cfSplitText([opt ={}]);<span class="codeLink">程式範例</span>
+      <div class="codeTarget">
+        <div class="subTitle2">html</div>
+        <div>
+          <div>&lt;div id='demoText'&gt;Caro Front&lt;/div&gt;</div>
+        </div>
+        <div class="separator2"></div>
+        <div class="subTitle2">js</div>
+        <div>
+          <div>var $img = $('#demoText').cfSplitText({</div>
+          <div class="tab1">isToChar: true,</div>
+          <div class="tab1">isToWord: true,</div>
+          <div class="tab1">charCb: function($char) {</div>
+          <div class="tab2">...</div>
+          <div class="tab1">},</div>
+          <div class="tab1">wordCb: function($word) {</div>
+          <div class="tab2">...</div>
+          <div class="tab1">}</div>
+          <div>});</div>
+        </div>
+        <div class="separator2"></div>
+        <div class="subTitle2">產生的切片 html 結構</div>
+        <div>
+          <div>&lt;div id='demoText'&gt;</div>
+          <div class="tab1">&lt;div class='cfSplitTextWord'&gt;</div>
+          <div class="tab2">&lt;div class='cfSplitTextChar'&gt;C&lt;/div&gt;</div>
+          <div class="tab2">&lt;div class='cfSplitTextChar'&gt;a&lt;/div&gt;</div>
+          <div class="tab2">&lt;div class='cfSplitTextChar'&gt;r&lt;/div&gt;</div>
+          <div class="tab2">&lt;div class='cfSplitTextChar'&gt;o&lt;/div&gt;</div>
+          <div class="tab1">&lt;div class='cfSplitTextWord'&gt;</div>
+          <div class="tab2">&lt;div class='cfSplitTextChar'&gt;F&lt;/div&gt;</div>
+          <div class="tab2">&lt;div class='cfSplitTextChar'&gt;r&lt;/div&gt;</div>
+          <div class="tab2">&lt;div class='cfSplitTextChar'&gt;o&lt;/div&gt;</div>
+          <div class="tab2">&lt;div class='cfSplitTextChar'&gt;n&lt;/div&gt;</div>
+          <div class="tab2">&lt;div class='cfSplitTextChar'&gt;t&lt;/div&gt;</div>
+          <div class="tab1">&lt;/div&gt;</div>
+          <div>&lt;/div&gt;</div>
+        </div>
+      </div>
+    </div>
+    <div class="subTitle1">opt 參數</div>
+    <div>
+      <div>isToChar: 是否拆解每個字元, 預設 true</div>
+      <div>isToWord: 是否以空白字元拆解, 拆解後稱為字組, 預設 false</div>
+      <div>charCb: 放置每個字元之後呼叫的 cb($char, i)</div>
+      <div>wordCb: 放置每個字組之後呼叫的 cb($word, i)</div>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="title">函式</div>
+  <div>
+    <div class="tip2">reverse: 回復成原本的 text 內容</div>
+  </div>
+</div>
