@@ -3,9 +3,8 @@
 cookie 相關
  */
 cf.regLib('cookie', function(cf) {
-  var _trace, document, self, window;
+  var _trace, document, self;
   self = {};
-  window = cf.require('window');
   document = cf.require('document');
   _trace = cf.genTraceFn('cookie');
 

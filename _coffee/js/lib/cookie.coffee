@@ -3,7 +3,6 @@ cookie 相關
 ###
 cf.regLib 'cookie', (cf) ->
   self = {}
-  window = cf.require('window')
   document = cf.require('document')
   _trace = cf.genTraceFn('cookie')
 
