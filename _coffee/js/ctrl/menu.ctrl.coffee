@@ -1,6 +1,7 @@
 ### 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/menu.html 檔並寫入 template ###
 cf.regCtrl 'menu', ->
   $self = @
+  $window = cf.$window
   tm = cf.require('TweenMax')
   bgColorArr = cf.data('bgColorArr')
 
@@ -102,6 +103,7 @@ cf.regCtrl 'menu', ->
         x: 0
       )
     )
+    return
 
   $menuBtnBox = $self.dom('#menuBtnBox')
   $libBtnOuter = $menuBtnBox.dom('#libBtnOuter', ($libBtnOuter) ->
@@ -131,6 +133,18 @@ cf.regCtrl 'menu', ->
     showMenu()
     return
   )
+
+  cf.router.regAftPage(->
+    $window.on('scroll', ->
+      pageHeight = cf.router.$page.height()
+      scrollTop = $window.scrollTop()
+      tm.to([$libBtnOuter, $moduleBtnOuter], 1,
+        y: scrollTop / pageHeight * 50
+      )
+      return
+    )
+  )
+
 
   tm.staggerFrom([$libBtnOuter, $moduleBtnOuter], .5,
     right: -$libBtnOuter.width() - 20

@@ -1,8 +1,9 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/menu.html 檔並寫入 template */
 cf.regCtrl('menu', function() {
-  var $libBtn, $libBtnOuter, $libMenuItemBox, $libMenuItems, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItemBox, $moduleMenuItems, $self, bgColorArr, dropAllItems, hideMenu, setMenuBtn, setMenuItem, showItems, showMenu, tm;
+  var $libBtn, $libBtnOuter, $libMenuItemBox, $libMenuItems, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItemBox, $moduleMenuItems, $self, $window, bgColorArr, dropAllItems, hideMenu, setMenuBtn, setMenuItem, showItems, showMenu, tm;
   $self = this;
+  $window = cf.$window;
   tm = cf.require('TweenMax');
   bgColorArr = cf.data('bgColorArr');
   showItems = function($items) {
@@ -107,7 +108,7 @@ cf.regCtrl('menu', function() {
       transformPerspective: 600,
       transformOriginal: '100% 50%'
     });
-    return $btn.on('mouseover', function() {
+    $btn.on('mouseover', function() {
       return tm.to($btn, .2, {
         rotationY: -30,
         x: -10
@@ -141,6 +142,16 @@ cf.regCtrl('menu', function() {
   });
   $moduleBtn.on('click', function() {
     showMenu();
+  });
+  cf.router.regAftPage(function() {
+    return $window.on('scroll', function() {
+      var pageHeight, scrollTop;
+      pageHeight = cf.router.$page.height();
+      scrollTop = $window.scrollTop();
+      tm.to([$libBtnOuter, $moduleBtnOuter], 1, {
+        y: scrollTop / pageHeight * 50
+      });
+    });
   });
   tm.staggerFrom([$libBtnOuter, $moduleBtnOuter], .5, {
     right: -$libBtnOuter.width() - 20,
