@@ -21,133 +21,127 @@ cf.regCtrl 'header', ->
       ### 不明確原因, 在 $headerTitle 裡面移動 mouseenter 會被多次觸發 ###
       return unless $headerTitle.isLeaved
       $headerTitle.isLeaved = false
-      $headerTitle.randomAnimation()
       return
     ).on('mouseleave', ->
       $headerTitle.isLeaved = true
       return
     )
     $headerTitleImg = $headerTitle.dom('.headerTitleImg')
-    $headerTitle.randomAnimation = ->
-      $pieceArr = []
-      $reversePieceArr = []
-
-      doPiece = (yPiece, xPiece) ->
-        $headerTitleImg.$pieceContainer && $headerTitleImg.$pieceContainer.remove()
-        $headerTitleImg.show().cfPiece(yPiece, xPiece,
-          aftPiece: setPiece
-        )
-        return
-
-      setPiece = ($piece, yIndex, xIndex) ->
-        $piece.yIndex = yIndex
-        $piece.xIndex = xIndex
-        $pieceArr.push($piece)
-        $reversePieceArr.unshift($piece)
-        return
-
-      effectArr = []
-      effectArr.push(rotationX = ->
-        tl1 = new tl()
-        tl1.staggerFromTo($pieceArr, .5, {
-          rotationX: 0
-        }, {
-          rotationX: 360
-        }, .005)
-        return
-      )
-      effectArr.push(rotationY = ->
-        tl1 = new tl()
-        tl1.staggerFromTo($pieceArr, .5, {
-          rotationY: 0
-        }, {
-          rotationY: 360
-        }, .005)
-        return
-      )
-      effectArr.push(flashX = ->
-        cf.forEach($pieceArr, ($piece, i) ->
-          tl1 = new tl()
-          tl1.to($piece, .2,
-            x: cf.randomInt(10, -10)
-          ).to($piece, .2,
-            x: 0
-          )
+    $pieceMapArr = []
+    $pieceContainerArr = []
+    doPiece = (yPiece, xPiece) ->
+      $pieceMap = {
+        $pieceContainer: null
+        $pieceArr: []
+      }
+      $headerTitleImg.show().cfPiece(yPiece, xPiece,
+        aftPiece: ($piece, yIndex, xIndex) ->
+          $piece.yIndex = yIndex
+          $piece.xIndex = xIndex
+          $pieceMap.$pieceArr.push($piece)
           return
-        )
-        return
       )
-      effectArr.push(flashY = ->
-        cf.forEach($pieceArr, ($piece, i) ->
-          tl1 = new tl()
-          tl1.to($piece, .2,
-            y: cf.randomInt(10, -10)
-          ).to($piece, .2,
-            y: 0
-          )
-          return
-        )
-        return
-      )
-      effectArr.push(detachX = ->
-        cf.forEach($pieceArr, ($piece) ->
-          tm.to($piece, .2,
-            opacity: 0
-            x: cf.randomInt(30, -30)
-            delay: Math.random()
-            onComplete: ->
-              setTimeout(->
-                tm.set($piece,
-                  opacity: 1
-                  x: 0
-                )
-              , 1000)
-              return
-          )
-          return
-        )
-        return
-      )
-      effectArr.push(detachY = ->
-        cf.forEach($pieceArr, ($piece) ->
-          tm.to($piece, .1,
-            opacity: 0
-            y: cf.randomInt(30, -30)
-            delay: Math.random()
-            onComplete: ->
-              setTimeout(->
-                tm.set($piece,
-                  opacity: 1
-                  y: 0
-                )
-              , 1000)
-              return
-          )
-          return
-        )
-        return
-      )
-      actionArr = []
-      actionArr.push(->
-        doPiece(27, 1)
-        effectFn = cf.randomPick(effectArr)
-        effectFn()
-        return
-      )
-      actionArr.push(->
-        doPiece(1, 25)
-        effectFn = cf.randomPick(effectArr)
-        effectFn()
-        return
-      )
-      actionArr.push(->
-        doPiece(5, 5)
-        effectFn = cf.randomPick(effectArr)
-        effectFn()
-        return
-      )
-      cf.randomPick(actionArr)()
+      $pieceContainer = $pieceMap.$pieceContainer = $headerTitleImg.$pieceContainer
+      $pieceContainerArr.push($pieceContainer)
+      $pieceMapArr.push($pieceMap)
       return
+    doPiece(27, 1)
+    doPiece(1, 25)
+    doPiece(5, 5)
+
+    effectArr = []
+    effectArr.push(rotationX = ($pieceArr) ->
+      tl1 = new tl()
+      tl1.staggerFromTo($pieceArr, .5, {
+        rotationX: 0
+      }, {
+        rotationX: 360
+      }, .005)
+      return
+    )
+    effectArr.push(rotationY = ($pieceArr) ->
+      tl1 = new tl()
+      tl1.staggerFromTo($pieceArr, .5, {
+        rotationY: 0
+      }, {
+        rotationY: 360
+      }, .005)
+      return
+    )
+    effectArr.push(flashX = ($pieceArr) ->
+      cf.forEach($pieceArr, ($piece) ->
+        tl1 = new tl()
+        tl1.to($piece, .2,
+          x: cf.randomInt(10, -10)
+        ).to($piece, .2,
+          x: 0
+        )
+        return
+      )
+      return
+    )
+    effectArr.push(flashY = ($pieceArr) ->
+      cf.forEach($pieceArr, ($piece, i) ->
+        tl1 = new tl()
+        tl1.to($piece, .2,
+          y: cf.randomInt(10, -10)
+        ).to($piece, .2,
+          y: 0
+        )
+        return
+      )
+      return
+    )
+    effectArr.push(detachX = ($pieceArr) ->
+      cf.forEach($pieceArr, ($piece) ->
+        tm.to($piece, .2,
+          opacity: 0
+          x: cf.randomInt(30, -30)
+          delay: Math.random()
+          onComplete: ->
+            setTimeout(->
+              tm.set($piece,
+                opacity: 1
+                x: 0
+              )
+            , 1000)
+            return
+        )
+        return
+      )
+      return
+    )
+    effectArr.push(detachY = ($pieceArr) ->
+      cf.forEach($pieceArr, ($piece) ->
+        tm.to($piece, .1,
+          opacity: 0
+          y: cf.randomInt(30, -30)
+          delay: Math.random()
+          onComplete: ->
+            setTimeout(->
+              tm.set($piece,
+                opacity: 1
+                y: 0
+              )
+            , 1000)
+            return
+        )
+        return
+      )
+      return
+    )
+    randomAnimation = ->
+      effectFn = cf.randomPick(effectArr)
+      $pieceMap = cf.randomPick($pieceMapArr)
+      cf.forEach($pieceContainerArr, ($pieceContainer) ->
+        $pieceContainer.hide()
+        return
+      )
+      $pieceMap.$pieceContainer.show()
+      effectFn($pieceMap.$pieceArr)
+      return
+
+    setInterval(randomAnimation, 3000)
     return
   )
   $headerBtn = $self.dom('.headerBtn')
@@ -168,10 +162,6 @@ cf.regCtrl 'header', ->
   , .2)
 
   cf.router.regPrePage(->
-    setTimeout(->
-      $headerTitle.randomAnimation()
-      return
-    , 2000)
     setBgColor()
     return
   )

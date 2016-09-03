@@ -15,7 +15,7 @@ cf.regCtrl('header', function() {
   };
   $header = $self.dom();
   $headerTitle = $self.dom('#headerTitle', function($headerTitle) {
-    var $headerTitleImg;
+    var $headerTitleImg, $pieceContainerArr, $pieceMapArr, detachX, detachY, doPiece, effectArr, flashX, flashY, randomAnimation, rotationX, rotationY;
     $headerTitle.onClick(function() {
       cf.router.goPage('index');
     }).on('mouseenter', function() {
@@ -25,123 +25,118 @@ cf.regCtrl('header', function() {
         return;
       }
       $headerTitle.isLeaved = false;
-      $headerTitle.randomAnimation();
     }).on('mouseleave', function() {
       $headerTitle.isLeaved = true;
     });
     $headerTitleImg = $headerTitle.dom('.headerTitleImg');
-    $headerTitle.randomAnimation = function() {
-      var $pieceArr, $reversePieceArr, actionArr, detachX, detachY, doPiece, effectArr, flashX, flashY, rotationX, rotationY, setPiece;
-      $pieceArr = [];
-      $reversePieceArr = [];
-      doPiece = function(yPiece, xPiece) {
-        $headerTitleImg.$pieceContainer && $headerTitleImg.$pieceContainer.remove();
-        $headerTitleImg.show().cfPiece(yPiece, xPiece, {
-          aftPiece: setPiece
-        });
+    $pieceMapArr = [];
+    $pieceContainerArr = [];
+    doPiece = function(yPiece, xPiece) {
+      var $pieceContainer, $pieceMap;
+      $pieceMap = {
+        $pieceContainer: null,
+        $pieceArr: []
       };
-      setPiece = function($piece, yIndex, xIndex) {
-        $piece.yIndex = yIndex;
-        $piece.xIndex = xIndex;
-        $pieceArr.push($piece);
-        $reversePieceArr.unshift($piece);
-      };
-      effectArr = [];
-      effectArr.push(rotationX = function() {
-        var tl1;
-        tl1 = new tl();
-        tl1.staggerFromTo($pieceArr, .5, {
-          rotationX: 0
-        }, {
-          rotationX: 360
-        }, .005);
+      $headerTitleImg.show().cfPiece(yPiece, xPiece, {
+        aftPiece: function($piece, yIndex, xIndex) {
+          $piece.yIndex = yIndex;
+          $piece.xIndex = xIndex;
+          $pieceMap.$pieceArr.push($piece);
+        }
       });
-      effectArr.push(rotationY = function() {
-        var tl1;
-        tl1 = new tl();
-        tl1.staggerFromTo($pieceArr, .5, {
-          rotationY: 0
-        }, {
-          rotationY: 360
-        }, .005);
-      });
-      effectArr.push(flashX = function() {
-        cf.forEach($pieceArr, function($piece, i) {
-          var tl1;
-          tl1 = new tl();
-          tl1.to($piece, .2, {
-            x: cf.randomInt(10, -10)
-          }).to($piece, .2, {
-            x: 0
-          });
-        });
-      });
-      effectArr.push(flashY = function() {
-        cf.forEach($pieceArr, function($piece, i) {
-          var tl1;
-          tl1 = new tl();
-          tl1.to($piece, .2, {
-            y: cf.randomInt(10, -10)
-          }).to($piece, .2, {
-            y: 0
-          });
-        });
-      });
-      effectArr.push(detachX = function() {
-        cf.forEach($pieceArr, function($piece) {
-          tm.to($piece, .2, {
-            opacity: 0,
-            x: cf.randomInt(30, -30),
-            delay: Math.random(),
-            onComplete: function() {
-              setTimeout(function() {
-                return tm.set($piece, {
-                  opacity: 1,
-                  x: 0
-                });
-              }, 1000);
-            }
-          });
-        });
-      });
-      effectArr.push(detachY = function() {
-        cf.forEach($pieceArr, function($piece) {
-          tm.to($piece, .1, {
-            opacity: 0,
-            y: cf.randomInt(30, -30),
-            delay: Math.random(),
-            onComplete: function() {
-              setTimeout(function() {
-                return tm.set($piece, {
-                  opacity: 1,
-                  y: 0
-                });
-              }, 1000);
-            }
-          });
-        });
-      });
-      actionArr = [];
-      actionArr.push(function() {
-        var effectFn;
-        doPiece(27, 1);
-        effectFn = cf.randomPick(effectArr);
-        effectFn();
-      });
-      actionArr.push(function() {
-        var effectFn;
-        doPiece(1, 25);
-        effectFn = cf.randomPick(effectArr);
-        effectFn();
-      });
-      actionArr.push(function() {
-        var effectFn;
-        doPiece(5, 5);
-        effectFn = cf.randomPick(effectArr);
-        effectFn();
-      });
-      cf.randomPick(actionArr)();
+      $pieceContainer = $pieceMap.$pieceContainer = $headerTitleImg.$pieceContainer;
+      $pieceContainerArr.push($pieceContainer);
+      $pieceMapArr.push($pieceMap);
     };
+    doPiece(27, 1);
+    doPiece(1, 25);
+    doPiece(5, 5);
+    effectArr = [];
+    effectArr.push(rotationX = function($pieceArr) {
+      var tl1;
+      tl1 = new tl();
+      tl1.staggerFromTo($pieceArr, .5, {
+        rotationX: 0
+      }, {
+        rotationX: 360
+      }, .005);
+    });
+    effectArr.push(rotationY = function($pieceArr) {
+      var tl1;
+      tl1 = new tl();
+      tl1.staggerFromTo($pieceArr, .5, {
+        rotationY: 0
+      }, {
+        rotationY: 360
+      }, .005);
+    });
+    effectArr.push(flashX = function($pieceArr) {
+      cf.forEach($pieceArr, function($piece) {
+        var tl1;
+        tl1 = new tl();
+        tl1.to($piece, .2, {
+          x: cf.randomInt(10, -10)
+        }).to($piece, .2, {
+          x: 0
+        });
+      });
+    });
+    effectArr.push(flashY = function($pieceArr) {
+      cf.forEach($pieceArr, function($piece, i) {
+        var tl1;
+        tl1 = new tl();
+        tl1.to($piece, .2, {
+          y: cf.randomInt(10, -10)
+        }).to($piece, .2, {
+          y: 0
+        });
+      });
+    });
+    effectArr.push(detachX = function($pieceArr) {
+      cf.forEach($pieceArr, function($piece) {
+        tm.to($piece, .2, {
+          opacity: 0,
+          x: cf.randomInt(30, -30),
+          delay: Math.random(),
+          onComplete: function() {
+            setTimeout(function() {
+              return tm.set($piece, {
+                opacity: 1,
+                x: 0
+              });
+            }, 1000);
+          }
+        });
+      });
+    });
+    effectArr.push(detachY = function($pieceArr) {
+      cf.forEach($pieceArr, function($piece) {
+        tm.to($piece, .1, {
+          opacity: 0,
+          y: cf.randomInt(30, -30),
+          delay: Math.random(),
+          onComplete: function() {
+            setTimeout(function() {
+              return tm.set($piece, {
+                opacity: 1,
+                y: 0
+              });
+            }, 1000);
+          }
+        });
+      });
+    });
+    randomAnimation = function() {
+      var $pieceMap, effectFn;
+      effectFn = cf.randomPick(effectArr);
+      $pieceMap = cf.randomPick($pieceMapArr);
+      cf.forEach($pieceContainerArr, function($pieceContainer) {
+        $pieceContainer.hide();
+      });
+      $pieceMap.$pieceContainer.show();
+      effectFn($pieceMap.$pieceArr);
+    };
+    setInterval(randomAnimation, 3000);
   });
   $headerBtn = $self.dom('.headerBtn');
   tl1 = new tl();
@@ -159,9 +154,6 @@ cf.regCtrl('header', function() {
     ease: Back.easeOut.config(2)
   }, .2);
   cf.router.regPrePage(function() {
-    setTimeout(function() {
-      $headerTitle.randomAnimation();
-    }, 2000);
     setBgColor();
   });
   return $self;
