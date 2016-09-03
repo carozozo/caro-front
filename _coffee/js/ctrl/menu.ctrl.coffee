@@ -1,21 +1,21 @@
 ### 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/menu.html 檔並寫入 template ###
 cf.regCtrl 'menu', ->
   $self = @
-  cf = $self.cf
   tm = cf.require('TweenMax')
   bgColorArr = cf.data('bgColorArr')
 
   showItems = ($items) ->
-    caro.forEach($items, ($item, i) ->
+    cf.forEach($items, ($item, i) ->
       tm.set($item, y: 0)
       distance = 30
       directionArr = [{x: -distance}, {x: distance}, {y: -distance}, {y: distance}]
-      direction = caro.randomPick(directionArr)
+      direction = cf.randomPick(directionArr)
       delay = i * .05
       animateObj =
         opacity: 0
-      animateObj = caro.assign(animateObj, direction)
-      color = caro.randomPick(bgColorArr)
+      for key, val of direction
+        animateObj[key] = val
+      color = cf.randomPick(bgColorArr)
       $item.css(
         background: color
       )
@@ -50,7 +50,7 @@ cf.regCtrl 'menu', ->
 
   dropAllItems = (type, cb) ->
     $items = if type is 'lib' then $libMenuItems else $moduleMenuItems
-    caro.forEach($items, ($item)->
+    cf.forEach($items, ($item)->
       delay = Math.random() * .3
       tm.to($item, .3,
         opacity: 0
@@ -65,7 +65,7 @@ cf.regCtrl 'menu', ->
   setMenuItem = ($item, type) ->
     $item.on('mouseover', ->
       roataionArr = [5, -5, 3, -3]
-      rotation = caro.randomPick(roataionArr)
+      rotation = cf.randomPick(roataionArr)
       transformOrigin = if rotation > 0 then '20% 20%' else '80% 20%'
       tm.to($item, .3,
         rotation: rotation

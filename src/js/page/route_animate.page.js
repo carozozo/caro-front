@@ -8,9 +8,9 @@ cf.router.regPage('lib/routeAnimate', function(cf) {
 cf.router.regBefPage(function() {
   var fn, fnArr;
   fnArr = [];
-  caro.forEach(cf.routeAnimate, function(fn, fnName) {
+  cf.forEach(cf.routeAnimate, function(fn, fnName) {
     return fnArr.push(fnName);
   });
-  fn = caro.randomPick(fnArr);
+  fn = cf.randomPick(fnArr);
   cf.routeAnimate[fn]();
 });

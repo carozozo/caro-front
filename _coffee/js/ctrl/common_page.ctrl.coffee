@@ -1,7 +1,6 @@
 ### 一般的 ctrl ###
 cf.regCtrl 'commonPage', ->
   $self = @
-  cf = $self.cf
   $ = cf.require('$')
   tl = cf.require('TimelineMax')
   tm = cf.require('TweenMax')
@@ -51,7 +50,7 @@ cf.regCtrl 'commonPage', ->
       )
       return
     )
-    caro.randomPick(actArr)()
+    cf.randomPick(actArr)()
     $mainTitle.init = ->
       $mainTitle.width('100%')
       return
@@ -59,7 +58,7 @@ cf.regCtrl 'commonPage', ->
   )
 
   subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3', 'subTitle4', 'subTitle5']
-  caro.forEach(subTitleClassArr, (className) ->
+  cf.forEach(subTitleClassArr, (className) ->
     $self.dom('.' + className).eachDom(($subTitle) ->
       $span = $('<span>').addClass(className)
       html = $subTitle.html()
@@ -115,12 +114,13 @@ cf.regCtrl 'commonPage', ->
 
   distance = 30
   directionOptArr = [{x: -distance}, {x: distance}, {y: -distance}, {y: distance}]
-  directionOpt = caro.randomPick(directionOptArr)
+  directionOpt = cf.randomPick(directionOptArr)
   titleOpt =
     opacity: 0
     rotationX: 90
     transformPerspective: 600
-  titleOpt = caro.assign(titleOpt, directionOpt)
+  for key, val of directionOpt
+    titleOpt[key] = val
   tl1 = new tl()
   tl1.from($mainTitle, .7,
     width: 0

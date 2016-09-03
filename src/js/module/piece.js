@@ -43,8 +43,8 @@ cf.regModule('cfPiece', function(particleY, particleX, opt) {
   $self.$pieceInnerContainer = $('<div/>').addClass('cfPieceInnerContainer').css({
     position: 'relative'
   }).appendTo($self.$pieceContainer);
-  caro.loop(function(i) {
-    caro.loop(function(j) {
+  cf.loop(function(i) {
+    cf.loop(function(j) {
       var $piece, pieceLeft, pieceTop;
       if (_befPiece && _befPiece(i, j) === false) {
         return;

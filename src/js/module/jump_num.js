@@ -29,7 +29,7 @@ cf.regModule('cfJumpNum', function() {
         num = targetNum;
         clearInterval(interval);
       } else {
-        num = caro.randomInt(range);
+        num = cf.randomInt(range);
       }
       $self.html(num);
     }), ms);

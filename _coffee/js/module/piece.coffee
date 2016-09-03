@@ -28,8 +28,8 @@ cf.regModule 'cfPiece', (particleY = 3, particleX = 3, opt = {}) ->
     position: 'relative'
   ).appendTo($self.$pieceContainer)
 
-  caro.loop((i) ->
-    caro.loop((j) ->
+  cf.loop((i) ->
+    cf.loop((j) ->
       return if _befPiece and _befPiece(i, j) is false
       pieceLeft = pieceWidth * j
       pieceTop = pieceHeight * i

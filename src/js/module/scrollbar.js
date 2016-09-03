@@ -4,7 +4,7 @@
 Depend on jquery.mCustomScrollbar
  */
 cf.regModule('cfScrollbar', function(styleOpt, scrollBarOpt) {
-  var $self, _trace, barCss, callbacksOpt, cf, lineCss, mainOpt, name, onCreateFn, themeName;
+  var $self, _trace, barCss, callbacksOpt, key, lineCss, mainOpt, name, onCreateFn, themeName, val;
   if (styleOpt == null) {
     styleOpt = {};
   }
@@ -16,7 +16,6 @@ cf.regModule('cfScrollbar', function(styleOpt, scrollBarOpt) {
 
   /* scrollBarOpt = 外掛 mCustomScrollbar 參數 */
   $self = this;
-  cf = $self.cf;
   _trace = cf.genTraceFn('cfScrollbar');
 
   /* 捲軸名稱 */
@@ -41,26 +40,29 @@ cf.regModule('cfScrollbar', function(styleOpt, scrollBarOpt) {
     }
   })();
   themeName = name ? 'my-theme-' + name : 'my-theme';
-  mainOpt = caro.assign({
+  mainOpt = {
     scrollbarPosition: 'outside',
     theme: themeName
-  }, scrollBarOpt);
-  mainOpt.callbacks = caro.assign(callbacksOpt, {
-    onCreate: function() {
-      if (onCreateFn) {
-        onCreateFn();
-      }
-      if (barCss) {
-        $('.mCS-' + themeName + '.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar').css(barCss);
-      }
-      if (lineCss) {
-        $('.mCS-' + themeName + '.mCSB_scrollTools .mCSB_draggerRail').css(lineCss);
-      }
-      $('.mCSB_scrollTools').css({
-        opacity: 1
-      });
+  };
+  for (key in scrollBarOpt) {
+    val = scrollBarOpt[key];
+    mainOpt[key] = val;
+  }
+  callbacksOpt.onCreate = function() {
+    if (onCreateFn) {
+      onCreateFn();
     }
-  });
+    if (barCss) {
+      $('.mCS-' + themeName + '.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar').css(barCss);
+    }
+    if (lineCss) {
+      $('.mCS-' + themeName + '.mCSB_scrollTools .mCSB_draggerRail').css(lineCss);
+    }
+    $('.mCSB_scrollTools').css({
+      opacity: 1
+    });
+  };
+  mainOpt.callbacks = callbacksOpt;
   $self.mCustomScrollbar(mainOpt);
   return $self;
 });

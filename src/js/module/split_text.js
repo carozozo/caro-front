@@ -31,7 +31,7 @@ cf.regModule('cfSplitText', function(opt) {
     var text;
     text = $dom.text();
     $dom.empty();
-    caro.forEach(text, function(char, i) {
+    cf.forEach(text, function(char, i) {
       var $char, css;
       css = {
         display: 'inline-block'
@@ -46,7 +46,7 @@ cf.regModule('cfSplitText', function(opt) {
   if (_isToWord) {
     $self.empty();
     wordArr = originText.split(' ');
-    caro.forEach(wordArr, function(word, i) {
+    cf.forEach(wordArr, function(word, i) {
       var $word, css;
       css = {
         display: 'inline-block'

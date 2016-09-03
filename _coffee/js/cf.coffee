@@ -1,8 +1,8 @@
 ###
 CaroFront 核心程式
 ###
-do(window, $) ->
-  self = {}
+do(window, $, caro) ->
+  self = caro or {}
   ### 儲存從 config 讀取到的設定  ###
   self.$$config = {}
   ### 儲存資料, 類似 cookie, 但頁面刷新後會清空  ###
@@ -130,7 +130,6 @@ do(window, $) ->
         typeObj[name] = $.fn[name] = ->
           $dom = this
           args = arguments
-          $dom.cf = self
           if page and !_html
             sucCb = (html) ->
               _html = html

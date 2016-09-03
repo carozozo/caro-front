@@ -20,17 +20,17 @@ cf.router.regPage('module/cfListDom', function() {
   };
   $page.dom('#setList1Btn').onClick(function() {
     cleanList();
-    $tr.cfListDom(caro.clone(list));
+    $tr.cfListDom(cf.clone(list));
   });
   $page.dom('#setList2Btn').onClick(function() {
     cleanList();
-    $tr.cfListDom(caro.cloneDeep(list), {
+    $tr.cfListDom(cf.cloneDeep(list), {
       isAfter: false
     });
   });
   $page.dom('#setList3Btn').onClick(function() {
     cleanList();
-    $tr.cfListDom(caro.cloneDeep(list), {
+    $tr.cfListDom(cf.cloneDeep(list), {
       befInsert: function(data, i, $dom) {
         if (i === 1) {
           return true;

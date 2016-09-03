@@ -3,7 +3,6 @@
 ###
 cf.regServ 'fb', (cf) ->
   self = {}
-  caro = cf.require('caro')
   window = cf.require('window')
   _cfg = cf.config('fb')
   _appId = _cfg.appId
@@ -35,7 +34,7 @@ cf.regServ 'fb', (cf) ->
       cookie: true
       xfbml: true
       version: _sdkVersion
-    caro.forEach _initCbMap, (cb, name) ->
+    cf.forEach _initCbMap, (cb, name) ->
       _trace 'Execute callback: ', name
       cb()
       return
@@ -132,7 +131,7 @@ cf.regServ 'fb', (cf) ->
           cb and cb()
           apiObj
         return
-      opt = if opt then caro.assign(
+      opt = if opt then cf.assign(
         'scope': ''
         'return_scopes': true
         'auth_type': 'rerequest'

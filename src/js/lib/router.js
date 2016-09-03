@@ -3,9 +3,9 @@
 分頁函式庫, 利用 url hash 判斷, 並使用 $.ajax 切換頁面
  */
 cf.regLib('router', function(cf) {
-  var $, _cfg, _isGoPage, _trace, caro, self, window;
+  var $, _cfg, _isGoPage, _trace, self, window;
   $ = cf.require('$');
-  caro = cf.require('caro');
+  $ = cf.require('$');
   window = cf.require('window');
   _cfg = cf.config('router');
   _isGoPage = true;
@@ -43,13 +43,13 @@ cf.regLib('router', function(cf) {
   self.pageName = '';
 
   /* 記錄要放置分頁的資料夾路徑 */
-  self.templateDir = caro.addTail(_cfg.templateDir || '', '/');
+  self.templateDir = cf.addTail(_cfg.templateDir || '', '/');
 
   /* 記錄要載入的分頁副檔名 */
-  self.templateExtname = _cfg.templateExtname ? caro.addHead(_cfg.templateExtname, '.') : '';
+  self.templateExtname = _cfg.templateExtname ? cf.addHead(_cfg.templateExtname, '.') : '';
 
   /* 註冊 page 載入前後的 callback */
-  (function(self, caro) {
+  (function(self) {
     var regPageCb;
     regPageCb = function(type, fn, index) {
       var pageObj;
@@ -64,13 +64,19 @@ cf.regLib('router', function(cf) {
     };
 
     /* 註冊 [當 Router 準備換頁前] 要執行的 function */
-    self.regBefPage = caro.partial(regPageCb, 'befPage');
+    self.regBefPage = function(fn, index) {
+      regPageCb('befPage', fn, index);
+    };
 
     /* 註冊 [當 Router 載入分頁前] 要執行的 function */
-    self.regPrePage = caro.partial(regPageCb, 'prePage');
+    self.regPrePage = function(fn, index) {
+      regPageCb('prePage', fn, index);
+    };
 
     /* 註冊 [當 Router 載入分頁後] 要執行的 function */
-    self.regAftPage = caro.partial(regPageCb, 'aftPage');
+    self.regAftPage = function(fn, index) {
+      regPageCb('aftPage', fn, index);
+    };
 
     /* 註冊 [當 Router 載入分頁後] 要執行的對應 function */
     self.regPage = function(pageName, fn) {
@@ -82,13 +88,13 @@ cf.regLib('router', function(cf) {
         _trace('Page', pageName, 'registered');
       }
     };
-  })(self, caro);
+  })(self);
 
   /*
   自定義 url 規則
   e.g. http://www.sample.com.tw/#index?redirect=1 => {hash: 'index', search: 'redirect: 1'}
    */
-  (function(caro, window) {
+  (function(cf, window) {
     var location, parseSearchToObj, parseUrlHashToObj;
     location = window.location;
     parseUrlHashToObj = function(hash) {
@@ -115,7 +121,7 @@ cf.regLib('router', function(cf) {
       }
       obj = {};
       searchArr = search.split('&');
-      caro.reduce(searchArr, (function(result, param) {
+      cf.reduce(searchArr, (function(result, param) {
         var key, paramArr, val;
         paramArr = param.split('=');
         key = paramArr[0];
@@ -151,14 +157,14 @@ cf.regLib('router', function(cf) {
       search = self.getSearchByHash(hash);
       return parseSearchToObj(search);
     };
-  })(caro, window);
+  })(cf, window);
 
   /* 分頁載入相關 */
   (function(cf, self, window, $) {
     var doPageFns, setPageContent;
     doPageFns = function(pageObj, $page) {
-      caro.forEach(pageObj, function(fns) {
-        caro.forEach(fns, function(fn) {
+      cf.forEach(pageObj, function(fns) {
+        cf.forEach(fns, function(fn) {
           fn && fn.call($page, cf);
         });
       });
@@ -201,7 +207,7 @@ cf.regLib('router', function(cf) {
       };
       if (!(pageMap[pageName] && pageMap[pageName].html)) {
         fileType = opt.fileType || self.templateExtname;
-        pageFile = caro.addTail(pageName, fileType);
+        pageFile = cf.addTail(pageName, fileType);
         sucCb = function(html) {
           if (!pageMap[pageName]) {
             pageMap[pageName] = {};
@@ -213,7 +219,7 @@ cf.regLib('router', function(cf) {
 
           /* 嘗試換頁到 index */
           var firstPage, indexInfo, pageNameArr;
-          indexInfo = caro.find(pageMap, function(val, pageName) {
+          indexInfo = cf.find(pageMap, function(val, pageName) {
             return pageName === 'index';
           });
           if (indexInfo) {
@@ -221,7 +227,7 @@ cf.regLib('router', function(cf) {
           }
 
           /* 嘗試換頁到第一個註冊的分頁 */
-          pageNameArr = caro.keys(pageMap);
+          pageNameArr = cf.keys(pageMap);
           firstPage = pageNameArr[0];
           if (firstPage) {
             self.goPage(firstPage);

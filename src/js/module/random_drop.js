@@ -4,14 +4,12 @@
 Depend on gsap
  */
 cf.regModule('cfRandomDrop', function($imgArr, opt) {
-  var $, $self, $window, Power2, _isKeepDrop, amount, caro, cf, createDrop, getLengthIfFn, getRandomInRange, imgLength, inEndDuration, inStartDuration, maxDistance, maxDuration, maxRandomMs, maxStartX, maxStartY, minDistance, minDuration, minRandomMs, minScale, minStartX, minStartY, pickupImg, randomBezierArray, randomDuration, randomInEndDuration, randomInStartDuration, randomLeft, randomMs, randomNewTop, randomTop, reverse, rotationRange, tl, tm, xRange;
+  var $, $self, $window, Power2, _isKeepDrop, amount, createDrop, getLengthIfFn, getRandomInRange, imgLength, inEndDuration, inStartDuration, maxDistance, maxDuration, maxRandomMs, maxStartX, maxStartY, minDistance, minDuration, minRandomMs, minScale, minStartX, minStartY, pickupImg, randomBezierArray, randomDuration, randomInEndDuration, randomInStartDuration, randomLeft, randomMs, randomNewTop, randomTop, reverse, rotationRange, tl, tm, xRange;
   if (opt == null) {
     opt = {};
   }
   $self = this;
-  cf = $self.cf;
   $ = cf.require('$');
-  caro = cf.require('caro');
   tm = cf.require('TweenMax');
   tl = cf.require('TimelineMax');
   Power2 = cf.require('Power2');
@@ -71,7 +69,7 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
   /* 每次產生的滑落物件數量 */
   amount = opt.amount || 1;
   imgLength = $imgArr.length;
-  caro.forEach($imgArr, function($img) {
+  cf.forEach($imgArr, function($img) {
     $img.css({
       position: 'absolute'
     });
@@ -87,7 +85,7 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     return $img;
   };
   getLengthIfFn = function(distance) {
-    if (caro.isFunction(distance)) {
+    if (cf.isFunction(distance)) {
       return distance();
     } else {
       return distance;
@@ -174,7 +172,7 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     imgHeight = $img.height();
     left = opt.left || randomLeft(imgWidth);
     top = opt.top || randomTop(imgHeight);
-    isKeepDrop = caro.isBoolean(opt.isKeepDrop) ? opt.isKeepDrop : _isKeepDrop;
+    isKeepDrop = cf.isBoolean(opt.isKeepDrop) ? opt.isKeepDrop : _isKeepDrop;
     newTop = randomNewTop(imgHeight, top);
     duration = randomDuration();
     distance = Math.abs(top - newTop);
@@ -202,7 +200,7 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     }, '+=' + randomInEndDuration());
     if (rotationRange) {
       tl2 = new tl();
-      rotation = caro.randomInt(rotationRange, -rotationRange);
+      rotation = cf.randomInt(rotationRange, -rotationRange);
       tl2.to($img, duration, {
         rotation: rotation
       }, '+=0.3');
@@ -220,7 +218,7 @@ cf.regModule('cfRandomDrop', function($imgArr, opt) {
     var trigger1, trigger2;
     _isKeepDrop = true;
     if (amount > 1) {
-      caro.loop(function() {
+      cf.loop(function() {
         return createDrop();
       }, 1, amount);
     } else {

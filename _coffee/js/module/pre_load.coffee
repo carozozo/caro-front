@@ -4,7 +4,6 @@ Depend on preloadjs-0.4.1
 ###
 cf.regModule 'cfPreLoad', (filePathArr, opt = {}) ->
   $self = @
-  cf = $self.cf
   createjs = cf.require('createjs')
   ### 開始讀取時觸發的 cb ###
   _onLoadStart = opt.onLoadStart

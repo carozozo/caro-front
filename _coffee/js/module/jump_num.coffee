@@ -20,7 +20,7 @@ cf.regModule 'cfJumpNum', ->
         num = targetNum
         clearInterval interval
       else
-        num = caro.randomInt(range)
+        num = cf.randomInt(range)
       $self.html num
       return
     ), ms)

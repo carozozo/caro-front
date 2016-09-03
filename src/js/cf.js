@@ -2,9 +2,9 @@
 /*
 CaroFront 核心程式
  */
-(function(window, $) {
+(function(window, $, caro) {
   var _ctrl, _docReady, _module, _trace, genTraceFn, ifUrlPathMustMatchAndGetUrl, self;
-  self = {};
+  self = caro || {};
 
   /* 儲存從 config 讀取到的設定 */
   self.$$config = {};
@@ -175,7 +175,6 @@ CaroFront 核心程式
           var $dom, args, errCb, jqxhr, sucCb;
           $dom = this;
           args = arguments;
-          $dom.cf = self;
           if (page && !_html) {
             sucCb = function(html) {
               _html = html;
@@ -309,4 +308,4 @@ CaroFront 核心程式
     }
   });
   window.cf = self;
-})(window, $);
+})(window, $, caro);

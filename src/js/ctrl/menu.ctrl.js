@@ -1,14 +1,13 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/menu.html 檔並寫入 template */
 cf.regCtrl('menu', function() {
-  var $libBtn, $libBtnOuter, $libMenuItemBox, $libMenuItems, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItemBox, $moduleMenuItems, $self, bgColorArr, cf, dropAllItems, hideMenu, setMenuBtn, setMenuItem, showItems, showMenu, tm;
+  var $libBtn, $libBtnOuter, $libMenuItemBox, $libMenuItems, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItemBox, $moduleMenuItems, $self, bgColorArr, dropAllItems, hideMenu, setMenuBtn, setMenuItem, showItems, showMenu, tm;
   $self = this;
-  cf = $self.cf;
   tm = cf.require('TweenMax');
   bgColorArr = cf.data('bgColorArr');
   showItems = function($items) {
-    caro.forEach($items, function($item, i) {
-      var animateObj, color, delay, direction, directionArr, distance;
+    cf.forEach($items, function($item, i) {
+      var animateObj, color, delay, direction, directionArr, distance, key, val;
       tm.set($item, {
         y: 0
       });
@@ -24,13 +23,16 @@ cf.regCtrl('menu', function() {
           y: distance
         }
       ];
-      direction = caro.randomPick(directionArr);
+      direction = cf.randomPick(directionArr);
       delay = i * .05;
       animateObj = {
         opacity: 0
       };
-      animateObj = caro.assign(animateObj, direction);
-      color = caro.randomPick(bgColorArr);
+      for (key in direction) {
+        val = direction[key];
+        animateObj[key] = val;
+      }
+      color = cf.randomPick(bgColorArr);
       $item.css({
         background: color
       });
@@ -65,7 +67,7 @@ cf.regCtrl('menu', function() {
   dropAllItems = function(type, cb) {
     var $items;
     $items = type === 'lib' ? $libMenuItems : $moduleMenuItems;
-    caro.forEach($items, function($item) {
+    cf.forEach($items, function($item) {
       var delay;
       delay = Math.random() * .3;
       tm.to($item, .3, {
@@ -80,7 +82,7 @@ cf.regCtrl('menu', function() {
     $item.on('mouseover', function() {
       var roataionArr, rotation, transformOrigin;
       roataionArr = [5, -5, 3, -3];
-      rotation = caro.randomPick(roataionArr);
+      rotation = cf.randomPick(roataionArr);
       transformOrigin = rotation > 0 ? '20% 20%' : '80% 20%';
       return tm.to($item, .3, {
         rotation: rotation,

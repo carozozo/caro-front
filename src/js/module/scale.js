@@ -4,13 +4,11 @@
 Depend on gsap
  */
 cf.regModule('cfScale', function(opt) {
-  var $self, $target, _aftScale, _basicHeight, _basicWidth, _befScale, _duration, _endScale, _endX, _endY, _infoObj, _isScaleX, _isScaleY, _mode, _selfInfo, _startScale, _startX, _startY, _targetInfo, _triggerName, caro, cf, getScaleX, getScaleY, setScaleInfo, setTargetInfo, tm;
+  var $self, $target, _aftScale, _basicHeight, _basicWidth, _befScale, _duration, _endScale, _endX, _endY, _infoObj, _isScaleX, _isScaleY, _mode, _selfInfo, _startScale, _startX, _startY, _targetInfo, _triggerName, getScaleX, getScaleY, setScaleInfo, setTargetInfo, tm;
   if (opt == null) {
     opt = {};
   }
   $self = this;
-  cf = $self.cf;
-  caro = cf.require('caro');
   tm = cf.require('TweenMax');
 
   /* 綁定 resize 的 name space */
@@ -20,12 +18,12 @@ cf.regModule('cfScale', function(opt) {
   $target = opt.$target || cf.$window;
 
   /* 指定觸發縮放的 $target 寬度範圍 */
-  _startX = caro.isNumber(opt.startX) ? opt.startX : 1280;
-  _endX = caro.isNumber(opt.endX) ? opt.endX : 1920;
+  _startX = cf.isNumber(opt.startX) ? opt.startX : 1280;
+  _endX = cf.isNumber(opt.endX) ? opt.endX : 1920;
 
   /* 指定觸發縮放的 $target 高度範圍 */
-  _startY = caro.isNumber(opt.startY) ? opt.startY : 720;
-  _endY = caro.isNumber(opt.endY) ? opt.endY : 1080;
+  _startY = cf.isNumber(opt.startY) ? opt.startY : 720;
+  _endY = cf.isNumber(opt.endY) ? opt.endY : 1080;
 
   /* 指定縮放範圍 */
   _startScale = opt.startScale || 1;
@@ -108,10 +106,10 @@ cf.regModule('cfScale', function(opt) {
         scale = scaleY;
         break;
       case 'max':
-        scale = caro.max([scaleX, scaleY]);
+        scale = cf.max([scaleX, scaleY]);
         break;
       case 'min':
-        scale = caro.min([scaleX, scaleY]);
+        scale = cf.min([scaleX, scaleY]);
     }
     _infoObj.scaleX = scaleX;
     _infoObj.scaleY = scaleY;

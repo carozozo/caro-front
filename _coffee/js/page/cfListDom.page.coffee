@@ -10,19 +10,19 @@ cf.router.regPage 'module/cfListDom', ->
 
   $page.dom('#setList1Btn').onClick(->
     cleanList()
-    $tr.cfListDom(caro.clone(list))
+    $tr.cfListDom(cf.clone(list))
     return
   )
   $page.dom('#setList2Btn').onClick(->
     cleanList()
-    $tr.cfListDom(caro.cloneDeep(list),
+    $tr.cfListDom(cf.cloneDeep(list),
       isAfter: false
     )
     return
   )
   $page.dom('#setList3Btn').onClick(->
     cleanList()
-    $tr.cfListDom(caro.cloneDeep(list),
+    $tr.cfListDom(cf.cloneDeep(list),
       befInsert: (data, i, $dom) ->
         return true if i is 1
         $dom.css(color: '#00f')

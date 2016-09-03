@@ -22,7 +22,7 @@ cf.regModule 'cfSplitText', (opt = {}) ->
   splitChar = ($dom) ->
     text = $dom.text()
     $dom.empty()
-    caro.forEach(text, (char, i) ->
+    cf.forEach(text, (char, i) ->
       css = display: 'inline-block'
       css['margin-left'] = blankWidth if char is ' '
       $char = $('<div/>').text(char).css(css).appendTo($dom)
@@ -34,7 +34,7 @@ cf.regModule 'cfSplitText', (opt = {}) ->
   if _isToWord
     $self.empty()
     wordArr = originText.split(' ')
-    caro.forEach(wordArr, (word, i) ->
+    cf.forEach(wordArr, (word, i) ->
       css = display: 'inline-block'
       css['margin-left'] = blankWidth if i > 0
       $word = $('<div/>').text(word).css(css).appendTo($self)

@@ -5,8 +5,6 @@ Depend on gsap
 cf.regModule 'cfSwitchShow', ($domList, opt = {}) ->
   ### $domList: 要顯示的 dom 列表, e.g. [$('#dom1'), $('#dom2')] ###
   $self = @
-  cf = $self.cf
-  caro = cf.require('caro')
   tl = new TimelineLite()
   ### defType: 預設顯示方式 [fade/up/down/lef/right/''] ###
   _defType = opt.defType or 'fade'
@@ -21,7 +19,7 @@ cf.regModule 'cfSwitchShow', ($domList, opt = {}) ->
   ### 目前所在的 index ###
   _currentIndex = 0
 
-  caro.forEach($domList, ($dom, i) ->
+  cf.forEach($domList, ($dom, i) ->
     return unless i
     tl.set($dom,
       opacity: 0

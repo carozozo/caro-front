@@ -4,7 +4,6 @@
 cf.regServ 'ajax', (cf) ->
   self = {}
   $ = cf.require('$')
-  caro = cf.require('caro')
   _cfg = cf.config('ajax')
   _isTest = cf.isLocal or _cfg.isTestMode
   _errMsg = _cfg.errMsg
@@ -35,7 +34,7 @@ cf.regServ 'ajax', (cf) ->
     if data
       opt.type = 'POST'
       opt.data = data
-    caro.assign opt, extendOpt or {}
+    cf.assign opt, extendOpt or {}
 
   showLoading = ->
     $loading.$msg.css

@@ -1,9 +1,8 @@
 
 /* 一般的 ctrl */
 cf.regCtrl('commonPage', function() {
-  var $, $codeTargetArr, $mainTitle, $self, $titles, cf, directionOpt, directionOptArr, distance, subTitleClassArr, titleOpt, tl, tl1, tm;
+  var $, $codeTargetArr, $mainTitle, $self, $titles, directionOpt, directionOptArr, distance, key, subTitleClassArr, titleOpt, tl, tl1, tm, val;
   $self = this;
-  cf = $self.cf;
   $ = cf.require('$');
   tl = cf.require('TimelineMax');
   tm = cf.require('TweenMax');
@@ -56,13 +55,13 @@ cf.regCtrl('commonPage', function() {
         }
       });
     });
-    caro.randomPick(actArr)();
+    cf.randomPick(actArr)();
     $mainTitle.init = function() {
       $mainTitle.width('100%');
     };
   });
   subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3', 'subTitle4', 'subTitle5'];
-  caro.forEach(subTitleClassArr, function(className) {
+  cf.forEach(subTitleClassArr, function(className) {
     $self.dom('.' + className).eachDom(function($subTitle) {
       var $span, html;
       $span = $('<span>').addClass(className);
@@ -120,13 +119,16 @@ cf.regCtrl('commonPage', function() {
       y: distance
     }
   ];
-  directionOpt = caro.randomPick(directionOptArr);
+  directionOpt = cf.randomPick(directionOptArr);
   titleOpt = {
     opacity: 0,
     rotationX: 90,
     transformPerspective: 600
   };
-  titleOpt = caro.assign(titleOpt, directionOpt);
+  for (key in directionOpt) {
+    val = directionOpt[key];
+    titleOpt[key] = val;
+  }
   tl1 = new tl();
   tl1.from($mainTitle, .7, {
     width: 0,

@@ -1,13 +1,12 @@
 ### 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/header.html 檔並寫入 template ###
 cf.regCtrl 'header', ->
   $self = @
-  cf = $self.cf
   tl = cf.require('TimelineMax')
   tm = cf.require('TweenMax')
   bgColorArr = cf.data('bgColorArr')
 
   setBgColor = ->
-    color = caro.randomPick(bgColorArr)
+    color = cf.randomPick(bgColorArr)
     tm.to($header, 1
       backgroundColor: color
     )
@@ -67,10 +66,10 @@ cf.regCtrl 'header', ->
         return
       )
       effectArr.push(flashX = ->
-        caro.forEach($pieceArr, ($piece, i) ->
+        cf.forEach($pieceArr, ($piece, i) ->
           tl1 = new tl()
           tl1.to($piece, .2,
-            x: caro.randomInt(10, -10)
+            x: cf.randomInt(10, -10)
           ).to($piece, .2,
             x: 0
           )
@@ -79,10 +78,10 @@ cf.regCtrl 'header', ->
         return
       )
       effectArr.push(flashY = ->
-        caro.forEach($pieceArr, ($piece, i) ->
+        cf.forEach($pieceArr, ($piece, i) ->
           tl1 = new tl()
           tl1.to($piece, .2,
-            y: caro.randomInt(10, -10)
+            y: cf.randomInt(10, -10)
           ).to($piece, .2,
             y: 0
           )
@@ -91,10 +90,10 @@ cf.regCtrl 'header', ->
         return
       )
       effectArr.push(detachX = ->
-        caro.forEach($pieceArr, ($piece) ->
+        cf.forEach($pieceArr, ($piece) ->
           tm.to($piece, .2,
             opacity: 0
-            x: caro.randomInt(30, -30)
+            x: cf.randomInt(30, -30)
             delay: Math.random()
             onComplete: ->
               setTimeout(->
@@ -110,10 +109,10 @@ cf.regCtrl 'header', ->
         return
       )
       effectArr.push(detachY = ->
-        caro.forEach($pieceArr, ($piece) ->
+        cf.forEach($pieceArr, ($piece) ->
           tm.to($piece, .1,
             opacity: 0
-            y: caro.randomInt(30, -30)
+            y: cf.randomInt(30, -30)
             delay: Math.random()
             onComplete: ->
               setTimeout(->
@@ -131,23 +130,23 @@ cf.regCtrl 'header', ->
       actionArr = []
       actionArr.push(->
         doPiece(27, 1)
-        effectFn = caro.randomPick(effectArr)
+        effectFn = cf.randomPick(effectArr)
         effectFn()
         return
       )
       actionArr.push(->
         doPiece(1, 25)
-        effectFn = caro.randomPick(effectArr)
+        effectFn = cf.randomPick(effectArr)
         effectFn()
         return
       )
       actionArr.push(->
         doPiece(5, 5)
-        effectFn = caro.randomPick(effectArr)
+        effectFn = cf.randomPick(effectArr)
         effectFn()
         return
       )
-      caro.randomPick(actionArr)()
+      cf.randomPick(actionArr)()
       return
     return
   )

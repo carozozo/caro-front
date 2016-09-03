@@ -4,8 +4,6 @@ Depend on plugin scrollTo of gsap
 ###
 cf.regModule 'cfScroll', ($contents, opt = {}) ->
   $self = @
-  cf = $self.cf
-  caro = cf.require('caro')
   tm = cf.require('TweenMax')
   $self.$$offsetTopArr = _offsetTopArr = []
   _nowIndex = 0
@@ -20,7 +18,7 @@ cf.regModule 'cfScroll', ($contents, opt = {}) ->
   ### 是否要及時更新 top 資訊 ###
   _isLiveTop = opt.isLiveTop
   ### 捲動秒數, 設為 0 代表直接跳到該位置 ###
-  _duration = unless caro.isUndefined(opt.duration) then opt.duration else 1
+  _duration = unless cf.isUndefined(opt.duration) then opt.duration else 1
   ### gsap 捲動 ease 效果 ###
   _ease = opt.ease or Power2.easeOut
   ### 捲動前的 cb, return false 則不捲動 ###
@@ -38,7 +36,7 @@ cf.regModule 'cfScroll', ($contents, opt = {}) ->
     return
 
   getOffsetTopArr = ->
-    caro.forEach($contents, getContentTop)
+    cf.forEach($contents, getContentTop)
     return
 
   scrollToNowIndex = (duration = null) ->
@@ -54,8 +52,8 @@ cf.regModule 'cfScroll', ($contents, opt = {}) ->
   ### 取得現在所在的 index ###
   $self.getNowIndex = ->
     scrollTop = $self.scrollTop()
-    basicY = if caro.isFunction(_basicY) then _basicY() else _basicY
-    caro.forEach(_offsetTopArr, (offsetTop, i) ->
+    basicY = if cf.isFunction(_basicY) then _basicY() else _basicY
+    cf.forEach(_offsetTopArr, (offsetTop, i) ->
       ### Dom 的頂端超過基準值時, 視為閱覽當下的 Dom ###
       _nowIndex = i if scrollTop + basicY >= offsetTop
       return
@@ -82,7 +80,7 @@ cf.regModule 'cfScroll', ($contents, opt = {}) ->
 
   ### 重新掃描內容的高度位置 ###
   $self.updateTop = ->
-    caro.forEach($contents, getOffsetTopArr)
+    cf.forEach($contents, getOffsetTopArr)
     $self
 
   ### 綁定 scroll ###

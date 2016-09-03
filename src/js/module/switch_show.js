@@ -4,15 +4,13 @@
 Depend on gsap
  */
 cf.regModule('cfSwitchShow', function($domList, opt) {
-  var $self, _aftSwitch, _befSwitch, _currentIndex, _defType, _distance, _duration, caro, cf, switchShow, tl;
+  var $self, _aftSwitch, _befSwitch, _currentIndex, _defType, _distance, _duration, switchShow, tl;
   if (opt == null) {
     opt = {};
   }
 
   /* $domList: 要顯示的 dom 列表, e.g. [$('#dom1'), $('#dom2')] */
   $self = this;
-  cf = $self.cf;
-  caro = cf.require('caro');
   tl = new TimelineLite();
 
   /* defType: 預設顯示方式 [fade/up/down/lef/right/''] */
@@ -32,7 +30,7 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
 
   /* 目前所在的 index */
   _currentIndex = 0;
-  caro.forEach($domList, function($dom, i) {
+  cf.forEach($domList, function($dom, i) {
     if (!i) {
       return;
     }

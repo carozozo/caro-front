@@ -3,9 +3,8 @@
 客製化 facebook api 呼叫程式
  */
 cf.regServ('fb', function(cf) {
-  var _appId, _authResponse, _cfg, _initCbMap, _isReady, _isUserConnected, _nowUrl, _sdkVersion, _shareUrl, _trace, caro, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
+  var _appId, _authResponse, _cfg, _initCbMap, _isReady, _isUserConnected, _nowUrl, _sdkVersion, _shareUrl, _trace, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
   self = {};
-  caro = cf.require('caro');
   window = cf.require('window');
   _cfg = cf.config('fb');
   _appId = _cfg.appId;
@@ -41,7 +40,7 @@ cf.regServ('fb', function(cf) {
       xfbml: true,
       version: _sdkVersion
     });
-    caro.forEach(_initCbMap, function(cb, name) {
+    cf.forEach(_initCbMap, function(cb, name) {
       _trace('Execute callback: ', name);
       cb();
     });
@@ -166,7 +165,7 @@ cf.regServ('fb', function(cf) {
         };
         return;
       }
-      opt = opt ? caro.assign({
+      opt = opt ? cf.assign({
         'scope': '',
         'return_scopes': true,
         'auth_type': 'rerequest'

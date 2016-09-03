@@ -3,7 +3,7 @@
 ###
 cf.regLib 'router', (cf) ->
   $ = cf.require('$')
-  caro = cf.require('caro')
+  $ = cf.require('$')
   window = cf.require('window')
   _cfg = cf.config('router')
   _isGoPage = true
@@ -33,12 +33,12 @@ cf.regLib 'router', (cf) ->
   ### 當下分頁名稱 ###
   self.pageName = ''
   ### 記錄要放置分頁的資料夾路徑 ###
-  self.templateDir = caro.addTail(_cfg.templateDir or '', '/')
+  self.templateDir = cf.addTail(_cfg.templateDir or '', '/')
   ### 記錄要載入的分頁副檔名 ###
-  self.templateExtname = if _cfg.templateExtname then caro.addHead(_cfg.templateExtname, '.') else ''
+  self.templateExtname = if _cfg.templateExtname then cf.addHead(_cfg.templateExtname, '.') else ''
 
   ### 註冊 page 載入前後的 callback ###
-  do(self, caro) ->
+  do(self) ->
     regPageCb = (type, fn, index = 50) ->
       pageObj = self['_' + type]
       pageObj[index] = [] unless pageObj[index]
@@ -46,11 +46,17 @@ cf.regLib 'router', (cf) ->
       return
 
     ### 註冊 [當 Router 準備換頁前] 要執行的 function ###
-    self.regBefPage = caro.partial(regPageCb, 'befPage')
+    self.regBefPage = (fn, index) ->
+      regPageCb('befPage', fn, index)
+      return
     ### 註冊 [當 Router 載入分頁前] 要執行的 function ###
-    self.regPrePage = caro.partial(regPageCb, 'prePage')
+    self.regPrePage = (fn, index) ->
+      regPageCb('prePage', fn, index)
+      return
     ### 註冊 [當 Router 載入分頁後] 要執行的 function ###
-    self.regAftPage = caro.partial(regPageCb, 'aftPage')
+    self.regAftPage = (fn, index) ->
+      regPageCb('aftPage', fn, index)
+      return
     ### 註冊 [當 Router 載入分頁後] 要執行的對應 function ###
     self.regPage = (pageName, fn) ->
       pageMap = self._page
@@ -65,7 +71,7 @@ cf.regLib 'router', (cf) ->
   自定義 url 規則
   e.g. http://www.sample.com.tw/#index?redirect=1 => {hash: 'index', search: 'redirect: 1'}
   ###
-  do(caro, window) ->
+  do(cf, window) ->
     location = window.location
     parseUrlHashToObj = (hash) ->
       obj =
@@ -83,7 +89,7 @@ cf.regLib 'router', (cf) ->
       return null unless search
       obj = {}
       searchArr = search.split('&')
-      caro.reduce searchArr, ((result, param) ->
+      cf.reduce searchArr, ((result, param) ->
         paramArr = param.split('=')
         key = paramArr[0]
         val = paramArr[1]
@@ -111,8 +117,8 @@ cf.regLib 'router', (cf) ->
   ### 分頁載入相關 ###
   do(cf, self, window, $) ->
     doPageFns = (pageObj, $page) ->
-      caro.forEach pageObj, (fns) ->
-        caro.forEach fns, (fn) ->
+      cf.forEach pageObj, (fns) ->
+        cf.forEach fns, (fn) ->
           fn and fn.call($page, cf)
           return
         return
@@ -151,7 +157,7 @@ cf.regLib 'router', (cf) ->
 
       unless pageMap[pageName] and pageMap[pageName].html
         fileType = opt.fileType or self.templateExtname
-        pageFile = caro.addTail(pageName, fileType)
+        pageFile = cf.addTail(pageName, fileType)
         sucCb = (html) ->
           pageMap[pageName] = {} unless pageMap[pageName]
           pageMap[pageName].html = html
@@ -159,12 +165,12 @@ cf.regLib 'router', (cf) ->
           return
         errCb = ->
           ### 嘗試換頁到 index ###
-          indexInfo = caro.find(pageMap, (val, pageName) ->
+          indexInfo = cf.find(pageMap, (val, pageName) ->
             return pageName is 'index'
           )
           return self.goPage('index') if indexInfo
           ### 嘗試換頁到第一個註冊的分頁 ###
-          pageNameArr = caro.keys(pageMap)
+          pageNameArr = cf.keys(pageMap)
           firstPage = pageNameArr[0]
           self.goPage(firstPage) if firstPage
           return

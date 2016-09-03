@@ -3,7 +3,6 @@ modal 視窗
 ###
 cf.regModule 'cfModal', (opt = {}) ->
   $self = @
-  cf = $self.cf
   $body = cf.$body
   $ = cf.require('$')
   ### 是否點選內容之外的部分就 close modal ###

@@ -4,15 +4,13 @@
 Depend on gsap
  */
 cf.regModule('cfSyncMove', function(opt) {
-  var $document, $self, $window, _aftMove, _baseX, _baseY, _befMove, _proportionX, _proportionY, _rangeX, _rangeY, _reverseX, _reverseY, _stopMove, _triggerName1, _triggerName2, caro, cf, tm, triggerFn;
+  var $document, $self, $window, _aftMove, _baseX, _baseY, _befMove, _proportionX, _proportionY, _rangeX, _rangeY, _reverseX, _reverseY, _stopMove, _triggerName1, _triggerName2, tm, triggerFn;
   if (opt == null) {
     opt = {};
   }
   $self = this;
-  cf = $self.cf;
   $window = cf.$window;
   $document = cf.$document;
-  caro = cf.require('caro');
   tm = cf.require('TweenMax');
 
   /* x 軸基準坐標, 設為 false 則不同步移動 x */
@@ -75,8 +73,8 @@ cf.regModule('cfSyncMove', function(opt) {
         _aftMove && _aftMove(infoObj);
       }
     };
-    baseX = caro.isFunction(_baseX) ? _baseX() : _baseX;
-    if (caro.isNumber(baseX)) {
+    baseX = cf.isFunction(_baseX) ? _baseX() : _baseX;
+    if (cf.isNumber(baseX)) {
       moveX = mouseX - baseX;
       targetMoveX = moveX * _proportionX;
       if (_rangeX) {
@@ -92,8 +90,8 @@ cf.regModule('cfSyncMove', function(opt) {
       infoObj.moveX = moveObj.x = targetMoveX || 0;
       infoObj.baseX = baseX;
     }
-    baseY = caro.isFunction(_baseY) ? _baseY() : _baseY;
-    if (caro.isNumber(baseY)) {
+    baseY = cf.isFunction(_baseY) ? _baseY() : _baseY;
+    if (cf.isNumber(baseY)) {
       moveY = mouseY - baseY;
       targetMoveY = moveY * _proportionY;
       if (_rangeY) {

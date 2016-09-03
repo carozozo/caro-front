@@ -235,8 +235,8 @@ cf.regLib('routeAnimate', function(cf) {
       piecePosition = nowPagePosition === 'fixed' ? 'fixed' : 'absolute';
       count = 0;
       $nextPage.hide();
-      caro.loop(function(j) {
-        caro.loop(function(i) {
+      cf.loop(function(j) {
+        cf.loop(function(i) {
           var $dom, animateObj, left, top;
           count++;
           left = nowPageLeft + (eachWidth * (i - 1));

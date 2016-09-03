@@ -4,12 +4,11 @@
 Depend on preloadjs-0.4.1
  */
 cf.regModule('cfPreLoad', function(filePathArr, opt) {
-  var $self, _onComplete, _onError, _onLoadStart, _onProgress, cf, createjs;
+  var $self, _onComplete, _onError, _onLoadStart, _onProgress, createjs;
   if (opt == null) {
     opt = {};
   }
   $self = this;
-  cf = $self.cf;
   createjs = cf.require('createjs');
 
   /* 開始讀取時觸發的 cb */

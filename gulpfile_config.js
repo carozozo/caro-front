@@ -31,7 +31,7 @@ module.exports = (function () {
   ];
   config.injectHeadArr = [
     'plugin/jquery.js',
-    'plugin/lodash.js',
+    'plugin/lodash.core.js',
     'plugin/**/*.*',
     'js/cf.js',
     'js/cf_config.js',

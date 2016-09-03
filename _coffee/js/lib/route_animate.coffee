@@ -196,8 +196,8 @@ cf.regLib 'routeAnimate', (cf) ->
       piecePosition = if nowPagePosition is 'fixed' then 'fixed' else 'absolute'
       count = 0
       $nextPage.hide()
-      caro.loop((j)->
-        caro.loop((i)->
+      cf.loop((j)->
+        cf.loop((i)->
           count++
           left = nowPageLeft + (eachWidth * (i - 1))
           top = nowPageTop + (eachHeight * (j - 1))

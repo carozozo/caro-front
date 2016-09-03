@@ -4,14 +4,13 @@
 Depend on gsap
  */
 cf.regModule('cfMouseStyle', function($mouse, opt) {
-  var $self, _delay, _triggerName, cf, tm;
+  var $self, _delay, _triggerName, tm;
   if (opt == null) {
     opt = {};
   }
 
   /* $mouse = 會跟著滑鼠移動的物件, 請放在 $self 裡面 -> 可當作是滑鼠指標 */
   $self = this;
-  cf = $self.cf;
   tm = cf.require('TweenMax');
   _triggerName = 'mousemove.cfMouseStyle';
 

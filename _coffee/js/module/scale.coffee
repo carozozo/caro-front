@@ -4,19 +4,17 @@ Depend on gsap
 ###
 cf.regModule 'cfScale', (opt = {}) ->
   $self = @
-  cf = $self.cf
-  caro = cf.require('caro')
   tm = cf.require('TweenMax')
   ### 綁定 resize 的 name space ###
   _triggerName = 'resize.cfAutoScale'
   ### 要以哪個目標的大小為依據做縮放 ###
   $target = opt.$target or cf.$window
   ### 指定觸發縮放的 $target 寬度範圍 ###
-  _startX = if caro.isNumber(opt.startX) then opt.startX else 1280
-  _endX = if caro.isNumber(opt.endX) then opt.endX else 1920
+  _startX = if cf.isNumber(opt.startX) then opt.startX else 1280
+  _endX = if cf.isNumber(opt.endX) then opt.endX else 1920
   ### 指定觸發縮放的 $target 高度範圍 ###
-  _startY = if caro.isNumber(opt.startY) then opt.startY else 720
-  _endY = if caro.isNumber(opt.endY) then opt.endY else 1080
+  _startY = if cf.isNumber(opt.startY) then opt.startY else 720
+  _endY = if cf.isNumber(opt.endY) then opt.endY else 1080
   ### 指定縮放範圍 ###
   _startScale = opt.startScale or 1
   _endScale = opt.endScale or 1.2
@@ -79,9 +77,9 @@ cf.regModule 'cfScale', (opt = {}) ->
       when 'y'
         scale = scaleY
       when 'max'
-        scale = caro.max([scaleX, scaleY])
+        scale = cf.max([scaleX, scaleY])
       when 'min'
-        scale = caro.min([scaleX, scaleY])
+        scale = cf.min([scaleX, scaleY])
     _infoObj.scaleX = scaleX
     _infoObj.scaleY = scaleY
     _infoObj.scale = scale

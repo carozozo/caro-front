@@ -18,8 +18,8 @@ cf.regModule('cfListDom', function(objArr, opt) {
 
   /* list DOM 是否是放在 after */
   isAfter = opt.isAfter === false ? false : true;
-  caro.reverse(objArr);
-  caro.forEach(objArr, function(data, i) {
+  cf.reverse(objArr);
+  cf.forEach(objArr, function(data, i) {
     var $clone, cbResult;
     $clone = $self.clone();
     if (befInsert) {
@@ -31,7 +31,7 @@ cf.regModule('cfListDom', function(objArr, opt) {
         return true;
       }
     }
-    caro.forEach(data, function(val, key) {
+    cf.forEach(data, function(val, key) {
       var $column;
       $column = $clone.find('[listKey="' + key + '"]');
       return $column.html(val);

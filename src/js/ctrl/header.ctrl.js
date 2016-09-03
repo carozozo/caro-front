@@ -1,15 +1,14 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/header.html 檔並寫入 template */
 cf.regCtrl('header', function() {
-  var $header, $headerBtn, $headerTitle, $self, bgColorArr, cf, setBgColor, tl, tl1, tm;
+  var $header, $headerBtn, $headerTitle, $self, bgColorArr, setBgColor, tl, tl1, tm;
   $self = this;
-  cf = $self.cf;
   tl = cf.require('TimelineMax');
   tm = cf.require('TweenMax');
   bgColorArr = cf.data('bgColorArr');
   setBgColor = function() {
     var color;
-    color = caro.randomPick(bgColorArr);
+    color = cf.randomPick(bgColorArr);
     tm.to($header, 1, {
       backgroundColor: color
     });
@@ -67,32 +66,32 @@ cf.regCtrl('header', function() {
         }, .005);
       });
       effectArr.push(flashX = function() {
-        caro.forEach($pieceArr, function($piece, i) {
+        cf.forEach($pieceArr, function($piece, i) {
           var tl1;
           tl1 = new tl();
           tl1.to($piece, .2, {
-            x: caro.randomInt(10, -10)
+            x: cf.randomInt(10, -10)
           }).to($piece, .2, {
             x: 0
           });
         });
       });
       effectArr.push(flashY = function() {
-        caro.forEach($pieceArr, function($piece, i) {
+        cf.forEach($pieceArr, function($piece, i) {
           var tl1;
           tl1 = new tl();
           tl1.to($piece, .2, {
-            y: caro.randomInt(10, -10)
+            y: cf.randomInt(10, -10)
           }).to($piece, .2, {
             y: 0
           });
         });
       });
       effectArr.push(detachX = function() {
-        caro.forEach($pieceArr, function($piece) {
+        cf.forEach($pieceArr, function($piece) {
           tm.to($piece, .2, {
             opacity: 0,
-            x: caro.randomInt(30, -30),
+            x: cf.randomInt(30, -30),
             delay: Math.random(),
             onComplete: function() {
               setTimeout(function() {
@@ -106,10 +105,10 @@ cf.regCtrl('header', function() {
         });
       });
       effectArr.push(detachY = function() {
-        caro.forEach($pieceArr, function($piece) {
+        cf.forEach($pieceArr, function($piece) {
           tm.to($piece, .1, {
             opacity: 0,
-            y: caro.randomInt(30, -30),
+            y: cf.randomInt(30, -30),
             delay: Math.random(),
             onComplete: function() {
               setTimeout(function() {
@@ -126,22 +125,22 @@ cf.regCtrl('header', function() {
       actionArr.push(function() {
         var effectFn;
         doPiece(27, 1);
-        effectFn = caro.randomPick(effectArr);
+        effectFn = cf.randomPick(effectArr);
         effectFn();
       });
       actionArr.push(function() {
         var effectFn;
         doPiece(1, 25);
-        effectFn = caro.randomPick(effectArr);
+        effectFn = cf.randomPick(effectArr);
         effectFn();
       });
       actionArr.push(function() {
         var effectFn;
         doPiece(5, 5);
-        effectFn = caro.randomPick(effectArr);
+        effectFn = cf.randomPick(effectArr);
         effectFn();
       });
-      caro.randomPick(actionArr)();
+      cf.randomPick(actionArr)();
     };
   });
   $headerBtn = $self.dom('.headerBtn');

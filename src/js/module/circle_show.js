@@ -4,13 +4,11 @@ DOM circle 輪播效果
 Depend on gsap
  */
 cf.regModule('cfCircleShow', function($targetList, opt) {
-  var $self, _angleDif, _brightnessDif, _brightnessMap, _cb, _currentIndex, _degreeTop, _duration, _ease, _interval, _leftMap, _minBrightness, _minScale, _radianMap, _radios, _scaleDif, _scaleMap, _targetLength, _topMap, _zIndex, _zIndexMap, caro, cf, getBrightness, getLeft, getRadians, getScale, getTop, getZindex, movePosition, tm;
+  var $self, _angleDif, _brightnessDif, _brightnessMap, _cb, _currentIndex, _degreeTop, _duration, _ease, _interval, _leftMap, _minBrightness, _minScale, _radianMap, _radios, _scaleDif, _scaleMap, _targetLength, _topMap, _zIndex, _zIndexMap, getBrightness, getLeft, getRadians, getScale, getTop, getZindex, movePosition, tm;
   if (opt == null) {
     opt = {};
   }
   $self = this;
-  cf = $self.cf;
-  caro = cf.require('caro');
   tm = cf.require('TweenMax');
 
   /* 當前 $target 的 z-index */
@@ -88,7 +86,7 @@ cf.regModule('cfCircleShow', function($targetList, opt) {
     if (_zIndexMap[i]) {
       return _zIndexMap[i];
     }
-    zIndex = _zIndex - (caro.min([i, _targetLength - i]) * 2);
+    zIndex = _zIndex - (cf.min([i, _targetLength - i]) * 2);
     if (i < _targetLength / 2) {
       zIndex++;
     }
@@ -98,16 +96,16 @@ cf.regModule('cfCircleShow', function($targetList, opt) {
     if (_brightnessMap[i]) {
       return _brightnessMap[i];
     }
-    return _brightnessMap[i] = 100 - (_brightnessDif * caro.min([i, _targetLength - i]));
+    return _brightnessMap[i] = 100 - (_brightnessDif * cf.min([i, _targetLength - i]));
   };
   getScale = function(i) {
     if (_scaleMap[i]) {
       return _scaleMap[i];
     }
-    return _scaleMap[i] = 1 - (_scaleDif * caro.min([i, _targetLength - i]));
+    return _scaleMap[i] = 1 - (_scaleDif * cf.min([i, _targetLength - i]));
   };
   movePosition = function(isSet) {
-    return caro.forEach($targetList, function($target, i) {
+    return cf.forEach($targetList, function($target, i) {
       opt = {
         y: getTop(i),
         x: getLeft(i),
@@ -129,7 +127,7 @@ cf.regModule('cfCircleShow', function($targetList, opt) {
       }
     });
   };
-  caro.forEach($targetList, function($target, i) {
+  cf.forEach($targetList, function($target, i) {
     $target.css({
       position: 'absolute',
       y: getTop(i),

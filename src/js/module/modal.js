@@ -3,12 +3,11 @@
 modal 視窗
  */
 cf.regModule('cfModal', function(opt) {
-  var $, $background, $body, $inner, $outer, $self, _aftHide, _aftShow, _basicStyle, _befHide, _befShow, _index, _isClickClose, _zIndex, cf, moduleData;
+  var $, $background, $body, $inner, $outer, $self, _aftHide, _aftShow, _basicStyle, _befHide, _befShow, _index, _isClickClose, _zIndex, moduleData;
   if (opt == null) {
     opt = {};
   }
   $self = this;
-  cf = $self.cf;
   $body = cf.$body;
   $ = cf.require('$');
 

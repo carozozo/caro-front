@@ -4,8 +4,6 @@ Depend on gsap
 ###
 cf.regModule 'cfCircleShow', ($targetList, opt = {}) ->
   $self = @
-  cf = $self.cf
-  caro = cf.require('caro')
   tm = cf.require('TweenMax')
 
   ### 當前 $target 的 z-index ###
@@ -62,20 +60,20 @@ cf.regModule 'cfCircleShow', ($targetList, opt = {}) ->
 
   getZindex = (i) ->
     return _zIndexMap[i] if _zIndexMap[i]
-    zIndex = _zIndex - (caro.min([i, _targetLength - i]) * 2)
+    zIndex = _zIndex - (cf.min([i, _targetLength - i]) * 2)
     zIndex++ if i < _targetLength / 2
     _zIndexMap[i] = zIndex
 
   getBrightness = (i) ->
     return _brightnessMap[i] if _brightnessMap[i]
-    _brightnessMap[i] = 100 - (_brightnessDif * caro.min([i, _targetLength - i]))
+    _brightnessMap[i] = 100 - (_brightnessDif * cf.min([i, _targetLength - i]))
 
   getScale = (i) ->
     return _scaleMap[i] if _scaleMap[i]
-    _scaleMap[i] = 1 - (_scaleDif * caro.min([i, _targetLength - i]))
+    _scaleMap[i] = 1 - (_scaleDif * cf.min([i, _targetLength - i]))
 
   movePosition = (isSet) ->
-    caro.forEach($targetList, ($target, i) ->
+    cf.forEach($targetList, ($target, i) ->
       opt = {
         y: getTop(i)
         x: getLeft(i)
@@ -95,7 +93,7 @@ cf.regModule 'cfCircleShow', ($targetList, opt = {}) ->
       return
     )
 
-  caro.forEach($targetList, ($target, i) ->
+  cf.forEach($targetList, ($target, i) ->
     $target.css(
       position: 'absolute'
       y: getTop(i)

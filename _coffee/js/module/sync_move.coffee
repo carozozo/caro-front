@@ -4,10 +4,8 @@ Depend on gsap
 ###
 cf.regModule 'cfSyncMove', (opt = {}) ->
   $self = @
-  cf = $self.cf
   $window = cf.$window
   $document = cf.$document
-  caro = cf.require('caro')
   tm = cf.require('TweenMax')
 
   ### x 軸基準坐標, 設為 false 則不同步移動 x ###
@@ -57,8 +55,8 @@ cf.regModule 'cfSyncMove', (opt = {}) ->
         _aftMove and _aftMove(infoObj)
         return
     }
-    baseX = if caro.isFunction(_baseX) then _baseX() else _baseX
-    if caro.isNumber(baseX)
+    baseX = if cf.isFunction(_baseX) then _baseX() else _baseX
+    if cf.isNumber(baseX)
       moveX = mouseX - baseX
       targetMoveX = moveX * _proportionX
       if _rangeX
@@ -70,8 +68,8 @@ cf.regModule 'cfSyncMove', (opt = {}) ->
       infoObj.moveX = moveObj.x = targetMoveX or 0
       infoObj.baseX = baseX
 
-    baseY = if caro.isFunction(_baseY) then _baseY() else _baseY
-    if caro.isNumber(baseY)
+    baseY = if cf.isFunction(_baseY) then _baseY() else _baseY
+    if cf.isNumber(baseY)
       moveY = mouseY - baseY
       targetMoveY = moveY * _proportionY
       if _rangeY

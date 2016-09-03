@@ -4,13 +4,11 @@
 Depend on plugin scrollTo of gsap
  */
 cf.regModule('cfScroll', function($contents, opt) {
-  var $self, _aftScroll, _basicY, _befScroll, _duration, _ease, _isLiveTop, _nowIndex, _offsetTop, _offsetTopArr, _onScroll, _triggerName, caro, cf, getContentTop, getOffsetTopArr, scrollToNowIndex, tm;
+  var $self, _aftScroll, _basicY, _befScroll, _duration, _ease, _isLiveTop, _nowIndex, _offsetTop, _offsetTopArr, _onScroll, _triggerName, getContentTop, getOffsetTopArr, scrollToNowIndex, tm;
   if (opt == null) {
     opt = {};
   }
   $self = this;
-  cf = $self.cf;
-  caro = cf.require('caro');
   tm = cf.require('TweenMax');
   $self.$$offsetTopArr = _offsetTopArr = [];
   _nowIndex = 0;
@@ -30,7 +28,7 @@ cf.regModule('cfScroll', function($contents, opt) {
   _isLiveTop = opt.isLiveTop;
 
   /* 捲動秒數, 設為 0 代表直接跳到該位置 */
-  _duration = !caro.isUndefined(opt.duration) ? opt.duration : 1;
+  _duration = !cf.isUndefined(opt.duration) ? opt.duration : 1;
 
   /* gsap 捲動 ease 效果 */
   _ease = opt.ease || Power2.easeOut;
@@ -51,7 +49,7 @@ cf.regModule('cfScroll', function($contents, opt) {
     _offsetTopArr[i] = eachTop;
   };
   getOffsetTopArr = function() {
-    caro.forEach($contents, getContentTop);
+    cf.forEach($contents, getContentTop);
   };
   scrollToNowIndex = function(duration) {
     var offset;
@@ -77,8 +75,8 @@ cf.regModule('cfScroll', function($contents, opt) {
   $self.getNowIndex = function() {
     var basicY, scrollTop;
     scrollTop = $self.scrollTop();
-    basicY = caro.isFunction(_basicY) ? _basicY() : _basicY;
-    caro.forEach(_offsetTopArr, function(offsetTop, i) {
+    basicY = cf.isFunction(_basicY) ? _basicY() : _basicY;
+    cf.forEach(_offsetTopArr, function(offsetTop, i) {
 
       /* Dom 的頂端超過基準值時, 視為閱覽當下的 Dom */
       if (scrollTop + basicY >= offsetTop) {
@@ -115,7 +113,7 @@ cf.regModule('cfScroll', function($contents, opt) {
 
   /* 重新掃描內容的高度位置 */
   $self.updateTop = function() {
-    caro.forEach($contents, getOffsetTopArr);
+    cf.forEach($contents, getOffsetTopArr);
     return $self;
   };
 

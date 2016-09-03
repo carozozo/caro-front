@@ -2,7 +2,7 @@ cf.router.regPage('module/cfPreLoad', function() {
   var $page, $percentage, $process, fileArr;
   $page = this;
   fileArr = ['cf_title1.png', 'cf_title2.png', 'cf_title3.png', 'no_such_file.png', 'cf_title4.png', 'cf_title5.png'];
-  fileArr = caro.map(fileArr, function(file) {
+  fileArr = cf.map(fileArr, function(file) {
     return 'images/' + file;
   });
   $percentage = $page.dom('#percentage');

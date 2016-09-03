@@ -70,7 +70,7 @@ cf.regModule('cfAddrDropdown', function($cityDom, $areaDom, opt) {
       $areaDom.append(createDropdown(defAreaText, defAreaVal));
       return;
     }
-    return caro.forEach(areaArr, function(area) {
+    return cf.forEach(areaArr, function(area) {
       var areaStr;
       if (!isWithCode) {
         areaStr = area.substring(3);
@@ -81,7 +81,7 @@ cf.regModule('cfAddrDropdown', function($cityDom, $areaDom, opt) {
     });
   };
   if (isIncludeIsland) {
-    caro.forEach(_addrMap, function(areaArr, city) {
+    cf.forEach(_addrMap, function(areaArr, city) {
       var islandAreaArr;
       islandAreaArr = _islandMap[city];
       if (!islandAreaArr) {
@@ -92,7 +92,7 @@ cf.regModule('cfAddrDropdown', function($cityDom, $areaDom, opt) {
   }
   $cityDom.html('').append(createDropdown(defCityText, defCityVal));
   $areaDom.html('').append(createDropdown(defAreaText, defAreaVal));
-  caro.forEach(_addrMap, function(area, city) {
+  cf.forEach(_addrMap, function(area, city) {
     if (!area) {
       return;
     }

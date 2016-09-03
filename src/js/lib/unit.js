@@ -3,14 +3,13 @@
 一些單元程式
  */
 cf.regLib('unit', function(cf) {
-  var $, _cfg, _imgPath, caro, location, self, window;
+  var $, _cfg, _imgPath, location, self, window;
   $ = cf.require('$');
-  caro = cf.require('caro');
   window = cf.require('window');
   location = cf.require('location');
   _cfg = cf.config('unit') || {};
   self = {};
-  _imgPath = _cfg.imgPath ? caro.addTail(_cfg.imgPath, '/') : 'images/';
+  _imgPath = _cfg.imgPath ? cf.addTail(_cfg.imgPath, '/') : 'images/';
 
   /* window.open 進階版 */
   self.open = function() {
@@ -55,7 +54,7 @@ cf.regLib('unit', function(cf) {
     if (imgPath == null) {
       imgPath = _imgPath;
     }
-    imgPath = caro.addTail(imgPath, '/');
+    imgPath = cf.addTail(imgPath, '/');
     setFilePath = function(path) {
       var fileName;
       fileName = path.substr(path.lastIndexOf('/') + 1);
