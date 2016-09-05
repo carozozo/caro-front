@@ -145,7 +145,6 @@ cf.regCtrl 'menu', ->
     )
   )
 
-
   tm.staggerFrom([$libBtnOuter, $moduleBtnOuter], .5,
     right: -$libBtnOuter.width() - 20
     ease: Back.easeOut.config(1.5)
