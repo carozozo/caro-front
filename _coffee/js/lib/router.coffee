@@ -3,7 +3,6 @@
 ###
 cf.regLib 'router', (cf) ->
   $ = cf.require('$')
-  $ = cf.require('$')
   window = cf.require('window')
   _cfg = cf.config('router')
   _isGoPage = true
@@ -43,20 +42,17 @@ cf.regLib 'router', (cf) ->
       pageObj = self['_' + type]
       pageObj[index] = [] unless pageObj[index]
       pageObj[index].push(fn)
-      return
+      self
 
     ### 註冊 [當 Router 準備換頁前] 要執行的 function ###
     self.regBefPage = (fn, index) ->
       regPageCb('befPage', fn, index)
-      return
     ### 註冊 [當 Router 載入分頁前] 要執行的 function ###
     self.regPrePage = (fn, index) ->
       regPageCb('prePage', fn, index)
-      return
     ### 註冊 [當 Router 載入分頁後] 要執行的 function ###
     self.regAftPage = (fn, index) ->
       regPageCb('aftPage', fn, index)
-      return
     ### 註冊 [當 Router 載入分頁後] 要執行的對應 function ###
     self.regPage = (pageName, fn) ->
       pageMap = self._page
@@ -64,7 +60,7 @@ cf.regLib 'router', (cf) ->
         pageMap[pageName] = {}
         pageMap[pageName].fn = fn
         _trace 'Page', pageName, 'registered'
-      return
+      self
     return
 
   ###
@@ -134,6 +130,9 @@ cf.regLib 'router', (cf) ->
           height: '100%'
         )
         setPage = ->
+          cf.$window.off()
+          cf.$document.off()
+          cf.$body.off()
           html = pageMap[pageName].html
           pageFn = pageMap[pageName].fn
           $page.html(html).appendTo(self.$container)
@@ -186,9 +185,6 @@ cf.regLib 'router', (cf) ->
 
     ### 換頁, 不指定分頁時會依 url hash 判斷 ###
     self.goPage = (hashName, opt) ->
-      cf.$window.off()
-      cf.$body.off()
-      cf.$document.off()
       doPageFns(self._befPage)
       pageName = self.getPageByHash(hashName) or 'index'
       search = self.getSearchByHash(hashName)
@@ -199,17 +195,17 @@ cf.regLib 'router', (cf) ->
       _trace 'Start goPage:', pageName
       window.location.hash = pageName + search
       setPageContent pageName, opt
-      return
+      self
 
     ### 阻止換頁, 執行後, router.goPage 不會被觸發 ###
     self.blockGoPage = ->
       _isGoPage = false
-      return
+      self
 
     ### 允許換頁, 執行後, router.goPage 可以被觸發 ###
     self.approveGoPage = ->
       _isGoPage = true
-      return
+      self
 
     return
 

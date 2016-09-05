@@ -5,7 +5,6 @@
 cf.regLib('router', function(cf) {
   var $, _cfg, _isGoPage, _trace, self, window;
   $ = cf.require('$');
-  $ = cf.require('$');
   window = cf.require('window');
   _cfg = cf.config('router');
   _isGoPage = true;
@@ -61,21 +60,22 @@ cf.regLib('router', function(cf) {
         pageObj[index] = [];
       }
       pageObj[index].push(fn);
+      return self;
     };
 
     /* 註冊 [當 Router 準備換頁前] 要執行的 function */
     self.regBefPage = function(fn, index) {
-      regPageCb('befPage', fn, index);
+      return regPageCb('befPage', fn, index);
     };
 
     /* 註冊 [當 Router 載入分頁前] 要執行的 function */
     self.regPrePage = function(fn, index) {
-      regPageCb('prePage', fn, index);
+      return regPageCb('prePage', fn, index);
     };
 
     /* 註冊 [當 Router 載入分頁後] 要執行的 function */
     self.regAftPage = function(fn, index) {
-      regPageCb('aftPage', fn, index);
+      return regPageCb('aftPage', fn, index);
     };
 
     /* 註冊 [當 Router 載入分頁後] 要執行的對應 function */
@@ -87,6 +87,7 @@ cf.regLib('router', function(cf) {
         pageMap[pageName].fn = fn;
         _trace('Page', pageName, 'registered');
       }
+      return self;
     };
   })(self);
 
@@ -185,6 +186,9 @@ cf.regLib('router', function(cf) {
         });
         setPage = function() {
           var html, pageFn;
+          cf.$window.off();
+          cf.$document.off();
+          cf.$body.off();
           html = pageMap[pageName].html;
           pageFn = pageMap[pageName].fn;
           $page.html(html).appendTo(self.$container);
@@ -249,9 +253,6 @@ cf.regLib('router', function(cf) {
     /* 換頁, 不指定分頁時會依 url hash 判斷 */
     self.goPage = function(hashName, opt) {
       var pageName, search;
-      cf.$window.off();
-      cf.$body.off();
-      cf.$document.off();
       doPageFns(self._befPage);
       pageName = self.getPageByHash(hashName) || 'index';
       search = self.getSearchByHash(hashName);
@@ -265,16 +266,19 @@ cf.regLib('router', function(cf) {
       _trace('Start goPage:', pageName);
       window.location.hash = pageName + search;
       setPageContent(pageName, opt);
+      return self;
     };
 
     /* 阻止換頁, 執行後, router.goPage 不會被觸發 */
     self.blockGoPage = function() {
       _isGoPage = false;
+      return self;
     };
 
     /* 允許換頁, 執行後, router.goPage 可以被觸發 */
     self.approveGoPage = function() {
       _isGoPage = true;
+      return self;
     };
   })(cf, self, window, $);
   return self;

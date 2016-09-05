@@ -121,7 +121,8 @@
         span.tip3  // $page 就是 $dom 分頁
       .tab1 alert('b');
       div });
-    .tip2 goPage([分頁路徑], [opt = {}]): 換頁, 沒參數時會依據 url 的 hash 自動判斷
+    .tip2 goPage([分頁路徑], [opt = {}]): 換頁, 沒參數時會依據 url 的 hash 自動判斷,
+      span.tip3  執行時會移除 $window, $document, $body 所有 event
       span.codeLink 程式範例
     .subTitle1 opt 參數
     div
