@@ -164,21 +164,21 @@ cf.regCtrl 'header', ->
         ease: Back.easeOut.config(3)
         delay: Math.random()
       )
-    , 1, 50)
-    $strips = $headerBg.dom('.strip')
-    setInterval(->
-      $strips.eachDom(($strip) ->
+      cf.router.regAftPage(->
+        $clone.cfSyncMove(
+          baseY: false
+          proportionX: Math.random() * .1
+          reverseX: if Math.random() > .5 then true else false
+        ).startSyncMove()
         setTimeout(->
-          tm.to($strip, Math.random() + .5,
+          tm.to($clone, Math.random() + .5,
             right: Math.random() * 300
             ease: Back.easeOut.config(Math.random() * 3)
           )
           return
-        ,Math.random() * 2000)
-        return
+        , Math.random() * 2000)
       )
-      return
-    , 10000)
+    , 1, 50)
     $strip.remove()
   )
 

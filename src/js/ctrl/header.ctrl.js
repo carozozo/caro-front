@@ -141,7 +141,7 @@ cf.regCtrl('header', function() {
   $headerBtn = $self.dom('.headerBtn');
   $headerBg = $self.dom('#headerBg');
   $headerBg.dom('.strip', function($strip) {
-    var $strips, setStrip;
+    var setStrip;
     setStrip = function($dom, obj) {
       return tm.set($dom, obj);
     };
@@ -156,23 +156,25 @@ cf.regCtrl('header', function() {
         right: right,
         opacity: Math.random()
       });
-      return tm.from($clone, 1, {
+      tm.from($clone, 1, {
         x: 300,
         ease: Back.easeOut.config(3),
         delay: Math.random()
       });
-    }, 1, 50);
-    $strips = $headerBg.dom('.strip');
-    setInterval(function() {
-      $strips.eachDom(function($strip) {
-        setTimeout(function() {
-          tm.to($strip, Math.random() + .5, {
+      return cf.router.regAftPage(function() {
+        $clone.cfSyncMove({
+          baseY: false,
+          proportionX: Math.random() * .1,
+          reverseX: Math.random() > .5 ? true : false
+        }).startSyncMove();
+        return setTimeout(function() {
+          tm.to($clone, Math.random() + .5, {
             right: Math.random() * 300,
             ease: Back.easeOut.config(Math.random() * 3)
           });
         }, Math.random() * 2000);
       });
-    }, 10000);
+    }, 1, 50);
     return $strip.remove();
   });
   tl1 = new tl();
