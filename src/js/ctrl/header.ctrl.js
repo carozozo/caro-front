@@ -154,7 +154,7 @@ cf.regCtrl('header', function() {
     ease: Back.easeOut.config(1)
   }).add($headerTitle.start).staggerFrom($headerBtn, .5, {
     opacity: 0,
-    x: -50,
+    x: 50,
     ease: Back.easeOut.config(1)
   }, .2);
   cf.router.regPrePage(function() {

@@ -13,13 +13,12 @@
   display inline-block
   position absolute
 
-
 #headerTitle
   left 30px
   bottom 20px
 
 #headerMenu
-  left 300px
+  right 30px
   bottom 15px
 
 #headerTitle, .headerTitleImg
@@ -34,24 +33,17 @@
   text-align center
   margin 0 5px
   cursor pointer
-  background rgb(35, 35, 35)
-  background -webkit-linear-gradient(top, rgba(40, 40, 40, 0.3), rgba(35, 35, 35, 0.3), rgba(10, 10, 10, 0.3), rgba(0, 0, 0, 0.3))
+  background alpha(colorDark, 0.5)
   padding 8px 18px
   border-radius 50px
-  border 2px solid rgba(0, 0, 0, 0.7)
-  border-bottom 2px solid rgba(0, 0, 0, 0.7)
-  border-top 2px solid rgba(0, 0, 0, 1)
-  color rgb(255, 255, 255)
-  color rgba(255, 255, 255, 0.8)
+  border 2px solid colorDark
+  color colorWhite
   font-family Helvetica, Arial, sans-serif
   font-weight bold
   font-size 13px
   text-decoration none
-  text-shadow 0 -1px 0 rgba(0, 0, 0, 0.75)
-  box-shadow inset 0 1px 0 rgba(255, 255, 255, 0.05)
   &:hover
-    background rgb(40, 40, 40)
-    background -webkit-linear-gradient(top, rgba(40, 40, 40, 0.6), rgba(35, 35, 35, 0.6) 50%, rgba(10, 10, 10, 0.8) 50%, rgba(0, 0, 0, 0.8))
+    background alpha(colorDark, 0.8)
 
 .githubIcon
   opacity 0.6

@@ -161,7 +161,7 @@ cf.regCtrl 'header', ->
     ease: Back.easeOut.config(1)
   ).add($headerTitle.start).staggerFrom($headerBtn, .5
     opacity: 0
-    x: -50
+    x: 50
     ease: Back.easeOut.config(1)
   , .2)
 
