@@ -191,6 +191,9 @@ input[type='text'] {
   padding: 0 10px;
   font-size: 0.9em;
 }
+#colors {
+  display: none;
+}
 #container {
   margin-top: 100px;
   margin-left: auto;

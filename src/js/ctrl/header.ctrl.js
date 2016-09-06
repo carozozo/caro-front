@@ -1,7 +1,7 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/header.html 檔並寫入 template */
 cf.regCtrl('header', function() {
-  var $header, $headerBtn, $headerTitle, $self, bgColorArr, setBgColor, tl, tl1, tm;
+  var $header, $headerBg, $headerBtn, $headerTitle, $self, bgColorArr, setBgColor, tl, tl1, tm;
   $self = this;
   tl = cf.require('TimelineMax');
   tm = cf.require('TweenMax');
@@ -139,15 +139,47 @@ cf.regCtrl('header', function() {
     setInterval(randomAnimation, 3000);
   });
   $headerBtn = $self.dom('.headerBtn');
+  $headerBg = $self.dom('#headerBg');
+  $headerBg.dom('.strip', function($strip) {
+    var $strips, setStrip;
+    setStrip = function($dom, obj) {
+      return tm.set($dom, obj);
+    };
+    caro.loop(function() {
+      var $clone, eachWidth, right;
+      $clone = $strip.clone();
+      eachWidth = Math.random() * 10;
+      right = Math.random() * 300;
+      $clone = $strip.clone().appendTo($headerBg);
+      setStrip($clone, {
+        width: eachWidth,
+        right: right,
+        opacity: Math.random()
+      });
+      return tm.from($clone, 1, {
+        x: 300,
+        ease: Back.easeOut.config(3),
+        delay: Math.random()
+      });
+    }, 1, 50);
+    $strips = $headerBg.dom('.strip');
+    setInterval(function() {
+      $strips.eachDom(function($strip) {
+        setTimeout(function() {
+          tm.to($strip, Math.random() + .5, {
+            right: Math.random() * 300,
+            ease: Back.easeOut.config(Math.random() * 3)
+          });
+        }, Math.random() * 2000);
+      });
+    }, 10000);
+    return $strip.remove();
+  });
   tl1 = new tl();
-  tl1.from($headerTitle, .5, {
+  tl1.from($headerTitle, 1, {
     opacity: 0,
-    y: -10,
-    ease: Elastic.easeOut.config(1, 0.4),
-    onComplete: function() {
-      cf.router.approveGoPage();
-      cf.router.goPage();
-    }
+    y: -50,
+    ease: Elastic.easeOut.config(1, 0.4)
   }).staggerFrom($headerBtn, .5, {
     opacity: 0,
     x: -50,
@@ -161,7 +193,6 @@ cf.regCtrl('header', function() {
 
 cf.regDocReady(function(cf) {
   var $;
-  cf.router.blockGoPage();
   $ = cf.require('$');
   $('#header').header();
 });

@@ -145,16 +145,49 @@ cf.regCtrl 'header', ->
     return
   )
   $headerBtn = $self.dom('.headerBtn')
+  $headerBg = $self.dom('#headerBg')
+  $headerBg.dom('.strip', ($strip) ->
+    setStrip = ($dom, obj) ->
+      tm.set($dom, obj)
+    caro.loop(->
+      $clone = $strip.clone()
+      eachWidth = Math.random() * 10
+      right = Math.random() * 300
+      $clone = $strip.clone().appendTo($headerBg)
+      setStrip($clone,
+        width: eachWidth
+        right: right
+        opacity: Math.random()
+      )
+      tm.from($clone, 1,
+        x: 300
+        ease: Back.easeOut.config(3)
+        delay: Math.random()
+      )
+    , 1, 50)
+    $strips = $headerBg.dom('.strip')
+    setInterval(->
+      $strips.eachDom(($strip) ->
+        setTimeout(->
+          tm.to($strip, Math.random() + .5,
+            right: Math.random() * 300
+            ease: Back.easeOut.config(Math.random() * 3)
+          )
+          return
+        ,Math.random() * 2000)
+        return
+      )
+      return
+    , 10000)
+    $strip.remove()
+  )
+
 
   tl1 = new tl()
-  tl1.from($headerTitle, .5
+  tl1.from($headerTitle, 1
     opacity: 0
-    y: -10
+    y: -50
     ease: Elastic.easeOut.config(1, 0.4)
-    onComplete: ->
-      cf.router.approveGoPage()
-      cf.router.goPage()
-      return
   ).staggerFrom($headerBtn, .5
     opacity: 0
     x: -50
@@ -169,7 +202,6 @@ cf.regCtrl 'header', ->
 , 'template/ctrl/header.html'
 
 cf.regDocReady (cf) ->
-  cf.router.blockGoPage()
   $ = cf.require('$')
   $('#header').header()
   return

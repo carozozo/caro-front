@@ -7,8 +7,10 @@ cf.router.regPage('index', function(cf) {
 });
 
 cf.regDocReady(function(cf) {
-  var bgColorArr, titleSrcArr;
-  bgColorArr = ['#7d7d7d', '#4f6a1a', '#8b181c', '#227d83', '#818124'];
+  var $, $colors, bgColorArr, titleSrcArr;
+  $ = cf.require('$');
+  $colors = $('#colors');
+  bgColorArr = [$colors.find('.colorGray2').css('color'), $colors.find('.colorGreen2').css('color'), $colors.find('.colorRed2').css('color'), $colors.find('.colorBlue2').css('color'), $colors.find('.colorYellow2').css('color')];
   titleSrcArr = ['images/cf_title1.png', 'images/cf_title2.png', 'images/cf_title3.png', 'images/cf_title4.png', 'images/cf_title5.png'];
   cf.data('titleSrcArr', titleSrcArr);
   cf.data('bgColorArr', bgColorArr);
