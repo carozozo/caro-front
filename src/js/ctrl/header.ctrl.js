@@ -1,7 +1,7 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/header.html 檔並寫入 template */
 cf.regCtrl('header', function() {
-  var $header, $headerBg, $headerBtn, $headerTitle, $self, bgColorArr, setBgColor, tl, tl1, tm;
+  var $header, $headerBtn, $headerTitle, $self, bgColorArr, setBgColor, tl, tl1, tm;
   $self = this;
   tl = cf.require('TimelineMax');
   tm = cf.require('TweenMax');
@@ -15,7 +15,6 @@ cf.regCtrl('header', function() {
   };
   $header = $self.dom();
   $headerTitle = $self.dom('#headerTitle', function($headerTitle) {
-    var $headerTitleImg, $pieceContainerArr, $pieceMapArr, detachX, detachY, doPiece, effectArr, flashX, flashY, randomAnimation, rotationX, rotationY;
     $headerTitle.onClick(function() {
       cf.router.goPage('index');
     }).on('mouseenter', function() {
@@ -28,173 +27,146 @@ cf.regCtrl('header', function() {
     }).on('mouseleave', function() {
       $headerTitle.isLeaved = true;
     });
-    $headerTitleImg = $headerTitle.dom('.headerTitleImg');
-    $pieceMapArr = [];
-    $pieceContainerArr = [];
-    doPiece = function(yPiece, xPiece) {
-      var $pieceContainer, $pieceMap;
-      $pieceMap = {
-        $pieceContainer: null,
-        $pieceArr: []
+    $headerTitle.start = function() {
+      var $headerTitleImg, $pieceContainerArr, $pieceMapArr, detachX, detachY, doPiece, effectArr, flashX, flashY, randomAnimation, rotationX, rotationY;
+      $headerTitleImg = $headerTitle.dom('.headerTitleImg');
+      $pieceMapArr = [];
+      $pieceContainerArr = [];
+      doPiece = function(yPiece, xPiece) {
+        var $pieceContainer, $pieceMap;
+        $pieceMap = {
+          $pieceContainer: null,
+          $pieceArr: []
+        };
+        $headerTitleImg.show().cfPiece(yPiece, xPiece, {
+          aftPiece: function($piece, yIndex, xIndex) {
+            $piece.yIndex = yIndex;
+            $piece.xIndex = xIndex;
+            $pieceMap.$pieceArr.push($piece);
+          }
+        });
+        $pieceContainer = $pieceMap.$pieceContainer = $headerTitleImg.$pieceContainer;
+        $pieceContainerArr.push($pieceContainer);
+        $pieceMapArr.push($pieceMap);
       };
-      $headerTitleImg.show().cfPiece(yPiece, xPiece, {
-        aftPiece: function($piece, yIndex, xIndex) {
-          $piece.yIndex = yIndex;
-          $piece.xIndex = xIndex;
-          $pieceMap.$pieceArr.push($piece);
-        }
-      });
-      $pieceContainer = $pieceMap.$pieceContainer = $headerTitleImg.$pieceContainer;
-      $pieceContainerArr.push($pieceContainer);
-      $pieceMapArr.push($pieceMap);
-    };
-    doPiece(27, 1);
-    doPiece(1, 25);
-    doPiece(5, 5);
-    effectArr = [];
-    effectArr.push(rotationX = function($pieceArr) {
-      var tl1;
-      tl1 = new tl();
-      tl1.staggerFromTo($pieceArr, .5, {
-        rotationX: 0
-      }, {
-        rotationX: 360
-      }, .005);
-    });
-    effectArr.push(rotationY = function($pieceArr) {
-      var tl1;
-      tl1 = new tl();
-      tl1.staggerFromTo($pieceArr, .5, {
-        rotationY: 0
-      }, {
-        rotationY: 360
-      }, .005);
-    });
-    effectArr.push(flashX = function($pieceArr) {
-      cf.forEach($pieceArr, function($piece) {
+      doPiece(27, 1);
+      doPiece(1, 25);
+      doPiece(5, 5);
+      effectArr = [];
+      effectArr.push(rotationX = function($pieceArr) {
         var tl1;
         tl1 = new tl();
-        tl1.to($piece, .2, {
-          x: cf.randomInt(10, -10)
-        }).to($piece, .2, {
-          x: 0
-        });
+        tl1.staggerFromTo($pieceArr, .5, {
+          rotationX: 0
+        }, {
+          rotationX: 360
+        }, .005);
       });
-    });
-    effectArr.push(flashY = function($pieceArr) {
-      cf.forEach($pieceArr, function($piece, i) {
+      effectArr.push(rotationY = function($pieceArr) {
         var tl1;
         tl1 = new tl();
-        tl1.to($piece, .2, {
-          y: cf.randomInt(10, -10)
-        }).to($piece, .2, {
-          y: 0
+        tl1.staggerFromTo($pieceArr, .5, {
+          rotationY: 0
+        }, {
+          rotationY: 360
+        }, .005);
+      });
+      effectArr.push(flashX = function($pieceArr) {
+        cf.forEach($pieceArr, function($piece) {
+          var tl1;
+          tl1 = new tl();
+          tl1.to($piece, .2, {
+            x: cf.randomInt(10, -10)
+          }).to($piece, .2, {
+            x: 0
+          });
         });
       });
-    });
-    effectArr.push(detachX = function($pieceArr) {
-      cf.forEach($pieceArr, function($piece) {
-        tm.to($piece, .2, {
-          opacity: 0,
-          x: cf.randomInt(30, -30),
-          delay: Math.random(),
-          onComplete: function() {
-            setTimeout(function() {
-              return tm.set($piece, {
-                opacity: 1,
-                x: 0
-              });
-            }, 1000);
-          }
+      effectArr.push(flashY = function($pieceArr) {
+        cf.forEach($pieceArr, function($piece, i) {
+          var tl1;
+          tl1 = new tl();
+          tl1.to($piece, .2, {
+            y: cf.randomInt(10, -10)
+          }).to($piece, .2, {
+            y: 0
+          });
         });
       });
-    });
-    effectArr.push(detachY = function($pieceArr) {
-      cf.forEach($pieceArr, function($piece) {
-        tm.to($piece, .1, {
-          opacity: 0,
-          y: cf.randomInt(30, -30),
-          delay: Math.random(),
-          onComplete: function() {
-            setTimeout(function() {
-              return tm.set($piece, {
-                opacity: 1,
-                y: 0
-              });
-            }, 1000);
-          }
+      effectArr.push(detachX = function($pieceArr) {
+        cf.forEach($pieceArr, function($piece) {
+          tm.to($piece, .2, {
+            opacity: 0,
+            x: cf.randomInt(30, -30),
+            delay: Math.random(),
+            onComplete: function() {
+              setTimeout(function() {
+                return tm.set($piece, {
+                  opacity: 1,
+                  x: 0
+                });
+              }, 1000);
+            }
+          });
         });
       });
-    });
-    randomAnimation = function() {
-      var $pieceMap, effectFn;
-      effectFn = cf.randomPick(effectArr);
-      $pieceMap = cf.randomPick($pieceMapArr);
-      cf.forEach($pieceContainerArr, function($pieceContainer) {
-        $pieceContainer.hide();
+      effectArr.push(detachY = function($pieceArr) {
+        cf.forEach($pieceArr, function($piece) {
+          tm.to($piece, .1, {
+            opacity: 0,
+            y: cf.randomInt(30, -30),
+            delay: Math.random(),
+            onComplete: function() {
+              setTimeout(function() {
+                return tm.set($piece, {
+                  opacity: 1,
+                  y: 0
+                });
+              }, 1000);
+            }
+          });
+        });
       });
-      $pieceMap.$pieceContainer.show();
-      effectFn($pieceMap.$pieceArr);
+      randomAnimation = function() {
+        var $pieceMap, effectFn;
+        effectFn = cf.randomPick(effectArr);
+        $pieceMap = cf.randomPick($pieceMapArr);
+        cf.forEach($pieceContainerArr, function($pieceContainer) {
+          $pieceContainer.hide();
+        });
+        $pieceMap.$pieceContainer.show();
+        effectFn($pieceMap.$pieceArr);
+      };
+      setInterval(randomAnimation, 3000);
     };
-    setInterval(randomAnimation, 3000);
   });
   $headerBtn = $self.dom('.headerBtn');
-  $headerBg = $self.dom('#headerBg');
-  $headerBg.dom('.strip', function($strip) {
-    var setStrip;
-    setStrip = function($dom, obj) {
-      return tm.set($dom, obj);
-    };
-    caro.loop(function() {
-      var $clone, eachWidth, right;
-      $clone = $strip.clone();
-      eachWidth = Math.random() * 10;
-      right = Math.random() * 300;
-      $clone = $strip.clone().appendTo($headerBg);
-      setStrip($clone, {
-        width: eachWidth,
-        right: right,
-        opacity: Math.random()
-      });
-      tm.from($clone, 1, {
-        x: 300,
-        ease: Back.easeOut.config(3),
-        delay: Math.random()
-      });
-      return cf.router.regAftPage(function() {
-        $clone.cfSyncMove({
-          baseY: false,
-          proportionX: Math.random() * .1,
-          reverseX: Math.random() > .5 ? true : false
-        }).startSyncMove();
-        return setTimeout(function() {
-          tm.to($clone, Math.random() + .5, {
-            right: Math.random() * 300,
-            ease: Back.easeOut.config(Math.random() * 3)
-          });
-        }, Math.random() * 2000);
-      });
-    }, 1, 50);
-    return $strip.remove();
+  tl1 = new tl({
+    onComplete: function() {
+      cf.router.approveGoPage().goPage();
+    }
   });
-  tl1 = new tl();
-  tl1.from($headerTitle, 1, {
-    opacity: 0,
-    y: -50,
-    ease: Elastic.easeOut.config(1, 0.4)
-  }).staggerFrom($headerBtn, .5, {
+  tl1.from($self, .5, {
+    height: 0,
+    ease: Back.easeOut.config(3)
+  }).from($headerTitle, .5, {
+    x: -500,
+    ease: Back.easeOut.config(1)
+  }).add($headerTitle.start).staggerFrom($headerBtn, .5, {
     opacity: 0,
     x: -50,
-    ease: Back.easeOut.config(2)
+    ease: Back.easeOut.config(1)
   }, .2);
   cf.router.regPrePage(function() {
     setBgColor();
   });
+  setBgColor();
   return $self;
 }, 'template/ctrl/header.html');
 
 cf.regDocReady(function(cf) {
   var $;
+  cf.router.blockGoPage();
   $ = cf.require('$');
   $('#header').header();
 });
