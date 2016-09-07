@@ -51,9 +51,50 @@ cf.regCtrl 'commonPage', ->
       return
     )
     cf.randomPick(actArr)()
-    $mainTitle.init = ->
-      $mainTitle.width('100%')
-      return
+    return
+  )
+
+  $contentArr = $self.dom('.content').coverToArr(($content, i) ->
+    rotationY = 30
+    rotationY = if i % 2 is 0 then rotationY else -rotationY
+    tm.set($content,
+      transformPerspective: 2000
+      rotationY: rotationY
+    )
+    $content.isOpen = false
+    $content.$title = $title = $content.dom('.title', ($title) ->
+      colorIndex = i % 5 + 1
+      $title.aClass('title' + colorIndex).onClick(->
+        unless $content.isOpen
+          $content.isOpen = true
+          tm.to($content, .4,
+            scale: 1
+            rotationY: 0
+          )
+          $subContent.slideDown()
+        else
+          $content.isOpen = false
+          tm.to($content, .4,
+            rotationY: rotationY
+          )
+          $subContent.slideUp()
+        return
+      ).on('mouseenter', ->
+        return if $content.isOpen
+        tm.to($content, .4,
+          scale: 1.02
+        )
+      ).on('mouseleave', ->
+        return if $content.isOpen
+        tm.to($content, .4,
+          scale: 1
+        )
+      )
+    )
+
+    $subContent = $title.next('div').addClass('subContent').css(
+      position: 'relative'
+    ).hide()
     return
   )
 
@@ -87,54 +128,26 @@ cf.regCtrl 'commonPage', ->
     return
   )
 
-  $titles = $self.dom('.title').eachDom(($title, i) ->
-    $subContent = $title.next('div').addClass('subContent').css(
-      position: 'relative'
-    ).hide()
-    colorIndex = i % 5 + 1
-    $title.aClass('title' + colorIndex).onClick(->
-      $subContent.slideToggle()
-      return
-    )
-    $title.isOpen = true
-    color = $title.css('color')
-    $title.on('mouseover', ->
-      tm.to($title, .4,
-        x: 10
-        color: '#fff'
-      )
-    ).on('mouseleave', ->
-      tm.to($title, .4,
-        x: 0
-        color: color
-      )
-    )
-    return
-  )
-
-  distance = 30
-  directionOptArr = [{x: -distance}, {x: distance}, {y: -distance}, {y: distance}]
-  directionOpt = cf.randomPick(directionOptArr)
-  titleOpt =
-    opacity: 0
-    rotationX: 90
-    transformPerspective: 600
-  for key, val of directionOpt
-    titleOpt[key] = val
   tl1 = new tl()
   tl1.from($mainTitle, .7,
-    width: 0
-    delay: .5
-  ).add($mainTitle.init).staggerFromTo($titles, .3, titleOpt, {
-    x: 0
+    width: '0%'
+  )
+  .staggerFromTo('.title', .3, {
+    opacity: 0
+    rotationX: 90
+    y: -50
+  }, {
     y: 0
     opacity: 1
     rotationX: 0
-  }, .2, '-=0.5', ->
+  }, .2, '-=0.5')
+  .add(->
     if cf.router.pageName is 'index'
-      $($('.subContent')[0]).slideDown()
+      $contentArr[0].$title.click()
     else
-      $('.subContent').slideDown()
+      caro.forEach($contentArr, ($content) ->
+        $content.$title.click()
+      )
     return
   )
 
