@@ -55,38 +55,23 @@ cf.regCtrl 'commonPage', ->
   )
 
   $contentArr = $self.dom('.content').coverToArr(($content, i) ->
-    rotationY = 30
-    rotationY = if i % 2 is 0 then rotationY else -rotationY
-    tm.set($content,
-      transformPerspective: 2000
-      rotationY: rotationY
-    )
     $content.isOpen = false
     $content.$title = $title = $content.dom('.title', ($title) ->
       colorIndex = i % 5 + 1
       $title.aClass('title' + colorIndex).onClick(->
         unless $content.isOpen
           $content.isOpen = true
-          tm.to($content, .4,
-            scale: 1
-            rotationY: 0
-          )
           $subContent.slideDown()
         else
           $content.isOpen = false
-          tm.to($content, .4,
-            rotationY: rotationY
-          )
           $subContent.slideUp()
         return
       ).on('mouseenter', ->
-        return if $content.isOpen
-        tm.to($content, .4,
+        tm.to($title, .4,
           scale: 1.02
         )
       ).on('mouseleave', ->
-        return if $content.isOpen
-        tm.to($content, .4,
+        tm.to($title, .4,
           scale: 1
         )
       )

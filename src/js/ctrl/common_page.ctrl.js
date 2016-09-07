@@ -58,13 +58,7 @@ cf.regCtrl('commonPage', function() {
     cf.randomPick(actArr)();
   });
   $contentArr = $self.dom('.content').coverToArr(function($content, i) {
-    var $subContent, $title, rotationY;
-    rotationY = 30;
-    rotationY = i % 2 === 0 ? rotationY : -rotationY;
-    tm.set($content, {
-      transformPerspective: 2000,
-      rotationY: rotationY
-    });
+    var $subContent, $title;
     $content.isOpen = false;
     $content.$title = $title = $content.dom('.title', function($title) {
       var colorIndex;
@@ -72,30 +66,17 @@ cf.regCtrl('commonPage', function() {
       return $title.aClass('title' + colorIndex).onClick(function() {
         if (!$content.isOpen) {
           $content.isOpen = true;
-          tm.to($content, .4, {
-            scale: 1,
-            rotationY: 0
-          });
           $subContent.slideDown();
         } else {
           $content.isOpen = false;
-          tm.to($content, .4, {
-            rotationY: rotationY
-          });
           $subContent.slideUp();
         }
       }).on('mouseenter', function() {
-        if ($content.isOpen) {
-          return;
-        }
-        return tm.to($content, .4, {
+        return tm.to($title, .4, {
           scale: 1.02
         });
       }).on('mouseleave', function() {
-        if ($content.isOpen) {
-          return;
-        }
-        return tm.to($content, .4, {
+        return tm.to($title, .4, {
           scale: 1
         });
       });
