@@ -92,6 +92,7 @@ body {
   background-color: #252525;
 }
 body {
+  position: relative;
   margin: 0;
   padding: 0;
   font-size: 20px;
@@ -123,8 +124,7 @@ input[type='text'] {
 .btn1 {
   cursor: pointer;
   display: inline-block;
-  background: #252525;
-  background: -webkit-linear-gradient(top, rgba(230,230,230,0.5), rgba(177,177,177,0.4) 50%, rgba(108,108,108,0.4) 50%, rgba(147,147,147,0.5));
+  background: rgba(88,88,88,0.7);
   padding: 2px 18px;
   border-radius: 10px;
   font-weight: bold;
@@ -135,14 +135,12 @@ input[type='text'] {
   margin-right: 5px;
 }
 .btn1:hover {
-  background: #585858;
-  background: -webkit-linear-gradient(top, rgba(201,201,201,0.9), rgba(144,144,144,0.8) 50%, rgba(77,77,77,0.8) 50%, rgba(117,117,117,0.9));
+  background: rgba(88,88,88,0.9);
 }
 .btn2 {
   cursor: pointer;
   display: inline-block;
-  background: #585858;
-  background: -webkit-linear-gradient(top, rgba(40,40,40,0.8), rgba(35,35,35,0.7) 50%, rgba(10,10,10,0.7) 50%, rgba(0,0,0,0.8));
+  background: rgba(37,37,37,0.7);
   padding: 2px 18px;
   border-radius: 10px;
   font-weight: bold;
@@ -153,8 +151,7 @@ input[type='text'] {
   margin-right: 5px;
 }
 .btn2:hover {
-  background: #7d7d7d;
-  background: -webkit-linear-gradient(top, rgba(40,40,40,0.9), rgba(35,35,35,0.8) 50%, rgba(10,10,10,0.8) 50%, rgba(0,0,0,0.9));
+  background: rgba(37,37,37,0.9);
 }
 .input40 {
   width: 40px;
@@ -195,12 +192,13 @@ input[type='text'] {
   display: none;
 }
 #container {
-  margin-top: 80px;
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
+  top: 80px;
+  left: 10%;
   width: 80%;
   min-width: 600px;
   padding: 20px 10px;
+  z-index: 10;
 }
 .mainTitle {
   overflow: hidden;
