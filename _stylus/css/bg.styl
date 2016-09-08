@@ -4,18 +4,23 @@
   position fixed
   width 100%
   height 100%
-  overflow: hidden
+  overflow hidden
   z-index 5
 
-#bgContainer
+#bgFloor
   position absolute
-  top 10%
-  width 100%
-  height 100%
+  top: 50%
   opacity .2
 
 .bgBlock
   position absolute
-  background colorGray1
   width 20px
   height 20px
+
+.bgBlock1
+  @extend .bgBlock
+  background colorGray1
+
+.bgBlock2
+  @extend .bgBlock
+  background colorGray2

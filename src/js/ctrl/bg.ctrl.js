@@ -1,38 +1,54 @@
 cf.regCtrl('bg', function() {
-  var $bgContainer, $self, tm;
+  var $bgFloor, $self, bgFloorHeight, bgFloorWidth, blockAmount, blockHeight, blockWidth, tm;
   $self = this;
   tm = cf.require('TweenMax');
-  $bgContainer = $('<div/>').attr('id', 'bgContainer').appendTo($self);
-  caro.loop(function(i) {
-    caro.loop(function(j) {
-      $('<div/>').addClass('bgBlock').css({
-        top: i * 30,
-        left: j * 30
-      }).appendTo($bgContainer);
-    }, 1, 70);
-  }, 1, 35);
-  tm.set($bgContainer, {
-    transformPerspective: 500,
-    rotationX: 85
+  $bgFloor = $('<div/>').attr('id', 'bgFloor').appendTo($self);
+  blockWidth = 30;
+  blockHeight = 30;
+  blockAmount = 50;
+  bgFloorWidth = blockWidth * blockAmount;
+  bgFloorHeight = blockHeight * blockAmount;
+  cf.loop(function(i) {
+    cf.loop(function(j) {
+      $('<div/>').addClass((i + j) % 2 === 0 ? 'bgBlock1' : 'bgBlock2').css({
+        top: i * blockHeight,
+        left: j * blockWidth
+      }).appendTo($bgFloor);
+    }, 1, blockAmount);
+  }, 1, blockAmount);
+  tm.set($bgFloor, {
+    transformPerspective: 1500,
+    rotationX: 80
+  });
+  tm.from($bgFloor, 3, {
+    opacity: 0,
+    rotationX: 0
   });
   cf.router.regPrePage(function() {
-    return tm.to('#bgContainer', 1, {
-      x: cf.randomInt(0, -500),
-      rotationX: cf.randomInt(89, 70)
-    });
-  });
-  cf.router.regAftPage(function() {
-    var $window;
-    $window = cf.$window;
-    $window.on('scroll', function() {
-      var left, scrollTop, top;
-      scrollTop = $window.scrollTop();
-      left = scrollTop / 10;
-      top = scrollTop / 100;
-      tm.to($bgContainer, .5, {
-        x: -left,
-        y: -top
+    var bindMouse, randX, randY;
+    bindMouse = function() {
+      var $window;
+      $window = cf.$window;
+      $window.on('mousemove', function(e) {
+        var distX, distY, mouseX, mouseY;
+        mouseX = e.pageX - $window.scrollLeft();
+        mouseY = e.pageY - $window.scrollTop();
+        distX = mouseX / 100;
+        distY = mouseY / 100;
+        return tm.to($bgFloor, 0, {
+          x: randX - distX,
+          y: randY - distY
+        });
       });
+    };
+    randX = bgFloorWidth / 2;
+    randX = cf.randomInt(0, -randX);
+    randY = bgFloorHeight / 8;
+    randY = cf.randomInt(randY);
+    tm.to($bgFloor, 1, {
+      x: randX,
+      y: randY,
+      onComplete: bindMouse
     });
   });
   return $self;
