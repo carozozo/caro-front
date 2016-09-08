@@ -10,7 +10,6 @@
 #bgFloor
   position absolute
   top: 50%
-  opacity .2
 
 .bgBlock
   position absolute
@@ -19,8 +18,8 @@
 
 .bgBlock1
   @extend .bgBlock
-  background colorGray1
+  background alpha(colorGray1, 0.2)
 
 .bgBlock2
   @extend .bgBlock
-  background colorGray2
+  background alpha(colorGray2, 0.2)
