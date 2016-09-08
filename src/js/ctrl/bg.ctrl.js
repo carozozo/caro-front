@@ -1,7 +1,8 @@
 cf.regCtrl('bg', function() {
-  var $bgFloor, $self, bgFloorHeight, bgFloorWidth, blockAmount, blockHeight, blockWidth, tm;
+  var $, $bgFloor, $self, bgFloorHeight, bgFloorWidth, blockAmount, blockHeight, blockWidth, tm;
   $self = this;
   tm = cf.require('TweenMax');
+  $ = cf.require('$');
   $bgFloor = $('<div/>').attr('id', 'bgFloor').appendTo($self);
   blockWidth = 30;
   blockHeight = 30;
@@ -23,6 +24,9 @@ cf.regCtrl('bg', function() {
   tm.from($bgFloor, 3, {
     opacity: 0,
     rotationX: 0
+  });
+  tm.from('#container', 3, {
+    opacity: 0
   });
   cf.router.regPrePage(function() {
     var bindMouse, randX, randY;

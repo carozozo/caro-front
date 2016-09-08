@@ -1,6 +1,7 @@
 cf.regCtrl 'bg', ->
   $self = @
   tm = cf.require('TweenMax')
+  $ = cf.require('$')
 
   $bgFloor = $('<div/>').attr('id', 'bgFloor').appendTo($self)
   blockWidth = 30
@@ -25,6 +26,9 @@ cf.regCtrl 'bg', ->
   tm.from($bgFloor, 3
     opacity: 0
     rotationX: 0
+  )
+  tm.from('#container', 3
+    opacity: 0
   )
 
   cf.router.regPrePage(->
