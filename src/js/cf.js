@@ -4,7 +4,7 @@ CaroFront 核心程式
  */
 (function(window, $, caro) {
   var _ctrl, _docReady, _module, _trace, genTraceFn, ifUrlPathMustMatchAndGetUrl, self;
-  self = caro || {};
+  self = caro;
 
   /* 儲存從 config 讀取到的設定 */
   self.$$config = {};

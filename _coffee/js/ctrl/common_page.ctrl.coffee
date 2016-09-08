@@ -130,7 +130,7 @@ cf.regCtrl 'commonPage', ->
     if cf.router.pageName is 'index'
       $contentArr[0].$title.click()
     else
-      caro.forEach($contentArr, ($content) ->
+      cf.forEach($contentArr, ($content) ->
         $content.$title.click()
       )
     return

@@ -124,7 +124,7 @@ cf.regCtrl('commonPage', function() {
     if (cf.router.pageName === 'index') {
       $contentArr[0].$title.click();
     } else {
-      caro.forEach($contentArr, function($content) {
+      cf.forEach($contentArr, function($content) {
         return $content.$title.click();
       });
     }
