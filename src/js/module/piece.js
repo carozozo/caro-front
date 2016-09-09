@@ -72,5 +72,11 @@ cf.regModule('cfPiece', function(particleY, particleX, opt) {
       _aftPiece && _aftPiece($piece, i, j);
     }, 0, particleX - 1);
   }, 0, particleY - 1);
+
+  /* 回復成切割前的狀態 */
+  $self.reversePiece = function() {
+    $self.$pieceContainer.remove();
+    return $self.show();
+  };
   return $self.hide();
 });

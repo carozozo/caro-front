@@ -65,7 +65,7 @@ cf.regModule('cfSplitText', function(opt) {
   }
 
   /* 回復成原本的 text 內容 */
-  $self.reverse = function() {
+  $self.reverseText = function() {
     $self.text(originText);
     return $self;
   };

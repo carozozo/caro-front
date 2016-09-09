@@ -46,7 +46,7 @@ cf.regModule 'cfSplitText', (opt = {}) ->
     splitChar($self, true)
 
   ### 回復成原本的 text 內容 ###
-  $self.reverse = ->
+  $self.reverseText = ->
     $self.text(originText)
     $self
 

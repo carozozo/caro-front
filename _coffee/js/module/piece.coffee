@@ -57,4 +57,9 @@ cf.regModule 'cfPiece', (particleY = 3, particleX = 3, opt = {}) ->
     return
   , 0, particleY - 1)
 
+  ### 回復成切割前的狀態 ###
+  $self.reversePiece = ->
+    $self.$pieceContainer.remove()
+    $self.show()
+
   $self.hide()

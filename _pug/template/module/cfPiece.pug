@@ -9,7 +9,8 @@
       span.tab1 x 切成
       input#particleX.input40(type='text', value='3')
       | 等份
-      #seperateBtn.tab1.btn2 分割
+      #seperateBtn.btn2 分割
+      #reverseBtn.btn2 回復
     .separator1
     div 滑鼠移到圖片上可看到切片的順序
     .separator1
@@ -63,3 +64,7 @@
     div
       div $pieceContainer: 外部切片的容器, 繼承 $self 的 css position 屬性
       div $pieceInnerContainer: 內部切片容器, 協助切片定位
+.content
+  .title 函式
+  div
+    .tip2 reversePiece: 回復成切割前的狀態

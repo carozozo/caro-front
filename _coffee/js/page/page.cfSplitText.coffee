@@ -11,7 +11,7 @@ cf.router.regPage 'module/cfSplitText', (cf) ->
     return
 
   reverseText = ->
-    $demoText.reverse and $demoText.reverse()
+    $demoText.reverseText and $demoText.reverseText()
 
   $demoText = $page.dom('#demoText')
   $page.dom('#charBtn').onClick(->

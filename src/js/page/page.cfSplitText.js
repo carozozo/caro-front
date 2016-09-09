@@ -10,7 +10,7 @@ cf.router.regPage('module/cfSplitText', function(cf) {
     });
   };
   reverseText = function() {
-    return $demoText.reverse && $demoText.reverse();
+    return $demoText.reverseText && $demoText.reverseText();
   };
   $demoText = $page.dom('#demoText');
   $page.dom('#charBtn').onClick(function() {

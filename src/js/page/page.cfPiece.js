@@ -1,5 +1,5 @@
 cf.router.regPage('module/cfPiece', function(cf) {
-  var $blockMain, $page, $particleX, $particleY, setInput, tm;
+  var $blockMain, $page, $particleX, $particleY, blockMainHeight, setInput, tm;
   $page = this;
   tm = cf.require('TweenMax');
   setInput = function($input) {
@@ -12,12 +12,13 @@ cf.router.regPage('module/cfPiece', function(cf) {
   $particleX = $page.dom('#particleX');
   $particleY = $page.dom('#particleY');
   $blockMain = $page.dom('#blockMain');
+  blockMainHeight = null;
   $page.dom('#seperateBtn').onClick(function() {
     var particleX, particleY;
-    $blockMain.$pieceContainer && $blockMain.$pieceContainer.remove();
+    $blockMain.reversePiece && $blockMain.reversePiece();
     particleX = setInput($particleX);
     particleY = setInput($particleY);
-    $blockMain.show().cfPiece(particleY, particleX, {
+    $blockMain.cfPiece(particleY, particleX, {
       aftPiece: function($piece, yIndex, xIndex) {
         var $content, msg;
         msg = yIndex + '-' + xIndex;
@@ -41,10 +42,13 @@ cf.router.regPage('module/cfPiece', function(cf) {
           'margin-top': yIndex
         });
       }
-    }).css('margin-top', 50);
-    $blockMain.$pieceContainer.css({
-      height: $blockMain.height()
     });
+    $blockMain.$pieceContainer.css({
+      height: blockMainHeight || (blockMainHeight = $blockMain.height())
+    });
+  });
+  $page.dom('#reverseBtn').onClick(function() {
+    $blockMain.reversePiece && $blockMain.reversePiece();
   });
   return $page;
 });

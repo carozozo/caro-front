@@ -10,12 +10,13 @@ cf.router.regPage 'module/cfPiece', (cf) ->
   $particleX = $page.dom('#particleX')
   $particleY = $page.dom('#particleY')
   $blockMain = $page.dom('#blockMain')
+  blockMainHeight = null
 
   $page.dom('#seperateBtn').onClick(->
-    $blockMain.$pieceContainer and $blockMain.$pieceContainer.remove()
+    $blockMain.reversePiece and $blockMain.reversePiece()
     particleX = setInput($particleX)
     particleY = setInput($particleY)
-    $blockMain.show().cfPiece(particleY, particleX, {
+    $blockMain.cfPiece(particleY, particleX, {
       aftPiece: ($piece, yIndex, xIndex) ->
         msg = yIndex + '-' + xIndex
         $content = $('<div/>').css(
@@ -38,11 +39,15 @@ cf.router.regPage 'module/cfPiece', (cf) ->
           'margin-top': yIndex
         )
         return
-    }).css('margin-top', 50)
+    })
     $blockMain.$pieceContainer.css(
-      height: $blockMain.height()
+      height: blockMainHeight or blockMainHeight = $blockMain.height()
     )
     return
   )
 
+  $page.dom('#reverseBtn').onClick(->
+    $blockMain.reversePiece and $blockMain.reversePiece()
+    return
+  )
   $page

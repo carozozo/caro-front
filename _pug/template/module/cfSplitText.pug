@@ -26,7 +26,7 @@
         .separator2
         div.subTitle2 js
         div
-          div var $img = $('#demoText').cfSplitText({
+          div var $demoText = $('#demoText').cfSplitText({
           .tab1 isToChar: true,
           .tab1 isToWord: true,
           .tab1 charCb: function($char) {
@@ -36,6 +36,7 @@
           .tab2 ...
           .tab1 }
           div });
+          div $demoText.reverseText();
         .separator2
         .subTitle2 產生的切片 html 結構
         div
@@ -62,4 +63,4 @@
 .content
   .title 函式
   div
-    .tip2 reverse: 回復成原本的 text 內容
+    .tip2 reverseText: 回復成原本的 text 內容
