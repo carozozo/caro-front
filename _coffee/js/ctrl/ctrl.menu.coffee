@@ -7,26 +7,26 @@ cf.regCtrl 'menu', ->
 
   showItems = ($items) ->
     cf.forEach($items, ($item, i) ->
-      tm.set($item, y: 0)
-      distance = 30
-      directionArr = [{x: -distance}, {x: distance}, {y: -distance}, {y: distance}]
-      direction = cf.randomPick(directionArr)
       delay = i * .05
-      animateObj =
-        opacity: 0
-      for key, val of direction
-        animateObj[key] = val
       color = cf.randomPick(bgColorArr)
       $item.css(
         background: color
       )
-      tm.fromTo($item, .3, animateObj,
+      tm.fromTo($item, 1, {
+        scale: cf.randomNum(1)
+        opacity: 0
+        x: cf.randomInt(200, -200)
+        y: cf.randomInt(200, -200)
+      }, {
+        scale: 1
         opacity: 1
-        x: 0
-        y: 0
+        bezier: [
+          {x: cf.randomInt(200, -200), y: cf.randomInt(200, -200)}
+          {x: 0, y: 0}
+        ]
         ease: Back.easeOut.config(1)
         delay: delay
-      )
+      })
     )
     return
 

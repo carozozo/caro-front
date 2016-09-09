@@ -47,6 +47,9 @@ cf.regLib('routeAnimate', function(cf) {
             position: position,
             transform: ''
           });
+          _router.$container.css({
+            overflow: ''
+          });
           approveGo(_router, done);
         }
       });
@@ -86,6 +89,9 @@ cf.regLib('routeAnimate', function(cf) {
           $nextPage.css({
             position: position,
             transform: ''
+          });
+          _router.$container.css({
+            overflow: ''
           });
           approveGo(_router, done);
         }
@@ -203,7 +209,7 @@ cf.regLib('routeAnimate', function(cf) {
     }
     _router = cf.router;
     _router._transitionFn = function(cf, $nowPage, $nextPage, done) {
-      var count, duration, eachHeight, eachWidth, halfDuration, halfParticleX, halfParticleY, nowPageHeight, nowPageLeft, nowPageOffset, nowPagePosition, nowPageTop, nowPageWidth, particleAll, particleX, particleY, piecePosition;
+      var $pieceContainer, $pieceInnerContainer, count, duration, eachHeight, eachWidth, halfDuration, halfParticleX, halfParticleY, nowPageHeight, nowPageLeft, nowPageOffset, nowPagePosition, nowPageTop, nowPageWidth, particleAll, particleX, particleY;
       _router.blockGoPage();
 
       /* 換頁時間 */
@@ -222,7 +228,7 @@ cf.regLib('routeAnimate', function(cf) {
       nowPagePosition = $nowPage.css('position');
       nowPageWidth = $nowPage.width();
       nowPageHeight = $nowPage.height();
-      nowPageOffset = $nowPage.offset();
+      nowPageOffset = $nowPage.position();
       nowPageLeft = nowPageOffset.left;
       nowPageTop = nowPageOffset.top;
       halfDuration = duration / 2;
@@ -232,52 +238,57 @@ cf.regLib('routeAnimate', function(cf) {
 
       /* 每個等份的高 */
       eachHeight = nowPageHeight / particleY;
-      piecePosition = nowPagePosition === 'fixed' ? 'fixed' : 'absolute';
+
+      /* 外部切片的容器, 繼承 $nowPage 的 css position 屬性 */
+      $pieceContainer = $('<div/>').css({
+        position: $nowPage.css('position')
+      }).insertAfter($nowPage);
+
+      /* 內部切片容器, 協助切片定位 */
+      $pieceInnerContainer = $('<div/>').css({
+        position: 'relative'
+      }).appendTo($pieceContainer);
       count = 0;
       $nextPage.hide();
-      cf.loop(function(j) {
-        cf.loop(function(i) {
-          var $dom, animateObj, left, top;
+      cf.loop(function(i) {
+        cf.loop(function(j) {
+          var $piece, pieceLeft, pieceTop;
           count++;
-          left = nowPageLeft + (eachWidth * (i - 1));
-          top = nowPageTop + (eachHeight * (j - 1));
-          $dom = $('<div/>').css({
-            position: piecePosition,
+          pieceLeft = eachWidth * j;
+          pieceTop = eachHeight * i;
+          $piece = $('<div/>').addClass('piece').css({
+            position: 'absolute',
             width: eachWidth,
             height: eachHeight,
             overflow: 'hidden',
-            left: left,
-            top: top
-          });
-          $nowPage.after($dom);
-          $nowPage.clone().css({
+            left: pieceLeft,
+            top: pieceTop
+          }).appendTo($pieceInnerContainer);
+          $nowPage.clone().appendTo($piece).css({
             position: 'absolute',
             visibility: 'visible',
+            margin: 0,
+            padding: 0,
             width: nowPageWidth,
             height: nowPageHeight,
-            left: -(eachWidth * (i - 1)),
-            top: -(eachHeight * (j - 1))
-          }).appendTo($dom);
-          animateObj = {
-            onComplete: function() {
-              if (count === particleAll) {
-                $nextPage.fadeIn();
-                approveGo(_router, done);
-              }
-              $dom.remove();
-            }
-          };
-
-          /* 計算位移量 */
-          animateObj.x = Math.floor(i - halfParticleX) * 20;
-          animateObj.y = Math.floor(j - halfParticleY) * 20;
-          tm.to($dom, duration, animateObj);
-          tm.to($dom, halfDuration, {
+            left: -pieceLeft,
+            top: -pieceTop
+          });
+          tm.to($piece, duration, {
+            x: Math.floor(j - halfParticleX) * 20,
+            y: Math.floor(i - halfParticleY) * 20,
             opacity: 0,
-            delay: halfDuration
-          }, animateObj);
-        }, 1, particleX);
-      }, 1, particleY);
+            onComplete: function() {
+              if (count !== particleAll) {
+                return;
+              }
+              $nextPage.fadeIn();
+              $pieceInnerContainer.remove();
+              approveGo(_router, done);
+            }
+          });
+        }, 0, particleX - 1);
+      }, 0, particleY - 1);
       $nowPage.hide();
     };
   };

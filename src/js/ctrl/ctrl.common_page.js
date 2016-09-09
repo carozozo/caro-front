@@ -1,7 +1,7 @@
 
 /* 一般的 ctrl */
 cf.regCtrl('commonPage', function() {
-  var $, $codeTargetArr, $contentArr, $mainTitle, $self, subTitleClassArr, tl, tl1, tm;
+  var $, $codeTargetArr, $contentArr, $mainTitle, $self, $titles, subTitleClassArr, tl, tl1, tm;
   $self = this;
   $ = cf.require('$');
   tl = cf.require('TimelineMax');
@@ -57,11 +57,13 @@ cf.regCtrl('commonPage', function() {
     });
     cf.randomPick(actArr)();
   });
+  $titles = [];
   $contentArr = $self.dom('.content').coverToArr(function($content, i) {
     var $subContent, $title;
     $content.isOpen = false;
     $content.$title = $title = $content.dom('.title', function($title) {
       var colorIndex;
+      $titles.push($title);
       colorIndex = i % 5 + 1;
       return $title.aClass('title' + colorIndex).onClick(function() {
         if (!$content.isOpen) {
@@ -112,14 +114,10 @@ cf.regCtrl('commonPage', function() {
   tl1 = new tl();
   tl1.from($mainTitle, .7, {
     width: '0%'
-  }).staggerFromTo('.title', .3, {
+  }).staggerFrom($titles, .3, {
     opacity: 0,
     rotationX: 90,
     y: -50
-  }, {
-    y: 0,
-    opacity: 1,
-    rotationX: 0
   }, .2, '-=0.5').add(function() {
     if (cf.router.pageName === 'index') {
       $contentArr[0].$title.click();

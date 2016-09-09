@@ -54,9 +54,11 @@ cf.regCtrl 'commonPage', ->
     return
   )
 
+  $titles = []
   $contentArr = $self.dom('.content').coverToArr(($content, i) ->
     $content.isOpen = false
     $content.$title = $title = $content.dom('.title', ($title) ->
+      $titles.push($title)
       colorIndex = i % 5 + 1
       $title.aClass('title' + colorIndex).onClick(->
         unless $content.isOpen
@@ -117,14 +119,10 @@ cf.regCtrl 'commonPage', ->
   tl1.from($mainTitle, .7,
     width: '0%'
   )
-  .staggerFromTo('.title', .3, {
+  .staggerFrom($titles, .3, {
     opacity: 0
     rotationX: 90
     y: -50
-  }, {
-    y: 0
-    opacity: 1
-    rotationX: 0
   }, .2, '-=0.5')
   .add(->
     if cf.router.pageName is 'index'
