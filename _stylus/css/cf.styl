@@ -1,4 +1,4 @@
-@import "basic"
+@import "variable"
 
 body
   color colorDark
@@ -11,7 +11,7 @@ body
   min-width 640px
 
 a
-  @extend .colorBlue1
+  color colorBlue1
   cursor pointer
   margin-left 5px
   margin-right 5px
@@ -32,7 +32,7 @@ input[type='text']
   font-size 0.9em
 
 .btn1
-  @extend .colorWhite
+  color colorWhite
   cursor pointer
   display inline-block
   background alpha(colorGray3, 0.7)
@@ -48,7 +48,7 @@ input[type='text']
     background alpha(colorGray3, 0.9)
 
 .btn2
-  @extend .colorWhite
+  color colorWhite
   cursor pointer
   display inline-block
   background alpha(colorDark, 0.7)
@@ -162,19 +162,19 @@ inputText(width)
   border-radius 5px
 
 .title1
-  @extend .bgGray2
+  background colorGray3
 
 .title2
-  @extend .bgGreen2
+  background colorGreen3
 
 .title3
-  @extend .bgRed2
+  background colorRed3
 
 .title4
-  @extend .bgBlue2
+  background colorBlue3
 
 .title5
-  @extend .bgYellow2
+  background colorYellow3
 
 subTitle()
   color colorWhite
@@ -183,43 +183,43 @@ subTitle()
   line-height 2em
 
 .subTitle1
-  @extend .bgGray1
+  background colorGray2
   subTitle()
 
 .subTitle2
-  @extend .bgGreen1
+  background colorGreen2
   subTitle()
 
 .subTitle3
-  @extend .bgRed1
+  background colorRed2
   subTitle()
 
 .subTitle4
-  @extend .bgBlue1
+  background colorBlue2
   subTitle()
 
 .subTitle5
-  @extend .bgYellow1
+  background colorYellow2
   subTitle()
 
 .tip1
-  @extend .colorGray2
+  color colorGray2
   font-weight bolder
 
 .tip2
-  @extend .colorGreen2
+  color colorGreen2
   font-weight bolder
 
 .tip3
-  @extend .colorRed2
+  color colorRed2
   font-weight bolder
 
 .tip4
-  @extend .colorBlue2
+  color colorBlue2
   font-weight bolder
 
 .tip5
-  @extend .colorYellow2
+  color colorYellow2
   font-weight bolder
 
 .block

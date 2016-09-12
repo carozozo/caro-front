@@ -4,11 +4,12 @@
 DOM 本身需要寫入 [listKey='xxx'] 標籤, 用來對應 object 裡面的 key
  */
 cf.regModule('cfListDom', function(objArr, opt) {
-  var $self, aftInsert, befInsert, isAfter;
+  var $self, aftInsert, befInsert, caro, isAfter;
   if (opt == null) {
     opt = {};
   }
   $self = this;
+  caro = cf.require('caro');
 
   /* 每次置入 DOM 之前會呼叫的 cb(object,index,DOM); 回傳 true 會跳過, false 則停止繼續寫入下一筆 */
   befInsert = opt.befInsert;

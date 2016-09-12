@@ -3,8 +3,9 @@
 客製化 facebook api 呼叫程式
  */
 cf.regServ('fb', function(cf) {
-  var _appId, _authResponse, _cfg, _initCbMap, _isReady, _isUserConnected, _nowUrl, _sdkVersion, _shareUrl, _trace, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
+  var _appId, _authResponse, _cfg, _initCbMap, _isReady, _isUserConnected, _nowUrl, _sdkVersion, _shareUrl, _trace, caro, genApiObj, getFbResErrObj, init, initLoginResponseAncCallCb, runFb, self, window;
   self = {};
+  caro = cf.require('caro');
   window = cf.require('window');
   _cfg = cf.config('fb');
   _appId = _cfg.appId;

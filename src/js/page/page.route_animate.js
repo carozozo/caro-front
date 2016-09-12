@@ -6,8 +6,9 @@ cf.router.regPage('lib/routeAnimate', function(cf) {
 });
 
 cf.router.regBefPage(function() {
-  var fn, fnArr;
+  var caro, fn, fnArr;
   fnArr = [];
+  caro = cf.require('caro');
   caro.forEach(cf.routeAnimate, function(fn, fnName) {
     return fnArr.push(fnName);
   });

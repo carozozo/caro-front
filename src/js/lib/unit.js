@@ -3,8 +3,9 @@
 一些單元程式
  */
 cf.regLib('unit', function(cf) {
-  var $, _cfg, _imgPath, location, self, window;
+  var $, _cfg, _imgPath, caro, location, self, window;
   $ = cf.require('$');
+  caro = cf.require('caro');
   window = cf.require('window');
   location = cf.require('location');
   _cfg = cf.config('unit') || {};

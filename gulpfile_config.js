@@ -39,7 +39,9 @@ module.exports = (function () {
     'js/module/*.*'
   ];
   // 要排除自動掃描並加到 tag 的 js/css 檔案
-  config.injectExcludeArr = [];
+  config.injectExcludeArr = [
+    'css/variable.css'
+  ];
   // 是否要執行 inject
   config.isUseInject = true;
   return config;
