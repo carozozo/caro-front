@@ -86,7 +86,7 @@ cf.regLib 'router', (cf) ->
       return null unless search
       obj = {}
       searchArr = search.split('&')
-      cf.reduce searchArr, ((result, param) ->
+      caro.reduce searchArr, ((result, param) ->
         paramArr = param.split('=')
         key = paramArr[0]
         val = paramArr[1]
@@ -165,12 +165,12 @@ cf.regLib 'router', (cf) ->
           return
         errCb = ->
           ### 嘗試換頁到 index ###
-          indexInfo = cf.find(pageMap, (val, pageName) ->
+          indexInfo = caro.find(pageMap, (val, pageName) ->
             return pageName is 'index'
           )
           return self.goPage('index') if indexInfo
           ### 嘗試換頁到第一個註冊的分頁 ###
-          pageNameArr = cf.keys(pageMap)
+          pageNameArr = caro.keys(pageMap)
           firstPage = pageNameArr[0]
           self.goPage(firstPage) if firstPage
           return

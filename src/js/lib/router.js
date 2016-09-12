@@ -123,7 +123,7 @@ cf.regLib('router', function(cf) {
       }
       obj = {};
       searchArr = search.split('&');
-      cf.reduce(searchArr, (function(result, param) {
+      caro.reduce(searchArr, (function(result, param) {
         var key, paramArr, val;
         paramArr = param.split('=');
         key = paramArr[0];
@@ -224,7 +224,7 @@ cf.regLib('router', function(cf) {
 
           /* 嘗試換頁到 index */
           var firstPage, indexInfo, pageNameArr;
-          indexInfo = cf.find(pageMap, function(val, pageName) {
+          indexInfo = caro.find(pageMap, function(val, pageName) {
             return pageName === 'index';
           });
           if (indexInfo) {
@@ -232,7 +232,7 @@ cf.regLib('router', function(cf) {
           }
 
           /* 嘗試換頁到第一個註冊的分頁 */
-          pageNameArr = cf.keys(pageMap);
+          pageNameArr = caro.keys(pageMap);
           firstPage = pageNameArr[0];
           if (firstPage) {
             self.goPage(firstPage);
