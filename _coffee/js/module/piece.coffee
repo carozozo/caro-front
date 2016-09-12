@@ -7,6 +7,7 @@ cf.regModule 'cfPiece', (particleY = 3, particleX = 3, opt = {}) ->
   particleX: x 切成幾等份
   ###
   $self = @
+  caro = cf.require('caro')
   selfWidth = $self.width()
   selfHeight = $self.height()
 
@@ -28,8 +29,8 @@ cf.regModule 'cfPiece', (particleY = 3, particleX = 3, opt = {}) ->
     position: 'relative'
   ).appendTo($self.$pieceContainer)
 
-  cf.loop((i) ->
-    cf.loop((j) ->
+  caro.loop((i) ->
+    caro.loop((j) ->
       return if _befPiece and _befPiece(i, j) is false
       pieceLeft = pieceWidth * j
       pieceTop = pieceHeight * i

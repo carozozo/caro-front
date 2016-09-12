@@ -3,6 +3,7 @@
 ###
 cf.regModule 'cfAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
   $self = @
+  caro = cf.require('caro')
   _addrMap = {
     '基隆市': [
       '200仁愛區'
@@ -456,7 +457,7 @@ cf.regModule 'cfAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
     if selectedIndex is 0
       $areaDom.append(createDropdown(defAreaText, defAreaVal))
       return
-    cf.forEach(areaArr, (area) ->
+    caro.forEach(areaArr, (area) ->
       unless isWithCode
         areaStr = area.substring(3)
       else
@@ -464,14 +465,14 @@ cf.regModule 'cfAddrDropdown', ($cityDom, $areaDom, opt = {}) ->
       $areaDom.append(createDropdown(areaStr, area))
     )
   if isIncludeIsland
-    cf.forEach(_addrMap, (areaArr, city) ->
+    caro.forEach(_addrMap, (areaArr, city) ->
       islandAreaArr = _islandMap[city]
       return unless islandAreaArr
       _addrMap[city] = (_addrMap[city] or []).concat(islandAreaArr)
     )
   $cityDom.html('').append(createDropdown(defCityText, defCityVal))
   $areaDom.html('').append(createDropdown(defAreaText, defAreaVal))
-  cf.forEach(_addrMap, (area, city) ->
+  caro.forEach(_addrMap, (area, city) ->
     return unless area
     $cityDom.append(createDropdown(city, city))
   )

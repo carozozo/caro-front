@@ -3,6 +3,7 @@
 ###
 cf.regModule 'cfSplitText', (opt = {}) ->
   $self = @
+  caro = cf.require('caro')
   ### 是否拆解每個字元 ###
   _isToChar = if opt.isToChar is false then false else true
   ### 是否以空白字元拆解, 拆解後稱為字組 ###
@@ -22,7 +23,7 @@ cf.regModule 'cfSplitText', (opt = {}) ->
   splitChar = ($dom) ->
     text = $dom.text()
     $dom.empty()
-    cf.forEach(text, (char, i) ->
+    caro.forEach(text, (char, i) ->
       css = display: 'inline-block'
       char = '&nbsp;' if char is ' '
       $char = $('<div/>').addClass('cfSplitTextChar').html(char).css(css).appendTo($dom)
@@ -34,7 +35,7 @@ cf.regModule 'cfSplitText', (opt = {}) ->
   if _isToWord
     $self.empty()
     wordArr = originText.split(' ')
-    cf.forEach(wordArr, (word, i) ->
+    caro.forEach(wordArr, (word, i) ->
       css = display: 'inline-block'
       css['margin-left'] = blankWidth if i > 0
       $word = $('<div/>').addClass('cfSplitTextWord').text(word).css(css).appendTo($self)

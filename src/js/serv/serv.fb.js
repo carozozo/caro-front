@@ -40,7 +40,7 @@ cf.regServ('fb', function(cf) {
       xfbml: true,
       version: _sdkVersion
     });
-    cf.forEach(_initCbMap, function(cb, name) {
+    caro.forEach(_initCbMap, function(cb, name) {
       _trace('Execute callback: ', name);
       cb();
     });

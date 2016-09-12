@@ -3,8 +3,9 @@
 客製化頁面跳轉效果
  */
 cf.regLib('routeAnimate', function(cf) {
-  var approveGo, self, tl, tm;
+  var approveGo, caro, self, tl, tm;
   self = {};
+  caro = cf.require('caro');
   tm = cf.require('TweenMax');
   tl = cf.require('TimelineMax');
   approveGo = function(router, done) {
@@ -250,8 +251,8 @@ cf.regLib('routeAnimate', function(cf) {
       }).appendTo($pieceContainer);
       count = 0;
       $nextPage.hide();
-      cf.loop(function(i) {
-        cf.loop(function(j) {
+      caro.loop(function(i) {
+        caro.loop(function(j) {
           var $piece, pieceLeft, pieceTop;
           count++;
           pieceLeft = eachWidth * j;

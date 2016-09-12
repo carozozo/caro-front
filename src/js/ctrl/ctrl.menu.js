@@ -1,31 +1,32 @@
 
 /* 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/menu.html 檔並寫入 template */
 cf.regCtrl('menu', function() {
-  var $libBtn, $libBtnOuter, $libMenuItemBox, $libMenuItems, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItemBox, $moduleMenuItems, $self, $window, bgColorArr, dropAllItems, hideMenu, setMenuBtn, setMenuItem, showItems, showMenu, tm;
+  var $libBtn, $libBtnOuter, $libMenuItemBox, $libMenuItems, $menuBtnBox, $moduleBtn, $moduleBtnOuter, $moduleMenuItemBox, $moduleMenuItems, $self, $window, bgColorArr, caro, dropAllItems, hideMenu, setMenuBtn, setMenuItem, showItems, showMenu, tm;
   $self = this;
   $window = cf.$window;
+  caro = cf.require('caro');
   tm = cf.require('TweenMax');
   bgColorArr = cf.data('bgColorArr');
   showItems = function($items) {
-    cf.forEach($items, function($item, i) {
+    caro.forEach($items, function($item, i) {
       var color, delay;
       delay = i * .05;
-      color = cf.randomPick(bgColorArr);
+      color = caro.randomPick(bgColorArr);
       $item.css({
         background: color
       });
       return tm.fromTo($item, 1, {
-        scale: cf.randomNum(1),
+        scale: caro.randomNum(1),
         opacity: 0,
-        x: cf.randomInt(200, -200),
-        y: cf.randomInt(200, -200)
+        x: caro.randomInt(200, -200),
+        y: caro.randomInt(200, -200)
       }, {
         scale: 1,
         opacity: 1,
         bezier: [
           {
-            x: cf.randomInt(200, -200),
-            y: cf.randomInt(200, -200)
+            x: caro.randomInt(200, -200),
+            y: caro.randomInt(200, -200)
           }, {
             x: 0,
             y: 0
@@ -58,7 +59,7 @@ cf.regCtrl('menu', function() {
   dropAllItems = function(type, cb) {
     var $items;
     $items = type === 'lib' ? $libMenuItems : $moduleMenuItems;
-    cf.forEach($items, function($item) {
+    caro.forEach($items, function($item) {
       var delay;
       delay = Math.random() * .3;
       tm.to($item, .3, {
@@ -73,7 +74,7 @@ cf.regCtrl('menu', function() {
     $item.on('mouseover', function() {
       var roataionArr, rotation, transformOrigin;
       roataionArr = [5, -5, 3, -3];
-      rotation = cf.randomPick(roataionArr);
+      rotation = caro.randomPick(roataionArr);
       transformOrigin = rotation > 0 ? '20% 20%' : '80% 20%';
       return tm.to($item, .3, {
         rotation: rotation,

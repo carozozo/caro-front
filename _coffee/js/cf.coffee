@@ -1,8 +1,8 @@
 ###
 CaroFront 核心程式
 ###
-do(window, $, caro) ->
-  self = caro
+do(window, $) ->
+  self = {}
   ### 儲存從 config 讀取到的設定  ###
   self.$$config = {}
   ### 儲存資料, 類似 cookie, 但頁面刷新後會清空  ###

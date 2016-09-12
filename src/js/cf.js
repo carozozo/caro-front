@@ -2,9 +2,9 @@
 /*
 CaroFront 核心程式
  */
-(function(window, $, caro) {
+(function(window, $) {
   var _ctrl, _docReady, _module, _trace, genTraceFn, ifUrlPathMustMatchAndGetUrl, self;
-  self = caro;
+  self = {};
 
   /* 儲存從 config 讀取到的設定 */
   self.$$config = {};
@@ -308,4 +308,4 @@ CaroFront 核心程式
     }
   });
   window.cf = self;
-})(window, $, caro);
+})(window, $);

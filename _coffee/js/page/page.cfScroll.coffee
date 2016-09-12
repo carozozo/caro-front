@@ -1,5 +1,6 @@
 cf.router.regPage 'module/cfScroll', (cf) ->
   $page = @
+  caro = cf.require('caro')
   $ = cf.require('$')
 
   setInner = ($inner, index, color)->
@@ -19,7 +20,7 @@ cf.router.regPage 'module/cfScroll', (cf) ->
 
   bgColorArr = cf.data('bgColorArr')
   $innerArr = []
-  cf.forEach(bgColorArr, (color, i) ->
+  caro.forEach(bgColorArr, (color, i) ->
     index = i + 1
     $inner = $page.dom('#inner' + index)
     return unless $inner.length

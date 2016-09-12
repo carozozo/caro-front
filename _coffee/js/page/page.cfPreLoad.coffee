@@ -1,5 +1,6 @@
 cf.router.regPage 'module/cfPreLoad', ->
   $page = @
+  caro = cf.require('caro')
   fileArr = [
     'cf_title1.png'
     'cf_title2.png'
@@ -8,7 +9,7 @@ cf.router.regPage 'module/cfPreLoad', ->
     'cf_title4.png'
     'cf_title5.png'
   ]
-  fileArr = cf.map(fileArr, (file)-> 'images/' + file)
+  fileArr = caro.map(fileArr, (file)-> 'images/' + file)
   $percentage = $page.dom('#percentage')
   $process = $page.dom('#process')
   $page.cfPreLoad(fileArr,

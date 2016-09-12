@@ -73,8 +73,8 @@ cf.regModule('cfSyncMove', function(opt) {
         _aftMove && _aftMove(infoObj);
       }
     };
-    baseX = cf.isFunction(_baseX) ? _baseX() : _baseX;
-    if (cf.isNumber(baseX)) {
+    baseX = caro.isFunction(_baseX) ? _baseX() : _baseX;
+    if (caro.isNumber(baseX)) {
       moveX = mouseX - baseX;
       targetMoveX = moveX * _proportionX;
       if (_rangeX) {
@@ -90,8 +90,8 @@ cf.regModule('cfSyncMove', function(opt) {
       infoObj.moveX = moveObj.x = targetMoveX || 0;
       infoObj.baseX = baseX;
     }
-    baseY = cf.isFunction(_baseY) ? _baseY() : _baseY;
-    if (cf.isNumber(baseY)) {
+    baseY = caro.isFunction(_baseY) ? _baseY() : _baseY;
+    if (caro.isNumber(baseY)) {
       moveY = mouseY - baseY;
       targetMoveY = moveY * _proportionY;
       if (_rangeY) {

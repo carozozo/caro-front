@@ -3,6 +3,7 @@
 ###
 cf.regLib 'router', (cf) ->
   $ = cf.require('$')
+  caro = cf.require('caro')
   window = cf.require('window')
   _cfg = cf.config('router')
   _isGoPage = true
@@ -32,9 +33,9 @@ cf.regLib 'router', (cf) ->
   ### 當下分頁名稱 ###
   self.pageName = ''
   ### 記錄要放置分頁的資料夾路徑 ###
-  self.templateDir = cf.addTail(_cfg.templateDir or '', '/')
+  self.templateDir = caro.addTail(_cfg.templateDir or '', '/')
   ### 記錄要載入的分頁副檔名 ###
-  self.templateExtname = if _cfg.templateExtname then cf.addHead(_cfg.templateExtname, '.') else ''
+  self.templateExtname = if _cfg.templateExtname then caro.addHead(_cfg.templateExtname, '.') else ''
 
   ### 註冊 page 載入前後的 callback ###
   do(self) ->
@@ -113,8 +114,8 @@ cf.regLib 'router', (cf) ->
   ### 分頁載入相關 ###
   do(cf, self, window, $) ->
     doPageFns = (pageObj, $page) ->
-      cf.forEach pageObj, (fns) ->
-        cf.forEach fns, (fn) ->
+      caro.forEach pageObj, (fns) ->
+        caro.forEach fns, (fn) ->
           fn and fn.call($page, cf)
           return
         return
@@ -156,7 +157,7 @@ cf.regLib 'router', (cf) ->
 
       unless pageMap[pageName] and pageMap[pageName].html
         fileType = opt.fileType or self.templateExtname
-        pageFile = cf.addTail(pageName, fileType)
+        pageFile = caro.addTail(pageName, fileType)
         sucCb = (html) ->
           pageMap[pageName] = {} unless pageMap[pageName]
           pageMap[pageName].html = html

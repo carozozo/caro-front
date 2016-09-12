@@ -3,6 +3,7 @@
 ###
 cf.regModule 'cfJumpNum', ->
   $self = @
+  caro = cf.require('caro')
 
   ### 在指定的時間內, 數字會亂跳, 時間到會顯示目標數字 ###
   $self.intervalNum = (targetNum, opt = {}) ->
@@ -20,7 +21,7 @@ cf.regModule 'cfJumpNum', ->
         num = targetNum
         clearInterval interval
       else
-        num = cf.randomInt(range)
+        num = caro.randomInt(range)
       $self.html num
       return
     ), ms)

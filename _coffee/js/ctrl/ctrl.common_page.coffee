@@ -1,6 +1,7 @@
 ### 一般的 ctrl ###
 cf.regCtrl 'commonPage', ->
   $self = @
+  caro = cf.require('caro')
   $ = cf.require('$')
   tl = cf.require('TimelineMax')
   tm = cf.require('TweenMax')
@@ -50,7 +51,7 @@ cf.regCtrl 'commonPage', ->
       )
       return
     )
-    cf.randomPick(actArr)()
+    caro.randomPick(actArr)()
     return
   )
 
@@ -86,7 +87,7 @@ cf.regCtrl 'commonPage', ->
   )
 
   subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3', 'subTitle4', 'subTitle5']
-  cf.forEach(subTitleClassArr, (className) ->
+  caro.forEach(subTitleClassArr, (className) ->
     $self.dom('.' + className).eachDom(($subTitle) ->
       $span = $('<span>').addClass(className)
       html = $subTitle.html()
@@ -128,7 +129,7 @@ cf.regCtrl 'commonPage', ->
     if cf.router.pageName is 'index'
       $contentArr[0].$title.click()
     else
-      cf.forEach($contentArr, ($content) ->
+      caro.forEach($contentArr, ($content) ->
         $content.$title.click()
       )
     return

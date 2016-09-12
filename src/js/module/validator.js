@@ -3,11 +3,12 @@
 表單驗證, 要檢查的欄位需要設置 id 或 name
  */
 cf.regModule('cfValidator', function(opt) {
-  var $, $doms, $self, _errInfo, _validateMap, addToDomMap, coverToDomList, regValidate, requireAll, setErrInfo, setValidateDef, trimDomVal, validateEmail, validateMinLength, validateMobile, validateNum, validateRequire, validateRocId, validateWord;
+  var $, $doms, $self, _errInfo, _validateMap, addToDomMap, caro, coverToDomList, regValidate, requireAll, setErrInfo, setValidateDef, trimDomVal, validateEmail, validateMinLength, validateMobile, validateNum, validateRequire, validateRocId, validateWord;
   if (opt == null) {
     opt = {};
   }
   $self = this;
+  caro = cf.require('caro');
   $ = cf.require('$');
   requireAll = opt.requireAll;
 
@@ -21,7 +22,7 @@ cf.regModule('cfValidator', function(opt) {
   /* 儲存錯誤項目 {<DOM id>: [<錯誤項目>]} */
   _errInfo = null;
   coverToDomList = function($domOrArr) {
-    if (!cf.isArray($domOrArr)) {
+    if (!caro.isArray($domOrArr)) {
       return [$domOrArr];
     } else {
       return $domOrArr;
@@ -44,7 +45,7 @@ cf.regModule('cfValidator', function(opt) {
   regValidate = function($dom, validateType, cb) {
     var $domList;
     $domList = coverToDomList($dom);
-    cf.forEach($domList, function($dom) {
+    caro.forEach($domList, function($dom) {
       var oValidateItem;
       oValidateItem = addToDomMap($dom);
       oValidateItem[validateType] = {};
@@ -178,7 +179,7 @@ cf.regModule('cfValidator', function(opt) {
   /* 開始檢查格式 */
   $self.validate = function() {
     setValidateDef();
-    cf.forEach(_validateMap, function(oValidateItem) {
+    caro.forEach(_validateMap, function(oValidateItem) {
       if (oValidateItem.require) {
         validateRequire(oValidateItem);
       }

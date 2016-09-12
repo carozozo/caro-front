@@ -1,6 +1,7 @@
 cf.router.regPage('module/cfListDom', function() {
-  var $page, $tr, cleanList, list;
+  var $page, $tr, caro, cleanList, list;
   $page = this;
+  caro = cf.require('caro');
   $tr = $page.dom('.listTr');
   list = [
     {
@@ -20,17 +21,17 @@ cf.router.regPage('module/cfListDom', function() {
   };
   $page.dom('#setList1Btn').onClick(function() {
     cleanList();
-    $tr.cfListDom(cf.clone(list));
+    $tr.cfListDom(caro.clone(list));
   });
   $page.dom('#setList2Btn').onClick(function() {
     cleanList();
-    $tr.cfListDom(cf.cloneDeep(list), {
+    $tr.cfListDom(caro.cloneDeep(list), {
       isAfter: false
     });
   });
   $page.dom('#setList3Btn').onClick(function() {
     cleanList();
-    $tr.cfListDom(cf.cloneDeep(list), {
+    $tr.cfListDom(caro.cloneDeep(list), {
       befInsert: function(data, i, $dom) {
         if (i === 1) {
           return true;

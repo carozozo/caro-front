@@ -3,6 +3,7 @@
 ###
 cf.regModule 'cfValidator', (opt = {}) ->
   $self = @
+  caro = cf.require('caro')
   $ = cf.require('$')
   requireAll = opt.requireAll
   ###
@@ -15,7 +16,7 @@ cf.regModule 'cfValidator', (opt = {}) ->
   _errInfo = null
 
   coverToDomList = ($domOrArr) ->
-    if !cf.isArray($domOrArr) then [$domOrArr] else $domOrArr
+    if !caro.isArray($domOrArr) then [$domOrArr] else $domOrArr
 
   addToDomMap = ($dom) ->
     id = $dom.attr('id') or $dom.attr('name')
@@ -30,7 +31,7 @@ cf.regModule 'cfValidator', (opt = {}) ->
 
   regValidate = ($dom, validateType, cb) ->
     $domList = coverToDomList($dom)
-    cf.forEach($domList, ($dom) ->
+    caro.forEach($domList, ($dom) ->
       oValidateItem = addToDomMap($dom)
       oValidateItem[validateType] = {}
       cb and cb(oValidateItem[validateType])
@@ -127,7 +128,7 @@ cf.regModule 'cfValidator', (opt = {}) ->
   ### 開始檢查格式 ###
   $self.validate = ->
     setValidateDef()
-    cf.forEach(_validateMap, (oValidateItem) ->
+    caro.forEach(_validateMap, (oValidateItem) ->
       validateRequire(oValidateItem) if(oValidateItem.require)
       validateNum(oValidateItem) if(oValidateItem.num)
       validateMinLength(oValidateItem) if(oValidateItem.minLength)

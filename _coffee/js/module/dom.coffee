@@ -3,10 +3,11 @@ DOM 選取器, 支援一些方便的程式
 ###
 cf.regModule 'dom', (selector, cb) ->
   $self = {}
+  caro = cf.require('caro')
   window = cf.require('window')
   $ = cf.require('$')
 
-  if cf.isFunction(selector)
+  if caro.isFunction(selector)
     cb = selector
     selector = null
   if selector

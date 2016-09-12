@@ -1,6 +1,7 @@
 cf.regCtrl('bg', function() {
-  var $, $bgFloor, $self, bgFloorHeight, bgFloorWidth, blockAmount, blockHeight, blockWidth, tm;
+  var $, $bgFloor, $self, bgFloorHeight, bgFloorWidth, blockAmount, blockHeight, blockWidth, caro, tm;
   $self = this;
+  caro = cf.require('caro');
   tm = cf.require('TweenMax');
   $ = cf.require('$');
   $bgFloor = $('<div/>').attr('id', 'bgFloor').appendTo($self);
@@ -9,8 +10,8 @@ cf.regCtrl('bg', function() {
   blockAmount = 50;
   bgFloorWidth = blockWidth * blockAmount;
   bgFloorHeight = blockHeight * blockAmount;
-  cf.loop(function(i) {
-    cf.loop(function(j) {
+  caro.loop(function(i) {
+    caro.loop(function(j) {
       $('<div/>').addClass((i + j) % 2 === 0 ? 'bgBlock1' : 'bgBlock2').css({
         top: i * blockHeight,
         left: j * blockWidth
@@ -46,9 +47,9 @@ cf.regCtrl('bg', function() {
       });
     };
     randX = bgFloorWidth / 2;
-    randX = cf.randomInt(0, -randX);
+    randX = caro.randomInt(0, -randX);
     randY = bgFloorHeight / 8;
-    randY = cf.randomInt(randY);
+    randY = caro.randomInt(randY);
     tm.to($bgFloor, 1, {
       x: randX,
       y: randY,

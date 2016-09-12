@@ -3,8 +3,9 @@
 分頁函式庫, 利用 url hash 判斷, 並使用 $.ajax 切換頁面
  */
 cf.regLib('router', function(cf) {
-  var $, _cfg, _isGoPage, _trace, self, window;
+  var $, _cfg, _isGoPage, _trace, caro, self, window;
   $ = cf.require('$');
+  caro = cf.require('caro');
   window = cf.require('window');
   _cfg = cf.config('router');
   _isGoPage = true;
@@ -42,10 +43,10 @@ cf.regLib('router', function(cf) {
   self.pageName = '';
 
   /* 記錄要放置分頁的資料夾路徑 */
-  self.templateDir = cf.addTail(_cfg.templateDir || '', '/');
+  self.templateDir = caro.addTail(_cfg.templateDir || '', '/');
 
   /* 記錄要載入的分頁副檔名 */
-  self.templateExtname = _cfg.templateExtname ? cf.addHead(_cfg.templateExtname, '.') : '';
+  self.templateExtname = _cfg.templateExtname ? caro.addHead(_cfg.templateExtname, '.') : '';
 
   /* 註冊 page 載入前後的 callback */
   (function(self) {
@@ -164,8 +165,8 @@ cf.regLib('router', function(cf) {
   (function(cf, self, window, $) {
     var doPageFns, setPageContent;
     doPageFns = function(pageObj, $page) {
-      cf.forEach(pageObj, function(fns) {
-        cf.forEach(fns, function(fn) {
+      caro.forEach(pageObj, function(fns) {
+        caro.forEach(fns, function(fn) {
           fn && fn.call($page, cf);
         });
       });
@@ -211,7 +212,7 @@ cf.regLib('router', function(cf) {
       };
       if (!(pageMap[pageName] && pageMap[pageName].html)) {
         fileType = opt.fileType || self.templateExtname;
-        pageFile = cf.addTail(pageName, fileType);
+        pageFile = caro.addTail(pageName, fileType);
         sucCb = function(html) {
           if (!pageMap[pageName]) {
             pageMap[pageName] = {};

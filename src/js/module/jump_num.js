@@ -3,8 +3,9 @@
 亂數效果(數字會亂跳, 最後顯示結果)
  */
 cf.regModule('cfJumpNum', function() {
-  var $self;
+  var $self, caro;
   $self = this;
+  caro = cf.require('caro');
 
   /* 在指定的時間內, 數字會亂跳, 時間到會顯示目標數字 */
   $self.intervalNum = function(targetNum, opt) {
@@ -29,7 +30,7 @@ cf.regModule('cfJumpNum', function() {
         num = targetNum;
         clearInterval(interval);
       } else {
-        num = cf.randomInt(range);
+        num = caro.randomInt(range);
       }
       $self.html(num);
     }), ms);

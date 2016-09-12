@@ -5,7 +5,9 @@ Depend on gsap
 cf.regModule 'cfSwitchShow', ($domList, opt = {}) ->
   ### $domList: 要顯示的 dom 列表, e.g. [$('#dom1'), $('#dom2')] ###
   $self = @
-  tl = new TimelineLite()
+  caro = cf.require('caro')
+  tl = cf.require('TimelineMax')
+  tl1 = new tl()
   ### defType: 預設顯示方式 [fade/up/down/lef/right/''] ###
   _defType = opt.defType or 'fade'
   ### 預設切換時間 ###
@@ -19,16 +21,16 @@ cf.regModule 'cfSwitchShow', ($domList, opt = {}) ->
   ### 目前所在的 index ###
   _currentIndex = 0
 
-  cf.forEach($domList, ($dom, i) ->
+  caro.forEach($domList, ($dom, i) ->
     return unless i
-    tl.set($dom,
+    tl1.set($dom,
       opacity: 0
     )
     return
   )
 
   switchShow = (i, type, opt = {}) ->
-    return if tl.isActive()
+    return if tl1.isActive()
     ### 顯示方式 ###
     type = type or _defType or 'fade'
     ### 移動時間 ###
@@ -41,7 +43,7 @@ cf.regModule 'cfSwitchShow', ($domList, opt = {}) ->
     aftSwitch = opt.aftSwitch or _aftSwitch
 
     callAftShow = ->
-      tl.set([$currentDom, $targetDom],
+      tl1.set([$currentDom, $targetDom],
         x: 0
         y: 0
       )
@@ -55,27 +57,27 @@ cf.regModule 'cfSwitchShow', ($domList, opt = {}) ->
 
     switch type
       when 'fade'
-        tl.fromTo($currentDom, duration, {opacity: 1}, {opacity: 0})
-        tl.fromTo($targetDom, duration, {opacity: 0}, {opacity: 1, onComplete: callAftShow})
+        tl1.fromTo($currentDom, duration, {opacity: 1}, {opacity: 0})
+        tl1.fromTo($targetDom, duration, {opacity: 0}, {opacity: 1, onComplete: callAftShow})
       when 'up'
         $targetDom.show()
-        tl.fromTo($currentDom, duration, {opacity: 1}, {opacity: 0, y: -distance})
-        tl.fromTo($targetDom, duration, {opacity: 0, y: distance}, {opacity: 1, y: 0, onComplete: callAftShow})
+        tl1.fromTo($currentDom, duration, {opacity: 1}, {opacity: 0, y: -distance})
+        tl1.fromTo($targetDom, duration, {opacity: 0, y: distance}, {opacity: 1, y: 0, onComplete: callAftShow})
       when 'down'
         $targetDom.show()
-        tl.fromTo($currentDom, duration, {opacity: 1}, {opacity: 0, y: distance})
-        tl.fromTo($targetDom, duration, {opacity: 0, y: -distance}, {opacity: 1, y: 0, onComplete: callAftShow})
+        tl1.fromTo($currentDom, duration, {opacity: 1}, {opacity: 0, y: distance})
+        tl1.fromTo($targetDom, duration, {opacity: 0, y: -distance}, {opacity: 1, y: 0, onComplete: callAftShow})
       when 'left'
         $targetDom.show()
-        tl.fromTo($currentDom, duration, {opacity: 1}, {opacity: 0, x: -distance})
-        tl.fromTo($targetDom, duration, {opacity: 0, x: distance}, {opacity: 1, x: 0, onComplete: callAftShow})
+        tl1.fromTo($currentDom, duration, {opacity: 1}, {opacity: 0, x: -distance})
+        tl1.fromTo($targetDom, duration, {opacity: 0, x: distance}, {opacity: 1, x: 0, onComplete: callAftShow})
       when 'right'
         $targetDom.show()
-        tl.fromTo($currentDom, duration, {opacity: 1}, {opacity: 0, x: distance})
-        tl.fromTo($targetDom, duration, {opacity: 0, x: -distance}, {opacity: 1, x: 0, onComplete: callAftShow})
+        tl1.fromTo($currentDom, duration, {opacity: 1}, {opacity: 0, x: distance})
+        tl1.fromTo($targetDom, duration, {opacity: 0, x: -distance}, {opacity: 1, x: 0, onComplete: callAftShow})
       when 'normal'
-        tl.set($currentDom, {opacity: 0})
-        tl.set($targetDom, {opacity: 1, onComplete: callAftShow})
+        tl1.set($currentDom, {opacity: 0})
+        tl1.set($targetDom, {opacity: 1, onComplete: callAftShow})
     $self
 
   ### index: 要顯示的目標, type: 指定顯示方式 [fade/up/down/lef/right/''] ###

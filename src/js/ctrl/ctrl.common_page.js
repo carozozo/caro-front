@@ -1,8 +1,9 @@
 
 /* 一般的 ctrl */
 cf.regCtrl('commonPage', function() {
-  var $, $codeTargetArr, $contentArr, $mainTitle, $self, $titles, subTitleClassArr, tl, tl1, tm;
+  var $, $codeTargetArr, $contentArr, $mainTitle, $self, $titles, caro, subTitleClassArr, tl, tl1, tm;
   $self = this;
+  caro = cf.require('caro');
   $ = cf.require('$');
   tl = cf.require('TimelineMax');
   tm = cf.require('TweenMax');
@@ -55,7 +56,7 @@ cf.regCtrl('commonPage', function() {
         }
       });
     });
-    cf.randomPick(actArr)();
+    caro.randomPick(actArr)();
   });
   $titles = [];
   $contentArr = $self.dom('.content').coverToArr(function($content, i) {
@@ -88,7 +89,7 @@ cf.regCtrl('commonPage', function() {
     }).hide();
   });
   subTitleClassArr = ['subTitle1', 'subTitle2', 'subTitle3', 'subTitle4', 'subTitle5'];
-  cf.forEach(subTitleClassArr, function(className) {
+  caro.forEach(subTitleClassArr, function(className) {
     $self.dom('.' + className).eachDom(function($subTitle) {
       var $span, html;
       $span = $('<span>').addClass(className);
@@ -122,7 +123,7 @@ cf.regCtrl('commonPage', function() {
     if (cf.router.pageName === 'index') {
       $contentArr[0].$title.click();
     } else {
-      cf.forEach($contentArr, function($content) {
+      caro.forEach($contentArr, function($content) {
         return $content.$title.click();
       });
     }

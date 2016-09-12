@@ -3,11 +3,12 @@
 地址下拉選單
  */
 cf.regModule('cfAddrDropdown', function($cityDom, $areaDom, opt) {
-  var $self, _addrMap, _islandMap, appendAreaDropdown, createDropdown, defAreaText, defAreaVal, defCityText, defCityVal, isIncludeIsland, isWithCode;
+  var $self, _addrMap, _islandMap, appendAreaDropdown, caro, createDropdown, defAreaText, defAreaVal, defCityText, defCityVal, isIncludeIsland, isWithCode;
   if (opt == null) {
     opt = {};
   }
   $self = this;
+  caro = cf.require('caro');
   _addrMap = {
     '基隆市': ['200仁愛區', '201信義區', '202中正區', '203中山區', '204安樂區', '205暖暖區', '206七堵區'],
     '台北市': ['100中正區', '103大同區', '104中山區', '105松山區', '106大安區', '108萬華區', '110信義區', '111士林區', '112北投區', '114內湖區', '115南港區', '116文山區'],
@@ -70,7 +71,7 @@ cf.regModule('cfAddrDropdown', function($cityDom, $areaDom, opt) {
       $areaDom.append(createDropdown(defAreaText, defAreaVal));
       return;
     }
-    return cf.forEach(areaArr, function(area) {
+    return caro.forEach(areaArr, function(area) {
       var areaStr;
       if (!isWithCode) {
         areaStr = area.substring(3);
@@ -81,7 +82,7 @@ cf.regModule('cfAddrDropdown', function($cityDom, $areaDom, opt) {
     });
   };
   if (isIncludeIsland) {
-    cf.forEach(_addrMap, function(areaArr, city) {
+    caro.forEach(_addrMap, function(areaArr, city) {
       var islandAreaArr;
       islandAreaArr = _islandMap[city];
       if (!islandAreaArr) {
@@ -92,7 +93,7 @@ cf.regModule('cfAddrDropdown', function($cityDom, $areaDom, opt) {
   }
   $cityDom.html('').append(createDropdown(defCityText, defCityVal));
   $areaDom.html('').append(createDropdown(defAreaText, defAreaVal));
-  cf.forEach(_addrMap, function(area, city) {
+  caro.forEach(_addrMap, function(area, city) {
     if (!area) {
       return;
     }

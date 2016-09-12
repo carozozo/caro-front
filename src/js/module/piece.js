@@ -3,7 +3,7 @@
 切片效果,切片後 $self 會隱藏, 注意切片後為固定寬高
  */
 cf.regModule('cfPiece', function(particleY, particleX, opt) {
-  var $self, _aftPiece, _befPiece, pieceHeight, pieceWidth, selfHeight, selfWidth;
+  var $self, _aftPiece, _befPiece, caro, pieceHeight, pieceWidth, selfHeight, selfWidth;
   if (particleY == null) {
     particleY = 3;
   }
@@ -19,6 +19,7 @@ cf.regModule('cfPiece', function(particleY, particleX, opt) {
   particleX: x 切成幾等份
    */
   $self = this;
+  caro = cf.require('caro');
   selfWidth = $self.width();
   selfHeight = $self.height();
 
@@ -43,8 +44,8 @@ cf.regModule('cfPiece', function(particleY, particleX, opt) {
   $self.$pieceInnerContainer = $('<div/>').addClass('cfPieceInnerContainer').css({
     position: 'relative'
   }).appendTo($self.$pieceContainer);
-  cf.loop(function(i) {
-    cf.loop(function(j) {
+  caro.loop(function(i) {
+    caro.loop(function(j) {
       var $piece, pieceLeft, pieceTop;
       if (_befPiece && _befPiece(i, j) === false) {
         return;

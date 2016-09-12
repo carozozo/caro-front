@@ -5,9 +5,10 @@ cf.router.regPage 'lib/routeAnimate', (cf) ->
 
 cf.router.regBefPage ->
   fnArr = []
-  cf.forEach(cf.routeAnimate, (fn, fnName) ->
+  caro = cf.require('caro')
+  caro.forEach(cf.routeAnimate, (fn, fnName) ->
     fnArr.push(fnName)
   )
-  fn = cf.randomPick(fnArr)
+  fn = caro.randomPick(fnArr)
   cf.routeAnimate[fn]()
   return

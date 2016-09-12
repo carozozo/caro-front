@@ -3,11 +3,12 @@
 將目標內的文字拆解成 div
  */
 cf.regModule('cfSplitText', function(opt) {
-  var $blankSpan, $self, _charCb, _isToChar, _isToWord, _wordCb, blankWidth, originText, splitChar, wordArr;
+  var $blankSpan, $self, _charCb, _isToChar, _isToWord, _wordCb, blankWidth, caro, originText, splitChar, wordArr;
   if (opt == null) {
     opt = {};
   }
   $self = this;
+  caro = cf.require('caro');
 
   /* 是否拆解每個字元 */
   _isToChar = opt.isToChar === false ? false : true;
@@ -31,7 +32,7 @@ cf.regModule('cfSplitText', function(opt) {
     var text;
     text = $dom.text();
     $dom.empty();
-    cf.forEach(text, function(char, i) {
+    caro.forEach(text, function(char, i) {
       var $char, css;
       css = {
         display: 'inline-block'
@@ -46,7 +47,7 @@ cf.regModule('cfSplitText', function(opt) {
   if (_isToWord) {
     $self.empty();
     wordArr = originText.split(' ');
-    cf.forEach(wordArr, function(word, i) {
+    caro.forEach(wordArr, function(word, i) {
       var $word, css;
       css = {
         display: 'inline-block'

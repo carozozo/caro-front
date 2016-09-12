@@ -3,6 +3,7 @@
 ###
 cf.regLib 'routeAnimate', (cf) ->
   self = {}
+  caro = cf.require('caro')
   tm = cf.require('TweenMax')
   tl = cf.require('TimelineMax')
 
@@ -210,8 +211,8 @@ cf.regLib 'routeAnimate', (cf) ->
 
       count = 0
       $nextPage.hide()
-      cf.loop((i) ->
-        cf.loop((j) ->
+      caro.loop((i) ->
+        caro.loop((j) ->
           count++
           pieceLeft = eachWidth * j
           pieceTop = eachHeight * i

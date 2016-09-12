@@ -18,7 +18,7 @@ cf.router.regPage('module/cfScroll', function(cf) {
   });
   bgColorArr = cf.data('bgColorArr');
   $innerArr = [];
-  cf.forEach(bgColorArr, function(color, i) {
+  caro.forEach(bgColorArr, function(color, i) {
     var $inner, index;
     index = i + 1;
     $inner = $page.dom('#inner' + index);

@@ -3,11 +3,12 @@
 DOM 選取器, 支援一些方便的程式
  */
 cf.regModule('dom', function(selector, cb) {
-  var $, $self, window;
+  var $, $self, caro, window;
   $self = {};
+  caro = cf.require('caro');
   window = cf.require('window');
   $ = cf.require('$');
-  if (cf.isFunction(selector)) {
+  if (caro.isFunction(selector)) {
     cb = selector;
     selector = null;
   }

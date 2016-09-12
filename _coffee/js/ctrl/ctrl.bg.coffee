@@ -1,5 +1,6 @@
 cf.regCtrl 'bg', ->
   $self = @
+  caro = cf.require('caro')
   tm = cf.require('TweenMax')
   $ = cf.require('$')
 
@@ -9,8 +10,8 @@ cf.regCtrl 'bg', ->
   blockAmount = 50
   bgFloorWidth = blockWidth * blockAmount
   bgFloorHeight = blockHeight * blockAmount
-  cf.loop((i) ->
-    cf.loop((j) ->
+  caro.loop((i) ->
+    caro.loop((j) ->
       $('<div/>').addClass(if (i + j) % 2 is 0 then 'bgBlock1' else 'bgBlock2').css(
         top: i * blockHeight
         left: j * blockWidth
@@ -47,9 +48,9 @@ cf.regCtrl 'bg', ->
       return
 
     randX = bgFloorWidth / 2
-    randX = cf.randomInt(0, -randX)
+    randX = caro.randomInt(0, -randX)
     randY = bgFloorHeight / 8
-    randY = cf.randomInt(randY)
+    randY = caro.randomInt(randY)
     tm.to($bgFloor, 1,
       x: randX
       y: randY

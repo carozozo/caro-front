@@ -3,12 +3,13 @@ cookie 相關
 ###
 cf.regLib 'cookie', (cf) ->
   self = {}
+  caro = cf.require('caro')
   document = cf.require('document')
   _trace = cf.genTraceFn('cookie')
 
   ### 設置 cookie ###
   self.setCookie = (cookieName, val, opt = {}) ->
-    if cf.isUndefined(val)
+    if caro.isUndefined(val)
       _trace.err('Can not set undefined to cookie:', cookieName)
       return
     _exdays = opt.exdays
@@ -23,7 +24,7 @@ cf.regLib 'cookie', (cf) ->
       expires = 'expires=' + date.toUTCString()
       cookieStrArr.push(expires)
     if(_path)
-      path = 'path=' + cf.addHead(_path, '/')
+      path = 'path=' + caro.addHead(_path, '/')
       cookieStrArr.push(path)
     if(_domain)
       domain = 'domain=' + _domain
@@ -35,7 +36,7 @@ cf.regLib 'cookie', (cf) ->
   self.getCookie = (name) ->
     cookieArr = document.cookie.split(';')
     ret = ''
-    cf.forEach cookieArr, (cookie) ->
+    caro.forEach cookieArr, (cookie) ->
       cookieArr = cookie.split('=')
       cookieName = cookieArr[0].trim()
       return true if cookieName isnt name

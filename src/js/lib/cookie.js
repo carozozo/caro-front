@@ -3,8 +3,9 @@
 cookie 相關
  */
 cf.regLib('cookie', function(cf) {
-  var _trace, document, self;
+  var _trace, caro, document, self;
   self = {};
+  caro = cf.require('caro');
   document = cf.require('document');
   _trace = cf.genTraceFn('cookie');
 
@@ -14,7 +15,7 @@ cf.regLib('cookie', function(cf) {
     if (opt == null) {
       opt = {};
     }
-    if (cf.isUndefined(val)) {
+    if (caro.isUndefined(val)) {
       _trace.err('Can not set undefined to cookie:', cookieName);
       return;
     }
@@ -30,7 +31,7 @@ cf.regLib('cookie', function(cf) {
       cookieStrArr.push(expires);
     }
     if (_path) {
-      path = 'path=' + cf.addHead(_path, '/');
+      path = 'path=' + caro.addHead(_path, '/');
       cookieStrArr.push(path);
     }
     if (_domain) {
@@ -45,7 +46,7 @@ cf.regLib('cookie', function(cf) {
     var cookieArr, ret;
     cookieArr = document.cookie.split(';');
     ret = '';
-    cf.forEach(cookieArr, function(cookie) {
+    caro.forEach(cookieArr, function(cookie) {
       var cookieName;
       cookieArr = cookie.split('=');
       cookieName = cookieArr[0].trim();

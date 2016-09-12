@@ -2,26 +2,27 @@
 cf.regCtrl 'menu', ->
   $self = @
   $window = cf.$window
+  caro = cf.require('caro')
   tm = cf.require('TweenMax')
   bgColorArr = cf.data('bgColorArr')
 
   showItems = ($items) ->
-    cf.forEach($items, ($item, i) ->
+    caro.forEach($items, ($item, i) ->
       delay = i * .05
-      color = cf.randomPick(bgColorArr)
+      color = caro.randomPick(bgColorArr)
       $item.css(
         background: color
       )
       tm.fromTo($item, 1, {
-        scale: cf.randomNum(1)
+        scale: caro.randomNum(1)
         opacity: 0
-        x: cf.randomInt(200, -200)
-        y: cf.randomInt(200, -200)
+        x: caro.randomInt(200, -200)
+        y: caro.randomInt(200, -200)
       }, {
         scale: 1
         opacity: 1
         bezier: [
-          {x: cf.randomInt(200, -200), y: cf.randomInt(200, -200)}
+          {x: caro.randomInt(200, -200), y: caro.randomInt(200, -200)}
           {x: 0, y: 0}
         ]
         ease: Back.easeOut.config(1)
@@ -51,7 +52,7 @@ cf.regCtrl 'menu', ->
 
   dropAllItems = (type, cb) ->
     $items = if type is 'lib' then $libMenuItems else $moduleMenuItems
-    cf.forEach($items, ($item)->
+    caro.forEach($items, ($item)->
       delay = Math.random() * .3
       tm.to($item, .3,
         opacity: 0
@@ -66,7 +67,7 @@ cf.regCtrl 'menu', ->
   setMenuItem = ($item, type) ->
     $item.on('mouseover', ->
       roataionArr = [5, -5, 3, -3]
-      rotation = cf.randomPick(roataionArr)
+      rotation = caro.randomPick(roataionArr)
       transformOrigin = if rotation > 0 then '20% 20%' else '80% 20%'
       tm.to($item, .3,
         rotation: rotation

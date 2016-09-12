@@ -3,6 +3,7 @@
 ###
 cf.regServ 'fb', (cf) ->
   self = {}
+  caro = cf.require('caro')
   window = cf.require('window')
   _cfg = cf.config('fb')
   _appId = _cfg.appId
@@ -34,7 +35,7 @@ cf.regServ 'fb', (cf) ->
       cookie: true
       xfbml: true
       version: _sdkVersion
-    cf.forEach _initCbMap, (cb, name) ->
+    caro.forEach _initCbMap, (cb, name) ->
       _trace 'Execute callback: ', name
       cb()
       return

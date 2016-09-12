@@ -4,14 +4,16 @@
 Depend on gsap
  */
 cf.regModule('cfSwitchShow', function($domList, opt) {
-  var $self, _aftSwitch, _befSwitch, _currentIndex, _defType, _distance, _duration, switchShow, tl;
+  var $self, _aftSwitch, _befSwitch, _currentIndex, _defType, _distance, _duration, caro, switchShow, tl, tl1;
   if (opt == null) {
     opt = {};
   }
 
   /* $domList: 要顯示的 dom 列表, e.g. [$('#dom1'), $('#dom2')] */
   $self = this;
-  tl = new TimelineLite();
+  caro = cf.require('caro');
+  tl = cf.require('TimelineMax');
+  tl1 = new tl();
 
   /* defType: 預設顯示方式 [fade/up/down/lef/right/''] */
   _defType = opt.defType || 'fade';
@@ -30,11 +32,11 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
 
   /* 目前所在的 index */
   _currentIndex = 0;
-  cf.forEach($domList, function($dom, i) {
+  caro.forEach($domList, function($dom, i) {
     if (!i) {
       return;
     }
-    tl.set($dom, {
+    tl1.set($dom, {
       opacity: 0
     });
   });
@@ -43,7 +45,7 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
     if (opt == null) {
       opt = {};
     }
-    if (tl.isActive()) {
+    if (tl1.isActive()) {
       return;
     }
 
@@ -62,7 +64,7 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
     /* 切換後的 cb */
     aftSwitch = opt.aftSwitch || _aftSwitch;
     callAftShow = function() {
-      tl.set([$currentDom, $targetDom], {
+      tl1.set([$currentDom, $targetDom], {
         x: 0,
         y: 0
       });
@@ -76,12 +78,12 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
     }
     switch (type) {
       case 'fade':
-        tl.fromTo($currentDom, duration, {
+        tl1.fromTo($currentDom, duration, {
           opacity: 1
         }, {
           opacity: 0
         });
-        tl.fromTo($targetDom, duration, {
+        tl1.fromTo($targetDom, duration, {
           opacity: 0
         }, {
           opacity: 1,
@@ -90,13 +92,13 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
         break;
       case 'up':
         $targetDom.show();
-        tl.fromTo($currentDom, duration, {
+        tl1.fromTo($currentDom, duration, {
           opacity: 1
         }, {
           opacity: 0,
           y: -distance
         });
-        tl.fromTo($targetDom, duration, {
+        tl1.fromTo($targetDom, duration, {
           opacity: 0,
           y: distance
         }, {
@@ -107,13 +109,13 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
         break;
       case 'down':
         $targetDom.show();
-        tl.fromTo($currentDom, duration, {
+        tl1.fromTo($currentDom, duration, {
           opacity: 1
         }, {
           opacity: 0,
           y: distance
         });
-        tl.fromTo($targetDom, duration, {
+        tl1.fromTo($targetDom, duration, {
           opacity: 0,
           y: -distance
         }, {
@@ -124,13 +126,13 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
         break;
       case 'left':
         $targetDom.show();
-        tl.fromTo($currentDom, duration, {
+        tl1.fromTo($currentDom, duration, {
           opacity: 1
         }, {
           opacity: 0,
           x: -distance
         });
-        tl.fromTo($targetDom, duration, {
+        tl1.fromTo($targetDom, duration, {
           opacity: 0,
           x: distance
         }, {
@@ -141,13 +143,13 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
         break;
       case 'right':
         $targetDom.show();
-        tl.fromTo($currentDom, duration, {
+        tl1.fromTo($currentDom, duration, {
           opacity: 1
         }, {
           opacity: 0,
           x: distance
         });
-        tl.fromTo($targetDom, duration, {
+        tl1.fromTo($targetDom, duration, {
           opacity: 0,
           x: -distance
         }, {
@@ -157,10 +159,10 @@ cf.regModule('cfSwitchShow', function($domList, opt) {
         });
         break;
       case 'normal':
-        tl.set($currentDom, {
+        tl1.set($currentDom, {
           opacity: 0
         });
-        tl.set($targetDom, {
+        tl1.set($targetDom, {
           opacity: 1,
           onComplete: callAftShow
         });

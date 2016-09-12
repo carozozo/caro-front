@@ -55,8 +55,8 @@ cf.regModule 'cfSyncMove', (opt = {}) ->
         _aftMove and _aftMove(infoObj)
         return
     }
-    baseX = if cf.isFunction(_baseX) then _baseX() else _baseX
-    if cf.isNumber(baseX)
+    baseX = if caro.isFunction(_baseX) then _baseX() else _baseX
+    if caro.isNumber(baseX)
       moveX = mouseX - baseX
       targetMoveX = moveX * _proportionX
       if _rangeX
@@ -68,8 +68,8 @@ cf.regModule 'cfSyncMove', (opt = {}) ->
       infoObj.moveX = moveObj.x = targetMoveX or 0
       infoObj.baseX = baseX
 
-    baseY = if cf.isFunction(_baseY) then _baseY() else _baseY
-    if cf.isNumber(baseY)
+    baseY = if caro.isFunction(_baseY) then _baseY() else _baseY
+    if caro.isNumber(baseY)
       moveY = mouseY - baseY
       targetMoveY = moveY * _proportionY
       if _rangeY

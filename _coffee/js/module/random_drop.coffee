@@ -4,6 +4,7 @@ Depend on gsap
 ###
 cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
   $self = @
+  caro = cf.require('caro')
   $ = cf.require('$')
   tm = cf.require('TweenMax')
   tl = cf.require('TimelineMax')
@@ -45,7 +46,7 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
   amount = opt.amount or 1
 
   imgLength = $imgArr.length
-  cf.forEach($imgArr, ($img) ->
+  caro.forEach($imgArr, ($img) ->
     $img.css(
       position: 'absolute'
     )
@@ -60,7 +61,7 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
     $img
 
   getLengthIfFn = (distance)->
-    if cf.isFunction(distance) then distance() else distance
+    if caro.isFunction(distance) then distance() else distance
 
   getRandomInRange = (start, end) ->
     Math.random() * (end - start) + start
@@ -113,7 +114,7 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
     imgHeight = $img.height()
     left = opt.left or randomLeft(imgWidth)
     top = opt.top or randomTop(imgHeight)
-    isKeepDrop = if cf.isBoolean(opt.isKeepDrop) then opt.isKeepDrop else _isKeepDrop
+    isKeepDrop = if caro.isBoolean(opt.isKeepDrop) then opt.isKeepDrop else _isKeepDrop
     newTop = randomNewTop(imgHeight, top)
     duration = randomDuration()
     distance = Math.abs(top - newTop)
@@ -140,7 +141,7 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
     , '+=' + randomInEndDuration())
     if rotationRange
       tl2 = new tl()
-      rotation = cf.randomInt(rotationRange, -rotationRange)
+      rotation = caro.randomInt(rotationRange, -rotationRange)
       tl2.to($img, duration, {
         rotation: rotation
       }, '+=0.3')
@@ -153,7 +154,7 @@ cf.regModule 'cfRandomDrop', ($imgArr, opt = {}) ->
   $self.startDrop = ->
     _isKeepDrop = true
     if amount > 1
-      cf.loop(->
+      caro.loop(->
         createDrop()
       , 1, amount)
     else

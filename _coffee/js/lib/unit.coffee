@@ -3,12 +3,13 @@
 ###
 cf.regLib 'unit', (cf) ->
   $ = cf.require('$')
+  caro = cf.require('caro')
   window = cf.require('window')
   location = cf.require('location')
   _cfg = cf.config('unit') or {}
 
   self = {}
-  _imgPath = if _cfg.imgPath then cf.addTail(_cfg.imgPath, '/') else 'images/'
+  _imgPath = if _cfg.imgPath then caro.addTail(_cfg.imgPath, '/') else 'images/'
 
   ### window.open 進階版 ###
   self.open = () ->
@@ -39,7 +40,7 @@ cf.regLib 'unit', (cf) ->
 
   ### 轉換 $dom 的圖片路徑, 由 css 設定的同樣有效 ###
   self.replaceImgPath = ($dom, imgPath = _imgPath) ->
-    imgPath = cf.addTail(imgPath, '/')
+    imgPath = caro.addTail(imgPath, '/')
     setFilePath = (path) ->
       fileName = path.substr(path.lastIndexOf('/') + 1)
       imgPath + fileName

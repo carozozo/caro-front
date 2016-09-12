@@ -9,7 +9,7 @@ cf.regLib('unit', function(cf) {
   location = cf.require('location');
   _cfg = cf.config('unit') || {};
   self = {};
-  _imgPath = _cfg.imgPath ? cf.addTail(_cfg.imgPath, '/') : 'images/';
+  _imgPath = _cfg.imgPath ? caro.addTail(_cfg.imgPath, '/') : 'images/';
 
   /* window.open 進階版 */
   self.open = function() {
@@ -54,7 +54,7 @@ cf.regLib('unit', function(cf) {
     if (imgPath == null) {
       imgPath = _imgPath;
     }
-    imgPath = cf.addTail(imgPath, '/');
+    imgPath = caro.addTail(imgPath, '/');
     setFilePath = function(path) {
       var fileName;
       fileName = path.substr(path.lastIndexOf('/') + 1);

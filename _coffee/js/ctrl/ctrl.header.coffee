@@ -1,12 +1,13 @@
 ### 有搭配 .html 的 ctrl, 觸發時會讀取 template/ctrl/header.html 檔並寫入 template ###
 cf.regCtrl 'header', ->
   $self = @
+  caro = cf.require('caro')
   tl = cf.require('TimelineMax')
   tm = cf.require('TweenMax')
   bgColorArr = cf.data('bgColorArr')
 
   setBgColor = ->
-    color = cf.randomPick(bgColorArr)
+    color = caro.randomPick(bgColorArr)
     tm.to($header, 1
       backgroundColor: color
     )
@@ -70,10 +71,10 @@ cf.regCtrl 'header', ->
         return
       )
       effectArr.push(flashX = ($pieceArr) ->
-        cf.forEach($pieceArr, ($piece) ->
+        caro.forEach($pieceArr, ($piece) ->
           tl1 = new tl()
           tl1.to($piece, .2,
-            x: cf.randomInt(10, -10)
+            x: caro.randomInt(10, -10)
           ).to($piece, .2,
             x: 0
           )
@@ -82,10 +83,10 @@ cf.regCtrl 'header', ->
         return
       )
       effectArr.push(flashY = ($pieceArr) ->
-        cf.forEach($pieceArr, ($piece, i) ->
+        caro.forEach($pieceArr, ($piece, i) ->
           tl1 = new tl()
           tl1.to($piece, .2,
-            y: cf.randomInt(10, -10)
+            y: caro.randomInt(10, -10)
           ).to($piece, .2,
             y: 0
           )
@@ -94,10 +95,10 @@ cf.regCtrl 'header', ->
         return
       )
       effectArr.push(detachX = ($pieceArr) ->
-        cf.forEach($pieceArr, ($piece) ->
+        caro.forEach($pieceArr, ($piece) ->
           tm.to($piece, .2,
             opacity: 0
-            x: cf.randomInt(30, -30)
+            x: caro.randomInt(30, -30)
             delay: Math.random()
             onComplete: ->
               setTimeout(->
@@ -113,10 +114,10 @@ cf.regCtrl 'header', ->
         return
       )
       effectArr.push(detachY = ($pieceArr) ->
-        cf.forEach($pieceArr, ($piece) ->
+        caro.forEach($pieceArr, ($piece) ->
           tm.to($piece, .1,
             opacity: 0
-            y: cf.randomInt(30, -30)
+            y: caro.randomInt(30, -30)
             delay: Math.random()
             onComplete: ->
               setTimeout(->
@@ -132,9 +133,9 @@ cf.regCtrl 'header', ->
         return
       )
       randomAnimation = ->
-        effectFn = cf.randomPick(effectArr)
-        $pieceMap = cf.randomPick($pieceMapArr)
-        cf.forEach($pieceContainerArr, ($pieceContainer) ->
+        effectFn = caro.randomPick(effectArr)
+        $pieceMap = caro.randomPick($pieceMapArr)
+        caro.forEach($pieceContainerArr, ($pieceContainer) ->
           $pieceContainer.hide()
           return
         )
