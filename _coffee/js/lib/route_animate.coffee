@@ -1,7 +1,7 @@
 ###
 客製化頁面跳轉效果
 ###
-cf.regLib 'routeAnimate', (cf) ->
+cf.regLib('routeAnimate', (cf) ->
   self = {}
   caro = cf.require('caro')
   tm = cf.require('TweenMax')
@@ -257,3 +257,4 @@ cf.regLib 'routeAnimate', (cf) ->
     cf.router._transitionFn = null
     return
   self
+)

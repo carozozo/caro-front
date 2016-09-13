@@ -1,7 +1,7 @@
 ###
 cookie 相關
 ###
-cf.regLib 'cookie', (cf) ->
+cf.regLib('cookie', (cf) ->
   self = {}
   caro = cf.require('caro')
   document = cf.require('document')
@@ -45,3 +45,4 @@ cf.regLib 'cookie', (cf) ->
     ret
 
   self
+)

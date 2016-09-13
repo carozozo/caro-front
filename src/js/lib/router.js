@@ -3,12 +3,16 @@
 分頁函式庫, 利用 url hash 判斷, 並使用 $.ajax 切換頁面
  */
 cf.regLib('router', function(cf) {
-  var $, _cfg, _isGoPage, _trace, caro, self, window;
+  var $, _cfg, _errPageArr, _isGoPage, _trace, caro, self;
   $ = cf.require('$');
   caro = cf.require('caro');
-  window = cf.require('window');
   _cfg = cf.config('router');
+
+  /* 是否允許 goPage */
   _isGoPage = true;
+
+  /* 紀錄 goPage 時發生 error 的 pageName */
+  _errPageArr = [];
   _trace = cf.genTraceFn('router');
   self = {};
 
@@ -96,9 +100,9 @@ cf.regLib('router', function(cf) {
   自定義 url 規則
   e.g. http://www.sample.com.tw/#index?redirect=1 => {hash: 'index', search: 'redirect: 1'}
    */
-  (function(cf, window) {
+  (function(cf) {
     var location, parseSearchToObj, parseUrlHashToObj;
-    location = window.location;
+    location = cf.require('location');
     parseUrlHashToObj = function(hash) {
       var hashArr, obj;
       obj = {
@@ -159,10 +163,10 @@ cf.regLib('router', function(cf) {
       search = self.getSearchByHash(hash);
       return parseSearchToObj(search);
     };
-  })(cf, window);
+  })(cf);
 
   /* 分頁載入相關 */
-  (function(cf, self, window, $) {
+  (function(cf, self, $) {
     var doPageFns, setPageContent;
     doPageFns = function(pageObj, $page) {
       caro.forEach(pageObj, function(fns) {
@@ -221,22 +225,20 @@ cf.regLib('router', function(cf) {
           go();
         };
         errCb = function() {
+          _errPageArr.push(pageName);
 
           /* 嘗試換頁到 index */
-          var firstPage, indexInfo, pageNameArr;
-          indexInfo = caro.find(pageMap, function(val, pageName) {
-            return pageName === 'index';
-          });
-          if (indexInfo) {
+          if (pageName !== 'index') {
             return self.goPage('index');
           }
+          caro.forEach(pageMap, function(val, pageName) {
 
-          /* 嘗試換頁到第一個註冊的分頁 */
-          pageNameArr = caro.keys(pageMap);
-          firstPage = pageNameArr[0];
-          if (firstPage) {
-            self.goPage(firstPage);
-          }
+            /* 嘗試換頁到第一個註冊的分頁 */
+            if (_errPageArr.indexOf(pageName) < 0) {
+              self.goPage(pageName);
+              return false;
+            }
+          });
         };
         jqxhr = $.ajax(self.templateDir + pageFile);
 
@@ -265,7 +267,7 @@ cf.regLib('router', function(cf) {
         return;
       }
       _trace('Start goPage:', pageName);
-      window.location.hash = pageName + search;
+      cf.require('location').hash = pageName + search;
       setPageContent(pageName, opt);
       return self;
     };
@@ -281,10 +283,10 @@ cf.regLib('router', function(cf) {
       _isGoPage = true;
       return self;
     };
-  })(cf, self, window, $);
+  })(cf, self, $);
   return self;
 });
 
 cf.regDocReady(function() {
-  return cf.router.goPage();
+  cf.router.goPage();
 }, 100);

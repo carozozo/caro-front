@@ -1,7 +1,7 @@
 ###
 一些單元程式
 ###
-cf.regLib 'unit', (cf) ->
+cf.regLib('unit', (cf) ->
   $ = cf.require('$')
   caro = cf.require('caro')
   window = cf.require('window')
@@ -57,3 +57,4 @@ cf.regLib 'unit', (cf) ->
     return
 
   self
+)

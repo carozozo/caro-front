@@ -1,12 +1,14 @@
 ###
 分頁函式庫, 利用 url hash 判斷, 並使用 $.ajax 切換頁面
 ###
-cf.regLib 'router', (cf) ->
+cf.regLib('router', (cf) ->
   $ = cf.require('$')
   caro = cf.require('caro')
-  window = cf.require('window')
   _cfg = cf.config('router')
+  ### 是否允許 goPage ###
   _isGoPage = true
+  ### 紀錄 goPage 時發生 error 的 pageName ###
+  _errPageArr = []
   _trace = cf.genTraceFn('router')
 
   self = {}
@@ -68,8 +70,8 @@ cf.regLib 'router', (cf) ->
   自定義 url 規則
   e.g. http://www.sample.com.tw/#index?redirect=1 => {hash: 'index', search: 'redirect: 1'}
   ###
-  do(cf, window) ->
-    location = window.location
+  do(cf) ->
+    location = cf.require('location')
     parseUrlHashToObj = (hash) ->
       obj =
         page: ''
@@ -112,7 +114,7 @@ cf.regLib 'router', (cf) ->
     return
 
   ### 分頁載入相關 ###
-  do(cf, self, window, $) ->
+  do(cf, self, $) ->
     doPageFns = (pageObj, $page) ->
       caro.forEach pageObj, (fns) ->
         caro.forEach fns, (fn) ->
@@ -164,15 +166,16 @@ cf.regLib 'router', (cf) ->
           go()
           return
         errCb = ->
+          _errPageArr.push(pageName)
           ### 嘗試換頁到 index ###
-          indexInfo = caro.find(pageMap, (val, pageName) ->
-            return pageName is 'index'
+          return self.goPage('index') if pageName isnt 'index'
+          caro.forEach(pageMap, (val, pageName) ->
+            ### 嘗試換頁到第一個註冊的分頁 ###
+            if _errPageArr.indexOf(pageName) < 0
+              self.goPage(pageName)
+              return false
+            return
           )
-          return self.goPage('index') if indexInfo
-          ### 嘗試換頁到第一個註冊的分頁 ###
-          pageNameArr = caro.keys(pageMap)
-          firstPage = pageNameArr[0]
-          self.goPage(firstPage) if firstPage
           return
         jqxhr = $.ajax(self.templateDir + pageFile)
         ### jQuery 3.0 之後使用 done/fail 取代 success/error ###
@@ -194,7 +197,7 @@ cf.regLib 'router', (cf) ->
         _trace 'Block goPage:', pageName
         return
       _trace 'Start goPage:', pageName
-      window.location.hash = pageName + search
+      cf.require('location').hash = pageName + search
       setPageContent pageName, opt
       self
 
@@ -211,7 +214,9 @@ cf.regLib 'router', (cf) ->
     return
 
   self
+)
 
 cf.regDocReady(->
   cf.router.goPage()
+  return
 , 100)
