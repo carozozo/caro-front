@@ -2,12 +2,19 @@
 /*
 偵測 obj 的值並寫入對應的 html
  */
-cf.regModule('cfWatch', function(obj) {
+cf.regModule('cfSyncObjVal', function(obj) {
   var $self, caro, keyInHtmlArr, selfHtml, setHtml;
   $self = this;
   caro = cf.require('caro');
-  selfHtml = $self.html();
-  keyInHtmlArr = selfHtml.match(/{{\w+}}/g);
+  if ($self.data('selfHtml')) {
+    selfHtml = $self.data('selfHtml');
+    keyInHtmlArr = $self.data('keyInHtmlArr');
+  } else {
+    selfHtml = $self.html();
+    keyInHtmlArr = selfHtml.match(/{{\w+}}/g);
+    $self.data('selfHtml', selfHtml);
+    $self.data('keyInHtmlArr', keyInHtmlArr);
+  }
   setHtml = function(key, newVal) {
     var newHtml;
     newHtml = selfHtml;

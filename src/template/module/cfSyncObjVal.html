@@ -6,8 +6,9 @@
     <div class="separator1"></div>
     <div id="target">a: {{a}}, b: {{b}}</div>
     <div class="separator2"></div>
-    <div>設置物件 obj = {a: 1, b: 2}
-      <div class="btn2" id="setBtn1">設置</div><span class="codeLink">程式範例
+    <div><span id="startBox">設置物件 obj = {a: 1, b: 2}
+        <div class="btn2" id="startBtn">設置</div></span><span id="resetBox">回到一開始的狀態
+        <div class="btn2" id="resetBtn">設置</div></span><span class="codeLink">程式範例
         <div class="codeTarget">
           <div class="subTitle2">html</div>
           <div>
@@ -27,11 +28,13 @@
             <div>});</div>
             <div>...</div>
           </div>
-        </div></span>
-    </div>
+        </div></span></div>
     <div id="otherBtnsBox">
       <div class="separator1"></div>
       <div>設置物件 obj.a = 'Caro'
+        <div class="btn2" id="setBtn1">設置</div>
+      </div>
+      <div>設置物件 obj.a = null
         <div class="btn2" id="setBtn2">設置</div>
       </div>
       <div class="separator1"></div>
@@ -39,13 +42,10 @@
         <div class="btn2" id="setBtn3">設置</div>
       </div>
       <div class="separator1"></div>
-      <div>設置物件 obj.a = null
+      <div>設置物件 obj.b = undefined
         <div class="btn2" id="setBtn4">設置</div>
       </div>
       <div class="separator1"></div>
-      <div>回到一開始的狀態
-        <div class="btn2" id="resetBtn">設置</div>
-      </div>
     </div>
   </div>
 </div>

@@ -1,12 +1,18 @@
 ###
 偵測 obj 的值並寫入對應的 html
 ###
-cf.regModule 'cfWatch', (obj) ->
+cf.regModule 'cfSyncObjVal', (obj) ->
   $self = @
   caro = cf.require('caro')
 
-  selfHtml = $self.html()
-  keyInHtmlArr = selfHtml.match(/{{\w+}}/g)
+  if $self.data('selfHtml')
+    selfHtml = $self.data('selfHtml')
+    keyInHtmlArr = $self.data('keyInHtmlArr')
+  else
+    selfHtml = $self.html()
+    keyInHtmlArr = selfHtml.match(/{{\w+}}/g)
+    $self.data('selfHtml', selfHtml)
+    $self.data('keyInHtmlArr', keyInHtmlArr)
 
   setHtml = (key, newVal) ->
     newHtml = selfHtml

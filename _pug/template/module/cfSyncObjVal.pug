@@ -5,8 +5,11 @@
     .separator1
     #target a: {{a}}, b: {{b}}
     .separator2
-    div 設置物件 obj = {a: 1, b: 2}
-      #setBtn1.btn2 設置
+    div
+      span#startBox 設置物件 obj = {a: 1, b: 2}
+        #startBtn.btn2 設置
+      span#resetBox 回到一開始的狀態
+        #resetBtn.btn2 設置
       span.codeLink 程式範例
         .codeTarget
           .subTitle2 html
@@ -28,16 +31,17 @@
     div#otherBtnsBox
       .separator1
       div 設置物件 obj.a = 'Caro'
+        #setBtn1.btn2 設置
+      div 設置物件 obj.a = null
         #setBtn2.btn2 設置
       .separator1
       div 設置物件 obj.b = 'Front'
         #setBtn3.btn2 設置
       .separator1
-      div 設置物件 obj.a = null
+      div 設置物件 obj.b = undefined
         #setBtn4.btn2 設置
       .separator1
-      div 回到一開始的狀態
-        #resetBtn.btn2 設置
+
 .content
   .title 簡介
   div
