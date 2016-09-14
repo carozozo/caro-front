@@ -6,7 +6,7 @@ cf.router.regPage('module/cfScroll', function(cf) {
   setInner = function($inner, index, color) {
     $inner.css({
       width: '97%',
-      height: 80,
+      height: 100,
       color: '#e5e5e5',
       'background-color': color,
       'text-align': 'center',
@@ -15,7 +15,7 @@ cf.router.regPage('module/cfScroll', function(cf) {
     return $inner.append('<h2>' + index + '</h2>');
   };
   $outer = $page.dom('#outer').css({
-    height: 120
+    height: 180
   });
   bgColorArr = cf.data('bgColorArr');
   $innerArr = [];
