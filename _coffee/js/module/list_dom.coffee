@@ -11,7 +11,16 @@ cf.regModule 'cfListDom', (objArr, opt = {}) ->
   aftInsert = opt.aftInsert
   ### list DOM 是否是放在 after ###
   isAfter = if opt.isAfter is false then false else true
-  cf.reverse(objArr)
+
+  cloneArr = (target) ->
+    clonedList = []
+    caro.forEach(target, (val) ->
+      clonedList.push(caro.clone(val))
+      return
+    )
+    clonedList
+
+  objArr = cloneArr(objArr).reverse()
   caro.forEach(objArr, (data, i) ->
     $clone = $self.clone()
     if befInsert

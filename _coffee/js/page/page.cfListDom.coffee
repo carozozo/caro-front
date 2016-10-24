@@ -9,21 +9,32 @@ cf.router.regPage 'module/cfListDom', ->
     $tr.prevAll().remove()
     return
 
+  cloneList = (arr) ->
+    clonedList = []
+    caro.forEach(arr, (val) ->
+      clonedList.push(caro.clone(val))
+      return
+    )
+    clonedList
+
   $page.dom('#setList1Btn').onClick(->
     cleanList()
-    $tr.cfListDom(caro.clone(list))
+    $tr.cfListDom(cloneList(list))
     return
   )
   $page.dom('#setList2Btn').onClick(->
     cleanList()
-    $tr.cfListDom(caro.cloneDeep(list),
+#    $tr.cfListDom(cloneList(list),
+#      isAfter: false
+#    )
+    $tr.cfListDom(list,
       isAfter: false
     )
     return
   )
   $page.dom('#setList3Btn').onClick(->
     cleanList()
-    $tr.cfListDom(caro.cloneDeep(list),
+    $tr.cfListDom(list,
       befInsert: (data, i, $dom) ->
         return true if i is 1
         $dom.css(color: '#00f')

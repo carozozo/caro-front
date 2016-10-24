@@ -4,7 +4,7 @@
 DOM 本身需要寫入 [listKey='xxx'] 標籤, 用來對應 object 裡面的 key
  */
 cf.regModule('cfListDom', function(objArr, opt) {
-  var $self, aftInsert, befInsert, caro, isAfter;
+  var $self, aftInsert, befInsert, caro, cloneArr, isAfter;
   if (opt == null) {
     opt = {};
   }
@@ -19,7 +19,15 @@ cf.regModule('cfListDom', function(objArr, opt) {
 
   /* list DOM 是否是放在 after */
   isAfter = opt.isAfter === false ? false : true;
-  cf.reverse(objArr);
+  cloneArr = function(target) {
+    var clonedList;
+    clonedList = [];
+    caro.forEach(target, function(val) {
+      clonedList.push(caro.clone(val));
+    });
+    return clonedList;
+  };
+  objArr = cloneArr(objArr).reverse();
   caro.forEach(objArr, function(data, i) {
     var $clone, cbResult;
     $clone = $self.clone();
